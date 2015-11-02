@@ -17,4 +17,8 @@ class UserController extends Controller
   {
     return view('userlayouts.home');
   }
+  public function profile()
+  {
+    return view('userlayouts.profile');
+  }
 }

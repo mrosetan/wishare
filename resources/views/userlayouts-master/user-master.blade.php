@@ -28,10 +28,10 @@
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
+                        <a href="{{ url('user/home') }}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
                     </li>
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
+                        <a href="{{ url('user/profile') }}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-globe"></span> <span class="xn-text">Notifications</span></a>

@@ -25,13 +25,61 @@ img.user.img-circle {
   width: 70px;
 }
 .user-details {
-  width: 525px;
+  width: 100%;
 }
 h5.user-name{
   margin-left: 80px;
   margin-top: 10px;
 }
-span fa.fa-star {
-  width: 30px;
-  height: 30px;
+
+/*   Profile   */
+.profile-header {
+  width: 100%;
+  margin-left: 30px;
+  margin-top: 40px;
+}
+img.profile-img.img-circle {
+  height: 130px;
+  width: 130px;
+  margin-top: -40px;
+  border: 1px solid #000;
+}
+.userprofile-details {
+  width: 500px;
+  margin-left: 150px;
+}
+h4.userprofile-name {
+  margin-top: 80px;
+}
+h5.userprofile-addr {
+}
+.wishlist-icons.pull-right span.fa.fa-plus, .wishlist-icons.pull-right span.fa.fa-gear, .wishlist-icons.pull-right span.glyphicon.glyphicon-trash{
+  font-size: 20px;
+  margin-top: 5px;
+}
+.wish-icons.pull-right span.fa.fa-star, .wish-icons.pull-right span.fa.fa-bookmark, .wish-icons.pull-right span.fa.fa-retweet {
+  font-size: 15px;
+  margin-top: -50px;
+}
+a.wish-name {
+  font-size: 14px;
+}
+.grant-icon.pull-right {
+    font-size: 20px;
+}
+.panel-body.tab-content {
+  overflow-y: scroll;
+  max-height: 340px;
+}
+img.user-friend.img-circle {
+  height: 55px;
+  width: 55px;
+}
+p.user-name{
+  margin-left: 80px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+p.user-given {
+  font-size: 16px;
 }
