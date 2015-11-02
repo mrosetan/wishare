@@ -1,0 +1,17 @@
+/*  Dashboard  */
+
+img.logo {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 35px;
+}
+li {
+  margin: 10px;
+}
+span.fa.fa-square-pencil {
+  font-size: 25px;
+}
