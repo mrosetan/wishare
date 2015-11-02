@@ -15,3 +15,15 @@ Route::get('/', 'PagesController@index');
 Route::get('/signin', 'PagesController@signin');
 Route::get('/signup', 'PagesController@signup');
 Route::get('/blank', 'PagesController@blank');
+
+
+// ADMIN
+Route::get('/admin', 'AdminController@index');
+Route::get('/admin/reports', 'AdminController@reports');
+Route::get('/admin/create/admin', 'AdminController@createAdmin');
+Route::get('/admin/create/defaultwishlist', 'AdminController@createDefaultWishlist');
+Route::get('/admin/view/admins', 'AdminController@viewAdmins');
+Route::get('/admin/view/defaultwishlists', 'AdminController@viewDefaultWishlists');
+Route::get('/admin/monitor/users', 'AdminController@monitorUsers');
+Route::get('/admin/monitor/wishes', 'AdminController@monitorWishes');
+Route::get('/admin/monitor/wishlists', 'AdminController@monitorWishlists');
