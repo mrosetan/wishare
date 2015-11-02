@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <!--<link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="img/icon.png" type="image/x-icon" />
         <!-- END META SECTION -->
 
         <!-- CSS INCLUDE -->
@@ -16,16 +16,18 @@
         <!-- EOF CSS INCLUDE -->
     </head>
     <body>
-      <div class="container-fluid">
+      <div class="container-fluid" >
       <!--  <div class="login-header"> -->
-            <img src="img/logo.png" class="logo-header">
+            <a href="{{ URL::to('/')}}"><img src="img/logo.png" class="logo-header"></a>
             <div class="button-container">
               <div class="row">
                 <div class="col-md-6">
-                  <button type="button" class="btn btn-info btn-lg btn-signin">Sign In</button>
+                  <!-- <button type="button" class="btn btn-info btn-lg btn-signin">Sign In</button> -->
+                  <a class="btn btn-info btn-lg btn-signin" href="{{ URL::to('signin')}}">Sign In</a>
                 </div>
                 <div class="col-md-6">
-                  <button type="button" class="btn btn-info btn-lg btn-signin">Sign Up</button>
+                  <!-- <button type="button" class="btn btn-info btn-lg btn-signin">Sign Up</button> -->
+                  <a type="button" class="btn btn-info btn-lg btn-signup" href="{{ URL::to('signup')}}">Sign Up</a>
                 </div>
               </div>
             </div>

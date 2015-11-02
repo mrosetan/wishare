@@ -9,11 +9,13 @@
   </div>
   <br />
   <div class="row">
-  	<button type="button" class="btn btn-info btn-lg btn-signin" href="#">Sign In</button>
+  	<!-- <button type="button" class="btn btn-info btn-lg btn-signin" href="{{ URL::to('pages/signin')}}">Sign In</button> -->
+  	<a class="btn btn-info btn-lg btn-signin" href="{{ URL::to('signin')}}">Sign In</a>
   </div>
   <br />
   <div class="row">
-    <button type="button" class="btn btn-info btn-lg btn-signup" href="#">Sign Up</button>
+    <!-- <button type="button" class="btn btn-info btn-lg btn-signup" href="{{ URL::to('pages/signup')}}">Sign Up</button> -->
+    <a type="button" class="btn btn-info btn-lg btn-signup" href="{{ URL::to('signup')}}">Sign Up</a>
   </div>
 </div>
 @stop
