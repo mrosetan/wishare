@@ -29,7 +29,7 @@
                   &nbsp;&nbsp;
                   <a href="#"><span class="fa fa-retweet"></span></a>
                   &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-retweet"></span></a>
+                  <a href="#"><span class="fa fa-magic"></span></a>
                 </div>
               </div>
           </div>
@@ -59,7 +59,7 @@
                   &nbsp;&nbsp;
                   <a href="#"><span class="fa fa-retweet"></span></a>
                   &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-retweet"></span></a>
+                  <a href="#"><span class="fa fa-magic"></span></a>
                 </div>
               </div>
           </div>
@@ -89,7 +89,7 @@
                   &nbsp;&nbsp;
                   <a href="#"><span class="fa fa-retweet"></span></a>
                   &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-retweet"></span></a>
+                  <a href="#"><span class="fa fa-magic"></span></a>
                 </div>
               </div>
           </div>
