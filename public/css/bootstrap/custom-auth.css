@@ -1,0 +1,139 @@
+
+body, html {
+  background-image:url('../../img/backgrounds/bg2.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+/*---LANDING PAGE---*/
+div.container-fluid {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-header {
+  width: 110px;
+}
+
+.lp-header {
+  height: 50px;
+}
+
+img {
+  height: 25px;
+  margin-top: 15px;
+}
+
+.button-container{
+  width: 320px;
+  margin-top: 10px;
+  float: right;
+}
+
+.lp-content-logo {
+  width: 280px;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+.lp-content-logo img {
+  height: 63px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.lp-content-container {
+  width: 280px;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+
+/*---BUTTONS & ETC -- */
+.row {
+  margin: 0 auto;
+}
+
+button.btn.btn-primary,
+button.btn.btn-default,
+button.btn.btn-info,
+button.btn.btn-success,
+button.btn.btn-warning,
+button.btn.btn-danger {
+  width: 100%;
+}
+
+button.btn.btn-default.btn-lg.button-fb {
+  background-color: #45629d;
+  border: 0;
+  color: #fff;
+}
+
+button.btn.btn-default.btn-lg.button-fb:hover {
+  background-color: #5a75ac;
+}
+
+a.btn.btn-info.btn-lg.btn-signin,
+a.btn.btn-info.btn-lg.btn-signup {
+    width: 100%;
+    border: 0;
+}
+
+button.btn.btn-info.btn-lg.btn-signin:hover {
+  background-color: #34c4af;
+}
+
+button.btn.btn-info.btn-lg.btn-signup:hover {
+  background-color: #34c4af;
+}
+
+
+/*---REGISTRATION--*/
+.reg-header {
+  margin-top: 15px;
+  width: 280px;
+  float: right;
+}
+
+.reg-content-header {
+  color: #fff;
+  font-size: 2em;
+  margin: 0 auto;
+  margin-top: 6%;
+  text-align: center;
+}
+
+.reg-content-container {
+  width: 280px;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.terms-of-use {
+  color: #fff;
+  text-align: center;
+}
+
+/*---SIGN IN---*/
+.signin-content-logo {
+  width: 280px;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+.signin-content-logo img {
+  height: 63px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.signin-content-container {
+  width: 280px;
+  margin: 0 auto;
+  margin-top: 25px;
+}
