@@ -13,4 +13,8 @@ class UserController extends Controller
   {
     return view('userlayouts-master.user-master');
   }
+  public function home()
+  {
+    return view('userlayouts.home');
+  }
 }

@@ -1,4 +1,4 @@
-/*  Dashboard  */
+/*  User master  */
 
 img.logo {
     position: absolute;
@@ -14,4 +14,24 @@ li {
 }
 span.fa.fa-square-pencil {
   font-size: 25px;
+}
+
+/*   Home   */
+.page-title {
+  margin-top: 10px;
+}
+img.user.img-circle {
+  height: 70px;
+  width: 70px;
+}
+.user-details {
+  width: 525px;
+}
+h5.user-name{
+  margin-left: 80px;
+  margin-top: 10px;
+}
+span fa.fa-star {
+  width: 30px;
+  height: 30px;
 }
