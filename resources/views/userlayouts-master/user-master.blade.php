@@ -17,10 +17,10 @@
     </head>
     <body>
         <!-- START PAGE CONTAINER -->
-        <div class="page-container">
+        <div class="page-container page-navigation-top-fixed">
 
             <!-- START PAGE SIDEBAR -->
-            <div class="page-sidebar">
+            <div class="page-sidebar page-sidebar-fixed scroll">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
@@ -34,7 +34,7 @@
                         <a href="{{ url('user/profile') }}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-globe"></span> <span class="xn-text">Notifications</span></a>
+                        <a href="{{ url('user/notifications') }}"><span class="fa fa-globe"></span> <span class="xn-text">Notifications</span></a>
                     </li>
                     <li>
                         <a href="#"><span class="glyphicon glyphicon-envelope"></span> <span class="xn-text">Notes</span></a>
@@ -50,6 +50,9 @@
                     </li>
                     <li>
                         <a href="#" class="mb-control" data-box="#mb-tynotes"><span class="glyphicon glyphicon-envelope"></span><span class="xn-text">Send Thank You Note</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
@@ -124,7 +127,7 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <div class="pull-right">
-                                        {!! Form::submit('Submit', array('class'=>'btn btn-info')) !!}
+                                        {!! Form::submit('Create', array('class'=>'btn btn-info')) !!}
                                         {!! Form::button('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
                                     </div>
                                   </div>
@@ -188,7 +191,7 @@
                                     <div class="row">
                                       <div class="col-md-12">
                                         <div class="pull-right">
-                                          {!! Form::submit('Submit', array('class'=>'btn btn-info')) !!}
+                                          {!! Form::submit('Add', array('class'=>'btn btn-info')) !!}
                                           {!! Form::button('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
                                         </div>
                                       </div>

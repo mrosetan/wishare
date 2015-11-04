@@ -67,10 +67,12 @@ a.wish-name {
 .grant-icon.pull-right {
     font-size: 20px;
 }
+/*
 .panel-body.tab-content {
   overflow-y: scroll;
   max-height: 340px;
 }
+*/
 img.user-friend.img-circle {
   height: 55px;
   width: 55px;
@@ -111,4 +113,8 @@ span.fa.fa-facebook-square {
   height: 400px;
   margin: 0 auto;
   margin-top: -100px;
+}
+/*   Notifications */
+.fr-buttons {
+  margin-left: 80px;
 }

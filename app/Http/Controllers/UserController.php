@@ -21,4 +21,8 @@ class UserController extends Controller
   {
     return view('userlayouts.profile');
   }
+  public function notifications()
+  {
+    return view('userlayouts.notifications');
+  }
 }
