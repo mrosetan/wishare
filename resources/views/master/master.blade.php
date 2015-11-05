@@ -18,6 +18,7 @@
     <body>
       <div class="container-fluid" >
       <!--  <div class="login-header"> -->
+        <div class="row">
             <a href="{{ URL::to('/')}}"><img src="img/logo.png" class="logo-header"></a>
             <div class="button-container">
               <div class="row">
@@ -31,6 +32,7 @@
                 </div>
               </div>
             </div>
+          </div>
         <!--</div>
       -->
         @yield('content')
