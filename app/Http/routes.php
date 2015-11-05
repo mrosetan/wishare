@@ -23,6 +23,12 @@ Route::get('user/usermaster', 'UserController@dashboard');
 Route::get('user/home', 'UserController@home');
 Route::get('user/profile', 'UserController@profile');
 Route::get('user/notifications', 'UserController@notifications');
+Route::get('user/notes', 'UserController@notes');
+Route::get('user/wish', 'UserController@wish');
+Route::get('user/settings', 'UserController@settings');
+Route::get('user/help', 'UserController@help');
+/* Other user */
+Route::get('otheruser/profile', 'UserController@otheruser');
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');

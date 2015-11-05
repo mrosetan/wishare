@@ -37,7 +37,7 @@
                         <a href="{{ url('user/notifications') }}"><span class="fa fa-globe"></span> <span class="xn-text">Notifications</span></a>
                     </li>
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-envelope"></span> <span class="xn-text">Notes</span></a>
+                        <a href="{{ url('user/notes') }}"><span class="glyphicon glyphicon-envelope"></span> <span class="xn-text">Notes</span></a>
                     </li>
                     <li>
                         <a href="#" class="mb-control" data-box="#mb-wishlist"><span class="fa fa-list-ul"></span><span class="xn-text">Create a Wishlist</span></a>
@@ -52,10 +52,10 @@
                         <a href="#" class="mb-control" data-box="#mb-tynotes"><span class="glyphicon glyphicon-envelope"></span><span class="xn-text">Send Thank You Note</span></a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
+                        <a href="{{ url('user/help') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                        <a href="{{ url('user/settings') }}"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-power-off"></span> <span class="xn-text">Sign Out</span></a>

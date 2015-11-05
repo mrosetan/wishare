@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="page-title">
-    <h2>Event Stream</h2>
+    <h4>Event Stream</h4>
 </div>
 <div class="page-content-wrap">
     <div class="row">

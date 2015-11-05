@@ -118,3 +118,19 @@ span.fa.fa-facebook-square {
 .fr-buttons {
   margin-left: 80px;
 }
+/* Settings */
+.settings-container {
+  margin: 0 auto;
+  width: 525px;
+}
+.btn.btn-info.btn-settings {
+  margin: 0 auto;
+  width: 280px;
+}
+/* Help */
+.timeline-date {
+  width: 200px !important;
+}
+.timeline-item-info {
+  width: 120px !important;
+}
