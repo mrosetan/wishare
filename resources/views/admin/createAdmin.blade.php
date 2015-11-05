@@ -7,7 +7,9 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2> Add New Admin </h2>
-            {!! Form::open(array( 'class' => 'form')) !!}
+            {!! Form::open(array(
+                          'action' => array('AdminController@storeAdmin'),
+                          'class' => 'form')) !!}
 
 
             <div class="form-group">
