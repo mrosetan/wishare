@@ -19,7 +19,7 @@ class CreateWishareUsersTable extends Migration
             $table->string('imageurl');
             $table->string('firstname', 255);
             $table->string('lastname', 255);
-            $table->string('username', 255);
+            $table->string('username', 255)->unique();
             $table->string('city', 255);
             $table->date('birthdate');
             $table->string('facebook', 255);
@@ -27,7 +27,7 @@ class CreateWishareUsersTable extends Migration
             $table->tinyInteger('type');
             $table->tinyInteger('status');
             $table->string('forgot_password_token');
-            $table->timestamp('date_joined');
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }

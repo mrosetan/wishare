@@ -1,54 +1,68 @@
 @extends('master.master')
 @section('title', 'Registration')
 @section('content')
-<!--
-<div class="reg-header">
-  <div class="row">
-    <div class="col-md-6">
-      <button type="button" class="btn btn-info btn-lg btn-signin" href="#">Sign In</button>
-    </div>
-    <div class="col-md-6">
-      <button type="button" class="btn btn-info btn-lg btn-signin" href="#">Sign Up</button>
-    </div>
-  </div>
-</div>
--->
+
 <div class="reg-content-header">Create an Account</div>
 <div class="reg-content-container">
+
+  @foreach($errors->all() as $error)
+      <p class="alert alert-danger"> {{ $error }}</p>
+  @endforeach
+  
+  {!! Form::open(array(
+                'action' => array('AdminController@store'),
+                'class' => 'form')) !!}
+
   <div class="form-group">
     <div class="row">
       <div class="col-md-12">
-        {!! Form::text('lastname', null, ['class'=>'form-control', 'placeholder'=>'Last Name']) !!}
+        {!! Form::text('lastname', null,
+                      array('required',
+                      'class'=>'form-control',
+                      'placeholder'=>'Last Name')) !!}
       </div>
     </div>
     <br />
     <div class="row">
       <div class="col-md-12">
-        {!! Form::text('firstname', null, ['class'=>'form-control', 'placeholder'=>'First Name']) !!}
+        {!! Form::text('firstname', null,
+                      array('required',
+                      'class'=>'form-control',
+                      'placeholder'=>'First Name')) !!}
       </div>
     </div>
     <br />
     <div class="row">
       <div class="col-md-12">
-        {!! Form::text('username', null, ['class'=>'form-control', 'placeholder'=>'Username']) !!}
+        {!! Form::text('username', null,
+                      array('required',
+                      'class'=>'form-control',
+                      'placeholder'=>'Username')) !!}
       </div>
     </div>
     <br />
     <div class="row">
       <div class="col-md-12">
-        {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password']) !!}
+        {!! Form::password('password',
+                          array('required',
+                          'class'=>'form-control',
+                          'placeholder'=>'Password')) !!}
       </div>
     </div>
     <br />
     <div class="row">
       <div class="col-md-12">
-        {!! Form::email('email', null, ['class'=>'form-control', 'placeholder'=>'E-mail']) !!}
+        {!! Form::email('email', null,
+                        array(
+                        'required','class'=>'form-control',
+                        'placeholder'=>'E-mail')) !!}
       </div>
     </div>
     <br />
     <div class="row">
       <div class="col-md-12">
-        {!! Form::button('Sign Up', array('class'=>'btn btn-info btn-lg btn-signup')) !!}
+        {!! Form::submit('Sign Up',
+                        array('class'=>'btn btn-info btn-lg btn-block btn-signup')) !!}
       </div>
     </div>
     <br />
@@ -58,5 +72,6 @@
       </div>
     </div>
   </div>
+  {!! Form::close() !!}
 </div>
 @stop
