@@ -13,6 +13,14 @@ use App\User;
 
 class AuthController extends Controller
 {
+
+  public function __construct()
+  {
+      // $this->middleware('auth');
+
+      $this->middleware('guest', ['except' => 'signout']);
+  }
+
   public function signin(Request $request)
   {
 
@@ -28,7 +36,7 @@ class AuthController extends Controller
             if($type == '0')
                 return redirect('/admin');
             else
-                return redirect('/admin');
+                return redirect('/user/home');
           }
           else
           {

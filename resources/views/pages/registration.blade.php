@@ -8,9 +8,9 @@
   @foreach($errors->all() as $error)
       <p class="alert alert-danger"> {{ $error }}</p>
   @endforeach
-  
+
   {!! Form::open(array(
-                'action' => array('AdminController@store'),
+                'action' => 'UserController@store',
                 'class' => 'form')) !!}
 
   <div class="form-group">

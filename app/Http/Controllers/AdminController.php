@@ -23,7 +23,6 @@ class AdminController extends Controller
      {
          $this->middleware('auth');
 
-        //  $this->middleware('guest', ['except' => 'signout']);
      }
 
     public function index()
@@ -93,23 +92,24 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
-    {
-      $user = new User(array(
-        'lastname' => trim($request->lastname),
-        'firstname' => trim($request->firstname),
-        'username' => trim($request->username),
-        'email' => trim($request->email),
-        'privacy' => 0,
-        'type' => 1,
-        'status' => 1,
-        'password' => trim(bcrypt($request->get('password'))),
-      ));
-
-      $user->save();
-
-      return redirect('/admin');
-    }
+    // public function store(UserRequest $request)
+    // {
+    //
+    //   $user = new User(array(
+    //     'lastname' => trim($request->lastname),
+    //     'firstname' => trim($request->firstname),
+    //     'username' => trim($request->username),
+    //     'email' => trim($request->email),
+    //     'privacy' => 0,
+    //     'type' => 1,
+    //     'status' => 1,
+    //     'password' => trim(bcrypt($request->get('password'))),
+    //   ));
+    //
+    //   $user->save();
+    //
+    //   return redirect('/user/home');
+    // }
 
     public function storeAdmin(UserRequest $request)
     {
