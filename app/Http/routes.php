@@ -42,5 +42,5 @@ Route::get('/admin/delete/{id?}', 'AdminController@deleteAdmin');
 
 // Auth
 Route::post('/auth/signin', 'AuthController@signin');
-Route::post('/auth/signup', 'AdminController@store');
+Route::post('/auth/signup', 'UserController@store');
 Route::get('/auth/signout', 'AuthController@signout');
