@@ -7,6 +7,9 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2> Add New Admin </h2>
+            @foreach($errors->all() as $error)
+                <p class="alert alert-danger"> {{ $error }}</p>
+            @endforeach
             {!! Form::open(array(
                           'action' => array('AdminController@storeAdmin'),
                           'class' => 'form')) !!}

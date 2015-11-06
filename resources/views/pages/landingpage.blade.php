@@ -5,7 +5,8 @@
 
 <div class="lp-content-container">
   <div class="row">
-    <button type="button" class="btn btn-default btn-lg button-fb">Connect with Facebook</button>
+    <!-- <button type="button" class="btn btn-default btn-lg button-fb">Connect with Facebook</button> -->
+    <a class="btn btn-info btn-lg btn-block button-fb" href="{!! action('AuthController@redirectToProvider') !!}">Connect with Facebook</a>
   </div>
   <br />
   <div class="row">
@@ -18,4 +19,5 @@
     <a type="button" class="btn btn-info btn-lg btn-signup" href="{{ URL::to('signup')}}">Sign Up</a>
   </div>
 </div>
+
 @stop
