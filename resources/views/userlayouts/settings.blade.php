@@ -14,7 +14,8 @@
         <div class="panel-body tab-content">
           <!-- Settings -->
             <div class="tab-pane active" id="tab-settings">
-              {!! Form::open() !!}
+              {!! Form::open([
+              ]) !!}
               <div class="row">
                 <div class="col-md-12">
                   {!! Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'First Name')) !!}
@@ -33,21 +34,24 @@
                 </div>
               </div>
               <br />
-              <label>Birthdate</label>
               <div class="row">
-                <div class="col-md-4">
-                    {!! Form::select('year', ['null'=>'-Year-', 2010, 2011, 2012, 2013, 2014, 2015], null, ['class'=>'form-control']) !!}
+                <div class="col-md-12">
+                    {!! Form::text('fblink', null, array('class'=>'form-control', 'placeholder'=>'Facebook')) !!}
                 </div>
-                <div class="col-md-4">
-                  {!! Form::select('month', ['null'=>'-Month-','January','February','March','April','May','June','July','August','Septembder','October','November','December'], null, ['class'=>'form-control']) !!}
-                </div>
-                <div class="col-md-4">
-                  {!! Form::select('day', ['null'=>'-Day-',1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31], null, ['class'=>'form-control']) !!}
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  {!! Form::text('date', null, array('id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'Birthdate')) !!}
                 </div>
               </div>
               <hr />
-              <div class="pull-right">
-                {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="pull-right">
+                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+                  </div>
+                </div>
               </div>
               {!! Form::close()!!}
             </div>
