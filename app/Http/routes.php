@@ -48,5 +48,21 @@ Route::get('/admin/delete/{id?}', 'AdminController@deleteAdmin');
 
 // Auth
 Route::post('/auth/signin', 'AuthController@signin');
-Route::post('/auth/signup', 'AdminController@store');
+Route::post('/auth/signup', 'UserController@store');
 Route::get('/auth/signout', 'AuthController@signout');
+
+//Social Login
+
+Route::get('login/facebook', 'AuthController@redirectToProvider');
+Route::get('/login/facebook/callback','AuthController@handleProviderCallback');
+
+// Route::get('/login/{provider?}',[
+//     'uses' => 'AuthController@getSocialAuth',
+//     'as'   => 'auth.getSocialAuth'
+// ]);
+//
+//
+// Route::get('/login/callback/{provider?}',[
+//     'uses' => 'AuthController@getSocialAuthCallback',
+//     'as'   => 'auth.getSocialAuthCallback'
+// ]);

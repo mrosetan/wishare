@@ -16,6 +16,8 @@ class UserRequest extends Request
         return true;
     }
 
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,12 +26,11 @@ class UserRequest extends Request
     public function rules()
     {
         return [
-            // 'firstname' -> 'required|alpha',
-            // 'lastname' -> 'required|alpha',
-            // 'username' -> 'required|alpha_dash',
-            // 'password' -> 'required|alpha_num',
-            // 'email' -> 'required|email',
-
+            'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
+            'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
+            'username' => 'required|min:3|max:30|alpha_dash',
+            'password' => 'required|min:3|max:30|alpha_num',
+            'email' => 'required|email',
         ];
     }
 }

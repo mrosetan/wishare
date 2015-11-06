@@ -13,6 +13,7 @@
         <!-- CSS INCLUDE -->
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/theme-blue.css') }}"/>
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/bootstrap/user/userlayouts.css') }}"/>
+        <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/calendar-bootstrap.css') }}">
         <!-- EOF CSS INCLUDE -->
     </head>
     <body>
@@ -364,6 +365,12 @@
         <!-- END PLUGINS -->
 
         <!-- THIS PAGE PLUGINS -->
+        <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>
+        <script>
+         $(function() {
+           $( "#datepicker" ).datepicker();
+         });
+        </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
 
@@ -375,11 +382,7 @@
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="{{ URL::asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/actions.js') }}"></script>
-        <script type="text/javascript">
-        $(function() {
-           $("#datepicker").datepicker();
-         });
-        </script>
+
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
     </body>
