@@ -1,5 +1,5 @@
 @extends('userlayouts-master.user-master')
-@section('title', 'Settings')
+@section('title', 'Change Password')
 
 @section('content')
 <div class="page-content-wrap">
@@ -7,36 +7,24 @@
     <div class="settings-container">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>Edit Profile</h4>
+          <h4>Change Password</h4>
           {!! Form::open(array(
                         'class' => 'form')) !!}
           <div class="row">
             <div class="col-md-12">
-              {!! Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'First Name')) !!}
+              {!! Form::password('oldpass', array('class'=>'form-control', 'placeholder'=>'Old Password')) !!}
             </div>
           </div>
           <br />
           <div class="row">
             <div class="col-md-12">
-                {!! Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Last Name')) !!}
+              {!! Form::password('newpassword', array('class'=>'form-control', 'placeholder'=>'New Password')) !!}
             </div>
           </div>
           <br />
           <div class="row">
             <div class="col-md-12">
-                {!! Form::text('city', null, array('class'=>'form-control', 'placeholder'=>'City')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-                {!! Form::text('fblink', null, array('class'=>'form-control', 'placeholder'=>'Facebook')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-              {!! Form::text('date', null, array('id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'Birthdate')) !!}
+                {!! Form::password('confirmnewpassword', array('class'=>'form-control', 'placeholder'=>'Confirm New Password')) !!}
             </div>
           </div>
           <hr />

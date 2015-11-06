@@ -121,11 +121,12 @@ span.fa.fa-facebook-square {
 /* Settings */
 .settings-container {
   margin: 0 auto;
-  width: 525px;
+  margin-top: 50px;
+  width: 500px;
 }
 .btn.btn-info.btn-settings {
   margin: 0 auto;
-  width: 280px;
+  width: 460px;
 }
 /* Help */
 .timeline-date {

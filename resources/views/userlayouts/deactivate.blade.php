@@ -1,5 +1,5 @@
 @extends('userlayouts-master.user-master')
-@section('title', 'Settings')
+@section('title', 'Deactivate')
 
 @section('content')
 <div class="page-content-wrap">
@@ -7,36 +7,23 @@
     <div class="settings-container">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>Edit Profile</h4>
+          <h4>Deactivate Account</h4>
           {!! Form::open(array(
                         'class' => 'form')) !!}
+
           <div class="row">
             <div class="col-md-12">
-              {!! Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'First Name')) !!}
+              To deactivate account, please enter your password.
+            </div>
+            <br />
+            <div class="col-md-12">
+              {!! Form::password('password', array('class'=>'form-control', 'placeholder'=>'Password')) !!}
             </div>
           </div>
           <br />
           <div class="row">
             <div class="col-md-12">
-                {!! Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Last Name')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-                {!! Form::text('city', null, array('class'=>'form-control', 'placeholder'=>'City')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-                {!! Form::text('fblink', null, array('class'=>'form-control', 'placeholder'=>'Facebook')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-              {!! Form::text('date', null, array('id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'Birthdate')) !!}
+                {!! Form::password('confirmnpassword', array('class'=>'form-control', 'placeholder'=>'Confirm Password')) !!}
             </div>
           </div>
           <hr />

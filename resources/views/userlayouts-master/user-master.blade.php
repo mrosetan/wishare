@@ -55,11 +55,16 @@
                     <li>
                         <a href="{{ url('user/help') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
-                    <li>
-                        <a href="{{ url('user/settings') }}"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                        <ul>
+                            <li><a href="{{ url('user/settings/profile') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                            <li><a href="{{ url('user/settings/changepass') }}"><span class="fa fa-lock"></span> Change Password</a></li>
+                            <li><a href="{{ url('user/settings/deactivate') }}"><span class="fa fa-ban"></span> Deactivate</a></li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-power-off"></span> <span class="xn-text">Sign Out</span></a>
+                        <a href="{{ url('auth/signout') }}"><span class="fa fa-power-off"></span> <span class="xn-text">Sign Out</span></a>
                     </li>
                 </ul>
                 <!-- END X-NAVIGATION -->
