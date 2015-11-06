@@ -15,6 +15,7 @@ class CreateWishareUsersTable extends Migration
         Schema::create('wishare_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('email', 255)->unique();
+            $table->string('fb_id', 255)->unique();
             $table->string('password', 255);
             $table->string('imageurl');
             $table->string('firstname', 255);
