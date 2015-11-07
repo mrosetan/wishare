@@ -373,7 +373,8 @@
         <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>
         <script>
          $(function() {
-           $( "#datepicker" ).datepicker();
+           var date = $('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+           //$( "#datepicker" ).datepicker();
          });
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
