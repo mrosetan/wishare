@@ -8,7 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\DefaultWishlistRequest;
 use App\User;
+use App\DefaultWishlist;
 use Auth;
 
 class AdminController extends Controller
@@ -78,7 +80,11 @@ class AdminController extends Controller
 
     public function viewDefaultWishlists()
     {
-      return view('admin.viewDefaultWishlists');
+
+      $defaultwishlists = DefaultWishlist::orderBy('created_at', 'desc')
+                            ->get();
+
+      return view('admin.viewDefaultWishlists', compact('defaultwishlists'));
     }
 
     /**
@@ -86,9 +92,15 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function storeDefaultWishlist(DefaultWishlistRequest $request)
     {
-        //
+      $dw = new DefaultWishlist(array(
+        'title' => trim($request->title),
+      ));
+
+      $dw->save();
+
+      return redirect('/admin/view/defaultwishlists');
     }
 
     /**
@@ -171,6 +183,12 @@ class AdminController extends Controller
       return view('admin.editAdmin', compact('user'));
     }
 
+    public function editDefaultWishlist($id)
+    {
+      $defaultwishlist = DefaultWishlist::where('id', $id)->first();
+      return view('admin.editDefaultWishlist', compact('defaultwishlist'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -212,6 +230,20 @@ class AdminController extends Controller
       return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
     }
 
+    public function updateDefaultWishlist(DefaultWishlistRequest $request, $id)
+    {
+      $defaultwishlist = DefaultWishlist::where('id', $id)->first();
+
+      if($request->get('title') != '')
+      {
+          $defaultwishlist->title = $request->get('title');
+      }
+
+      $defaultwishlist->save();
+
+      return redirect(action('AdminController@editDefaultWishlist', $defaultwishlist->id))->with('status', 'Default wishlist updated successfully.');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -233,6 +265,19 @@ class AdminController extends Controller
 
         // print($id);
         return view('admin.viewAdmins', compact('users'));
+
+    }
+
+    public function deleteDefaultWishlist($id)
+    {
+        $dw = DefaultWishlist::where('id', $id)->firstorFail();
+
+        $dw->delete();
+
+        $defaultwishlists = DefaultWishlist::orderBy('created_at', 'desc')
+                              ->get();
+
+        return view('admin.viewDefaultWishlists', compact('defaultwishlists'))->with('status', 'Default wishlist deleted successfully.');
 
     }
 
