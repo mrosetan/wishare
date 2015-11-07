@@ -10,10 +10,10 @@
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
-          <b>Brenda Mage</b>
+          <b>{!! $user->firstname!!}&nbsp;{!! $user->lastname!!}</b>
         </h4>
         <h5 class="userprofile-addr">
-          Cebu City, Philippines
+          {!! $user->city !!}
         </h5>
       </div>
     </div>
