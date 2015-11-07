@@ -43,7 +43,12 @@ class AdminController extends Controller
 
     public function monitorUsers()
     {
-      return view('admin.monitoringUsers');
+      $users = User::where('status', '=', 1)
+                    ->where('type', '=', 1)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+      // print_r($users);
+      return view('admin.monitoringUsers', compact('users'));
     }
 
     public function monitorWishes()
@@ -228,6 +233,24 @@ class AdminController extends Controller
 
         // print($id);
         return view('admin.viewAdmins', compact('users'));
+
+    }
+
+    public function deactivateUser($id)
+    {
+        $user = User::where('id', $id)->firstorFail();
+
+        $user->status = 0;
+
+        $user->save();
+
+        $users = User::where('status', '=', 1)
+                      ->where('type', '=', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+
+        // print($id);
+        return view('admin.monitoringUsers', compact('users'));
 
     }
 }

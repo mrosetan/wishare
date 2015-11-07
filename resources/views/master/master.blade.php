@@ -17,7 +17,7 @@
     </head>
     <body>
 
-      <script>
+      <!-- <script>
         window.fbAsyncInit = function() {
           FB.init({
             appId      : '456045444586296',
@@ -33,7 +33,7 @@
            js.src = "//connect.facebook.net/en_US/sdk.js";
            fjs.parentNode.insertBefore(js, fjs);
          }(document, 'script', 'facebook-jssdk'));
-      </script>
+      </script> -->
 
       <div class="container-fluid" >
       <!--  <div class="login-header"> -->
