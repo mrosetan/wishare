@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\EditAdminRequest;
 use App\Http\Requests\DefaultWishlistRequest;
 use App\User;
 use App\DefaultWishlist;
@@ -198,7 +199,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateAdmin(UserRequest $request, $id)
+    public function updateAdmin(EditAdminRequest $request, $id)
     {
       $user = User::where('id', $id)->first();
 
