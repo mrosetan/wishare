@@ -44,14 +44,14 @@
           <div class="row">
             <div class="col-md-12">
               <label>Facebook:</label>
-                {!! Form::text('facebook', $user->facebook, array('class'=>'form-control')) !!}
+                {!! Form::text('facebook', $user->facebook, array('class'=>'form-control', 'placeholder'=>'facebook.com/example')) !!}
             </div>
           </div>
           <br />
           <div class="row">
             <div class="col-md-12">
               <label>Birthdate:</label>
-              {!! Form::text('birthdate', $user->birthdate, array('id'=>'datepicker', 'class'=>'form-control',)) !!}
+              {!! Form::text('birthdate', $user->birthdate, array('id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'YYYY-MM-DD')) !!}
             </div>
           </div>
           <hr />

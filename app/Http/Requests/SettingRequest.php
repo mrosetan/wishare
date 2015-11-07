@@ -24,11 +24,11 @@ class SettingRequest extends Request
     public function rules()
     {
         return [
-          'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
-          'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
-          'city' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
-          'facebook' => 'required|min:3|max:50|',
-          'birthdate' => 'required|date',
+          'firstname' => 'min:3|max:50|regex:/^[\pL\s]+$/u',
+          'lastname' => 'min:2|max:50|regex:/^[\pL\s]+$/u',
+          'city' => 'min:2|max:50|regex:/^[\pL\s]+$/u',
+          'facebook' => 'min:3|max:50|',
+          'birthdate' => 'date',
         ];
     }
 }
