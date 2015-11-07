@@ -7,15 +7,21 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2> Add New Default Wishlist </h2>
+
+            @if(session('status'))
+              <div class="alert alert-success">
+                  {{ session('status') }}
+              </div>
+            @endif
+
             {!! Form::open(array(
-                          'action' => array('AdminController@storeDefaultWishlist'),
+                          'action' => array('AdminController@updateDefaultWishlist', $defaultwishlist->id),
                           'class' => 'form')) !!}
 
             <div class="form-group">
                 {!! Form::label('Input Wishlist Title') !!}
-                {!! Form::text('title', null,
-                                array('required',
-                                'class'=>'form-control')) !!}
+                {!! Form::text('title', $defaultwishlist->title,
+                                array('class'=>'form-control')) !!}
             </div>
 
             <div class="row">
