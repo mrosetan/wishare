@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SettingRequest;
+use App\Http\Requests\UserRequest;
 use App\User;
 use Auth;
 
@@ -94,31 +95,11 @@ class UserController extends Controller
   {
     //$user = User::where('id', $id);
     $user = Auth::user();
-
-    if($request->get('firstname') != '')
-    {
-        $user->firstname = $request->get('firstname');
-    }
-
-    if($request->get('lastname') != '')
-    {
-        $user->lastname = $request->get('lastname');
-    }
-
-    if($request->get('city') != '')
-    {
-      $user->city = $request->get('city');
-    }
-
-    if($request->get('facebook') != '')
-    {
-      $user->facebook = $request->get('facebook');
-    }
-
-    if($request->get('birthdate') != '')
-    {
-      $user->birthdate = $request->get('birthdate');
-    }
+    $user->firstname = $request->get('firstname');
+    $user->lastname = $request->get('lastname');
+    $user->city = $request->get('city');
+    $user->facebook = $request->get('facebook');
+    $user->birthdate = $request->get('birthdate');
 
     $user->save();
 
