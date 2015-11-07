@@ -41,6 +41,11 @@ Route::post('/admin/edit/{id?}', 'AdminController@updateAdmin');
 Route::post('/admin/create/admin', 'AdminController@storeAdmin');
 Route::get('/admin/delete/{id?}', 'AdminController@deleteAdmin');
 
+Route::post('/admin/create/defaultwishlist', 'AdminController@storeDefaultWishlist');
+Route::get('/admin/edit/defaultwishlist/{id?}', 'AdminController@editDefaultWishlist');
+Route::post('/admin/edit/defaultwishlist/{id?}', 'AdminController@updateDefaultWishlist');
+Route::get('/admin/delete/defaultwishlist/{id?}', 'AdminController@deleteDefaultWishlist');
+
 // Auth
 Route::post('/auth/signin', 'AuthController@signin');
 Route::post('/auth/signup', 'UserController@store');
