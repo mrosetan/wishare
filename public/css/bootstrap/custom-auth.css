@@ -74,6 +74,12 @@ button.btn.btn-default.btn-lg.button-fb {
   color: #fff;
 }
 
+.button-fb {
+  background-color: #45629d;
+  border: 0;
+  color: #fff;
+}
+
 button.btn.btn-default.btn-lg.button-fb:hover {
   background-color: #5a75ac;
 }

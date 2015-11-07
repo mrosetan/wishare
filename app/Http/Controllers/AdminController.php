@@ -81,8 +81,9 @@ class AdminController extends Controller
     public function viewDefaultWishlists()
     {
 
-      $defaultwishlists = DefaultWishlist::orderBy('created_at', 'desc')
-                            ->get();
+      $defaultwishlists = DefaultWishlist::where('status', '=', 1)
+                                          ->orderBy('created_at', 'desc')
+                                          ->get();
 
       return view('admin.viewDefaultWishlists', compact('defaultwishlists'));
     }
@@ -96,6 +97,7 @@ class AdminController extends Controller
     {
       $dw = new DefaultWishlist(array(
         'title' => trim($request->title),
+        'status' => 1,
       ));
 
       $dw->save();
@@ -272,10 +274,13 @@ class AdminController extends Controller
     {
         $dw = DefaultWishlist::where('id', $id)->firstorFail();
 
-        $dw->delete();
+        $dw->status = 0;
 
-        $defaultwishlists = DefaultWishlist::orderBy('created_at', 'desc')
-                              ->get();
+        $dw->save();
+
+        $defaultwishlists = DefaultWishlist::where('status', '=', 1)
+                                            ->orderBy('created_at', 'desc')
+                                            ->get();
 
         return view('admin.viewDefaultWishlists', compact('defaultwishlists'))->with('status', 'Default wishlist deleted successfully.');
 

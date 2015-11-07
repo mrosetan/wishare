@@ -15,7 +15,7 @@
             @endif -->
             @if($users->isEmpty())
               <div class="alert alert-info" role="alert">
-                No Users.
+                No Admins.
               </div>
             @else
             @foreach($errors->all() as $error)
