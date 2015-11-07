@@ -43,6 +43,20 @@
           <br />
           <div class="row">
             <div class="col-md-12">
+              <label>Username:</label>
+                {!! Form::text('username', $user->username, array('class'=>'form-control')) !!}
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12">
+              <label>E-mail:</label>
+                {!! Form::email('e-mail', $user->email, array('class'=>'form-control')) !!}
+            </div>
+          </div>
+          <br/ >
+          <div class="row">
+            <div class="col-md-12">
               <label>Facebook:</label>
                 {!! Form::text('facebook', $user->facebook, array('class'=>'form-control', 'placeholder'=>'facebook.com/example')) !!}
             </div>
