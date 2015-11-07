@@ -1,16 +1,16 @@
 @extends('userlayouts-master.user-master')
-@section('title', 'Profile')
+@section('title', 'Other User Profile')
 
 @section('content')
 <div class="page-content-wrap">
   <div class="row">
     <div class="profile-header">
       <div class="pull-left">
-        <img class="profile-img img-circle" src="{{ URL::asset('img/test.jpg') }}">
+        <img class="profile-img img-circle" src="{{ URL::asset('img/test2.jpg') }}">
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
-          <b>Brenda Mage</b>
+          <b>Bobby</b>
         </h4>
         <h5 class="userprofile-addr">
           Cebu City, Philippines
@@ -38,121 +38,49 @@
                   <div class="panel panel-default">
                       <div class="panel-body">
                         <div class="pull-left">
-                          <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                          <img class="user img-circle" src="{{ URL::asset('img/test2.jpg') }}">
                         </div>
                         <div class="user-details">
                           <h5 class="user-name">
-                            Brenda Mage
+                            Bobby
                             <br />
-                            Wish: Bobby's Heart
+                            Wish: Brenda's Heart
                             <br />
                             Date: 10/2/2015
                           </h5>
                         </div>
                       </div>
                   </div>
-                  <div class="panel panel-default">
-                      <div class="panel-body">
-                        <div class="pull-left">
-                          <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
-                        </div>
-                        <div class="user-details">
-                          <h5 class="user-name">
-                            Brenda Mage
-                            <br />
-                            Wish: To date with Bobby
-                            <br />
-                            Date: 10/1/2015
-                          </h5>
-                        </div>
-                      </div>
-                  </div>
                 </div>
                 <div class="tab-pane" id="tab-wishes">
-                  <div class="panel-group accordion accordion-dc">
-                      <div class="panel panel-default">
-                          <div class="panel-heading">
-                              <h4 class="panel-title">
-                                  <a href="#accOneColOne">
-                                      Birthday
-                                  </a>
-                              </h4>
-                              <div class="wishlist-icons pull-right">
-                                <a href="#"><span class="fa fa-plus"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="fa fa-gear"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                              </div>
-                          </div>
-                          <div class="panel-body" id="accOneColOne">
-                            <a href="{{ url('user/wish') }}" class="wish-name">Bobby</a>
-                            <div class="wish-icons pull-right">
-                              <a href="#"><span class="fa fa-star"></span></a>
-                              &nbsp;&nbsp;
-                              <a href="#"><span class="fa fa-bookmark"></span></a>
-                              &nbsp;&nbsp;
-                              <a href="#"><span class="fa fa-retweet"></span></a>
-                            </div>
-                          </div>
+                <div class="panel-group accordion accordion-dc">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#accOneColOne">
+                                Birthday
+                            </a>
+                        </h4>
+                        <div class="wishlist-icons pull-right">
+                          <a href="#"><span class="fa fa-plus"></span></a>
+                          &nbsp;&nbsp;
+                          <a href="#"><span class="fa fa-gear"></span></a>
+                          &nbsp;&nbsp;
+                          <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                    </div>
+                    <div class="panel-body" id="accOneColOne">
+                      <a href="{{ url('user/wish') }}" class="wish-name">Brenda</a>
+                      <div class="wish-icons pull-right">
+                        <a href="#"><span class="fa fa-star"></span></a>
+                        &nbsp;&nbsp;
+                        <a href="#"><span class="fa fa-bookmark"></span></a>
+                        &nbsp;&nbsp;
+                        <a href="#"><span class="fa fa-retweet"></span></a>
                       </div>
                     </div>
-                    <div class="panel-group accordion accordion-dc">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a href="#accOneColTwo">
-                                        Christmas
-                                    </a>
-                                </h4>
-                                <div class="wishlist-icons pull-right">
-                                  <a href="#"><span class="fa fa-plus"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="fa fa-gear"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                                </div>
-                            </div>
-                            <div class="panel-body" id="accOneColTwo">
-                              <a href="#" class="wish-name">Bobby</a>
-                              <div class="wish-icons pull-right">
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="fa fa-bookmark"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="fa fa-retweet"></span></a>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="panel-group accordion accordion-dc">
-                          <div class="panel panel-default">
-                              <div class="panel-heading">
-                                  <h4 class="panel-title">
-                                      <a href="#accOneColThree">
-                                          Personal
-                                      </a>
-                                  </h4>
-                                  <div class="wishlist-icons pull-right">
-                                    <a href="#"><span class="fa fa-plus"></span></a>
-                                    &nbsp;&nbsp;
-                                    <a href="#"><span class="fa fa-gear"></span></a>
-                                    &nbsp;&nbsp;
-                                    <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                                  </div>
-                              </div>
-                              <div class="panel-body" id="accOneColThree">
-                                <a href="#" class="wish-name">Bobby</a>
-                                <div class="wish-icons pull-right">
-                                  <a href="#"><span class="fa fa-star"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="fa fa-bookmark"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="fa fa-retweet"></span></a>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
+                  </div>
+                </div>
                 </div>
                 <div class="tab-pane" id="tab-granted">
                   <div class="panel-group accordion accordion-dc">
@@ -160,7 +88,7 @@
                           <div class="panel-heading">
                               <h4 class="panel-title">
                                   <a href="#accTwoColOne">
-                                      Bobby's Attention
+                                      Brenda's Attention
                                   </a>
                               </h4>
                               <div class="grant-icon pull-right">
@@ -179,7 +107,7 @@
                           <div class="panel-heading">
                               <h4 class="panel-title">
                                   <a href="#accTwoColTwo">
-                                    Brenda Mage granted Bobby's wish of: Razer Keyboard
+                                    Bobby granted Brenda Mage's wish of: Bobby's Heart
                                   </a>
                               </h4>
                           </div>
@@ -203,7 +131,7 @@
                                   </a>
                                   <div class="user-details">
                                     <p class="user-name">
-                                      <a href="#">Bobby</a>
+                                      <a href="#">Brenda</a>
                                       <br />
                                       Wishes: 3&nbsp;Granted: 1&nbsp;Given: 1&nbsp;Friends: 2 &nbsp;Tracked: 2 &nbsp;Thank You Notes: 2
                                     </p>
@@ -219,8 +147,8 @@
                           <div class="panel-heading">
                               <p class="panel-title">
                                 <p href="#accTwoColTwo">
-                                  <p class="user-given">Razer Mouse</p> <br />
-                                  Wished by: Bobby
+                                  <p class="user-given">Bobby's Answer</p> <br />
+                                  Wished by: Brenda Mage
                                 </p>
                               </p>
                           </div>
@@ -233,12 +161,12 @@
                           <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a href="#accTwoColThree">
-                                    Sent by Bobby
+                                    Sent by Brenda
                                 </a>
                             </h4>
                           </div>
                           <div class="panel-body" id="accTwoColThree">
-                            <h4>Thank you for this! <3 ;)</h4>
+                            <h4>Sprikitik! <3 ;)</h4>
                             <img src="{{ URL::asset('img/test.jpg') }}">
                           </div>
                       </div>

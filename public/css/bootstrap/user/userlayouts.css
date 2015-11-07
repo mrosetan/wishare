@@ -67,10 +67,12 @@ a.wish-name {
 .grant-icon.pull-right {
     font-size: 20px;
 }
+/*
 .panel-body.tab-content {
   overflow-y: scroll;
   max-height: 340px;
 }
+*/
 img.user-friend.img-circle {
   height: 55px;
   width: 55px;
@@ -82,4 +84,54 @@ p.user-name{
 }
 p.user-given {
   font-size: 16px;
+}
+
+/*   Actions   */
+.mb-title {
+  font-size: 12px;
+  color: #fff;
+}
+.mb-container.wishlist {
+  height: 480px;
+  margin: 0 auto;
+  margin-top: -150px;
+}
+.mb-container.wish {
+  height: 620px;
+  margin: 0 auto;
+  margin-top: -210px;
+}
+span.fa.fa-facebook-square {
+  font-size: 15px;
+}
+.mb-container.note {
+  height: 330px;
+  margin: 0 auto;
+  margin-top: -100px;
+}
+.mb-container.tynote {
+  height: 400px;
+  margin: 0 auto;
+  margin-top: -100px;
+}
+/*   Notifications */
+.fr-buttons {
+  margin-left: 80px;
+}
+/* Settings */
+.settings-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 500px;
+}
+.btn.btn-info.btn-settings {
+  margin: 0 auto;
+  width: 460px;
+}
+/* Help */
+.timeline-date {
+  width: 200px !important;
+}
+.timeline-item-info {
+  width: 120px !important;
 }
