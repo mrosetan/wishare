@@ -34,59 +34,110 @@ class AdminController extends Controller
         return view('admin.master');
       }
       else{
-        return redirect('blank');
+        return redirect('user/home');
       }
 
     }
 
     public function reports()
     {
-      return view('admin.reports');
+      if (Auth::user()->type == 0) {
+        return view('admin.reports');
+      }
+      else
+        return redirect('user/home');
     }
 
     public function monitorUsers()
     {
-      $users = User::where('status', '=', 1)
-                    ->where('type', '=', 1)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-      // print_r($users);
-      return view('admin.monitoringUsers', compact('users'));
+
+      if (Auth::user()->type == 0) {
+        $users = User::where('status', '=', 1)
+                      ->where('type', '=', 1)
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+        // print_r($users);
+        return view('admin.monitoringUsers', compact('users'));
+      }
+      else
+        return redirect('user/home');
+
+      // $users = User::where('status', '=', 1)
+      //               ->where('type', '=', 1)
+      //               ->orderBy('created_at', 'desc')
+      //               ->get();
+      // // print_r($users);
+      // return view('admin.monitoringUsers', compact('users'));
     }
 
     public function monitorWishes()
     {
-      return view('admin.monitoringWishes');
+
+      if (Auth::user()->type == 0) {
+        return view('admin.monitoringWishes');
+      }
+      else
+        return redirect('user/home');
+
     }
 
     public function monitorWishlists()
     {
-      return view('admin.monitoringWishlists');
+      if (Auth::user()->type == 0) {
+        return view('admin.monitoringWishlists');
+      }
+      else
+        return redirect('user/home');
+
     }
 
     public function createAdmin()
     {
-      return view('admin.createAdmin');
+      if (Auth::user()->type == 0) {
+        return view('admin.createAdmin');
+      }
+      else
+        return redirect('user/home');
+
     }
 
     public function createDefaultWishlist()
     {
-      return view('admin.createDefaultWishlist');
+      if (Auth::user()->type == 0) {
+        return view('admin.createDefaultWishlist');
+      }
+      else
+        return redirect('user/home');
+      // return view('admin.createDefaultWishlist');
     }
 
     public function viewAdmins()
     {
-      return view('admin.viewAdmins');
+      if (Auth::user()->type == 0) {
+        return view('admin.viewAdmins');
+      }
+      else
+        return redirect('user/home');
+      // return view('admin.viewAdmins');
     }
 
     public function viewDefaultWishlists()
     {
 
-      $defaultwishlists = DefaultWishlist::where('status', '=', 1)
-                                          ->orderBy('created_at', 'desc')
-                                          ->get();
+      if (Auth::user()->type == 0) {
+        $defaultwishlists = DefaultWishlist::where('status', '=', 1)
+                                            ->orderBy('created_at', 'desc')
+                                            ->get();
 
-      return view('admin.viewDefaultWishlists', compact('defaultwishlists'));
+        return view('admin.viewDefaultWishlists', compact('defaultwishlists'));
+      }
+      else
+        return redirect('user/home');
+      // $defaultwishlists = DefaultWishlist::where('status', '=', 1)
+      //                                     ->orderBy('created_at', 'desc')
+      //                                     ->get();
+      //
+      // return view('admin.viewDefaultWishlists', compact('defaultwishlists'));
     }
 
     /**
@@ -153,13 +204,23 @@ class AdminController extends Controller
 
     public function showAdmins()
     {
-
+      if (Auth::user()->type == 0) {
         $users = User::where('status', '=', 1)
                       ->where('type', '=', 0)
                       ->orderBy('created_at', 'desc')
                       ->get();
         // print_r($users);
         return view('admin.viewAdmins', compact('users'));
+      }
+      else
+        return redirect('user/home');
+
+        // $users = User::where('status', '=', 1)
+        //               ->where('type', '=', 0)
+        //               ->orderBy('created_at', 'desc')
+        //               ->get();
+        // // print_r($users);
+        // return view('admin.viewAdmins', compact('users'));
 
     }
 
@@ -182,14 +243,28 @@ class AdminController extends Controller
      */
     public function editAdmin($id)
     {
-      $user = User::where('id', $id)->first();
-      return view('admin.editAdmin', compact('user'));
+      if (Auth::user()->type == 0) {
+        $user = User::where('id', $id)->first();
+        return view('admin.editAdmin', compact('user'));
+      }
+      else
+        return redirect('user/home');
+
+      // $user = User::where('id', $id)->first();
+      // return view('admin.editAdmin', compact('user'));
     }
 
     public function editDefaultWishlist($id)
     {
-      $defaultwishlist = DefaultWishlist::where('id', $id)->first();
-      return view('admin.editDefaultWishlist', compact('defaultwishlist'));
+      if (Auth::user()->type == 0) {
+        $$defaultwishlist = DefaultWishlist::where('id', $id)->first();
+        return view('admin.editDefaultWishlist', compact('defaultwishlist'));
+      }
+      else
+        return redirect('user/home');
+
+      // $defaultwishlist = DefaultWishlist::where('id', $id)->first();
+      // return view('admin.editDefaultWishlist', compact('defaultwishlist'));
     }
 
     /**
@@ -201,50 +276,101 @@ class AdminController extends Controller
      */
     public function updateAdmin(EditAdminRequest $request, $id)
     {
-      $user = User::where('id', $id)->first();
 
-      if($request->get('firstname') != '')
-      {
-          $user->firstname = $request->get('firstname');
+      if (Auth::user()->type == 0) {
+        $user = User::where('id', $id)->first();
+
+        if($request->get('firstname') != '')
+        {
+            $user->firstname = $request->get('firstname');
+        }
+
+        if($request->get('lastname') != '')
+        {
+            $user->lastname = $request->get('lastname');
+        }
+
+        if($request->get('password') != '')
+        {
+          $user->password = bcrypt($request->get('password'));
+        }
+
+        if($request->get('username') != '')
+        {
+            $user->username = $request->get('username');
+        }
+
+        if($request->get('email') != '')
+        {
+            $user->email = $request->get('email');
+        }
+
+        $user->save();
+
+        return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
       }
+      else
+        return redirect('user/home');
 
-      if($request->get('lastname') != '')
-      {
-          $user->lastname = $request->get('lastname');
-      }
-
-      if($request->get('password') != '')
-      {
-        $user->password = bcrypt($request->get('password'));
-      }
-
-      if($request->get('username') != '')
-      {
-          $user->username = $request->get('username');
-      }
-
-      if($request->get('email') != '')
-      {
-          $user->email = $request->get('email');
-      }
-
-      $user->save();
-
-      return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
+      // $user = User::where('id', $id)->first();
+      //
+      // if($request->get('firstname') != '')
+      // {
+      //     $user->firstname = $request->get('firstname');
+      // }
+      //
+      // if($request->get('lastname') != '')
+      // {
+      //     $user->lastname = $request->get('lastname');
+      // }
+      //
+      // if($request->get('password') != '')
+      // {
+      //   $user->password = bcrypt($request->get('password'));
+      // }
+      //
+      // if($request->get('username') != '')
+      // {
+      //     $user->username = $request->get('username');
+      // }
+      //
+      // if($request->get('email') != '')
+      // {
+      //     $user->email = $request->get('email');
+      // }
+      //
+      // $user->save();
+      //
+      // return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
     }
 
     public function updateDefaultWishlist(DefaultWishlistRequest $request, $id)
     {
-      $defaultwishlist = DefaultWishlist::where('id', $id)->first();
+      if (Auth::user()->type == 0) {
+        $defaultwishlist = DefaultWishlist::where('id', $id)->first();
 
-      if($request->get('title') != '')
-      {
-          $defaultwishlist->title = $request->get('title');
+        if($request->get('title') != '')
+        {
+            $defaultwishlist->title = $request->get('title');
+        }
+
+        $defaultwishlist->save();
+
+        return redirect(action('AdminController@editDefaultWishlist', $defaultwishlist->id))->with('status', 'Default wishlist updated successfully.');
       }
+      else
+        return redirect('user/home');
 
-      $defaultwishlist->save();
-
-      return redirect(action('AdminController@editDefaultWishlist', $defaultwishlist->id))->with('status', 'Default wishlist updated successfully.');
+      // $defaultwishlist = DefaultWishlist::where('id', $id)->first();
+      //
+      // if($request->get('title') != '')
+      // {
+      //     $defaultwishlist->title = $request->get('title');
+      // }
+      //
+      // $defaultwishlist->save();
+      //
+      // return redirect(action('AdminController@editDefaultWishlist', $defaultwishlist->id))->with('status', 'Default wishlist updated successfully.');
     }
 
     /**
