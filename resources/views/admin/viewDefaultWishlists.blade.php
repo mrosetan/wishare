@@ -17,7 +17,7 @@
 
             @if($defaultwishlists->isEmpty())
               <div class="alert alert-info" role="alert">
-                No Users.
+                No Default Wishlists.
               </div>
             @else
 

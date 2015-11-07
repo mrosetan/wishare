@@ -8,5 +8,5 @@ class DefaultWishlist extends Model
 {
     protected $table = 'default_wishlists';
 
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'status'];
 }
