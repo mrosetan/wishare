@@ -35,6 +35,7 @@ Route::get('/admin/monitor/users', 'AdminController@monitorUsers');
 Route::get('/admin/monitor/wishes', 'AdminController@monitorWishes');
 Route::get('/admin/monitor/wishlists', 'AdminController@monitorWishlists');
 Route::get('/admin/edit/{id?}', 'AdminController@editAdmin');
+Route::get('/admin/deactivateUser/{id?}', 'AdminController@deactivateUser');
 
 Route::post('/admin/edit/{id?}', 'AdminController@updateAdmin');
 Route::post('/admin/create/admin', 'AdminController@storeAdmin');

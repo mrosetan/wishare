@@ -42,7 +42,7 @@
                     <li class="xn-openable">
                         <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Monitoring</span></a>
                         <ul>
-                            <li><a href="{{ URL::to('/admin/monitor/users')}}"><span class="fa fa-users"></span> Users</a></li>
+                            <li><a href="{{ URL::to('/admin/monitor/users')}}"><span class="fa fa-users"></span> Active Users</a></li>
                             <li><a href="{{ URL::to('/admin/monitor/wishes')}}"><span class="fa fa-star"></span> Wishes</a></li>
                             <li><a href="{{ URL::to('/admin/monitor/wishlists')}}"><span class="fa fa-list"></span> Wishlists</a></li>
                         </ul>

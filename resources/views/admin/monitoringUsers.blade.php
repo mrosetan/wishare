@@ -8,6 +8,14 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Users</h3>
             </div>
+            @if($users->isEmpty())
+              <div class="alert alert-info" role="alert">
+                No Users.
+              </div>
+            @else
+            @foreach($errors->all() as $error)
+                <p class="alert alert-danger"> {{ $error }}</p>
+            @endforeach
             <div class="panel-body">
                 <table class="table table-striped">
                     <thead>
@@ -22,35 +30,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($users as $user)
                         <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>qwedsasd</td>
-                            <td>asd@asd.com</td>
-                            <td>07-15-15</td>
-                            <td><a href="#"><span class="fa fa-ban"></span></a></td>
+                            <td>{!! $user->id !!}</td>
+                            <td>{!! $user->firstname !!}</td>
+                            <td>{!! $user->lastname !!}</td>
+                            <td>{!! $user->username !!}</td>
+                            <td>{!! $user->email !!}</td>
+                            <td>{!! $user->created_at !!}</td>
+                            <td><a href="{!! action('AdminController@deactivateUser', $user->id) !!}"><span class="fa fa-ban"></span></a></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>qwedsasd</td>
-                            <td>asd@asd.com</td>
-                            <td>07-15-15</td>
-                            <td><a href="#"><span class="fa fa-ban"></span></a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>qwedsasd</td>
-                            <td>asd@asd.com</td>
-                            <td>07-15-15</td>
-                            <td><a href="#"><span class="fa fa-ban"></span></a></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                @endif
             </div>
         </div>
 
