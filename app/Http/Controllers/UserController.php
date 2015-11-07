@@ -24,10 +24,6 @@ class UserController extends Controller
     return view('userlayouts.home');
   }
 
-  public function profile()
-  {
-    return view('userlayouts.profile');
-  }
   public function notifications()
   {
     return view('userlayouts.notifications');
@@ -79,12 +75,11 @@ class UserController extends Controller
     return redirect('/user/home');
   }
 
-  public function getUserDetails($id)
+  public function getUserDetails()
   {
-    $users = User::where('id', '=', $id)
-                ->where('status', '=', 1)
-                ->get();
-    return view('userlayouts.settings', compact('users'));
+    $user = Auth::user();
+    //var_dump($user);
+    return view('userlayouts.profile', compact('user'));
   }
 
   public function editSettings($id)

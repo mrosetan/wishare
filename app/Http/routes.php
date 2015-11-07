@@ -21,7 +21,7 @@ Route::get('/blank', 'PagesController@blank');
 /* User */
 Route::get('user/usermaster', 'UserController@dashboard');
 Route::get('user/home', 'UserController@home');
-Route::get('user/profile', 'UserController@profile');
+Route::get('user/profile', 'UserController@getUserDetails');
 Route::get('user/notifications', 'UserController@notifications');
 Route::get('user/notes', 'UserController@notes');
 Route::get('user/wish', 'UserController@wish');
