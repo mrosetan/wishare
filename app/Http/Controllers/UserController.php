@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\SettingRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\SetPasswordRequest;
 use App\User;
 use Auth;
 
@@ -27,7 +28,19 @@ class UserController extends Controller
 
   public function home()
   {
-    return view('userlayouts.home');
+    $user = Auth::user();
+
+    if (!empty(Auth::user()->password)){
+      return view('userlayouts.home');
+    }
+    else {
+      return redirect('user/setPassword');
+    }
+  }
+
+  public function setPassword()
+  {
+      return view('userlayouts.setPassword');
   }
 
   public function notifications()
@@ -61,6 +74,7 @@ class UserController extends Controller
   {
     return view('otheruser.otheruserprofile');
   }
+
 
   public function store(UserRequest $request)
   {
@@ -110,5 +124,16 @@ class UserController extends Controller
 
     //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
     return redirect('user/settings/profile')->with('status', 'Saved!');
+  }
+
+  public function updateToSetPassword(SetPasswordRequest $request)
+  {
+    $user = Auth::user();
+
+    $user->password = bcrypt($request->get('password'));
+
+    $user->save();
+
+    return redirect('user/home');
   }
 }

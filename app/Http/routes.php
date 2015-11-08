@@ -28,6 +28,8 @@ Route::get('user/wish', 'UserController@wish');
 Route::get('user/settings/changepass', 'UserController@changePass');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
 Route::get('user/help', 'UserController@help');
+Route::get('user/setPassword', 'UserController@setPassword');
+Route::post('user/setPassword', 'UserController@updateToSetPassword');
 
 Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
