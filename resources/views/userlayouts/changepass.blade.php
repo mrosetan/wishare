@@ -8,23 +8,37 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Change Password</h4>
+          @if(session('passwordStatus'))
+            <div class="alert alert-success">
+                {{ session('passwordStatus') }}
+            </div>
+          @endif
+          @if(session('passwordError'))
+            <div class="alert alert-danger">
+                {{ session('passwordError') }}
+            </div>
+          @endif
+          @foreach($errors->all() as $error)
+              <p class="alert alert-danger"> {{ $error }}</p>
+          @endforeach
           {!! Form::open(array(
+                        'action' => array('UserController@changeAccountPassword'),
                         'class' => 'form')) !!}
           <div class="row">
             <div class="col-md-12">
-              {!! Form::password('oldpass', array('class'=>'form-control', 'placeholder'=>'Old Password')) !!}
+              {!! Form::password('oldpassword', array('required', 'class'=>'form-control', 'placeholder'=>'Current Password')) !!}
             </div>
           </div>
           <br />
           <div class="row">
             <div class="col-md-12">
-              {!! Form::password('newpassword', array('class'=>'form-control', 'placeholder'=>'New Password')) !!}
+              {!! Form::password('password', array('required', 'class'=>'form-control', 'placeholder'=>'New Password')) !!}
             </div>
           </div>
           <br />
           <div class="row">
             <div class="col-md-12">
-                {!! Form::password('confirmnewpassword', array('class'=>'form-control', 'placeholder'=>'Confirm New Password')) !!}
+                {!! Form::password('password_confirmation', array('class'=>'form-control', 'placeholder'=>'Confirm New Password')) !!}
             </div>
           </div>
           <hr />
