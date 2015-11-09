@@ -60,7 +60,6 @@
                         <ul>
                             <li><a href="{{ url('user/settings/profile') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                             <li><a href="{{ url('user/settings/changepass') }}"><span class="fa fa-lock"></span> Change Password</a></li>
-                            <li><a href="{{ url('user/settings/deactivate') }}"><span class="fa fa-ban"></span> Deactivate</a></li>
                         </ul>
                     </li>
                     <li>

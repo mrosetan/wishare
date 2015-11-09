@@ -117,6 +117,8 @@ class UserController extends Controller
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
     $user->city = $request->get('city');
+    $user->username = $request->get('username');
+    $user->email = $request->get('email');
     $user->facebook = $request->get('facebook');
     $user->birthdate = $request->get('birthdate');
 

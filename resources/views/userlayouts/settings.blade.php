@@ -51,7 +51,7 @@
           <div class="row">
             <div class="col-md-12">
               <label>E-mail:</label>
-                {!! Form::email('e-mail', $user->email, array('class'=>'form-control')) !!}
+                {!! Form::email('email', $user->email, array('class'=>'form-control')) !!}
             </div>
           </div>
           <br/ >
