@@ -16,6 +16,12 @@ div.container-fluid {
   height: 100%;
 }
 
+/*@media screen and (min-width: 500px){
+    .lp-link{
+      width: 206px;
+    }
+}*/
+
 .logo-header {
   width: 110px;
 }
@@ -30,7 +36,7 @@ img {
 }
 
 .button-container{
-  width: 320px;
+  width: 205px;
   margin-top: 10px;
   float: right;
 }
@@ -69,6 +75,12 @@ button.btn.btn-danger {
 }
 
 button.btn.btn-default.btn-lg.button-fb {
+  background-color: #45629d;
+  border: 0;
+  color: #fff;
+}
+
+.button-fb {
   background-color: #45629d;
   border: 0;
   color: #fff;

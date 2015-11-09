@@ -5,6 +5,12 @@
 <div class="reg-content-header">Create an Account</div>
 <div class="reg-content-container">
 
+  <div class="row">
+    <!-- <button type="button" class="btn btn-default btn-lg button-fb">Connect with Facebook</button> -->
+    <a class="btn btn-info btn-lg btn-block button-fb" href="{!! action('AuthController@redirectToProvider') !!}">Connect with Facebook</a>
+  </div>
+  <hr />
+
   @foreach($errors->all() as $error)
       <p class="alert alert-danger"> {{ $error }}</p>
   @endforeach
@@ -73,5 +79,12 @@
     </div>
   </div>
   {!! Form::close() !!}
+
+  <hr />
+  <div class="row">
+    <div class="col-md-12">
+      <div class="terms-of-use">Already have an account? <a href="{{ URL::to('signin')}}">Sign In Here</a></div>
+    </div>
+  </div>
 </div>
 @stop

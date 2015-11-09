@@ -1,12 +1,12 @@
 @extends('admin.master')
-@section('title', 'Add Default Wishlist')
+@section('title', 'Edit Default Wishlist')
 @section('content')
 <div class="row">
 
   <div class="container col-md-6 col-md-offset-3">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2> Add New Default Wishlist </h2>
+            <h2> Edit Default Wishlist </h2>
 
             @if(session('status'))
               <div class="alert alert-success">
@@ -19,21 +19,21 @@
                           'class' => 'form')) !!}
 
             <div class="form-group">
-                {!! Form::label('Input Wishlist Title') !!}
+                {!! Form::label('Wishlist Title') !!}
                 {!! Form::text('title', $defaultwishlist->title,
                                 array('class'=>'form-control')) !!}
             </div>
 
             <div class="row">
-              <div class="col-sm-6 form-group ">
-                  {!! Form::submit('Add',
+              <div class="col-sm-12 form-group ">
+                  {!! Form::submit('Save',
                                     array('class'=>'btn btn-info btn-block')) !!}
               </div>
 
-              <div class="col-sm-6 form-group">
+              <!-- <div class="col-sm-6 form-group">
                   {!! Form::reset('Cancel',
                                     array('class'=>'btn btn-info btn-block')) !!}
-              </div>
+              </div> -->
             </div>
 
             {!! Form::close() !!}

@@ -39,7 +39,7 @@ return [
     'facebook' => [
         'client_id'     => '456045444586296',
         'client_secret' => '67f80ae54e8938dcdf291e976c2cf288',
-        'redirect'      => 'http://localhost/wishare/public/login/facebook/callback',
+        'redirect'      => 'http://192.168.1.13/wishare/public/login/facebook/callback',
     ],
 
 ];

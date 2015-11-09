@@ -15,6 +15,7 @@
 Route::get('/', 'PagesController@index');
 Route::get('/signin', 'PagesController@signin');
 Route::get('/signup', 'PagesController@signup');
+Route::get('/reactivate', 'PagesController@activateAccount');
 Route::get('/blank', 'PagesController@blank');
 
 
@@ -28,6 +29,8 @@ Route::get('user/wish', 'UserController@wish');
 Route::get('user/settings/changepass', 'UserController@changePass');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
 Route::get('user/help', 'UserController@help');
+Route::get('user/setPassword', 'UserController@setPassword');
+Route::post('user/setPassword', 'UserController@updateToSetPassword');
 
 Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');

@@ -13,9 +13,16 @@
                 No Users.
               </div>
             @else
-            @foreach($errors->all() as $error)
+
+            @if(session('status'))
+              <div class="alert alert-success">
+                  {{ session('status') }}
+              </div>
+            @endif
+
+            <!-- @foreach($errors->all() as $error)
                 <p class="alert alert-danger"> {{ $error }}</p>
-            @endforeach
+            @endforeach -->
             <div class="panel-body">
                 <table class="table table-striped">
                     <thead>
