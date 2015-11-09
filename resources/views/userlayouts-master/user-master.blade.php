@@ -59,7 +59,7 @@
                         <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
                         <ul>
                             <li><a href="{{ url('user/settings/profile') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                            <li><a href="{{ url('user/settings/changepass') }}"><span class="fa fa-lock"></span> Change Password</a></li>
+                            <li><a href="{{ url('user/settings/changepassword') }}"><span class="fa fa-lock"></span> Change Password</a></li>
                         </ul>
                     </li>
                     <li>

@@ -37,9 +37,9 @@ return [
 
     //Socialite
     'facebook' => [
-        'client_id'     => '456045444586296',
-        'client_secret' => '67f80ae54e8938dcdf291e976c2cf288',
-        'redirect'      => 'http://192.168.1.15/wishare/public/login/facebook/callback',
+        'client_id'     =>  env('FB_CLIENT_ID'),
+        'client_secret' =>  env('FB_CLIENT_SECRET'),
+        'redirect'      =>  env('FB_REDIRECT'),
     ],
 
 ];
