@@ -92,7 +92,8 @@ class UserController extends Controller
 
     $user->save();
 
-    return redirect('/user/home');
+    return view('userlayouts.home');
+    // return redirect('/user/home');
   }
 
   public function getUserDetails()
