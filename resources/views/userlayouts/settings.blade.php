@@ -19,64 +19,65 @@
           {!! Form::open(array(
                         'action' => array('UserController@updateUserSettings', $user->id),
                         'class' => 'form')) !!}
-
-          <div class="row">
-            <div class="col-md-12">
-              <label>First Name:</label>
-              {!! Form::text('firstname', $user->firstname, array('class'=>'form-control')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-              <label>Last Name:</label>
-                {!! Form::text('lastname', $user->lastname, array('class'=>'form-control')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-              <label>City:</label>
-                {!! Form::text('city', $user->city, array('class'=>'form-control')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-              <label>Username:</label>
-                {!! Form::text('username', $user->username, array('class'=>'form-control')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-              <label>E-mail:</label>
-                {!! Form::email('email', $user->email, array('class'=>'form-control')) !!}
-            </div>
-          </div>
-          <br/ >
-          <div class="row">
-            <div class="col-md-12">
-              <label>Facebook Username:</label>
-                {!! Form::text('facebook', $user->facebook, array('class'=>'form-control')) !!}
-            </div>
-          </div>
-          <br />
-          <div class="row">
-            <div class="col-md-12">
-              <label>Birthdate:</label>
-              {!! Form::text('birthdate', $user->birthdate, array('id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'YYYY-MM-DD')) !!}
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-md-12">
-              <div class="pull-right">
-                {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-12">
+                <label>First Name:</label>
+                {!! Form::text('firstname', $user->firstname, array('class'=>'form-control')) !!}
               </div>
             </div>
+            <br />
+            <div class="row">
+              <div class="col-sm-12">
+                <label>Last Name:</label>
+                  {!! Form::text('lastname', $user->lastname, array('class'=>'form-control')) !!}
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-sm-12">
+                <label>City:</label>
+                  {!! Form::text('city', $user->city, array('class'=>'form-control')) !!}
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-sm-12">
+                <label>Username:</label>
+                  {!! Form::text('username', $user->username, array('class'=>'form-control')) !!}
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-sm-12">
+                <label>E-mail:</label>
+                  {!! Form::email('email', $user->email, array('class'=>'form-control')) !!}
+              </div>
+            </div>
+            <br/ >
+            <div class="row">
+              <div class="col-sm-12">
+                <label>Facebook Username:</label>
+                  {!! Form::text('facebook', $user->facebook, array('class'=>'form-control')) !!}
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-sm-12">
+                <label>Birthdate:</label>
+                {!! Form::text('birthdate', $user->birthdate, array('id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'YYYY-MM-DD')) !!}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="ccol-sm-12">
+                <div class="pull-right">
+                  {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+                </div>
+              </div>
+            </div>
+            {!! Form::close()!!}
           </div>
-          {!! Form::close()!!}
         </div>
       </div>
     </div>
