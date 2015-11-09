@@ -16,6 +16,12 @@ div.container-fluid {
   height: 100%;
 }
 
+/*@media screen and (min-width: 500px){
+    .lp-link{
+      width: 206px;
+    }
+}*/
+
 .logo-header {
   width: 110px;
 }
@@ -30,7 +36,7 @@ img {
 }
 
 .button-container{
-  width: 320px;
+  width: 205px;
   margin-top: 10px;
   float: right;
 }

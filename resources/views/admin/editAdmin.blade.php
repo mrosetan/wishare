@@ -14,6 +14,10 @@
               </div>
             @endif
 
+            @foreach($errors->all() as $error)
+                <p class="alert alert-danger"> {{ $error }}</p>
+            @endforeach
+
             {!! Form::open(array(
                           'action' => array('AdminController@updateAdmin', $user->id),
                           'class' => 'form')) !!}
@@ -50,22 +54,20 @@
             </div>
 
             <div class="row">
-              <div class="col-sm-6 form-group ">
-                  {!! Form::submit('Submit',
+              <div class="col-sm-12 form-group ">
+                  {!! Form::submit('Save',
                                     array('class'=>'btn btn-info btn-block')) !!}
               </div>
 
-              <div class="col-sm-6 form-group">
+              <!-- <div class="col-sm-6 form-group">
                   {!! Form::reset('Cancel',
                                     array('class'=>'btn btn-info btn-block')) !!}
-              </div>
+              </div> -->
             </div>
 
             {!! Form::close() !!}
 
-            @foreach($errors->all() as $error)
-                <p class="alert alert-danger"> {{ $error }}</p>
-            @endforeach
+
         </div>
 
 

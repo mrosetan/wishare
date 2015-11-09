@@ -59,6 +59,22 @@ class PagesController extends Controller
       return view('pages.registration');
   }
 
+  public function activateAccount()
+  {
+    if(Auth::check()){
+      if(Auth::user()->type == '0')
+      {
+          return view('admin.master');
+      }
+      else
+      {
+          return redirect('user/home');
+      }
+    }
+    else
+      return view('pages.activateAccount');
+  }
+
   public function blank()
   {
       return view('pages.blank');

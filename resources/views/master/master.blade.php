@@ -39,18 +39,16 @@
       <!--  <div class="login-header"> -->
         <div class="row">
             <a href="{{ URL::to('/')}}"><img src="img/logo.png" class="logo-header"></a>
-            <div class="button-container">
+            <!-- <div class="button-container">
               <div class="row">
-                <div class="col-md-6">
-                  <!-- <button type="button" class="btn btn-info btn-lg btn-signin">Sign In</button> -->
+                <div class="col-sm-6">
                   <a class="btn btn-info btn-lg btn-signin" href="{{ URL::to('signin')}}">Sign In</a>
                 </div>
-                <div class="col-md-6">
-                  <!-- <button type="button" class="btn btn-info btn-lg btn-signin">Sign Up</button> -->
+                <div class="col-sm-6">
                   <a type="button" class="btn btn-info btn-lg btn-signup" href="{{ URL::to('signup')}}">Sign Up</a>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         <!--</div>
       -->

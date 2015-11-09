@@ -57,8 +57,8 @@
           <br/ >
           <div class="row">
             <div class="col-md-12">
-              <label>Facebook:</label>
-                {!! Form::text('facebook', $user->facebook, array('class'=>'form-control', 'placeholder'=>'facebook.com/example')) !!}
+              <label>Facebook Username:</label>
+                {!! Form::text('facebook', $user->facebook, array('class'=>'form-control')) !!}
             </div>
           </div>
           <br />

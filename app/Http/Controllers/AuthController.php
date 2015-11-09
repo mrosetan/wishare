@@ -57,12 +57,14 @@ class AuthController extends Controller
             // var_dump($authUser);
             return $authUser;
         }
+
+        $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
         // else{
           return User::create([
             'fb_id' => $fbUser->id,
             'lastname' => $fbUser->lastname,
             'firstname' => $fbUser->firstname,
-            'username' => $fbUser->name,
+            'username' => $username,
             'email' => $fbUser->email,
             'privacy' => 0,
             'type' => 1,
@@ -99,22 +101,34 @@ class AuthController extends Controller
       if(!Auth::check())
       {
 
-          if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']]))
+          if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
           {
             $user = User::where('email', $request['email'])->firstorFail();
             $type = $user->type;
+            $status = $user->status;
 
+              if($type == '0')
+                  return redirect('/admin');
+              else
+                  return redirect('/user/home');
 
-            if($type == '0')
-                return redirect('/admin');
-            else
-                return redirect('/user/home');
           }
           else
           {
-              $request->flash();
-              Session::flash('flash_message', 'Invalid email or password.');
-              return redirect('/signin');
+              $user = User::where('email', $request['email'])->firstorFail();
+              $status = $user->status;
+
+              if ($status == '0') {
+                $request->flash();
+                Session::flash('flash_message', 'This account has been deactivated.');
+                return redirect('/reactivate');
+              }
+              else {
+                $request->flash();
+                Session::flash('flash_message', 'Invalid email or password.');
+                return redirect('/signin');
+              }
+
           }
       }
       else

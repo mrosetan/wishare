@@ -257,7 +257,7 @@ class AdminController extends Controller
     public function editDefaultWishlist($id)
     {
       if (Auth::user()->type == 0) {
-        $$defaultwishlist = DefaultWishlist::where('id', $id)->first();
+        $defaultwishlist = DefaultWishlist::where('id', $id)->first();
         return view('admin.editDefaultWishlist', compact('defaultwishlist'));
       }
       else
@@ -422,12 +422,12 @@ class AdminController extends Controller
         $user->save();
 
         $users = User::where('status', '=', 1)
-                      ->where('type', '=', 0)
+                      ->where('type', '=', 1)
                       ->orderBy('created_at', 'desc')
                       ->get();
 
         // print($id);
-        return view('admin.monitoringUsers', compact('users'));
+        return view('admin.monitoringUsers', compact('users'))->with('status', 'User has been deactivated successfully.');
 
     }
 }

@@ -15,6 +15,7 @@
 Route::get('/', 'PagesController@index');
 Route::get('/signin', 'PagesController@signin');
 Route::get('/signup', 'PagesController@signup');
+Route::get('/reactivate', 'PagesController@activateAccount');
 Route::get('/blank', 'PagesController@blank');
 
 
