@@ -67,15 +67,30 @@ class UserController extends Controller
   {
     return view('userlayouts.help');
   }
+  public function changepass()
+  {
+    return view('userlayouts.changepass');
+  }
+  public function wishlistAction()
+  {
+    return view('userlayouts.wishlistAction');
+  }
+  public function wishAction()
+  {
+    return view('userlayouts.wishAction');
+  }
+  public function notesAction()
+  {
+    return view('userlayouts.notesAction');
+  }
+  public function tynotesAction()
+  {
+    return view('userlayouts.tynotesAction');
+  }
   /* Other user */
   public function otheruser()
   {
     return view('otheruser.otheruserprofile');
-  }
-
-  public function changepass()
-  {
-    return view('userlayouts.changepass');
   }
 
   public function store(UserRequest $request)
