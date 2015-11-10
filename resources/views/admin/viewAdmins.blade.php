@@ -45,8 +45,28 @@
                               <td>{!! $user->created_at !!}</td>
                               <td>
                                 <a href="{!! action('AdminController@editAdmin', $user->id) !!}"><span class="glyphicon glyphicon-edit"></span></a>
-                                <a href="{!! action('AdminController@deleteAdmin', $user->id) !!}"><span class="glyphicon glyphicon-trash"></span></a>
+                                <!-- <a href="{!! action('AdminController@deleteAdmin', $user->id) !!}"><span class="glyphicon glyphicon-trash"></span></a> -->
+                                <a href="#" class="mb-control" data-box="#mb-delete"><span class="glyphicon glyphicon-trash"></span></a>
                               </td>
+
+                              <!-- MESSAGE BOX-->
+                              <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete">
+                                  <div class="mb-container">
+                                      <div class="mb-middle">
+                                          <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Delete?</div>
+                                          <div class="mb-content">
+                                              <p>Are you sure you want to delete this admin?</p>
+                                          </div>
+                                          <div class="mb-footer">
+                                              <div class="pull-right">
+                                                  <a href="{!! action('AdminController@deleteAdmin', $user->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                                  <button class="btn btn-default btn-lg mb-control-close">No</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- END MESSAGE BOX-->
                           </tr>
                         @endforeach
                     </tbody>

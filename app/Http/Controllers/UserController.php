@@ -67,15 +67,39 @@ class UserController extends Controller
   {
     return view('userlayouts.help');
   }
+  public function changepass()
+  {
+    $user = Auth::user();
+
+    if (!empty(Auth::user()->password)){
+      return view('userlayouts.changepass');
+      // return view('userlayouts.home');
+    }
+    else {
+      return redirect('user/setPassword');
+    }
+    // return view('userlayouts.changepass');
+  }
+  public function wishlistAction()
+  {
+    return view('userlayouts.wishlistAction');
+  }
+  public function wishAction()
+  {
+    return view('userlayouts.wishAction');
+  }
+  public function notesAction()
+  {
+    return view('userlayouts.notesAction');
+  }
+  public function tynotesAction()
+  {
+    return view('userlayouts.tynotesAction');
+  }
   /* Other user */
   public function otheruser()
   {
     return view('otheruser.otheruserprofile');
-  }
-
-  public function changepass()
-  {
-    return view('userlayouts.changepass');
   }
 
   public function store(UserRequest $request)
@@ -94,7 +118,8 @@ class UserController extends Controller
 
     $user->save();
 
-    return redirect('/user/home');
+    return view('userlayouts.home');
+    // return redirect('/user/home');
   }
 
   public function getUserDetails()
