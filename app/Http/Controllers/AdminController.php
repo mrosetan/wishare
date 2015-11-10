@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,6 +13,7 @@ use App\Http\Requests\EditAdminRequest;
 use App\Http\Requests\DefaultWishlistRequest;
 use App\User;
 use App\DefaultWishlist;
+use App\Wishlist;
 use Auth;
 
 class AdminController extends Controller
@@ -84,7 +86,15 @@ class AdminController extends Controller
     public function monitorWishlists()
     {
       if (Auth::user()->type == 0) {
-        return view('admin.monitoringWishlists');
+        // $wishlists = Wishlist::where('status', '=', 1)
+        //               ->orderBy('created_at', 'desc')
+        //               ->get();
+        $wishlists = Wishlist::with('user')
+                              ->orderBy('created_at', 'desc')
+                              ->get();
+        // print_r($wishlists);
+        // die();
+        return view('admin.monitoringWishlists', compact('wishlists'));
       }
       else
         return redirect('user/home');
