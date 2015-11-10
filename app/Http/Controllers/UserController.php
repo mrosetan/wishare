@@ -69,7 +69,16 @@ class UserController extends Controller
   }
   public function changepass()
   {
-    return view('userlayouts.changepass');
+    $user = Auth::user();
+
+    if (!empty(Auth::user()->password)){
+      return view('userlayouts.changepass');
+      // return view('userlayouts.home');
+    }
+    else {
+      return redirect('user/setPassword');
+    }
+    // return view('userlayouts.changepass');
   }
   public function wishlistAction()
   {
@@ -109,7 +118,8 @@ class UserController extends Controller
 
     $user->save();
 
-    return redirect('/user/home');
+    return view('userlayouts.home');
+    // return redirect('/user/home');
   }
 
   public function getUserDetails()
