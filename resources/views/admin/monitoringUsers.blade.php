@@ -45,8 +45,31 @@
                             <td>{!! $user->username !!}</td>
                             <td>{!! $user->email !!}</td>
                             <td>{!! $user->created_at !!}</td>
-                            <td><a href="{!! action('AdminController@deactivateUser', $user->id) !!}"><span class="fa fa-ban"></span></a></td>
+                            <td>
+                              <!-- <a href="{!! action('AdminController@deactivateUser', $user->id) !!}"><span class="fa fa-ban"></span></a> -->
+                              <a href="#" class="mb-control" data-box="#mb-delete"><span class="fa fa-ban"></span></a>
+                            </td>
                         </tr>
+
+                        <!-- MESSAGE BOX-->
+                        <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete">
+                            <div class="mb-container">
+                                <div class="mb-middle">
+                                    <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Ban/Deactivate User?</div>
+                                    <div class="mb-content">
+                                        <p>Are you sure you want to ban/deactivate this user?</p>
+                                    </div>
+                                    <div class="mb-footer">
+                                        <div class="pull-right">
+                                            <a href="{!! action('AdminController@deactivateUser', $user->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END MESSAGE BOX-->
+
                         @endforeach
                     </tbody>
                 </table>
