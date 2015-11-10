@@ -10,7 +10,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\SetPasswordRequest;
+use App\Http\Requests\AccountPasswordRequest;
 use App\User;
+use Session;
+use Hash;
 use Auth;
 
 class UserController extends Controller
@@ -56,11 +59,6 @@ class UserController extends Controller
     return view('userlayouts.wish');
   }
 
-  public function changePass()
-  {
-    return view('userlayouts.changepass');
-  }
-
   public function deactivate()
   {
     return view('userlayouts.deactivate');
@@ -69,12 +67,31 @@ class UserController extends Controller
   {
     return view('userlayouts.help');
   }
+  public function changepass()
+  {
+    return view('userlayouts.changepass');
+  }
+  public function wishlistAction()
+  {
+    return view('userlayouts.wishlistAction');
+  }
+  public function wishAction()
+  {
+    return view('userlayouts.wishAction');
+  }
+  public function notesAction()
+  {
+    return view('userlayouts.notesAction');
+  }
+  public function tynotesAction()
+  {
+    return view('userlayouts.tynotesAction');
+  }
   /* Other user */
   public function otheruser()
   {
     return view('otheruser.otheruserprofile');
   }
-
 
   public function store(UserRequest $request)
   {
@@ -118,6 +135,8 @@ class UserController extends Controller
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
     $user->city = $request->get('city');
+    $user->username = $request->get('username');
+    $user->email = $request->get('email');
     $user->facebook = $request->get('facebook');
     $user->birthdate = $request->get('birthdate');
 
@@ -136,5 +155,22 @@ class UserController extends Controller
     $user->save();
 
     return redirect('user/home');
+  }
+
+  public function changeAccountPassword(AccountPasswordRequest $request)
+  {
+    $user = Auth::user();
+    $password = $request->oldpassword;
+    $userpw = $user->password;
+
+    //check if inputted current pw matches from db
+    if(Hash::check($password, $userpw))
+    {
+      $user->password = bcrypt($request->get('password'));
+      $user->save();
+      return redirect('user/settings/changepassword')->with('passwordStatus', 'Password updated successfully!');
+    }
+    else
+      return redirect('user/settings/changepassword')->with('passwordError', 'Current password incorrect.');
   }
 }

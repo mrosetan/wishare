@@ -24,14 +24,18 @@ Route::get('user/usermaster', 'UserController@dashboard');
 Route::get('user/home', 'UserController@home');
 Route::get('user/profile', 'UserController@getUserDetails');
 Route::get('user/notifications', 'UserController@notifications');
+Route::get('user/action/wishlist', 'UserController@wishlistAction');
+Route::get('user/action/wish', 'UserController@wishAction');
+Route::get('user/action/notes', 'UserController@notesAction');
+Route::get('user/action/tynotes', 'UserController@tynotesAction');
 Route::get('user/notes', 'UserController@notes');
 Route::get('user/wish', 'UserController@wish');
-Route::get('user/settings/changepass', 'UserController@changePass');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
 Route::get('user/help', 'UserController@help');
 Route::get('user/setPassword', 'UserController@setPassword');
 Route::post('user/setPassword', 'UserController@updateToSetPassword');
-
+Route::get('user/settings/changepassword', 'UserController@changepass');
+Route::post('user/settings/changepassword', 'UserController@changeAccountPassword');
 Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
 /* Other user */

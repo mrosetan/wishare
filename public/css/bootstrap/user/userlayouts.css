@@ -31,7 +31,6 @@ h5.user-name{
   margin-left: 80px;
   margin-top: 10px;
 }
-
 /*   Profile   */
 .profile-header {
   width: 100%;
@@ -87,32 +86,11 @@ p.user-given {
 }
 
 /*   Actions   */
-.mb-title {
-  font-size: 12px;
-  color: #fff;
-}
-.mb-container.wishlist {
-  height: 480px;
+.actions-container {
   margin: 0 auto;
-  margin-top: -150px;
-}
-.mb-container.wish {
-  height: 620px;
-  margin: 0 auto;
-  margin-top: -210px;
-}
-span.fa.fa-facebook-square {
-  font-size: 15px;
-}
-.mb-container.note {
-  height: 330px;
-  margin: 0 auto;
-  margin-top: -100px;
-}
-.mb-container.tynote {
-  height: 400px;
-  margin: 0 auto;
-  margin-top: -100px;
+  margin-top: 30px;
+  width: 520px;
+  background-color: red;
 }
 /*   Notifications */
 .fr-buttons {
@@ -126,7 +104,7 @@ span.fa.fa-facebook-square {
 }
 .btn.btn-info.btn-settings {
   margin: 0 auto;
-  width: 460px;
+  width: 200px;
 }
 /* Help */
 .timeline-date {
