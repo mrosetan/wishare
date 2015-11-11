@@ -27,72 +27,129 @@
                   &nbsp;&nbsp;
                   <a href="#"><span class="fa fa-bookmark"></span></a>
                   &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-retweet"></span></a>
+                  <a data-toggle="modal" data-target="#modal_rewish"><span class="fa fa-retweet"></span></a>
                   &nbsp;&nbsp;
-                  <a href="#" class="mb-control" data-box="#mb-rewish"><span class="fa fa-magic"></span></a>
+                  <a data-toggle="modal" data-target="#modal_grant"><span class="fa fa-magic"></span></a>
                 </div>
               </div>
           </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="pull-left">
-                  <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
+    <!--  Rewish  -->
+    <div class="modal" id="modal_rewish" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4>Re-Wish</h4>
                 </div>
-                <div class="user-details">
-                  <h5 class="user-name">
-                    Brenda Mage
+                <div class="modal-body">
+                  @foreach($errors->all() as $error)
+                      <p class="alert alert-danger"> {{ $error }}</p>
+                  @endforeach
+                  {!! Form::open(array( 'class' => 'form')) !!}
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-12">
+                        {!! Form::select('wishlist', ['null'=>'-Wishlist-', 'Christmas', 'Personal', 'Birthday'], null, array('class'=>'form-control'))!!}
+                      </div>
+                    </div>
                     <br />
-                    Wish: Bobby's Heart
+                    <div class="row">
+                      <div class="col-md-12">
+                        {!! Form::text('wish', null, array('class'=>'form-control', 'placeholder'=>'Bobby', 'disabled'=>'disabled')) !!}
+                      </div>
+                    </div>
                     <br />
-                    Date: 10/2/2015
-                  </h5>
+                    <div class="row">
+                      <div class="col-md-12">
+                        {!! Form::textarea('description', null, ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-md-12">
+                        {!! Form::textarea('alternatives', null, ['class'=>'form-control ', 'placeholder'=>'Wish alternatives', 'size'=>'102x5']) !!}
+                      </div>
+                    </div>
+                    <br />
+                    <label>Tag</label>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="tag-container">
+                          {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Baratheon
+                          <br>
+                          {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Rosie Lannister
+                          <br>
+                          {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobrys
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <span class="glyphicon glyphicon-flag"></span><a href="#"><span class="xn-text">&nbsp;Flag wish</span></a>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="pull-right">
+                          {!! Form::submit('Add', array('class'=>'btn btn-info')) !!}
+                          {!! Form::reset('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {!! Form::close() !!}
                 </div>
-                <div class="pull-right">
-                  <a href="#"><span class="fa fa-star"></span></a>
-                  &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-bookmark"></span></a>
-                  &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-retweet"></span></a>
-                  &nbsp;&nbsp;
-                  <a href="#" class="mb-control" data-box="#mb-rewish"><span class="fa fa-magic"></span></a>
-                </div>
-              </div>
-          </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-              <div class="panel-body">
-                <div class="pull-left">
-                  <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
+    <!--  Grant  -->
+    <div class="modal" id="modal_grant" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4>Grant Wish</h4>
                 </div>
-                <div class="user-details">
-                  <h5 class="user-name">
-                    Brenda Mage
+                <div class="modal-body">
+                  @foreach($errors->all() as $error)
+                      <p class="alert alert-danger"> {{ $error }}</p>
+                  @endforeach
+                  {!! Form::open(array( 'class' => 'form')) !!}
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label>Wish</label>
+                        {!! Form::text('wish', null, array('class'=>'form-control', 'placeholder'=>'Bobby', 'disabled'=>'disabled')) !!}
+                      </div>
+                    </div>
                     <br />
-                    Wish: Bobby's Heart
+                    <div class="row">
+                      <div class="col-sm-12">
+                        {!! Form::text('caption', null, array('class'=>'form-control', 'placeholder'=>'Caption'))!!}
+                      </div>
+                    </div>
                     <br />
-                    Date: 10/2/2015
-                  </h5>
+                    <div class="row">
+                      {!! Form::file('photo')!!}
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="pull-right">
+                          {!! Form::submit('Add', array('class'=>'btn btn-info')) !!}
+                          {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {!! Form::close() !!}
                 </div>
-                <div class="pull-right">
-                  <a href="#"><span class="fa fa-star"></span></a>
-                  &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-bookmark"></span></a>
-                  &nbsp;&nbsp;
-                  <a href="#"><span class="fa fa-retweet"></span></a>
-                  &nbsp;&nbsp;
-                  <a href="#" class="mb-control" data-box="#mb-rewish"><span class="fa fa-magic"></span></a>
-                </div>
-              </div>
-          </div>
+            </div>
         </div>
     </div>
+  </div>
+  <!--
     <div class="message-box animated fadeIn" id="mb-rewish">
         <div class="mb-container wish">
             <div class="mb-middle">
@@ -152,5 +209,6 @@
             </div>
         </div>
     </div>
+  -->
 </div>
 @endsection
