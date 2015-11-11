@@ -156,7 +156,7 @@
         <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>-->
         <script>
          $(function() {
-           var date = $('#datepicker');
+           var date = $('#datepicker').datepicker();
            //$( "#datepicker" ).datepicker();
          });
         </script>
