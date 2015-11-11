@@ -65,7 +65,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <label>Birthdate:</label>
-                {!! Form::text('birthdate', $user->birthdate, array('id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'YYYY-MM-DD')) !!}
+                {!! Form::text('birthdate', $user->birthdate, array('id'=>'datepicker', 'class'=>'form-control')) !!}
               </div>
             </div>
             <hr />

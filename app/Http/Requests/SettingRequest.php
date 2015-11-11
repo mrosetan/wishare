@@ -30,7 +30,7 @@ class SettingRequest extends Request
           'username' => 'min:2|max:50|alpha_num',
           'email' => 'email',
           'facebook' => 'min:3|max:50|',
-          'birthdate' => 'date',
+          'birthdate' => 'date|before:tomorrow|date_format:Y-m-d',
         ];
     }
 }
