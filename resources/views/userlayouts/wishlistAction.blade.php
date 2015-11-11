@@ -8,7 +8,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Create a Wishlist</h4>
-            {!! Form::open(array('class' => 'form')) !!}
+          {!! Form::open(array('class' => 'form')) !!}
             <div class="form-group">
               <div class="row">
                 <div class="col-md-12">
@@ -26,9 +26,9 @@
               <label>Privacy</label>
               <div class="row">
                 <div class="col-md-12">
+                  {!! Form::radio('privacy', '0', true)!!}&nbsp;Public
+                  <br />
                   {!! Form::radio('privacy', '1')!!}&nbsp;Private
-                  <br>
-                  {!! Form::radio('privacy', '0')!!}&nbsp;Public
                 </div>
               </div>
               <br />
@@ -40,15 +40,23 @@
                     <br>
                     {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Rosie Lannister
                     <br>
-                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobrys
+                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Racuya
+                    <br>
+                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Dilao
+                    <br>
+                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Tan
+                    <br>
+                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Salimbangon
+                    <br>
+                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Son
+                    <br>
+                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Salmeron
+                    <br>
+                    {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Arnoco
                   </div>
                 </div>
               </div>
               <br/ >
-              <div class="row">
-                <span class="fa fa-facebook-square"><a href="#"></span> <span class="xn-text">Share on Facebook</span></a>
-              </div>
-              <br />
               <div class="row">
                 <div class="col-md-12">
                   <div class="pull-right">
