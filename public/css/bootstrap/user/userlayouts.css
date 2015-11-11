@@ -32,6 +32,9 @@ h5.user-name{
   margin-top: 10px;
 }
 /*   Profile   */
+a:hover {
+  cursor: pointer;
+}
 .profile-header {
   width: 100%;
   margin-left: 30px;
@@ -108,7 +111,7 @@ p.user-given {
 }
 .btn.btn-info.btn-settings {
   margin: 0 auto;
-  width: 200px;
+  width: 475px;
 }
 /* Help */
 .timeline-date {

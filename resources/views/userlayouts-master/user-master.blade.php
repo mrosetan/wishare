@@ -149,13 +149,14 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>
         <!-- END PLUGINS -->
 
-        <!-- THIS PAGE PLUGINS -->
-        <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>
+        <!-- THIS PAGE PLUGINS
+        <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>-->
         <script>
          $(function() {
-           var date = $('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+           var date = $('#datepicker').datepicker();
            //$( "#datepicker" ).datepicker();
          });
         </script>
