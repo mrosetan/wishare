@@ -70,90 +70,35 @@
                 </div>
                 <div class="tab-pane" id="tab-wishes">
                   <div class="panel-group accordion accordion-dc">
-                      <div class="panel panel-default">
-                          <div class="panel-heading">
-                              <h4 class="panel-title">
-                                  <a href="#accOneColOne">
-                                      Birthday
-                                  </a>
-                              </h4>
-                              <div class="wishlist-icons pull-right">
-                                <a href="#"><span class="fa fa-plus"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="fa fa-gear"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                              </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                          <h4 class="panel-title">
+                              <a href="#accOneColOne">
+                                  Birthday
+                              </a>
+                          </h4>
+                          <div class="wishlist-icons pull-right">
+                            <a href="#"><span class="fa fa-plus"></span></a>
+                            &nbsp;&nbsp;
+                            <a href="#"><span class="fa fa-gear"></span></a>
+                            &nbsp;&nbsp;
+                            <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
                           </div>
-                          <div class="panel-body" id="accOneColOne">
-                            <a href="{{ url('user/wish') }}" class="wish-name">Bobby</a>
-                            <div class="wish-icons pull-right">
-                              <a href="#"><span class="fa fa-star"></span></a>
-                              &nbsp;&nbsp;
-                              <a href="#"><span class="fa fa-bookmark"></span></a>
-                              &nbsp;&nbsp;
-                              <a href="#"><span class="fa fa-retweet"></span></a>
-                            </div>
+                        </div>
+                        <div class="panel-body" id="accOneColOne">
+                          <a href="{{ url('user/wish') }}" class="wish-name">Bobby</a>
+                          <div class="wish-icons pull-right">
+                            <a href="#"><span class="fa fa-star"></span></a>
+                            &nbsp;&nbsp;
+                            <a href="#"><span class="fa fa-bookmark"></span></a>
+                            &nbsp;&nbsp;
+                            <a href="#"><span class="fa fa-retweet"></span></a>
                           </div>
-                      </div>
+                        </div>
                     </div>
-                    <div class="panel-group accordion accordion-dc">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a href="#accOneColTwo">
-                                        Christmas
-                                    </a>
-                                </h4>
-                                <div class="wishlist-icons pull-right">
-                                  <a href="#"><span class="fa fa-plus"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="fa fa-gear"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                                </div>
-                            </div>
-                            <div class="panel-body" id="accOneColTwo">
-                              <a href="#" class="wish-name">Bobby</a>
-                              <div class="wish-icons pull-right">
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="fa fa-bookmark"></span></a>
-                                &nbsp;&nbsp;
-                                <a href="#"><span class="fa fa-retweet"></span></a>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="panel-group accordion accordion-dc">
-                          <div class="panel panel-default">
-                              <div class="panel-heading">
-                                  <h4 class="panel-title">
-                                      <a href="#accOneColThree">
-                                          Personal
-                                      </a>
-                                  </h4>
-                                  <div class="wishlist-icons pull-right">
-                                    <a href="#"><span class="fa fa-plus"></span></a>
-                                    &nbsp;&nbsp;
-                                    <a href="#"><span class="fa fa-gear"></span></a>
-                                    &nbsp;&nbsp;
-                                    <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-                                  </div>
-                              </div>
-                              <div class="panel-body" id="accOneColThree">
-                                <a href="#" class="wish-name">Bobby</a>
-                                <div class="wish-icons pull-right">
-                                  <a href="#"><span class="fa fa-star"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="fa fa-bookmark"></span></a>
-                                  &nbsp;&nbsp;
-                                  <a href="#"><span class="fa fa-retweet"></span></a>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
+                  </div>
                 </div>
+                <!--end of wishes-->
                 <div class="tab-pane" id="tab-granted">
                   <div class="panel-group accordion accordion-dc">
                       <div class="panel panel-default">
