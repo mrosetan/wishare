@@ -39,6 +39,10 @@
                         <a href="{{ URL::to('/admin/reports')}}"><span class="fa fa-file"></span> <span class="xn-text">Reports</span></a>
                     </li>
 
+                    <li>
+                        <a href="{{ URL::to('/admin/search')}}"><span class="fa fa-search"></span> <span class="xn-text">Search Users</span></a>
+                    </li>
+
                     <li class="xn-openable">
                         <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Monitoring</span></a>
                         <ul>
@@ -47,14 +51,6 @@
                             <li><a href="{{ URL::to('/admin/monitor/wishlists')}}"><span class="fa fa-list"></span> Wishlists</a></li>
                         </ul>
                     </li>
-
-                    <!-- <li>
-                        <a href="#"><span class="fa fa-ban"></span> <span class="xn-text">Block User</span></a>
-                    </li> -->
-
-                    <!-- <li>
-                        <a href="#"><span class="fa fa-search"></span> <span class="xn-text">Search Users</span></a>
-                    </li> -->
 
                     <li class="xn-openable">
                         <a href="#"><span class="fa fa-users"></span> <span class="xn-text">Admin Accounts</span></a>
