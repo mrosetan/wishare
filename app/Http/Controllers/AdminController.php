@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\EditAdminRequest;
 use App\Http\Requests\DefaultWishlistRequest;
+use App\Http\Requests\AdminSearchRequest;
 use App\User;
 use App\DefaultWishlist;
 use App\Wishlist;
@@ -45,6 +46,38 @@ class AdminController extends Controller
     {
       if (Auth::user()->type == 0) {
         return view('admin.reports');
+      }
+      else
+        return redirect('user/home');
+    }
+
+    public function search()
+    {
+      if (Auth::user()->type == 0) {
+        $results = '';
+        return view('admin.search', compact('results'));
+      }
+      else
+        return redirect('user/home');
+    }
+
+    public function searchUser(AdminSearchRequest $request)
+    {
+      if (Auth::user()->type == 0) {
+        $search = $request->search;
+
+        $results = User::where('firstname', 'like', '%'.$search.'%')
+                        ->orWhere('lastname', 'like', '%'.$search.'%')
+                        ->orWhere('username', 'like', '%'.$search.'%')
+                        ->orWhere('email', 'like', '%'.$search.'%')
+                        ->orderBy('status', 'desc')
+                        ->get();
+
+        if(count($results) > 0)
+          return view('admin.search', compact('results'));
+        else
+          return view('admin.search')->with('errormsg', 'Not found');
+
       }
       else
         return redirect('user/home');

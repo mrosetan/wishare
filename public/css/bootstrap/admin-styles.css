@@ -1,3 +1,15 @@
 .admin-logo{
   width: 100%;
 }
+
+.inline-inputs{
+  width: 100% !important;
+}
+
+.active-indicator{
+  color: #00ff00;
+}
+
+.deactivated-indicator{
+  color: #ff0000;
+}
