@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Session;
 use App\User;
+use App\DefaultWishlist;
+use App\Wishlist;
 
 class AuthController extends Controller
 {
@@ -40,6 +42,33 @@ class AuthController extends Controller
       $authUser = $this->findOrCreateUser($user);
 
       Auth::login($authUser, true);
+      $user = Auth::user();
+
+      if($user->defaultwishlist == 0){
+
+
+        $defaultwishlists = DefaultWishlist::where('status', '=', 1)
+                                            ->orderBy('created_at', 'desc')
+                                            ->get();
+
+        // var_dump($defaultwishlists);
+
+        foreach ($defaultwishlists as $dw) {
+
+          $wishlist = new Wishlist(array(
+            'title' => $dw->title,
+            'createdby_id' => $user->id,
+            'privacy' => 0,
+            'status' => 1,
+          ));
+
+          $wishlist->save();
+        }
+
+        $user->defaultwishlist = 1;
+
+        $user->save();
+      }
 
       return redirect('user/home');
       // return redirect()->route('user.home');
@@ -69,6 +98,7 @@ class AuthController extends Controller
             'privacy' => 0,
             'type' => 1,
             'status' => 1,
+            'defaultwishlist' => 0,
           ]);
         // }
     }
