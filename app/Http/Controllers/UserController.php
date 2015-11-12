@@ -14,6 +14,8 @@ use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
 use App\Wishlist;
 use App\User;
+use App\DefaultWishlist;
+use App\Wishlist;
 use Session;
 use Hash;
 use Auth;
@@ -116,12 +118,52 @@ class UserController extends Controller
       'privacy' => 0,
       'type' => 1,
       'status' => 1,
+      'defaultwishlist' => 0,
       'password' => trim(bcrypt($request->get('password'))),
     ));
 
     $user->save();
 
-    return view('userlayouts.home');
+    //========= get default wishlists and store to users wishlists
+    if(!Auth::check()){
+      if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
+      {
+        $user = User::where('email', $request['email'])->firstorFail();
+        $type = $user->type;
+        $status = $user->status;
+        // var_dump($user);
+
+        $defaultwishlists = DefaultWishlist::where('status', '=', 1)
+                                            ->orderBy('created_at', 'desc')
+                                            ->get();
+
+        // var_dump($defaultwishlists);
+
+        foreach ($defaultwishlists as $dw) {
+
+          $wishlist = new Wishlist(array(
+            'title' => $dw->title,
+            'createdby_id' => $user->id,
+            'privacy' => 0,
+            'status' => 1,
+          ));
+
+          $wishlist->save();
+        }
+
+        $user->defaultwishlist = 1;
+
+        $user->save();
+
+
+        return view('userlayouts.home');
+
+      }
+    }
+    else {
+      print("Not logged in");
+    }
+
     // return redirect('/user/home');
   }
 

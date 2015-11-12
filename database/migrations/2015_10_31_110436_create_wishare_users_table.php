@@ -27,6 +27,7 @@ class CreateWishareUsersTable extends Migration
             $table->tinyInteger('privacy');
             $table->tinyInteger('type');
             $table->tinyInteger('status');
+            $table->tinyInteger('defaultwishlist');
             $table->string('forgot_password_token');
             $table->string('remember_token')->nullable();
             $table->timestamps();
