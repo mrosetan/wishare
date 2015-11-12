@@ -159,6 +159,19 @@
            var date = $('#datepicker').datepicker();
            //$( "#datepicker" ).datepicker();
          });
+          $('#myTab a').click(function (e) {
+              e.preventDefault();
+              $(this).tab('show');
+          });
+
+          // store the currently selected tab in the hash value
+          $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+              var id = $(e.target).attr("href").substr(1);
+              window.location.hash = id;
+          });
+          // on load of the page: switch to the currently selected tab
+          var hash = window.location.hash;
+          $('#myTab a[href="' + hash + '"]').tab('show');
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>

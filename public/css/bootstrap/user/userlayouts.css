@@ -1,5 +1,7 @@
 /*  User master  */
-
+html {
+  height: 100%;
+}
 img.logo {
     position: absolute;
     margin: auto;
@@ -55,7 +57,7 @@ h4.userprofile-name {
 }
 h5.userprofile-addr {
 }
-.wishlist-icons.pull-right span.fa.fa-plus, .wishlist-icons.pull-right span.fa.fa-gear, .wishlist-icons.pull-right span.glyphicon.glyphicon-trash{
+.wishlist-icons.pull-right span.fa.fa-plus, .wishlist-icons.pull-right span.glyphicon.glyphicon-edit, .wishlist-icons.pull-right span.glyphicon.glyphicon-trash{
   font-size: 20px;
   margin-top: 5px;
 }
