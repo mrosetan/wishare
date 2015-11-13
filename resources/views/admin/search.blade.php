@@ -1,4 +1,4 @@
-@extends('admin.master')
+ @extends('admin.master')
 @section('title', 'Search User/Admin')
 @section('content')
 <div class="row">
