@@ -15,7 +15,6 @@ use App\Http\Requests\WishlistRequest;
 use App\Wishlist;
 use App\User;
 use App\DefaultWishlist;
-use App\Wishlist;
 use Session;
 use Hash;
 use Auth;
