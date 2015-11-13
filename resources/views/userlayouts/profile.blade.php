@@ -84,17 +84,19 @@
                   <div class="panel-group accordion accordion-dc">
                     <div class="panel panel-default">
                       <div class="panel-heading">
-                        <h4 class="panel-title">
+                        <p class="panel-title">
                             <a href="#accOneColOne">
                               {!! $wishlist->title !!}
                             </a>
-                        </h4>
+                        </p>
                         <div class="wishlist-icons pull-right">
                           <a href="#"><span class="fa fa-plus"></span></a>
                           &nbsp;&nbsp;
                           <a href="#" data-toggle="modal" data-target="#modal_{!! $id !!}"><span class="glyphicon glyphicon-edit"></span></a>
                           &nbsp;&nbsp;
                           <a href="{!! action('UserController@deleteWishlist', $wishlist->id) !!}"><span class="glyphicon glyphicon-trash"></span></a>
+                          &nbsp;&nbsp;
+                          <div class="fb-share-button" data-href="http://www.9gag.com" data-layout="icon"></div> <!-- URL of site -->
                         </div>
                       </div>
                       <div class="panel-body" id="accOneColOne">
