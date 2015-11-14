@@ -278,4 +278,21 @@ class UserController extends Controller
     $wishlist->save();
     return redirect('user/profile#tab-wishes')->with('wishlistDelete', 'Wishlist deleted!');
   }
+
+  public function getWishlist()
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+    $wishlists = '';
+    $wishlists = Wishlist::with('user')
+                        ->where('createdby_id', '=', $userId)
+                        ->where('status', '=', 1)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+    if(count($wishlists) > 0)
+      return view('userlayouts.wishlistProfile', compact('user', 'wishlists'));
+    else
+      return view('userlayouts.wishlistProfile')->with('errormsg', "No Wishlists.");
+  }
 }
