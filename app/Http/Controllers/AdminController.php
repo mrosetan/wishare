@@ -51,33 +51,47 @@ class AdminController extends Controller
         return redirect('user/home');
     }
 
-    public function search()
+    // ===================================Search ver 1=====
+    // public function search()
+    // {
+    //   if (Auth::user()->type == 0) {
+    //     $results = '';
+    //     return view('admin.search', compact('results'));
+    //   }
+    //   else
+    //     return redirect('user/home');
+    // }
+    //
+    // public function searchUser(AdminSearchRequest $request)
+    // {
+    //
+    //   if (Auth::user()->type == 0) {
+    //     $search = $request->search;
+    //
+    //     $results = User::where('firstname', 'like', '%'.$search.'%')
+    //                     ->orWhere('lastname', 'like', '%'.$search.'%')
+    //                     ->orWhere('username', 'like', '%'.$search.'%')
+    //                     ->orWhere('email', 'like', '%'.$search.'%')
+    //                     ->orderBy('status', 'desc')
+    //                     ->get();
+    //
+    //     if(count($results) > 0)
+    //       return view('admin.search', compact('results'));
+    //     else
+    //       return view('admin.search')->with('errormsg', 'Not found');
+    //
+    //   }
+    //   else
+    //     return redirect('user/home');
+    // }
+    // ===================================Search ver 1=====
+
+    public function searchUserOrAdmin()
     {
       if (Auth::user()->type == 0) {
-        $results = '';
+        $results = User::paginate();
+
         return view('admin.search', compact('results'));
-      }
-      else
-        return redirect('user/home');
-    }
-
-    public function searchUser(AdminSearchRequest $request)
-    {
-      if (Auth::user()->type == 0) {
-        $search = $request->search;
-
-        $results = User::where('firstname', 'like', '%'.$search.'%')
-                        ->orWhere('lastname', 'like', '%'.$search.'%')
-                        ->orWhere('username', 'like', '%'.$search.'%')
-                        ->orWhere('email', 'like', '%'.$search.'%')
-                        ->orderBy('status', 'desc')
-                        ->get();
-
-        if(count($results) > 0)
-          return view('admin.search', compact('results'));
-        else
-          return view('admin.search')->with('errormsg', 'Not found');
-
       }
       else
         return redirect('user/home');
@@ -90,7 +104,10 @@ class AdminController extends Controller
         $users = User::where('status', '=', 1)
                       ->where('type', '=', 1)
                       ->orderBy('created_at', 'desc')
-                      ->get();
+                      // ->get();
+                      ->paginate();
+
+        // $users->setPath('http://192.168.1.10/wishare/public/admin/monitor/users');
         // print_r($users);
         return view('admin.monitoringUsers', compact('users'));
       }
@@ -124,7 +141,10 @@ class AdminController extends Controller
         //               ->get();
         $wishlists = Wishlist::with('user')
                               ->orderBy('created_at', 'desc')
-                              ->get();
+                              // ->get();
+                              ->paginate();
+
+        // $wishlists->setPath('http://192.168.1.10/wishare/public/admin/monitor/wishlists');
         // print_r($wishlists);
         // die();
         return view('admin.monitoringWishlists', compact('wishlists'));
@@ -170,7 +190,9 @@ class AdminController extends Controller
       if (Auth::user()->type == 0) {
         $defaultwishlists = DefaultWishlist::where('status', '=', 1)
                                             ->orderBy('created_at', 'desc')
-                                            ->get();
+                                            // ->get();
+                                            ->paginate();
+        // $defaultwishlists->setPath('http://192.168.1.10/wishare/public/admin/view/defaultwishlists');
 
         return view('admin.viewDefaultWishlists', compact('defaultwishlists'));
       }
@@ -251,7 +273,10 @@ class AdminController extends Controller
         $users = User::where('status', '=', 1)
                       ->where('type', '=', 0)
                       ->orderBy('created_at', 'desc')
-                      ->get();
+                      // ->get();
+                      ->paginate();
+
+        // $users->setPath('http://192.168.1.10/wishare/public/admin/view/admins');
         // print_r($users);
         return view('admin.viewAdmins', compact('users'));
       }
@@ -354,37 +379,6 @@ class AdminController extends Controller
       }
       else
         return redirect('user/home');
-
-      // $user = User::where('id', $id)->first();
-      //
-      // if($request->get('firstname') != '')
-      // {
-      //     $user->firstname = $request->get('firstname');
-      // }
-      //
-      // if($request->get('lastname') != '')
-      // {
-      //     $user->lastname = $request->get('lastname');
-      // }
-      //
-      // if($request->get('password') != '')
-      // {
-      //   $user->password = bcrypt($request->get('password'));
-      // }
-      //
-      // if($request->get('username') != '')
-      // {
-      //     $user->username = $request->get('username');
-      // }
-      //
-      // if($request->get('email') != '')
-      // {
-      //     $user->email = $request->get('email');
-      // }
-      //
-      // $user->save();
-      //
-      // return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
     }
 
     public function updateDefaultWishlist(DefaultWishlistRequest $request, $id)
@@ -404,16 +398,6 @@ class AdminController extends Controller
       else
         return redirect('user/home');
 
-      // $defaultwishlist = DefaultWishlist::where('id', $id)->first();
-      //
-      // if($request->get('title') != '')
-      // {
-      //     $defaultwishlist->title = $request->get('title');
-      // }
-      //
-      // $defaultwishlist->save();
-      //
-      // return redirect(action('AdminController@editDefaultWishlist', $defaultwishlist->id))->with('status', 'Default wishlist updated successfully.');
     }
 
     /**
@@ -433,9 +417,9 @@ class AdminController extends Controller
         $users = User::where('status', '=', 1)
                       ->where('type', '=', 0)
                       ->orderBy('created_at', 'desc')
-                      ->get();
+                      // ->get();
+                      ->paginate();
 
-        // print($id);
         return view('admin.viewAdmins', compact('users'));
 
     }
@@ -450,7 +434,8 @@ class AdminController extends Controller
 
         $defaultwishlists = DefaultWishlist::where('status', '=', 1)
                                             ->orderBy('created_at', 'desc')
-                                            ->get();
+                                            // ->get();
+                                            ->paginate();
 
         return view('admin.viewDefaultWishlists', compact('defaultwishlists'))->with('status', 'Default wishlist deleted successfully.');
 
@@ -467,10 +452,40 @@ class AdminController extends Controller
         $users = User::where('status', '=', 1)
                       ->where('type', '=', 1)
                       ->orderBy('created_at', 'desc')
-                      ->get();
+                      // ->get();
+                      ->paginate();
 
-        // print($id);
         return view('admin.monitoringUsers', compact('users'))->with('status', 'User has been deactivated successfully.');
+
+    }
+
+    // ================================Search User/Admin Actions =====================================
+
+    public function reactivate($id)
+    {
+        $user = User::where('id', $id)->firstorFail();
+
+        $user->status = 1;
+
+        $user->save();
+
+        $results = User::paginate();
+
+        return view('admin.search', compact('results'));
+
+    }
+
+    public function deactivate($id)
+    {
+        $user = User::where('id', $id)->firstorFail();
+
+        $user->status = 0;
+
+        $user->save();
+
+        $results = User::paginate();
+
+        return view('admin.search', compact('results'));
 
     }
 }
