@@ -3,14 +3,16 @@
 
 @section('content')
 <div class="page-content-wrap">
+
+  @if(!empty($user))
   <div class="row">
     <div class="profile-header">
       <div class="pull-left">
-        <img class="profile-img img-circle" src="{{ URL::asset('img/test.jpg') }}">
+        {!! Html::image($user->imageurl, '', array('class' => 'image')) !!}
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
-          <b>{!! $user->firstname!!}&nbsp;{!! $user->lastname!!}</b>
+          <b>{!! $user->firstname !!}&nbsp;{!! $user->lastname !!}</b>
         </h4>
         <h5 class="userprofile-addr">
           {!! $user->city !!}
@@ -18,6 +20,7 @@
       </div>
     </div>
   </div>
+  @endif
   <div class="row">
     <br /><br />
     <div class="col-md-12">
@@ -209,57 +212,59 @@
         </div>
         <!-- END TABS -->
         <!--  settings modal   -->
-        @foreach($wishlists as $id => $wishlist)
-        <div class="modal" id="modal_{!! $id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <h4>Edit Wishlist</h4>
-                </div>
-                <div class="modal-body">
-                  @if(session('wishlistSettings'))
-                    <div class="alert alert-success">
-                        {{ session('wishlistSettings') }}
-                    </div>
-                  @endif
-                  @foreach($errors->all() as $error)
-                      <p class="alert alert-danger"> {{ $error }}</p>
-                  @endforeach
-                  {!! Form::open(array(
-                                'action' => array('UserController@updateWishlist', $wishlist->id),
-                                'class' => 'form')) !!}
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-12">
-                          {!! Form::text('title', $wishlist->title, array('required', 'class'=>'form-control', 'placeholder'=>'Title')) !!}
-                        </div>
+        @if(!empty($user))
+          @foreach($wishlists as $id => $wishlist)
+          <div class="modal" id="modal_{!! $id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4>Edit Wishlist</h4>
+                  </div>
+                  <div class="modal-body">
+                    @if(session('wishlistSettings'))
+                      <div class="alert alert-success">
+                          {{ session('wishlistSettings') }}
                       </div>
-                      <br />
-                      <label>Privacy</label>
-                      <div class="row">
-                        <div class="col-md-12">
-                          {!! Form::radio('privacy', '0', true)!!}&nbsp;Public
-                          <br />
-                          {!! Form::radio('privacy', '1')!!}&nbsp;Private
-                        </div>
-                      </div>
-                      <br/ >
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="pull-right">
-                              {!! Form::submit('Create', array('class'=>'btn btn-info')) !!}
-                              {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
+                    @endif
+                    @foreach($errors->all() as $error)
+                        <p class="alert alert-danger"> {{ $error }}</p>
+                    @endforeach
+                    {!! Form::open(array(
+                                  'action' => array('UserController@updateWishlist', $wishlist->id),
+                                  'class' => 'form')) !!}
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::text('title', $wishlist->title, array('required', 'class'=>'form-control', 'placeholder'=>'Title')) !!}
                           </div>
                         </div>
-                      </div>
-                    {!! Form::close() !!}
-                </div>
+                        <br />
+                        <label>Privacy</label>
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::radio('privacy', '0', true)!!}&nbsp;Public
+                            <br />
+                            {!! Form::radio('privacy', '1')!!}&nbsp;Private
+                          </div>
+                        </div>
+                        <br/ >
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="pull-right">
+                                {!! Form::submit('Create', array('class'=>'btn btn-info')) !!}
+                                {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
+                            </div>
+                          </div>
+                        </div>
+                      {!! Form::close() !!}
+                  </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      @endforeach
+        @endforeach
+      @endif
   </div>
 </div>
 @endsection

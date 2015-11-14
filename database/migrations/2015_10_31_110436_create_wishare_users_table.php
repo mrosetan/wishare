@@ -17,7 +17,7 @@ class CreateWishareUsersTable extends Migration
             $table->string('email', 255)->unique();
             $table->string('fb_id', 255)->unique()->nullable();
             $table->string('password', 255);
-            $table->string('imageurl');
+            $table->binary('imageurl');
             $table->string('firstname', 255);
             $table->string('lastname', 255);
             $table->string('username', 255)->unique();

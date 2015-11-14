@@ -15,6 +15,8 @@ use App\Http\Requests\WishlistRequest;
 use App\Wishlist;
 use App\User;
 use App\DefaultWishlist;
+use Image;
+use Input;
 use Session;
 use Hash;
 use Auth;
@@ -170,11 +172,10 @@ class UserController extends Controller
   {
     //profile details
     $user = Auth::user();
-    $userId = $user->id;
-    //var_dump($user);
-    //
+    // var_dump($user);
 
     //wishlist
+    $userId = $user->id;
     $wishlists = '';
     $wishlists = Wishlist::with('user')
                         ->where('createdby_id', '=', $userId)
@@ -182,13 +183,12 @@ class UserController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
+
     if(count($wishlists) > 0)
       return view('userlayouts.profile', compact('user', 'wishlists'));
     else
       return view('userlayouts.profile')->with('errormsg', "No Wishlists.");
     ///var_dump($wishlists);
-
-
   }
 
   public function editSettings($id)
@@ -201,8 +201,17 @@ class UserController extends Controller
 
   public function updateUserSettings(SettingRequest $request, $id)
   {
-    //$user = User::where('id', $id);
     $user = Auth::user();
+    //save user pic to file
+    /*
+    $newImage = '';
+    $newImage = Input::file('imageurl');
+    $filename  = 'user' . $user->id . '.' . $newImage->getClientOriginalExtension();
+    $path = public_path('img/userImages/' . $filename);
+    Image::make($newImage->getRealPath())->resize(130, 130)->save($path);
+    $user->imageurl = 'img/userImage/'.$filename;
+    //$userPic = $user->imageurl;
+    */
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
     $user->city = $request->get('city');

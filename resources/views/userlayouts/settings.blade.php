@@ -18,8 +18,13 @@
           @endforeach
           {!! Form::open(array(
                         'action' => array('UserController@updateUserSettings', $user->id),
-                        'class' => 'form')) !!}
+                        'class' => 'form', 'files'=>true)) !!}
           <div class="form-group">
+            <label>Set Profile Picture:</label>
+            <div class="row">
+              {!! Form::file('imageurl') !!}
+            </div>
+            <br />
             <div class="row">
               <div class="col-sm-12">
                 <label>First Name:</label>

@@ -24,6 +24,7 @@ class SettingRequest extends Request
     public function rules()
     {
         return [
+          'imageurl' => 'required|image',
           'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
           'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
           'city' => 'min:2|max:50|regex:/^[\pL\s]+$/u',
