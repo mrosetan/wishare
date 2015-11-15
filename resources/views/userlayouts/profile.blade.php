@@ -10,7 +10,7 @@
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
-          <b>{!! $user->firstname!!}&nbsp;{!! $user->lastname!!}</b>
+          <b>{!! $user->firstname!!} {!! $user->lastname!!}</b>
         </h4>
         <h5 class="userprofile-addr">
           {!! $user->city !!}
