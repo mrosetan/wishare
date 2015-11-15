@@ -24,12 +24,13 @@ class SettingRequest extends Request
     public function rules()
     {
         return [
+          // 'imageurl'  => 'image',
           'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
-          'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
-          'city' => 'min:2|max:50|regex:/^[\pL\s]+$/u',
-          'username' => 'min:2|max:50|alpha_num',
-          'email' => 'email',
-          'facebook' => 'min:3|max:50|',
+          'lastname'  => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
+          'city'      => 'min:2|max:50|regex:/^[\pL\s]+$/u',
+          'username'  => 'min:2|max:50|alpha_num',
+          'email'     => 'email',
+          'facebook'  => 'min:3|max:50|',
           'birthdate' => 'date|before:tomorrow|date_format:Y-m-d',
         ];
     }

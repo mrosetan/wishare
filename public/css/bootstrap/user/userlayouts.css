@@ -43,14 +43,14 @@ a:hover {
   margin-top: 40px;
 }
 img.profile-img.img-circle {
-  height: 130px;
-  width: 130px;
+  height: 150px;
+  width: 150px;
   margin-top: -40px;
   border: 1px solid #000;
 }
 .userprofile-details {
   width: 500px;
-  margin-left: 150px;
+  margin-left: 160px;
 }
 h4.userprofile-name {
   margin-top: 80px;

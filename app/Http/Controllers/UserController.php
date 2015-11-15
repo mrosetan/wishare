@@ -15,6 +15,8 @@ use App\Http\Requests\WishlistRequest;
 use App\Wishlist;
 use App\User;
 use App\DefaultWishlist;
+use Input;
+use Image;
 use Session;
 use Hash;
 use Auth;
@@ -203,6 +205,15 @@ class UserController extends Controller
   {
     //$user = User::where('id', $id);
     $user = Auth::user();
+
+    $newImage = '';
+    $newImage = Input::file('imageurl');
+    $filename  = 'user' . $user->id . '.' . $newImage->getClientOriginalExtension();
+    $path = public_path('img/userImages/' . $filename);
+    Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
+    $user->imageurl = 'img/userImages/'.$filename;
+    //$userPic = $user->imageurl;
+
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
     $user->city = $request->get('city');
