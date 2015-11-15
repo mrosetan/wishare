@@ -136,17 +136,11 @@ class AdminController extends Controller
     public function monitorWishlists()
     {
       if (Auth::user()->type == 0) {
-        // $wishlists = Wishlist::where('status', '=', 1)
-        //               ->orderBy('created_at', 'desc')
-        //               ->get();
+
         $wishlists = Wishlist::with('user')
-                              ->orderBy('created_at', 'desc')
                               // ->get();
                               ->paginate();
 
-        // $wishlists->setPath('http://192.168.1.10/wishare/public/admin/monitor/wishlists');
-        // print_r($wishlists);
-        // die();
         return view('admin.monitoringWishlists', compact('wishlists'));
       }
       else

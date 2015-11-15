@@ -15,8 +15,43 @@
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/bootstrap/user/userlayouts.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/calendar-bootstrap.css') }}">
         <!-- EOF CSS INCLUDE -->
+
+        <!-- FACEBOOK SHARE -->
+        <meta property="og:url"           content="http://www.9gag.com" /> <!-- URL of site -->
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Wishare" />
+        <meta property="og:description"   content="A Web and Mobile Social Network for Wishing and Wish-granting" />
+        <meta property="og:image"         content="" />
     </head>
     <body>
+    <!-- Facebook javascript SDK -->
+    <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '456045444586296',
+            xfbml      : true,
+            version    : 'v2.5'
+          });
+          FB.ui({
+            method: 'share_open_graph',
+            action_type: 'og.likes',
+            action_properties: JSON.stringify({
+                object:'http://www.9gag.com', //URL of site
+              })
+            }, function(response){
+          });
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+      </script>
+      <!-- End of Facebook javascript SDK -->
         <!-- START PAGE CONTAINER -->
         <div class="page-container page-navigation-top-fixed">
 
@@ -87,51 +122,6 @@
                           </form>
                       </li>
               </div>
-                      <!--
-                      <li class="xn-icon-button pull-right">
-                          <a href="#"><span class="fa fa-pencil-square"></span></a>
-                          <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
-                              <div class="panel-heading">
-                                  <h3 class="panel-title"></span> Actions</h3>
-                              </div>
-                              <div class="panel-body list-group" style="height: 150px;">
-                                  <<button class="btn btn-default" data-toggle="modal" data-target="#modal_basic">Basic</button>
-
-                                  <a class="list-group-item" data-toggle="modal" data-target="#modal_wishlist">
-                                      Add Wishlist
-                                  </a>
-                                  <a class="list-group-item" href="#">
-                                      Add Wish
-                                  </a>
-                                  <a class="list-group-item" href="#">
-                                      Send Note
-                                  </a>
-                                  <a class="list-group-item" href="#">
-                                      Send Thank You Note
-                                  </a>
-
-                                  <div class="modal" id="modal_wishlist" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-                                      <div class="modal-dialog">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                  <h4 class="modal-title" id="defModalHead">Add Wishlist</h4>
-                                              </div>
-                                              <div class="modal-body">
-                                                  Some content in modal example
-                                              </div>
-                                              <div class="modal-footer">
-                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                      -->
-
-
                     <!-- END TOGGLE NAVIGATION -->
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
