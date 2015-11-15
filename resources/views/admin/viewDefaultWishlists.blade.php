@@ -118,9 +118,9 @@
                               <td>{!! $dw->title !!}</td>
                               <td>{!! $dw->created_at !!}</td>
                               <td>
-                                <a href="{!! action('AdminController@editDefaultWishlist', $dw->id) !!}"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{!! action('AdminController@editDefaultWishlist', $dw->id) !!}"><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Edit Details"><span class="glyphicon glyphicon-edit"></span></button></a>
                                 <!-- <a href="{!! action('AdminController@deleteDefaultWishlist', $dw->id) !!}"><span class="glyphicon glyphicon-trash"></span></a> -->
-                                <a href="#" class="mb-control" data-box="#mb-delete{!! $dw->id !!}"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a href="#" class="mb-control" data-box="#mb-delete{!! $dw->id !!}"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactivate"><span class="glyphicon glyphicon-trash"></span></button></a>
                               </td>
 
                               <!-- MESSAGE BOX-->
