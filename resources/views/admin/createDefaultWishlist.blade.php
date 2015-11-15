@@ -11,7 +11,7 @@
                 <p class="alert alert-danger"> {{ $error }}</p>
             @endforeach
             {!! Form::open(array(
-                          'action' => array('AdminController@storeDefaultWishlist', $user->id),
+                          'action' => array('AdminController@storeDefaultWishlist'),
                           'class' => 'form')) !!}
 
             <div class="form-group">
