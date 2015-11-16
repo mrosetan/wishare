@@ -132,11 +132,6 @@ class UserController extends Controller
   {
     return view('otheruser.otheruserprivate');
   }
-  public function otheruserPrivate()
-  {
-    return view('otheruser.otheruserprivate');
-  }
-
   public function store(UserRequest $request)
   {
 
