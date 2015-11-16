@@ -15,6 +15,7 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
+          {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
       </div>
     </div>
   </div>
