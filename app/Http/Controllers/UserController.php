@@ -107,6 +107,10 @@ class UserController extends Controller
   {
     return view('otheruser.otheruserprofile');
   }
+  public function otheruserPrivate()
+  {
+    return view('otheruser.otheruserprivate');
+  }
 
   public function store(UserRequest $request)
   {
@@ -208,7 +212,7 @@ class UserController extends Controller
 
     $newImage = '';
     $newImage = Input::file('imageurl');
-    $filename  = 'user' . $user->id . '.' . $newImage->getClientOriginalExtension();
+    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     $path = public_path('img/userImages/' . $filename);
     Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
     $user->imageurl = 'img/userImages/'.$filename;

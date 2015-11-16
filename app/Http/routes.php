@@ -44,6 +44,7 @@ Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
 /* Other user */
 Route::get('otheruser/profile', 'UserController@otheruser');
+Route::get('otheruser/profile/private', 'UserController@otheruserPrivate');
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');

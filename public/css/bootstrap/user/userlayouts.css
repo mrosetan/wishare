@@ -17,6 +17,15 @@ li {
 span.fa.fa-square-pencil {
   font-size: 25px;
 }
+.lock-container {
+  width: 150px;
+  margin: 0 auto;
+  /*background-color: red;*/
+}
+span.fa.fa-lock {
+  font-size: 150px;
+  margin-left: 28px;
+}
 
 /*   Home   */
 .page-title {
