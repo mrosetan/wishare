@@ -116,6 +116,7 @@ class UserController extends Controller
   {
 
     $user = new User(array(
+      'imageurl' => 'img/userImages/default.jpg',
       'lastname' => trim($request->lastname),
       'firstname' => trim($request->firstname),
       'username' => trim($request->username),
@@ -197,26 +198,29 @@ class UserController extends Controller
 
   }
 
-  public function editSettings($id)
+  public function editSettings()
   {
     $user = Auth::user();
+    $id = $user->id;
     //$user = User::where('id', $id)->first();
     //var_dump($user);
     return view('userlayouts.settings', compact('user'));
   }
 
-  public function updateUserSettings(SettingRequest $request, $id)
+  public function updateUserSettings(SettingRequest $request)
   {
     //$user = User::where('id', $id);
     $user = Auth::user();
-
-    $newImage = '';
-    $newImage = Input::file('imageurl');
-    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-    $path = public_path('img/userImages/' . $filename);
-    Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
-    $user->imageurl = 'img/userImages/'.$filename;
-    //$userPic = $user->imageurl;
+    $id = $user->id;
+    // $newImage = '';
+    // $newImage = Input::file('imageurl');
+    // $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+    // // dd($filename);
+    //
+    // $path = public_path('img/userImages/' . $filename);
+    // Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
+    // $user->imageurl = 'img/userImages/'.$filename;
+    // //$userPic = $user->imageurl;
 
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
@@ -229,7 +233,26 @@ class UserController extends Controller
     $user->save();
 
     //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
-    return redirect('user/settings/profile')->with('status', 'Saved!');
+    return redirect('user/settings')->with('status', 'Saved!');
+  }
+
+  public function updateProfilePic()
+  {
+    $user = Auth::user();
+    $id = $user->id;
+    $newImage = '';
+    $newImage = Input::file('imageurl');
+    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+    // dd($filename);
+
+    $path = public_path('img/userImages/' . $filename);
+    Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
+    $user->imageurl = 'img/userImages/'.$filename;
+
+    $user->save();
+
+    //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
+    return redirect('user/settings')->with('status', 'Saved!');
   }
 
   public function updateToSetPassword(SetPasswordRequest $request)

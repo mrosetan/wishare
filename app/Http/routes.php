@@ -42,6 +42,7 @@ Route::get('user/settings/changepassword', 'UserController@changepass');
 Route::post('user/settings/changepassword', 'UserController@changeAccountPassword');
 Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
+Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic');
 /* Other user */
 Route::get('otheruser/profile', 'UserController@otheruser');
 Route::get('otheruser/profile', 'UserController@otheruserPrivate');

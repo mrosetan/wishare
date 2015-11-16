@@ -22,7 +22,7 @@ span.fa.fa-square-pencil {
   margin: 0 auto;
   /*background-color: red;*/
 }
-span.fa.fa-lock {
+span.fa.fa-lock.otheruser {
   font-size: 150px;
   margin-left: 28px;
 }

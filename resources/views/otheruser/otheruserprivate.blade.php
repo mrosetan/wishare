@@ -36,7 +36,7 @@
             <div class="panel-body tab-content">
               <div class="tab-pane active" id="tab-wishes">
                 <div class="lock-container">
-                  <span class="fa fa-lock"></span><br />
+                  <span class="fa fa-lock otheruser"></span><br />
                   <h4 class="text-center">Account is private</h4>
                 </div>
               </div>
