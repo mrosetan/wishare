@@ -42,11 +42,15 @@ Route::get('user/settings/changepassword', 'UserController@changepass');
 Route::post('user/settings/changepassword', 'UserController@changeAccountPassword');
 Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
+<<<<<<< HEAD
 
 Route::get('user/search', 'UserController@search');
 /* Other user */
 Route::get('otheruser/{id?}}', 'UserController@otheruser');
-// Route::get('otheruser/profile', 'UserController@otheruser');
+Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic');
+/* Other user */
+Route::get('otheruser/profile', 'UserController@otheruser');
+Route::get('otheruser/profile', 'UserController@otheruserPrivate');
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');
