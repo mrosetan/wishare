@@ -155,7 +155,6 @@
                                   <p class="user-given">Razer Mouse</p> <br />
                                   Wished by: Bobby
                                 </p>
->>>>>>> refs/remotes/origin/admin2
                               </p>
                             </p>
                         </div>
