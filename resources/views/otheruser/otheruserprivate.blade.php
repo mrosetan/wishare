@@ -42,31 +42,31 @@
               </div>
                 <div class="tab-pane" id="tab-granted">
                   <div class="lock-container">
-                    <span class="fa fa-lock"></span><br />
+                    <span class="fa fa-lock otheruser"></span><br />
                     <h4 class="text-center">Account is private</h4>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab-given">
                   <div class="lock-container">
-                    <span class="fa fa-lock"></span><br />
+                    <span class="fa fa-lock otheruser"></span><br />
                     <h4 class="text-center">Account is private</h4>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab-friends">
                   <div class="lock-container">
-                    <span class="fa fa-lock"></span><br />
+                    <span class="fa fa-lock otheruser"></span><br />
                     <h4 class="text-center">Account is private</h4>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab-tracked">
                   <div class="lock-container">
-                    <span class="fa fa-lock"></span><br />
+                    <span class="fa fa-lock otheruser"></span><br />
                     <h4 class="text-center">Account is private</h4>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab-ty">
                   <div class="lock-container">
-                    <span class="fa fa-lock"></span><br />
+                    <span class="fa fa-lock otheruser"></span><br />
                     <h4 class="text-center">Account is private</h4>
                   </div>
                 </div>
