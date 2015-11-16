@@ -42,4 +42,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Wishlist');
     }
+
+    public function friends()
+    {
+        return $this->hasMany('App\Friend');
+    }
 }

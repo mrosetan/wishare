@@ -10,7 +10,14 @@
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
-          <b>Bobby</b>
+          <b>{!! $otherUser->id!!} {!! $otherUser->firstname!!} {!! $otherUser->lastname!!}</b>
+          <br />
+            {!! count($friend) !!}
+            @if(count($friend) == 0)
+              NOT FRIENDS
+            @else
+              FRIENDS
+            @endif
         </h4>
         <h5 class="userprofile-addr">
           Cebu City, Philippines
