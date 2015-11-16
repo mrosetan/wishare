@@ -154,7 +154,8 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label>Birthdate:</label>
-                  {!! Form::text('birthdate', $user->birthdate, array('id'=>'datepicker', 'class'=>'form-control')) !!}
+
+                  {!! Form::text('birthdate', ($user->birthdate == 0000-00-00 ? '1995-01-01':$user->birthdate), array('id'=>'datepicker', 'class'=>'form-control', 'value'=>'1995-01-01')) !!}
                 </div>
               </div>
               <hr />
@@ -183,7 +184,8 @@
             <div class="form-group">
               <div class="row">
                 <label>Set Profile Picture:</label>
-                {!! Form::file('imageurl') !!}
+                <br />
+                {!! Form::file('imageurl', array('class'=>'fileinput btn btn-info')) !!}
               </div>
               <hr />
               <div class="row">

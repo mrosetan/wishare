@@ -140,15 +140,20 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-file-input.js') }}"></script>
         <!-- END PLUGINS -->
 
         <!-- THIS PAGE PLUGINS
         <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>-->
         <script>
-         $(function() {
-           var date = $('#datepicker').datepicker();
-           //$( "#datepicker" ).datepicker();
-         });
+        //  $(function() {
+        //    var date = $('#datepicker').datepicker();
+        //    //$( "#datepicker" ).datepicker();
+        //  });
+        $(function() {
+            $("#datepicker" ).datepicker();
+          });
+
           $('#myTab a').click(function (e) {
               e.preventDefault();
               $(this).tab('show');
