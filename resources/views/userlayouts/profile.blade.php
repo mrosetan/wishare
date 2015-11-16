@@ -120,36 +120,42 @@
                     </div>
                   </div>
               </div>
-              <div class="tab-pane" id="tab-friends">
-                <div class="panel-group accordion accordion-dc">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <p class="panel-title">
-                                <a href="#accTwoColTwo">
-                                  <div class="pull-left">
-                                    <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
-                                  </div>
-                                </a>
-                                <div class="user-details">
-                                  <p class="user-name">
-                                    <a href="#">Bobby</a>
-                                    <br />
-                                    Wishes: 3&nbsp;Granted: 1&nbsp;Given: 1&nbsp;Friends: 2 &nbsp;Tracked: 2 &nbsp;Thank You Notes: 2
+                <div class="tab-pane" id="tab-friends">
+                    @foreach($friends as $friend)
+                      <div class="panel-group ">
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                  <p class="panel-title">
+                                      <a href="#accTwoColTwo">
+                                        <div class="pull-left">
+                                          <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                                        </div>
+                                      </a>
+                                      <a href="{!! action('UserController@otheruser', $friend['user']['id']) !!}">
+                                      <div class="user-details">
+                                        <p class="user-name">
+                                          {!! $friend['user']['firstname'] !!} {!! $friend['user']['lastname'] !!}
+                                          <br />
+                                            {!! $friend['user']['username'] !!}
+                                        </p>
+                                      </div>
+                                      </a>
                                   </p>
-                                </div>
-                            </p>
+                              </div>
+                          </div>
                         </div>
-                    </div>
-                  </div>
-              </div>
-              <div class="tab-pane" id="tab-tracked">
-                <div class="panel-group accordion accordion-dc">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <p class="panel-title">
-                              <p href="#accTwoColTwo">
-                                <p class="user-given">Razer Mouse</p> <br />
-                                Wished by: Bobby
+                      @endforeach
+                </div>
+                <div class="tab-pane" id="tab-tracked">
+                  <div class="panel-group accordion accordion-dc">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <p class="panel-title">
+                                <p href="#accTwoColTwo">
+                                  <p class="user-given">Razer Mouse</p> <br />
+                                  Wished by: Bobby
+                                </p>
+>>>>>>> refs/remotes/origin/admin2
                               </p>
                             </p>
                         </div>

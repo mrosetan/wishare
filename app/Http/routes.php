@@ -47,6 +47,11 @@ Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic')
 Route::get('otheruser/profile', 'UserController@otheruser');
 Route::get('otheruser/profile', 'UserController@otheruserPrivate');
 
+Route::get('user/search', 'UserController@search');
+/* Other user */
+Route::get('otheruser/{id?}}', 'UserController@otheruser');
+// Route::get('otheruser/profile', 'UserController@otheruser');
+
 // ADMIN
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/reports', 'AdminController@reports');
