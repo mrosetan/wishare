@@ -40,7 +40,7 @@
             </ul>
             <br />
             <div class="panel-body tab-content">
-                <div class="tab-pane" id="tab-wishes">
+                <div class="tab-pane active" id="tab-wishes">
                 <div class="panel-group accordion accordion-dc">
                   <div class="panel panel-default">
                     <div class="panel-heading">
