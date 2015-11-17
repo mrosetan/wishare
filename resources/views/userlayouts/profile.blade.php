@@ -118,7 +118,8 @@
                           Granted on: 1/1/14
                         </div>
                     </div>
-                </div>
+                  </div>
+              </div>
                 <div class="tab-pane" id="tab-friends">
                     @foreach($friends as $friend)
                       <div class="panel-group ">
@@ -145,14 +146,15 @@
                         </div>
                       @endforeach
                 </div>
-              <div class="tab-pane" id="tab-tracked">
-                <div class="panel-group accordion accordion-dc">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <p class="panel-title">
-                              <p href="#accTwoColTwo">
-                                <p class="user-given">Razer Mouse</p> <br />
-                                Wished by: Bobby
+                <div class="tab-pane" id="tab-tracked">
+                  <div class="panel-group accordion accordion-dc">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <p class="panel-title">
+                                <p href="#accTwoColTwo">
+                                  <p class="user-given">Razer Mouse</p> <br />
+                                  Wished by: Bobby
+                                </p>
                               </p>
                             </p>
                         </div>
