@@ -15,6 +15,9 @@ use App\Http\Requests\WishlistRequest;
 use App\Wishlist;
 use App\User;
 use App\DefaultWishlist;
+use App\Friend;
+use Input;
+use Image;
 use Session;
 use Hash;
 use Auth;
@@ -43,6 +46,19 @@ class UserController extends Controller
     else {
       return redirect('user/setPassword');
     }
+  }
+
+  public function search()
+  {
+    $user = Auth::user();
+
+    $results = User::where('type', '=', 1)
+                    ->where('status', '=', 1)
+                    ->where('id', '!=', $user->id)
+                    ->paginate();
+                    // ->get();
+    // dd($results);
+    return view('userlayouts.searchFriend', compact('results'));
   }
 
   public function setPassword()
@@ -101,15 +117,27 @@ class UserController extends Controller
     return view('userlayouts.tynotesAction');
   }
   /* Other user */
-  public function otheruser()
+  public function otheruser($id)
   {
-    return view('otheruser.otheruserprofile');
+    $user = Auth::user();
+
+    $otherUser = User::where('id', '=', $id)->firstorFail();
+    $friend = Friend::with('user')->where('friend_userid', '=', $user->id)
+                      ->where('userid', '=', $otherUser->id)
+                      ->get();
+    // dd($user);
+    return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
+  }
+  public function otheruserPrivate()
+  {
+    return view('otheruser.otheruserprivate');
   }
 
   public function store(UserRequest $request)
   {
 
     $user = new User(array(
+      'imageurl' => 'img/userImages/default.jpg',
       'lastname' => trim($request->lastname),
       'firstname' => trim($request->firstname),
       'username' => trim($request->username),
@@ -182,8 +210,14 @@ class UserController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
+    $friends = Friend::with('user')->where('friend_userid', '=', $user->id)
+                      ->where('status', '=', 1)
+                      ->get();
+
+    // dd($friends);
+
     if(count($wishlists) > 0)
-      return view('userlayouts.profile', compact('user', 'wishlists'));
+      return view('userlayouts.profile', compact('user', 'wishlists', 'friends'));
     else
       return view('userlayouts.profile')->with('errormsg', "No Wishlists.");
     ///var_dump($wishlists);
@@ -191,18 +225,31 @@ class UserController extends Controller
 
   }
 
-  public function editSettings($id)
+  public function editSettings()
   {
     $user = Auth::user();
+    $id = $user->id;
     //$user = User::where('id', $id)->first();
     //var_dump($user);
     return view('userlayouts.settings', compact('user'));
   }
 
-  public function updateUserSettings(SettingRequest $request, $id)
+  public function updateUserSettings(SettingRequest $request)
   {
     //$user = User::where('id', $id);
     $user = Auth::user();
+
+    $id = $user->id;
+    // $newImage = '';
+    // $newImage = Input::file('imageurl');
+    // $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+    // // dd($filename);
+    //
+    // $path = public_path('img/userImages/' . $filename);
+    // Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
+    // $user->imageurl = 'img/userImages/'.$filename;
+    // //$userPic = $user->imageurl;
+
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
     $user->city = $request->get('city');
@@ -214,7 +261,26 @@ class UserController extends Controller
     $user->save();
 
     //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
-    return redirect('user/settings/profile')->with('status', 'Saved!');
+    return redirect('user/settings')->with('status', 'Saved!');
+  }
+
+  public function updateProfilePic()
+  {
+    $user = Auth::user();
+    $id = $user->id;
+    $newImage = '';
+    $newImage = Input::file('imageurl');
+    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+    // dd($filename);
+
+    $path = public_path('img/userImages/' . $filename);
+    Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
+    $user->imageurl = 'img/userImages/'.$filename;
+
+    $user->save();
+
+    //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
+    return redirect('user/settings')->with('status', 'Saved!');
   }
 
   public function updateToSetPassword(SetPasswordRequest $request)

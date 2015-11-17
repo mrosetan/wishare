@@ -10,7 +10,14 @@
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
-          <b>Bobby</b>
+          <b>{!! $otherUser->id!!} {!! $otherUser->firstname!!} {!! $otherUser->lastname!!}</b>
+          <br />
+            {!! count($friend) !!}
+            @if(count($friend) == 0)
+              NOT FRIENDS
+            @else
+              FRIENDS
+            @endif
         </h4>
         <h5 class="userprofile-addr">
           Cebu City, Philippines
@@ -24,8 +31,7 @@
         <!-- START TABS -->
         <div class="panel panel-default tabs">
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="active"><a href="#tab-profile" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li><a href="#tab-wishes" role="tab" data-toggle="tab">Wishes</a></li>
+                <li class="active"><a href="#tab-wishes" role="tab" data-toggle="tab">Wishes</a></li>
                 <li><a href="#tab-granted" role="tab" data-toggle="tab">Granted</a></li>
                 <li><a href="#tab-given" role="tab" data-toggle="tab">Given</a></li>
                 <li><a href="#tab-friends" role="tab" data-toggle="tab">Friends</a></li>
@@ -34,24 +40,6 @@
             </ul>
             <br />
             <div class="panel-body tab-content">
-                <div class="tab-pane active" id="tab-profile">
-                  <div class="panel panel-default">
-                      <div class="panel-body">
-                        <div class="pull-left">
-                          <img class="user img-circle" src="{{ URL::asset('img/test2.jpg') }}">
-                        </div>
-                        <div class="user-details">
-                          <h5 class="user-name">
-                            Bobby
-                            <br />
-                            Wish: Brenda's Heart
-                            <br />
-                            Date: 10/2/2015
-                          </h5>
-                        </div>
-                      </div>
-                  </div>
-                </div>
                 <div class="tab-pane" id="tab-wishes">
                 <div class="panel-group accordion accordion-dc">
                   <div class="panel panel-default">
