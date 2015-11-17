@@ -280,7 +280,7 @@ class UserController extends Controller
     $user->save();
 
     //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
-    return redirect('user/settings')->with('status', 'Saved!');
+    return redirect('user/settings#tab-pic')->with('status', 'Saved!');
   }
 
   public function updateToSetPassword(SetPasswordRequest $request)
