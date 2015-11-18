@@ -150,11 +150,6 @@ class UserController extends Controller
       return redirect()->action('UserController@getUserDetails');
     }
   }
-  public function otheruserPrivate()
-  {
-    return view('otheruser.otheruserprivate');
-  }
-
   public function store(UserRequest $request)
   {
 
@@ -260,17 +255,8 @@ class UserController extends Controller
   {
     //$user = User::where('id', $id);
     $user = Auth::user();
-
     $id = $user->id;
-    // $newImage = '';
-    // $newImage = Input::file('imageurl');
-    // $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-    // // dd($filename);
-    //
-    // $path = public_path('img/userImages/' . $filename);
-    // Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
-    // $user->imageurl = 'img/userImages/'.$filename;
-    // //$userPic = $user->imageurl;
+
 
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
