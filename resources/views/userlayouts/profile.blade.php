@@ -42,12 +42,7 @@
                     {{ session('wishlistDelete') }}
                 </div>
               @endif
-              @foreach($errors->all() as $error)
-                  <p class="alert alert-danger"> {{ $error }}</p>
-              @endforeach
-              @if(isset($errormsg))
-                <p class="alert alert-danger">{{ $errormsg }}</p>
-              @elseif($wishlists != '')
+              @if(count($wishlists) > 0)
               @foreach($wishlists as $id => $wishlist)
                 <div class="panel-group accordion accordion-dc">
                   <div class="panel panel-default">
@@ -80,6 +75,10 @@
                   </div>
                 </div>
                 @endforeach
+                @else
+                <div class="alert alert-danger">
+                    No Wishlists.
+                </div>
                 @endif
               </div>
               <!--end of wishes-->
@@ -121,6 +120,7 @@
                   </div>
               </div>
                 <div class="tab-pane" id="tab-friends">
+                  @if(isset($friends))
                     @foreach($friends as $friend)
                       <div class="panel-group ">
                           <div class="panel panel-default">
@@ -145,6 +145,11 @@
                           </div>
                         </div>
                       @endforeach
+                      @else
+                      <div class="alert alert-danger">
+                          No Friends.
+                      </div>
+                      @endif
                 </div>
                 <div class="tab-pane" id="tab-tracked">
                   <div class="panel-group accordion accordion-dc">
@@ -190,16 +195,19 @@
                         <p>Are you sure you want to delete this wishlist?</p>
                     </div>
                     <div class="mb-footer">
+                        @if(!empty($wishlist))
                         <div class="pull-right">
                             <a href="{!! action('UserController@deleteWishlist', $wishlist->id) !!}" class="btn btn-success btn-lg">Yes</a>
                             <button class="btn btn-default btn-lg mb-control-close">No</button>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
         <!--end of message box-->
         <!--  settings modal   -->
+        @if(isset($wishlists))
         @foreach($wishlists as $id => $wishlist)
         <div class="modal" id="modal_{!! $id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
           <div class="modal-dialog">
@@ -250,6 +258,7 @@
         </div>
       </div>
       @endforeach
+      @endif
   </div>
 </div>
 @endsection

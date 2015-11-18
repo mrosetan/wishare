@@ -7,18 +7,13 @@
   <div class="panel panel-default">
     <div class="panel-heading">
     <h4><b>{!! $user->firstname !!} {!! $user->lastname !!}'s Wishlists<b></h4>
-    @if(session('wishlistDelete'))
-      <div class="alert alert-success">
-          {{ session('wishlistDelete') }}
-      </div>
-    @endif
-    @foreach($errors->all() as $error)
-        <p class="alert alert-danger"> {{ $error }}</p>
-    @endforeach
-    @if(isset($errormsg))
-      <p class="alert alert-danger">{{ $errormsg }}</p>
-    @elseif($wishlists != '')
-    @foreach($wishlists as $id => $wishlist)
+      @if(session('wishlistDelete'))
+        <div class="alert alert-success">
+            {{ session('wishlistDelete') }}
+        </div>
+      @endif
+      @if(count($wishlists) > 0)
+      @foreach($wishlists as $id => $wishlist)
       <div class="panel-group accordion accordion-dc">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -48,6 +43,10 @@
         </div>
       </div>
       @endforeach
+      @else
+      <div class="alert alert-danger">
+          No Wishlists.
+      </div>
       @endif
     </div>
   </div>
