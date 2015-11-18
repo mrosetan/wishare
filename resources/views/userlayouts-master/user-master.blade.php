@@ -117,11 +117,22 @@
                     </li>
                     <div class="pull-right">
                       <li class="xn-search">
+                            {!! Form::open(array(
+                                      'action' => array('UserController@search'),
+                                      'class' => 'form')) !!}
+                                      {!! Form::text('search', null,
+                                                array('class'=>'form-control',
+                                                'placeholder'=>'Search...')) !!}
+                          {!! Form::close()!!}
+                      </li>
+                    </div>
+                    <!-- <div class="pull-right">
+                      <li class="xn-search">
                           <form role="form">
                               <input type="text" name="search" placeholder="Search..."/>
                           </form>
                       </li>
-              </div>
+                    </div> -->
                     <!-- END TOGGLE NAVIGATION -->
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
@@ -178,7 +189,7 @@
         <script type='text/javascript' src="{!! asset('js/plugins/icheck/icheck.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>
 
-        <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>  
+        <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>
         <!-- END PAGE PLUGINS -->
 
         <!-- START TEMPLATE -->

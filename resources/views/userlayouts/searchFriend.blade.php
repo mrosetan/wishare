@@ -6,6 +6,7 @@
     <div class="col-md-12">
 
 
+        <!-- START SIMPLE DATATABLE -->
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Search</h3>
@@ -19,36 +20,33 @@
 
             @if($results->isEmpty())
               <div class="alert alert-info" role="alert">
-                No Users.
+                User not found.
               </div>
             @else
 
-            @foreach($errors->all() as $error)
-                <p class="alert alert-danger"> {{ $error }}</p>
-            @endforeach
-
             <div class="panel-body">
-                <table class="table datatable">
-                    <thead>
-                        <tr>
-                          <th>User</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($results as $r)
-                        <tr>
-                            <td>
-                                <a href="{!! action('UserController@otheruser', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
-                                {!! $r->username !!}</a>
-                            </td>
+                <table class="table datatable_simple">
+                  <thead>
+                      <tr>
+                        <th>User</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($results as $r)
+                      <tr>
+                          <td>
+                              <a href="{!! action('UserController@otheruser', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
+                              {!! $r->username !!}</a>
+                          </td>
 
-                        </tr>
-                      @endforeach
-                    </tbody>
+                      </tr>
+                    @endforeach
+                  </tbody>
                 </table>
-                @endif
+              @endif
             </div>
         </div>
+        <!-- END SIMPLE DATATABLE -->
 
     </div>
 </div>

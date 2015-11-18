@@ -44,13 +44,11 @@ Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
 Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic');
 /* Other user */
-Route::get('otheruser/profile', 'UserController@otheruser');
-Route::get('otheruser/profile', 'UserController@otheruserPrivate');
+Route::get('otheruser/{id?}', 'UserController@otheruser');
 
 Route::get('user/search', 'UserController@search');
-/* Other user */
-Route::get('otheruser/{id?}}', 'UserController@otheruser');
-// Route::get('otheruser/profile', 'UserController@otheruser');
+Route::post('user/search', 'UserController@search');
+
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');
