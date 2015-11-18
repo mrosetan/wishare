@@ -231,13 +231,10 @@ class UserController extends Controller
                       ->where('status', '=', 1)
                       ->get();
 
-    // dd($friends);
-
-    if(count($wishlists) > 0)
+    //  dd($wishlists);
+    if(count($wishlists) > 0 || !empty($user) || !empty($friends))
       return view('userlayouts.profile', compact('user', 'wishlists', 'friends'));
-    else
-      return view('userlayouts.profile')->with('errormsg', "No Wishlists.");
-    ///var_dump($wishlists);
+    // /var_dump($wishlists);
 
 
   }
@@ -265,6 +262,7 @@ class UserController extends Controller
     $user->email = $request->get('email');
     $user->facebook = $request->get('facebook');
     $user->birthdate = $request->get('birthdate');
+    $user->privacy = $request->privacy;
 
     $user->save();
 
@@ -350,7 +348,11 @@ class UserController extends Controller
     $wishlist = Wishlist::where('id', $id)->firstorFail();
     $wishlist->status = 0;
     $wishlist->save();
-    return redirect('user/profile#tab-wishes')->with('wishlistDelete', 'Wishlist deleted!');
+
+     if(count($wishlist) > 1)
+      return redirect('user/profile#tab-wishes')->with('wishlistDelete', 'Wishlist deleted!');
+     else
+       return redirect('user/profile#tab-wishes')->with('errormsg', 'No Wishlists.');
   }
 
   public function getWishlist()
@@ -363,11 +365,8 @@ class UserController extends Controller
                         ->where('status', '=', 1)
                         ->orderBy('created_at', 'desc')
                         ->get();
-
-    if(count($wishlists) > 0)
-      return view('userlayouts.wishlistProfile', compact('user', 'wishlists'));
-    else
-      return view('userlayouts.wishlistProfile')->with('errormsg', "No Wishlists.");
+    if(count($wishlists) > 0 || !empty($user))
+      return view('userlayouts.profile', compact('user', 'wishlists'));
   }
 
   public function addFriend($id)
@@ -383,12 +382,43 @@ class UserController extends Controller
 
     $friend->save();
 
-    print_r($friend);
-    die();
+    $otherUser = User::where('id', '=', $id)->firstorFail();
+    $friend = Friend::where('userid', '=', $user->id)
+                      ->where('friend_userid', '=', $id)
+                      ->get();
+
+    if($otherUser->private == 0){
+        return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
+    }
+    else {
+        return view('otheruser.otheruserrpivate', compact('otherUser', 'friend'));
+    }
+
+    // print_r($friend);
+    // die();
   }
 
   public function unfriend($id)
   {
-    print("Unfriend");
+    $user = Auth::user();
+
+    $friend = Friend::where('userid', '=', $user->id)
+                      ->where('friend_userid', '=', $id)
+                      ->firstOrFail();
+
+    $friend->delete();
+
+    $otherUser = User::where('id', '=', $id)->firstorFail();
+    $friend = Friend::with('user')->where('userid', '=', $user->id)
+                      ->where('friend_userid', '=', $otherUser->id)
+                      ->get();
+
+    if($otherUser->private == 0){
+        return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
+    }
+    else {
+        return view('otheruser.otheruserrpivate', compact('otherUser', 'friend'));
+    }
+    // print("Unfriend");
   }
 }
