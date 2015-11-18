@@ -12,16 +12,16 @@
         <h4 class="userprofile-name">
           <b>{!! $otherUser->id!!} {!! $otherUser->firstname!!} {!! $otherUser->lastname!!}</b>
           <br />
-            {!! count($friend) !!}
-            @if(count($friend) == 0)
-              NOT FRIENDS
-            @else
-              FRIENDS
-            @endif
         </h4>
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
+        {!! count($friend) !!}
+        @if(count($friend) == 0)
+          {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
+        @else
+          {!! Form::submit('Unfriend', array('class'=>'btn btn-info btn-default')) !!}
+        @endif
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
             </ul>
             <br />
             <div class="panel-body tab-content">
-                <div class="tab-pane" id="tab-wishes">
+                <div class="tab-pane active" id="tab-wishes">
                 <div class="panel-group accordion accordion-dc">
                   <div class="panel panel-default">
                     <div class="panel-heading">

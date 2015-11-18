@@ -10,12 +10,21 @@
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
-          <b>Bobby</b>
+          <b>{!! $otherUser->id!!} {!! $otherUser->firstname!!} {!! $otherUser->lastname!!}</b>
+          <br />
+
         </h4>
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
-          {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
+          {!! count($friend) !!}
+          @if(count($friend) == 0)
+            NOT FRIENDS
+            {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
+          @else
+            FRIENDS
+          @endif
+
       </div>
     </div>
   </div>

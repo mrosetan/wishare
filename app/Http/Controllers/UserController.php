@@ -48,17 +48,29 @@ class UserController extends Controller
     }
   }
 
-  public function search()
+  public function search(Request $request)
   {
     $user = Auth::user();
+    $search = $request->search;
 
     $results = User::where('type', '=', 1)
                     ->where('status', '=', 1)
-                    ->where('id', '!=', $user->id)
+                    ->where(function ($query) use ($search){
+                        $query->where('firstname', 'like', '%'.$search.'%')
+                              ->orWhere('lastname', 'like', '%'.$search.'%')
+                              ->orWhere('username', 'like', '%'.$search.'%');
+                    })
+                    // ->where('firstname', 'like', '%'.$search.'%')
+                    // ->orWhere('lastname', 'like', '%'.$search.'%')
+                    // ->orWhere('username', 'like', '%'.$search.'%')
                     ->paginate();
                     // ->get();
     // dd($results);
-    return view('userlayouts.searchFriend', compact('results'));
+    // if(!empty($results))
+      return view('userlayouts.searchFriend', compact('results'));
+    // else{
+      // return view('userlayouts.searchFriend')->with('errormsg', 'Not found');
+    // }
   }
 
   public function setPassword()
@@ -121,18 +133,23 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $otherUser = User::where('id', '=', $id)->firstorFail();
-    $friend = Friend::with('user')->where('friend_userid', '=', $user->id)
-                      ->where('userid', '=', $otherUser->id)
-                      ->get();
-    // dd($user);
-    return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
-  }
-  public function otheruserPrivate()
-  {
-    return view('otheruser.otheruserprivate');
-  }
+    if($user->id != $id){
+      $otherUser = User::where('id', '=', $id)->firstorFail();
+      $friend = Friend::with('user')->where('friend_userid', '=', $user->id)
+                        ->where('userid', '=', $otherUser->id)
+                        ->get();
 
+      if($otherUser->private == 0){
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
+      }
+      else {
+          return view('otheruser.otheruserrpivate', compact('otherUser', 'friend'));
+      }
+    }
+    else {
+      return redirect()->action('UserController@getUserDetails');
+    }
+  }
   public function store(UserRequest $request)
   {
 
@@ -238,17 +255,8 @@ class UserController extends Controller
   {
     //$user = User::where('id', $id);
     $user = Auth::user();
-
     $id = $user->id;
-    // $newImage = '';
-    // $newImage = Input::file('imageurl');
-    // $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-    // // dd($filename);
-    //
-    // $path = public_path('img/userImages/' . $filename);
-    // Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
-    // $user->imageurl = 'img/userImages/'.$filename;
-    // //$userPic = $user->imageurl;
+
 
     $user->firstname = $request->get('firstname');
     $user->lastname = $request->get('lastname');
@@ -280,7 +288,7 @@ class UserController extends Controller
     $user->save();
 
     //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
-    return redirect('user/settings')->with('status', 'Saved!');
+    return redirect('user/settings#tab-pic')->with('status', 'Saved!');
   }
 
   public function updateToSetPassword(SetPasswordRequest $request)
