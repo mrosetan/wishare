@@ -62,7 +62,7 @@
                         &nbsp;&nbsp;
                         <a href="#" data-toggle="modal" data-target="#modal_{!! $id !!}"><span class="glyphicon glyphicon-edit"></span></a>
                         &nbsp;&nbsp;
-                        <a href="{!! action('UserController@deleteWishlist', $wishlist->id) !!}"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="#" class="mb-control" data-box="#mb-delete"><span class="glyphicon glyphicon-trash"></span></a>
                         &nbsp;&nbsp;
                         <div class="fb-share-button" data-href="http://www.9gag.com" data-layout="icon"></div> <!-- URL of site -->
                       </div>
@@ -181,6 +181,24 @@
             </div>
         </div>
         <!-- END TABS -->
+        <!-- message box-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wishlist</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to delete this wishlist?</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="{!! action('UserController@deleteWishlist', $wishlist->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end of message box-->
         <!--  settings modal   -->
         @foreach($wishlists as $id => $wishlist)
         <div class="modal" id="modal_{!! $id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
