@@ -135,21 +135,31 @@ class UserController extends Controller
 
     if($user->id != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
+
+      $friend = ' ';
+      $status = ' ';
+
       $friend = Friend::with('user')->where('userid', '=', $user->id)
                         ->where('friend_userid', '=', $otherUser->id)
-                        ->get();
+                        ->first();
 
-      if($otherUser->private == 0){
-          return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
+      if(!empty($friend))
+        $status = $friend->status;
+      // print($friend);
+
+
+      if($otherUser->privacy == 0){
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friend', 'status'));
       }
       else {
-          return view('otheruser.otheruserrpivate', compact('otherUser', 'friend'));
+          return view('otheruser.otheruserprivate', compact('otherUser', 'friend', 'status'));
       }
     }
     else {
       return redirect()->action('UserController@getUserDetails');
     }
   }
+
   public function store(UserRequest $request)
   {
 
@@ -383,15 +393,22 @@ class UserController extends Controller
     $friend->save();
 
     $otherUser = User::where('id', '=', $id)->firstorFail();
-    $friend = Friend::where('userid', '=', $user->id)
-                      ->where('friend_userid', '=', $id)
-                      ->get();
 
-    if($otherUser->private == 0){
-        return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
+    $friend = ' ';
+    $status = ' ';
+
+    $friend = Friend::with('user')->where('userid', '=', $user->id)
+                      ->where('friend_userid', '=', $otherUser->id)
+                      ->first();
+
+    if(!empty($friend))
+      $status = $friend->status;
+
+    if($otherUser->privacy == 0){
+        return view('otheruser.otheruserprofile', compact('otherUser', 'friend', 'status'));
     }
     else {
-        return view('otheruser.otheruserrpivate', compact('otherUser', 'friend'));
+        return view('otheruser.otheruserprivate', compact('otherUser', 'friend', 'status'));
     }
 
     // print_r($friend);
@@ -404,20 +421,27 @@ class UserController extends Controller
 
     $friend = Friend::where('userid', '=', $user->id)
                       ->where('friend_userid', '=', $id)
-                      ->firstOrFail();
+                      ->first();
 
     $friend->delete();
 
     $otherUser = User::where('id', '=', $id)->firstorFail();
+
+    $friend = ' ';
+    $status = ' ';
+
     $friend = Friend::with('user')->where('userid', '=', $user->id)
                       ->where('friend_userid', '=', $otherUser->id)
-                      ->get();
+                      ->first();
 
-    if($otherUser->private == 0){
-        return view('otheruser.otheruserprofile', compact('otherUser', 'friend'));
+    if(!empty($friend))
+      $status = $friend->status;
+
+    if($otherUser->privacy == 0){
+        return view('otheruser.otheruserprofile', compact('otherUser', 'friend', 'status'));
     }
     else {
-        return view('otheruser.otheruserrpivate', compact('otherUser', 'friend'));
+        return view('otheruser.otheruserprivate', compact('otherUser', 'friend', 'status'));
     }
     // print("Unfriend");
   }
