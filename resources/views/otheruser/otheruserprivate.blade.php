@@ -19,10 +19,9 @@
         </h5>
           {!! count($friend) !!}
           @if(count($friend) == 0)
-            NOT FRIENDS
-            {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
+            <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
           @else
-            FRIENDS
+            <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
           @endif
 
       </div>
