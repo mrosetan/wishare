@@ -221,8 +221,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="pull-right">
-                              {!! Form::submit('Create', array('class'=>'btn btn-info')) !!}
-                              {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
+                            {!! Form::submit('Update', array('class'=>'btn btn-info')) !!}
                           </div>
                         </div>
                       </div>
