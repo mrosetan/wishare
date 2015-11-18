@@ -262,6 +262,7 @@ class UserController extends Controller
     $user->email = $request->get('email');
     $user->facebook = $request->get('facebook');
     $user->birthdate = $request->get('birthdate');
+    $user->privacy = $request->privacy;
 
     $user->save();
 
@@ -380,7 +381,7 @@ class UserController extends Controller
     ));
 
     $friend->save();
-    
+
     $otherUser = User::where('id', '=', $id)->firstorFail();
     $friend = Friend::where('userid', '=', $user->id)
                       ->where('friend_userid', '=', $id)
