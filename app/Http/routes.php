@@ -53,6 +53,7 @@ Route::get('user/add/{id?}', 'UserController@addFriend');
 Route::get('user/unfriend/{id?}', 'UserController@unfriend');
 
 
+
 // ADMIN
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/reports', 'AdminController@reports');

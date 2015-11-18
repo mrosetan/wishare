@@ -8,7 +8,7 @@ class Friend extends Model
 {
   protected $table = 'friends';
 
-  protected $fillable = ['friend_userid', 'userid', 'date_added', 'date_accepted', 'status'];
+  protected $fillable = ['friend_userid', 'userid', 'date_added', 'date_accepted', 'status', 'seen'];
 
   public function user()
   {
