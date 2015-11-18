@@ -135,8 +135,8 @@ class UserController extends Controller
 
     if($user->id != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
-      $friend = Friend::with('user')->where('friend_userid', '=', $user->id)
-                        ->where('userid', '=', $otherUser->id)
+      $friend = Friend::with('user')->where('userid', '=', $user->id)
+                        ->where('friend_userid', '=', $otherUser->id)
                         ->get();
 
       if($otherUser->private == 0){
@@ -227,7 +227,7 @@ class UserController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
-    $friends = Friend::with('user')->where('friend_userid', '=', $user->id)
+    $friends = Friend::with('user')->where('userid', '=', $user->id)
                       ->where('status', '=', 1)
                       ->get();
 
@@ -366,5 +366,27 @@ class UserController extends Controller
                         ->get();
     if(count($wishlists) > 0 || !empty($user))
       return view('userlayouts.profile', compact('user', 'wishlists'));
+  }
+
+  public function addFriend($id)
+  {
+    $user = Auth::user();
+
+    $friend = new Friend(array(
+      'friend_userid' => $id,
+      'userid' => $user->id,
+      'date_added' => date("Y-m-d h:i:s"),
+      'status' => 0,
+    ));
+
+    $friend->save();
+
+    print_r($friend);
+    die();
+  }
+
+  public function unfriend($id)
+  {
+    print("Unfriend");
   }
 }

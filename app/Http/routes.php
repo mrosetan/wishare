@@ -49,6 +49,9 @@ Route::get('otheruser/{id?}', 'UserController@otheruser');
 Route::get('user/search', 'UserController@search');
 Route::post('user/search', 'UserController@search');
 
+Route::get('user/add/{id?}', 'UserController@addFriend');
+Route::get('user/unfriend/{id?}', 'UserController@unfriend');
+
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');
