@@ -43,8 +43,47 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Wishlist');
     }
 
-    public function friends()
+    // public function friends()
+    // {
+    //     return $this->hasMany('App\Friend');
+    // }
+
+    function friendsOfMine()
     {
-        return $this->hasMany('App\Friend');
+      return $this->belongsToMany('App\User', 'friends', 'userid', 'friend_userid')
+        // if you want to rely on accepted field, then add this:
+        ->wherePivot('status', '=', 1)
+        ->withPivot('status')
+        ->withPivot('id');
+    }
+
+    function friendOf()
+    {
+      return $this->belongsToMany('App\User', 'friends', 'friend_userid', 'userid')
+         ->wherePivot('status', '=', 1)
+         ->withPivot('status')
+         ->withPivot('id');
+    }
+
+    public function getFriendsAttribute()
+    {
+        if ( ! array_key_exists('friends', $this->relations)) $this->loadFriends();
+
+        return $this->getRelation('friends');
+    }
+
+    protected function loadFriends()
+    {
+        if ( ! array_key_exists('friends', $this->relations))
+        {
+            $friends = $this->mergeFriends();
+
+            $this->setRelation('friends', $friends);
+        }
+    }
+
+    protected function mergeFriends()
+    {
+        return $this->friendsOfMine->merge($this->friendOf);
     }
 }
