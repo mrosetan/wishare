@@ -82,11 +82,11 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
-    // dd($requests);
-    // die();
+   $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+   // dd($requests);
+   // die();
 
-    return view('userlayouts.notifications', compact('requests'));
+   return view('userlayouts.notifications', compact('requests'));
   }
   public function notes()
   {
