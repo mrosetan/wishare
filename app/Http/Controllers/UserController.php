@@ -80,7 +80,13 @@ class UserController extends Controller
 
   public function notifications()
   {
-    return view('userlayouts.notifications');
+    $user = Auth::user();
+
+    $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+    // dd($requests);
+    // die();
+
+    return view('userlayouts.notifications', compact('requests'));
   }
   public function notes()
   {
@@ -465,5 +471,28 @@ class UserController extends Controller
 
     return redirect()->action('UserController@otheruser', [$id]);
 
+  }
+
+  public function acceptFriendRequest($id)
+  {
+    $friendRequest = Friend::find($id)->first();
+
+    $friendRequest->date_accepted = date("Y-m-d h:i:s");
+    $friendRequest->status = 1;
+
+    $friendRequest->save();
+
+    // dd($friendRequest);
+    return redirect()->action('UserController@notifications');
+  }
+
+  public function declineFriendRequest($id)
+  {
+    $friendRequest = Friend::find($id)->first();
+
+    $friendRequest->delete();
+
+    // dd($friendRequest);
+    return redirect()->action('UserController@notifications');
   }
 }

@@ -10,8 +10,8 @@
     <div class="col-md-12">
       <div class="panel panel-default tabs">
           <ul class="nav nav-tabs" role="tablist">
-              <li class="active"><a href="#tab-notif" role="tab" data-toggle="tab">Notifications</a></li>
-              <li><a href="#tab-fr" role="tab" data-toggle="tab">Friend Requests</a></li>
+              <li class="active"><a href="#tab-notif" role="tab" data-toggle="tab">Notifications <span class="badge badge-warning">58</span> </a></li>
+              <li><a href="#tab-fr" role="tab" data-toggle="tab">Friend Requests <span class="badge badge-warning">58</span> </a></li>
           </ul>
           <br />
           <!--notifications-->
@@ -49,27 +49,39 @@
                     </div>
                 </div>
             </div>
-        <!--friend requests-->
+
+            <!--================================friend requests================================-->
+
             <div class="tab-pane" id="tab-fr">
-              <div class="panel panel-default">
-                  <div class="panel-body">
-                    <div class="pull-left">
-                      <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
-                    </div>
-                    <div class="user-details">
-                      <h5 class="user-name">
-                        Brenda Mage II
-                      </h5>
-                      <div class="fr-buttons">
-                        {!! Form::open()!!}
-                        {!! Form::submit('Accept', ['class'=>'btn btn-info'])!!}
-                        {!! Form::submit('Decline', ['class'=>'btn btn-default'])!!}
-                        {!! Form::close() !!}
+              @if(count($requests)>0)
+                @foreach($requests as $r)
+                  <div class="panel panel-default">
+                      <div class="panel-body">
+                        <div class="pull-left">
+                          <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                        </div>
+                        <div class="user-details">
+                          <h5 class="user-name">
+                            {!! $r->friendRequest->firstname !!} {!! $r->friendRequest->lastname !!}
+                          </h5>
+                          <div class="fr-buttons">
+                            <a href="{!! action('UserController@acceptFriendRequest', $r->id) !!}" class="btn btn-info">Accept</a>
+                            <a href="" class="btn btn-default">Decline</a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
                   </div>
-              </div>
+                @endforeach
+              @else
+                <div class="alert alert-info">
+                    No Friend Request.
+                </div>
+              @endif
+
+
             </div>
+
+            <!--================================friend requests================================-->
           </div>
       </div>
       <!---->
