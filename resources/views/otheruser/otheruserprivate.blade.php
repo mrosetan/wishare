@@ -20,13 +20,12 @@
           @if(count($friend) == 0)
             <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
           @else
-              @foreach($friend as $f)
-                @if($f->status == 0)
-                  <a href="#" class="btn btn-info btn-default">Cancel Friend Request</a>
-                @else
-                  <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
-                @endif
-              @endforeach
+            @if($status == 0)
+              <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
+            @endif
+            @if($status == 1)
+              <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
+            @endif
 
           @endif
       </div>
