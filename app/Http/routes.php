@@ -51,6 +51,8 @@ Route::post('user/search', 'UserController@search');
 
 Route::get('user/add/{id?}', 'UserController@addFriend');
 Route::get('user/unfriend/{id?}', 'UserController@unfriend');
+Route::get('user/cancelFriendRequest/{id?}', 'UserController@cancelFriendRequest');
+
 
 
 // ADMIN
