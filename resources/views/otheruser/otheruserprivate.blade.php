@@ -17,16 +17,16 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
-          @if(count($friend) == 0)
-            <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
+          @if(isset($status) and $status == 0 || $status == 1)
+
+            @if($status == 0)
+              <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
+            @endif
+            @if($status == 1)
+              <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
+            @endif
           @else
-              @foreach($friend as $f)
-                @if($f->status == 0)
-                  <a href="#" class="btn btn-info btn-default">Cancel Friend Request</a>
-                @else
-                  <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
-                @endif
-              @endforeach
+            <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
 
           @endif
       </div>

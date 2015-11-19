@@ -131,12 +131,12 @@
                                           <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
                                         </div>
                                       </a>
-                                      <a href="{!! action('UserController@otheruser', $friend['user']['id']) !!}">
+                                      <a href="{!! action('UserController@otheruser', $friend['id']) !!}">
                                       <div class="user-details">
                                         <p class="user-name">
-                                          {!! $friend['user']['firstname'] !!} {!! $friend['user']['lastname'] !!}
+                                          {!! $friend['firstname'] !!} {!! $friend['lastname'] !!}
                                           <br />
-                                            {!! $friend['user']['username'] !!}
+                                            {!! $friend['username'] !!}
                                         </p>
                                       </div>
                                       </a>

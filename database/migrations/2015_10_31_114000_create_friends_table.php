@@ -19,6 +19,7 @@ class CreateFriendsTable extends Migration
             $table->timestamp('date_added');
             $table->timestamp('date_accepted');
             $table->tinyInteger('status');
+            $table->tinyInteger('seen');
             $table->timestamps();
         });
     }

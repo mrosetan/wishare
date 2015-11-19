@@ -81,9 +81,15 @@
               <div class="row">
                 <label>Profile Privacy:</label>
                 <div class="col-sm-12">
+                  @if($user->privacy == 0)
                   {!! Form::radio('privacy', '0', true)!!}&nbsp;Public
                   <br />
                   {!! Form::radio('privacy', '1')!!}&nbsp;Private
+                  @else
+                  {!! Form::radio('privacy', '0')!!}&nbsp;Public
+                  <br />
+                  {!! Form::radio('privacy', '1', true)!!}&nbsp;Private
+                  @endif
                 </div>
               </div>
               <hr />

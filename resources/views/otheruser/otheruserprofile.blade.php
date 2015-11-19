@@ -16,18 +16,18 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
-        @if(count($friend) == 0)
-          <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
-        @else
-            @foreach($friend as $f)
-              @if($f->status == 0)
-                <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
-              @else
-                <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
-              @endif
-            @endforeach
+          @if(isset($status) and $status == 0 || $status == 1)
 
-        @endif
+            @if($status == 0)
+              <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
+            @endif
+            @if($status == 1)
+              <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
+            @endif
+          @else
+            <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
+
+          @endif
       </div>
     </div>
   </div>
@@ -228,28 +228,45 @@
                       </div>
                     </div>
                 </div>
+
+                <!-- ================FRIENDS================== -->
+
                 <div class="tab-pane" id="tab-friends">
-                  <div class="panel-group accordion accordion-dc">
-                      <div class="panel panel-default">
-                          <div class="panel-heading">
-                              <p class="panel-title">
-                                  <a href="#accTwoColTwo">
-                                    <div class="pull-left">
-                                      <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
-                                    </div>
-                                  </a>
-                                  <div class="user-details">
-                                    <p class="user-name">
-                                      <a href="#">Brenda</a>
-                                      <br />
-                                      Wishes: 3&nbsp;Granted: 1&nbsp;Given: 1&nbsp;Friends: 2 &nbsp;Tracked: 2 &nbsp;Thank You Notes: 2
-                                    </p>
-                                  </div>
-                              </p>
+                  @if(count($friends) > 0)
+
+                    @foreach($friends as $friend)
+                      <div class="panel-group accordion accordion-dc">
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                  <p class="panel-title">
+                                      <a href="#accTwoColTwo">
+                                        <div class="pull-left">
+                                          <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                                        </div>
+                                      </a>
+                                      <a href="{!! action('UserController@otheruser', $friend['id']) !!}">
+                                      <div class="user-details">
+                                        <p class="user-name">
+                                          {!! $friend['firstname'] !!} {!! $friend['lastname'] !!}
+                                          <br />
+                                            {!! $friend['username'] !!}
+                                        </p>
+                                      </div>
+                                      </a>
+                                  </p>
+                              </div>
                           </div>
-                      </div>
+                        </div>
+                      @endforeach
+                    @else
+                    <div class="alert alert-danger">
+                        No Friends.
                     </div>
+                    @endif
                 </div>
+
+                <!-- ================FRIENDS================== -->
+
                 <div class="tab-pane" id="tab-tracked">
                   <div class="panel-group accordion accordion-dc">
                       <div class="panel panel-default">
