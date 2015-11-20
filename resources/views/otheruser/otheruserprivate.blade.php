@@ -6,7 +6,7 @@
   <div class="row">
     <div class="profile-header">
       <div class="pull-left">
-        <img class="profile-img img-circle" src="{{ URL::asset('img/test2.jpg') }}">
+          {!! Html::image('' . $otherUser->imageurl, '', array('class'=>'profile-img img-circle')) !!}
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
