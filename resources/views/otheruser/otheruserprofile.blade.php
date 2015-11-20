@@ -16,7 +16,7 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
-          @if(isset($status) and $status == 0 || $status == 1)
+          @if(isset($status) and ($status == 0 || $status == 1))
 
             @if($status == 0)
               <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
