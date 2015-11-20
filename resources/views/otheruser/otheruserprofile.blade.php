@@ -241,7 +241,8 @@
                                   <p class="panel-title">
                                       <a href="#accTwoColTwo">
                                         <div class="pull-left">
-                                          <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                                          {!! Html::image('' . $friend['imageurl'], '', array('class'=>'user-friend img-circle')) !!}
+
                                         </div>
                                       </a>
                                       <a href="{!! action('UserController@otheruser', $friend['id']) !!}">
