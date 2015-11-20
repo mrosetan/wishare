@@ -62,11 +62,11 @@
                         </div>
                         <div class="user-details">
                           <h5 class="user-name">
-                            {!! $r->friendRequest->firstname !!} {!! $r->friendRequest->lastname !!}
+                            {!! $r->id !!} {!! $r->friendRequest->firstname !!} {!! $r->friendRequest->lastname !!}
                           </h5>
                           <div class="fr-buttons">
                             <a href="{!! action('UserController@acceptFriendRequest', $r->id) !!}" class="btn btn-info">Accept</a>
-                            <a href="" class="btn btn-default">Decline</a>
+                            <a href="{!! action('UserController@declineFriendRequest', $r->id) !!}" class="btn btn-default">Decline</a>
                           </div>
                         </div>
                       </div>
