@@ -120,7 +120,7 @@
                   </div>
               </div>
                 <div class="tab-pane" id="tab-friends">
-                  @if(isset($friends))
+                  @if(isset($friends) and count($friends) > 0)
                     @foreach($friends as $friend)
                       <div class="panel-group ">
                           <div class="panel panel-default">

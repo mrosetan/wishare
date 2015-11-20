@@ -10,8 +10,14 @@
     <div class="col-md-12">
       <div class="panel panel-default tabs">
           <ul class="nav nav-tabs" role="tablist">
-              <li class="active"><a href="#tab-notif" role="tab" data-toggle="tab">Notifications <span class="badge badge-warning">58</span> </a></li>
-              <li><a href="#tab-fr" role="tab" data-toggle="tab">Friend Requests <span class="badge badge-warning">58</span> </a></li>
+              <li class="active"><a href="#tab-notif" role="tab" data-toggle="tab">Notifications <span class="badge badge-warning">3</span> </a></li>
+              <li>
+                <a href="#tab-fr" role="tab" data-toggle="tab">Friend Requests
+                  @if(count($requests) > 0)
+                    <span class="badge badge-warning">{!! count($requests) !!}</span>
+                  @endif
+                </a>
+             </li>
           </ul>
           <br />
           <!--notifications-->
@@ -58,7 +64,7 @@
                   <div class="panel panel-default">
                       <div class="panel-body">
                         <div class="pull-left">
-                          <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                            {!! Html::image('' . $r->friendRequest->imageurl, '', array('class'=>'user img-circle')) !!}
                         </div>
                         <div class="user-details">
                           <h5 class="user-name">

@@ -83,11 +83,8 @@ class UserController extends Controller
     $user = Auth::user();
 
     $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
-    // $requests = Friend::with('friendRequest')->get();
-    // print($requests);
-    // die();
 
-    return view('userlayouts.notifications', compact('requests'));
+   return view('userlayouts.notifications', compact('requests'));
   }
   public function notes()
   {
@@ -498,5 +495,14 @@ class UserController extends Controller
 
     // dd($friendRequest);
     return redirect()->action('UserController@notifications');
+  }
+
+  public function sidebarNotification()
+  {
+    $user = Auth::user();
+
+    $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+    // dd($requests);
+    return view('userlayouts-master.user-master', compact('requests'));
   }
 }
