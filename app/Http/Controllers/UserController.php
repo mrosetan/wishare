@@ -141,10 +141,13 @@ class UserController extends Controller
     if($user->id != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
 
-      // $friend = Friend::with('user')
-      //                   ->where('userid', '=', $user->id)
-      //                   ->where('friend_userid', '=', $otherUser->id)
-      //                   ->first();
+      $requests = Friend::with('friendRequest')
+                          ->where('userid', '=', $otherUser->id)
+                          ->where('friend_userid', '=', $userId)
+                          ->where('status', '=', 0)
+                          ->get();
+      // print($requests);
+      // die();
 
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($otherUser->id)->friends;
@@ -153,27 +156,35 @@ class UserController extends Controller
       // if(count($friends)==0){
       $friendRequest = Friend::where('userid', '=', $user->id)
                             ->where('friend_userid', '=', $id)
+                            ->where('status', '=', 0)
                             ->first();
 
-      if(!empty($friendRequest))
+      if(!empty($friendRequest)){
         $status = 0;
-      // }
-      // else{
+      }
+      else {
+        $status = 3;
+      }
+
+      if(!empty($friends)){
         foreach ($friends as $f) {
           if ($f->id == $userId) {
             $status = $f->pivot->status;
           }
         }
+      }
+      else{
+        $status= 0;
+      }
 
-      // }
 
 
+      if(($otherUser->privacy == 1) && $status != 1){
 
-      if($otherUser->privacy == 0){
-          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status'));
+          return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status', 'requests'));
       }
       else {
-          return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status'));
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests'));
       }
     }
     else {
@@ -489,7 +500,9 @@ class UserController extends Controller
 
   public function declineFriendRequest($id)
   {
-    $friendRequest = Friend::find($id)->first();
+    $user = Auth::user();
+
+    $friendRequest = Friend::find($id)->where('friend_userid','=', $user->id)->first();
 
     $friendRequest->delete();
 

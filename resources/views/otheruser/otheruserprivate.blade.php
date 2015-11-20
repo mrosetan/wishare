@@ -17,17 +17,25 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
-          @if(isset($status) and $status == 0 || $status == 1)
-
-            @if($status == 0)
-              <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
-            @endif
-            @if($status == 1)
-              <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
-            @endif
+          @if(count($requests)>0)
+            @foreach($requests as $req)
+              {!! $req->id !!}
+              <a href="{!! action('UserController@acceptFriendRequest', $req->id) !!}" class="btn btn-info">Accept</a>
+              <a href="{!! action('UserController@declineFriendRequest', $req->id) !!}" class="btn btn-default">Decline</a>
+            @endforeach
           @else
-            <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
+            @if(isset($status) and ($status == 0 || $status == 1))
 
+              @if($status == 0)
+                <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
+              @endif
+              @if($status == 1)
+                <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
+              @endif
+            @else
+              <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
+
+            @endif
           @endif
       </div>
     </div>

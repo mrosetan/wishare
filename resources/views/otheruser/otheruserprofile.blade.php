@@ -16,6 +16,13 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
+        @if(count($requests)>0)
+          @foreach($requests as $req)
+            {!! $req->id !!}
+            <a href="{!! action('UserController@acceptFriendRequest', $req->id) !!}" class="btn btn-info">Accept</a>
+            <a href="{!! action('UserController@declineFriendRequest', $req->id) !!}" class="btn btn-default">Decline</a>
+          @endforeach
+        @else
           @if(isset($status) and ($status == 0 || $status == 1))
 
             @if($status == 0)
@@ -28,6 +35,7 @@
             <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
 
           @endif
+        @endif
       </div>
     </div>
   </div>
