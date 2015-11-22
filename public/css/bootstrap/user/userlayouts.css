@@ -80,6 +80,7 @@ img.img{
 }
 a.wish-name {
   font-size: 14px;
+  text-decoration: none;
 }
 .grant-icon.pull-right {
     font-size: 20px;
@@ -116,6 +117,11 @@ p.user-given {
 /*   Notifications */
 .fr-buttons {
   margin-left: 80px;
+}
+.notifications-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 600px;
 }
 /* Settings */
 .settings-container {
