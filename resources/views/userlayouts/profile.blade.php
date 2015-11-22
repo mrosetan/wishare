@@ -46,9 +46,15 @@
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <p class="panel-title">
+                        @if($wishlist->privacy == 0)
                           <a href="#accOneColOne">
                             {!! $wishlist->title !!}
                           </a>
+                        @else
+                          <a href="#accOneColOne">
+                            <span class="fa fa-lock"></span> {!! $wishlist->title !!}
+                          </a>
+                        @endif
                       </p>
                       <div class="wishlist-icons pull-right">
                         <a href="#"><span class="fa fa-plus"></span></a>
