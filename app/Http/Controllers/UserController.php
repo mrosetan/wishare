@@ -432,7 +432,7 @@ class UserController extends Controller
       return view('userlayouts.wishlistProfile', compact('user', 'wishlists'));
   }
 
-  public function addFriend(FriendRequest $request, $id)
+  public function addFriend($id)
   {
     $user = Auth::user();
 
@@ -440,7 +440,7 @@ class UserController extends Controller
                       ->where('userid', '='. $user->id)
                       ->get();
     // dd($exists);
-    if(empty($exist)){
+    if(!empty($exists)){
       $friend = new Friend(array(
         'friend_userid' => $id,
         'userid' => $user->id,
