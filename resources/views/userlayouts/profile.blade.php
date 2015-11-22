@@ -6,10 +6,8 @@
   <div class="row">
     <div class="profile-header">
       <div class="pull-left">
-        <!-- <img class="profile-img img-circle" src="{{ URL::asset('img/userImages/') }}"> -->
-        <!-- {!! Html::image($user->imageurl) !!} -->
-        <!-- <img class="profile-img img-circle" src="{!! $user->imageurl !!}" /> -->
-        {!! Html::image('' . $user->imageurl, '', array('class'=>'profile-img img-circle')) !!}
+        <!-- {!! Html::image($user->imageurl, '', array('class'=>'profile-img img-circle')) !!} -->
+        <img class="profile-img img-circle" src="{!! $user->imageurl !!}" />
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">

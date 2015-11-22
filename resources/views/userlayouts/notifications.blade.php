@@ -19,7 +19,7 @@
                     @endif
                   </a>
                </li>
-               <li class="active"><a href="#tab-notif" role="tab" data-toggle="tab">Grant Requests <span class="badge badge-warning">3</span> </a></li>
+               <li><a href="#tab-notif" role="tab" data-toggle="tab">Grant Requests <span class="badge badge-warning">3</span> </a></li>
             </ul>
             <br />
             <!--notifications-->
