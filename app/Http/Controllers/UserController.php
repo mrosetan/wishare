@@ -338,13 +338,14 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
+    $hostURL = '192.168.1.17';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
 
-    $path = public_path('img/userImages/' . $filename);
+    $path = ('C:/xampp/htdocs/wishareimages/userimages/' . $filename);
     Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
-    $user->imageurl = 'img/userImages/'.$filename;
+    $user->imageurl =  'http://' . $hostURL . '/wishareimages/userimages/'.$filename;
 
     $user->save();
 
