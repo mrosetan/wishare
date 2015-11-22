@@ -425,7 +425,7 @@ class UserController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
     if(count($wishlists) > 0 || !empty($user))
-      return view('userlayouts.profile', compact('user', 'wishlists'));
+      return view('userlayouts.wishlistProfile', compact('user', 'wishlists'));
   }
 
   public function addFriend($id)
