@@ -38,7 +38,7 @@ class AuthController extends Controller
       } catch (Exception $e) {
           return redirect('login/facebook');
       }
-
+      // dd($user);
       $authUser = $this->findOrCreateUser($user);
 
       Auth::login($authUser, true);
@@ -95,6 +95,7 @@ class AuthController extends Controller
             'firstname' => $fbUser->firstname,
             'username' => $username,
             'email' => $fbUser->email,
+            'imageurl' => $fbUser->avatar,
             'privacy' => 0,
             'type' => 1,
             'status' => 1,

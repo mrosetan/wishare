@@ -82,7 +82,10 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+    // $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+    $requests = Friend::where('friend_userid', '=', $user->id)->where('status', '=', '0')->get();
+    // print($requests);
+    // die();
 
    return view('userlayouts.notifications', compact('requests'));
   }
