@@ -19,6 +19,11 @@
         @if(count($requests)>0)
           @foreach($requests as $req)
             {!! $req->id !!}
+            <!-- {!! Form::open(array(
+                          'action' => array('UserController@acceptFriendRequest', $req->id),
+                          'class' => 'form')) !!}
+                {!! Form::submit('Accept', array('class'=>'btn btn-info')) !!}
+            {!! Form::close() !!} -->
             <a href="{!! action('UserController@acceptFriendRequest', $req->id) !!}" class="btn btn-info">Accept</a>
             <a href="{!! action('UserController@declineFriendRequest', $req->id) !!}" class="btn btn-default">Decline</a>
           @endforeach
@@ -32,6 +37,11 @@
               <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
             @endif
           @else
+          <!-- {!! Form::open(array(
+                        'action' => array('UserController@addFriend', $otherUser->id),
+                        'class' => 'form')) !!}
+              {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
+          {!! Form::close() !!} -->
             <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
 
           @endif
