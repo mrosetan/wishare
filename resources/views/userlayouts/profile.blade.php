@@ -6,10 +6,8 @@
   <div class="row">
     <div class="profile-header">
       <div class="pull-left">
-        <!-- <img class="profile-img img-circle" src="{{ URL::asset('img/userImages/') }}"> -->
-        <!-- {!! Html::image($user->imageurl) !!} -->
-        <!-- <img class="profile-img img-circle" src="{!! $user->imageurl !!}" /> -->
-        {!! Html::image('' . $user->imageurl, '', array('class'=>'profile-img img-circle')) !!}
+        <!-- {!! Html::image($user->imageurl, '', array('class'=>'profile-img img-circle')) !!} -->
+        <img class="profile-img img-circle" src="{!! $user->imageurl !!}" />
       </div>
       <div class="userprofile-details">
         <h4 class="userprofile-name">
@@ -48,9 +46,15 @@
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <p class="panel-title">
+                        @if($wishlist->privacy == 0)
                           <a href="#accOneColOne">
                             {!! $wishlist->title !!}
                           </a>
+                        @else
+                          <a href="#accOneColOne">
+                            <span class="fa fa-lock"></span> {!! $wishlist->title !!}
+                          </a>
+                        @endif
                       </p>
                       <div class="wishlist-icons pull-right">
                         <a href="#"><span class="fa fa-plus"></span></a>
@@ -128,7 +132,7 @@
                                   <p class="panel-title">
                                       <a href="#accTwoColTwo">
                                         <div class="pull-left">
-                                          <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                                          {!! Html::image('' . $friend['imageurl'], '', array('class'=>'user-friend img-circle')) !!}
                                         </div>
                                       </a>
                                       <a href="{!! action('UserController@otheruser', $friend['id']) !!}">

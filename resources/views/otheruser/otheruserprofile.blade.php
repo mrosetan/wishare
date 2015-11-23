@@ -16,18 +16,57 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
-          @if(isset($status) and $status == 0 || $status == 1)
+        @if(count($requests)>0)
+          @foreach($requests as $req)
+            <div class="accept-or-decline">
+              {!! Form::open(array(
+                            'action' => array('UserController@acceptFriendRequest', $req->id),
+                            'class' => 'form friendActions friend-action-button',
+                            'method' => 'get')) !!}
+                  {!! Form::submit('Accept', array('class'=>'btn btn-info btn-default')) !!}
+              {!! Form::close() !!}
+              {!! Form::open(array(
+                            'action' => array('UserController@declineFriendRequest', $req->id),
+                            'class' => 'form friendActions friend-action-button',
+                            'method' => 'get')) !!}
+                  {!! Form::submit('Decline', array('class'=>'btn btn-info btn-default')) !!}
+              {!! Form::close() !!}
+              <!-- <a href="{!! action('UserController@acceptFriendRequest', $req->id) !!}" class="btn btn-info">Accept</a>
+              <a href="{!! action('UserController@declineFriendRequest', $req->id) !!}" class="btn btn-default">Decline</a> -->
+            </div>
+          @endforeach
+        @else
+          @if(isset($status) and ($status == 0 || $status == 1))
 
             @if($status == 0)
-              <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
+              {!! Form::open(array(
+                            'action' => array('UserController@cancelFriendRequest', $otherUser->id),
+                            'class' => 'form friendActions',
+                            'method' => 'get')) !!}
+                  {!! Form::submit('Cancel Friend Request', array('class'=>'btn btn-info btn-default')) !!}
+              {!! Form::close() !!}
+              <!-- <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a> -->
             @endif
             @if($status == 1)
-              <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
+              {!! Form::open(array(
+                            'action' => array('UserController@unfriend', $otherUser->id),
+                            'class' => 'form friendActions',
+                            'method' => 'get')) !!}
+                  {!! Form::submit('Unfriend', array('class'=>'btn btn-info btn-default')) !!}
+              {!! Form::close() !!}
+              <!-- <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a> -->
             @endif
           @else
-            <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
+            {!! Form::open(array(
+                          'action' => array('UserController@addFriend', $otherUser->id),
+                          'class' => 'form friendActions',
+                          'method' => 'get')) !!}
+                {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
+            {!! Form::close() !!}
+            <!-- <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a> -->
 
           @endif
+        @endif
       </div>
     </div>
   </div>
@@ -241,7 +280,8 @@
                                   <p class="panel-title">
                                       <a href="#accTwoColTwo">
                                         <div class="pull-left">
-                                          <img class="user-friend img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                                          {!! Html::image('' . $friend['imageurl'], '', array('class'=>'user-friend img-circle')) !!}
+
                                         </div>
                                       </a>
                                       <a href="{!! action('UserController@otheruser', $friend['id']) !!}">
