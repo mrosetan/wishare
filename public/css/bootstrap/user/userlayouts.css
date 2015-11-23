@@ -107,6 +107,13 @@ p.user-given {
   margin: 0 auto;
 }
 
+/*Other User*/
+
+.friend-action-button{
+  float: left;
+  margin-right: 10px;
+}
+
 /*   Actions   */
 .actions-container {
   margin: 0 auto;

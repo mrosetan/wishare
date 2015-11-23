@@ -464,13 +464,16 @@ class UserController extends Controller
 
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $friend = User::find($user->id)->friends;
+    // print($friend);
+    // die();
 
-    foreach ($friend as $f) {
-      if ($f->id == $id) {
-        Friend::destroy($f->pivot->id);
+    if(!empty($friend)){
+      foreach ($friend as $f) {
+        if ($f->id == $id) {
+          Friend::destroy($f->pivot->id);
+        }
       }
     }
-
 
     // $friend->delete();
 
@@ -484,8 +487,10 @@ class UserController extends Controller
 
     $friendRequest = Friend::where('userid', '=', $user->id)
                             ->where('friend_userid', '=', $id)
-                            ->firstorFail();
-    // var_dump($friendRequest);
+                            ->where('status', '=', 0)
+                            ->first();
+    // print($friendRequest);
+    // die();
     if(!empty($friendRequest))
       $friendRequest->delete();
 
@@ -497,7 +502,10 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $friendRequest = Friend::where('id', '=', $id)->where('friend_userid','=', $user->id)->first();
+    $friendRequest = Friend::where('id', '=', $id)
+                            ->where('friend_userid','=', $user->id)
+                            ->where('status', '=', 0)
+                            ->first();
     // print($friendRequest);
     // die();
     if(!empty($friendRequest)){
@@ -514,7 +522,10 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $friendRequest = Friend::find($id)->where('friend_userid','=', $user->id)->firstorFail();
+    $friendRequest = Friend::find($id)
+                    ->where('friend_userid','=', $user->id)
+                    ->where('status', '=', 0)
+                    ->first();
 
     if(!empty($friendRequest))
       $friendRequest->delete();
