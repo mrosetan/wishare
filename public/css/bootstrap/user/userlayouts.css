@@ -123,6 +123,11 @@ p.user-given {
   margin-top: 50px;
   width: 600px;
 }
+.notes-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 800px;
+}
 /* Settings */
 .settings-container {
   margin: 0 auto;
