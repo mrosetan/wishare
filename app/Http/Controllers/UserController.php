@@ -13,6 +13,7 @@ use App\Http\Requests\SetPasswordRequest;
 use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
 use App\Http\Requests\NotesRequest;
+use App\Http\Requests\FriendRequest;
 use App\Wishlist;
 use App\User;
 use App\DefaultWishlist;
@@ -85,7 +86,10 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+    // $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+    $requests = Friend::where('friend_userid', '=', $user->id)->where('status', '=', '0')->get();
+    // print($requests);
+    // die();
 
    return view('userlayouts.notifications', compact('requests'));
   }
@@ -120,10 +124,29 @@ class UserController extends Controller
   {
     return view('userlayouts.wishlistAction');
   }
+
   public function wishAction()
   {
-    return view('userlayouts.wishAction');
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $friends = User::find($userId)->friends;
+
+    return view('userlayouts.wishAction', compact('friends'));
   }
+
+  public function addWish(Request $request)
+  {
+    print($request);
+    die();
+  }
+
+  public function notesAction()
+  {
+    return view('userlayouts.notesAction');
+  }
+
   public function tynotesAction()
   {
     return view('userlayouts.tynotesAction');
@@ -137,10 +160,13 @@ class UserController extends Controller
     if($user->id != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
 
-      // $friend = Friend::with('user')
-      //                   ->where('userid', '=', $user->id)
-      //                   ->where('friend_userid', '=', $otherUser->id)
-      //                   ->first();
+      $requests = Friend::with('friendRequest')
+                          ->where('userid', '=', $otherUser->id)
+                          ->where('friend_userid', '=', $userId)
+                          ->where('status', '=', 0)
+                          ->get();
+      // print($requests);
+      // die();
 
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($otherUser->id)->friends;
@@ -149,27 +175,35 @@ class UserController extends Controller
       // if(count($friends)==0){
       $friendRequest = Friend::where('userid', '=', $user->id)
                             ->where('friend_userid', '=', $id)
+                            ->where('status', '=', 0)
                             ->first();
 
-      if(!empty($friendRequest))
+      if(!empty($friendRequest)){
         $status = 0;
-      // }
-      // else{
+      }
+      else {
+        $status = 3;
+      }
+
+      if(!empty($friends)){
         foreach ($friends as $f) {
           if ($f->id == $userId) {
             $status = $f->pivot->status;
           }
         }
+      }
+      else{
+        $status= 0;
+      }
 
-      // }
 
 
+      if(($otherUser->privacy == 1) && $status != 1){
 
-      if($otherUser->privacy == 0){
-          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status'));
+          return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status', 'requests'));
       }
       else {
-          return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status'));
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests'));
       }
     }
     else {
@@ -418,15 +452,21 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $friend = new Friend(array(
-      'friend_userid' => $id,
-      'userid' => $user->id,
-      'date_added' => date("Y-m-d h:i:s"),
-      'status' => 0,
-      'seen' => 0,
-    ));
-    // dd($friend);
-    $friend->save();
+    $exists = Friend::where('friend_userid', '=', $id)
+                      ->where('userid', '='. $user->id)
+                      ->get();
+    // dd($exists);
+    if(!empty($exists)){
+      $friend = new Friend(array(
+        'friend_userid' => $id,
+        'userid' => $user->id,
+        'date_added' => date("Y-m-d h:i:s"),
+        'status' => 0,
+        'seen' => 0,
+      ));
+      // dd($friend);
+      $friend->save();
+    }
 
     return redirect()->action('UserController@otheruser', [$id]);
 
@@ -439,13 +479,16 @@ class UserController extends Controller
 
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $friend = User::find($user->id)->friends;
+    // print($friend);
+    // die();
 
-    foreach ($friend as $f) {
-      if ($f->id == $id) {
-        Friend::destroy($f->pivot->id);
+    if(!empty($friend)){
+      foreach ($friend as $f) {
+        if ($f->id == $id) {
+          Friend::destroy($f->pivot->id);
+        }
       }
     }
-
 
     // $friend->delete();
 
@@ -459,10 +502,12 @@ class UserController extends Controller
 
     $friendRequest = Friend::where('userid', '=', $user->id)
                             ->where('friend_userid', '=', $id)
-                            ->firstorFail();
-    // var_dump($friendRequest);
-
-    $friendRequest->delete();
+                            ->where('status', '=', 0)
+                            ->first();
+    // print($friendRequest);
+    // die();
+    if(!empty($friendRequest))
+      $friendRequest->delete();
 
     return redirect()->action('UserController@otheruser', [$id]);
 
@@ -472,28 +517,38 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    $friendRequest = Friend::where('id', '=', $id)->where('friend_userid','=', $user->id)->first();
+    $friendRequest = Friend::where('id', '=', $id)
+                            ->where('friend_userid','=', $user->id)
+                            ->where('status', '=', 0)
+                            ->first();
     // print($friendRequest);
     // die();
-    $friendRequest->date_accepted = date("Y-m-d h:i:s");
-    $friendRequest->status = 1;
+    if(!empty($friendRequest)){
+      $friendRequest->date_accepted = date("Y-m-d h:i:s");
+      $friendRequest->status = 1;
 
-    $friendRequest->save();
-
+      $friendRequest->save();
+    }
 
     return redirect()->action('UserController@notifications');
   }
 
   public function declineFriendRequest($id)
   {
-    $friendRequest = Friend::find($id)->first();
+    $user = Auth::user();
 
-    $friendRequest->delete();
+    $friendRequest = Friend::find($id)
+                    ->where('friend_userid','=', $user->id)
+                    ->where('status', '=', 0)
+                    ->first();
+
+    if(!empty($friendRequest))
+      $friendRequest->delete();
 
     // dd($friendRequest);
     return redirect()->action('UserController@notifications');
   }
-
+  
   public function getRecipient()
   {
     $user = Auth::user();

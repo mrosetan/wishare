@@ -17,17 +17,54 @@
         <h5 class="userprofile-addr">
           Cebu City, Philippines
         </h5>
-          @if(isset($status) and $status == 0 || $status == 1)
-
-            @if($status == 0)
-              <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a>
-            @endif
-            @if($status == 1)
-              <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a>
-            @endif
+          @if(count($requests)>0)
+            @foreach($requests as $req)
+              {!! Form::open(array(
+                            'action' => array('UserController@acceptFriendRequest', $req->id),
+                            'class' => 'form friendActions friend-action-button',
+                            'method' => 'get')) !!}
+                  {!! Form::submit('Accept', array('class'=>'btn btn-info btn-default')) !!}
+              {!! Form::close() !!}
+              {!! Form::open(array(
+                            'action' => array('UserController@declineFriendRequest', $req->id),
+                            'class' => 'form friendActions friend-action-button',
+                            'method' => 'get')) !!}
+                  {!! Form::submit('Decline', array('class'=>'btn btn-info btn-default')) !!}
+              {!! Form::close() !!}
+              <!-- <a href="{!! action('UserController@acceptFriendRequest', $req->id) !!}" class="btn btn-info">Accept</a>
+              <a href="{!! action('UserController@declineFriendRequest', $req->id) !!}" class="btn btn-default">Decline</a> -->
+            @endforeach
           @else
-            <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a>
+            @if(isset($status) and ($status == 0 || $status == 1))
 
+              @if($status == 0)
+                {!! Form::open(array(
+                              'action' => array('UserController@cancelFriendRequest', $otherUser->id),
+                              'class' => 'form friendActions',
+                              'method' => 'get')) !!}
+                    {!! Form::submit('Cancel Friend Request', array('class'=>'btn btn-info btn-default')) !!}
+                {!! Form::close() !!}
+                <!-- <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a> -->
+              @endif
+              @if($status == 1)
+                {!! Form::open(array(
+                              'action' => array('UserController@unfriend', $otherUser->id),
+                              'class' => 'form friendActions',
+                              'method' => 'get')) !!}
+                    {!! Form::submit('Unfriend', array('class'=>'btn btn-info btn-default')) !!}
+                {!! Form::close() !!}
+                <!-- <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a> -->
+              @endif
+            @else
+              {!! Form::open(array(
+                            'action' => array('UserController@addFriend', $otherUser->id),
+                            'class' => 'form friendActions',
+                            'method' => 'get')) !!}
+                  {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-default')) !!}
+              {!! Form::close() !!}
+              <!-- <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a> -->
+
+            @endif
           @endif
       </div>
     </div>

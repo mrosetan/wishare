@@ -70,11 +70,25 @@
                           </div>
                           <div class="user-details">
                             <h5 class="user-name">
-                              {!! $r->id !!} {!! $r->friendRequest->firstname !!} {!! $r->friendRequest->lastname !!}
+                              <a href="{!! action('UserController@otheruser', $r->friendRequest->id) !!}">
+                              {!! $r->friendRequest->firstname !!} {!! $r->friendRequest->lastname !!}
+                            </a>
                             </h5>
                             <div class="fr-buttons">
-                              <a href="{!! action('UserController@acceptFriendRequest', $r->id) !!}" class="btn btn-info">Accept</a>
-                              <a href="{!! action('UserController@declineFriendRequest', $r->id) !!}" class="btn btn-default">Decline</a>
+                              {!! Form::open(array(
+                                            'action' => array('UserController@acceptFriendRequest', $r->id),
+                                            'class' => 'form friendActions friend-action-button',
+                                            'method' => 'get')) !!}
+                                  {!! Form::submit('Accept', array('class'=>'btn btn-info')) !!}
+                              {!! Form::close() !!}
+                              {!! Form::open(array(
+                                            'action' => array('UserController@declineFriendRequest', $r->id),
+                                            'class' => 'form friendActions friend-action-button',
+                                            'method' => 'get')) !!}
+                                  {!! Form::submit('Decline', array('class'=>'btn btn-default')) !!}
+                              {!! Form::close() !!}
+                              <!-- <a href="{!! action('UserController@acceptFriendRequest', $r->id) !!}" class="btn btn-info">Accept</a>
+                              <a href="{!! action('UserController@declineFriendRequest', $r->id) !!}" class="btn btn-default">Decline</a> -->
                             </div>
                           </div>
                         </div>

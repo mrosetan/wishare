@@ -14,6 +14,9 @@
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/theme-blue.css') }}"/>
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/bootstrap/user/userlayouts.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/calendar-bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-multiselect.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/searchableOptionList.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/sol.css') }}">
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
@@ -193,11 +196,16 @@
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>
 
         <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/bootstrap-multiselect.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/sol.js') !!}"></script>
         <!-- END PAGE PLUGINS -->
 
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="{{ URL::asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/actions.js') }}"></script>
+
+
+        <script type="text/javascript" src="{{ URL::asset('js/user_side.js') }}"></script>
 
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
