@@ -8,7 +8,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Add Wish</h4>
-          {!! Form::open(array( 'class' => 'form')) !!}
+          {!! Form::open(array( 'action' => 'UserController@addWish',
+                                'class' => 'form')) !!}
           <div class="form-group">
             <div class="row">
               <div class="col-md-12">
@@ -38,12 +39,32 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="tag-container">
-                  {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Baratheon
+                  <!-- {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobby Baratheon
                   <br>
                   {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Rosie Lannister
                   <br>
-                  {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobrys
+                  {!! Form::checkbox('tag', 'tagged') !!}&nbsp;Bobrys -->
+                  <select id="my-select" name="tags[]" multiple="multiple">
+                    @foreach($friends as $f)
+                      <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
+
+                    @endforeach
+                  </select>
                 </div>
+
+                <!-- ============= TAGS ============ -->
+                <div class="form-group">
+                    <!-- <label class="col-sm-2 control-label">Multiselect</label> -->
+                    <div class="col-sm-10">
+                        <select id="example-post" name="multiselect[]" multiple="multiple">
+                          @foreach($friends as $f)
+                            <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
+
+                          @endforeach
+                        </select>
+                    </div>
+                </div>
+
               </div>
             </div>
             <br />

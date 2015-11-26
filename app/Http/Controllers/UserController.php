@@ -124,10 +124,24 @@ class UserController extends Controller
   {
     return view('userlayouts.wishlistAction');
   }
+
   public function wishAction()
   {
-    return view('userlayouts.wishAction');
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $friends = User::find($userId)->friends;
+
+    return view('userlayouts.wishAction', compact('friends'));
   }
+
+  public function addWish(Request $request)
+  {
+    print($request);
+    die();
+  }
+
   public function notesAction()
   {
     return view('userlayouts.notesAction');
@@ -532,14 +546,5 @@ class UserController extends Controller
 
     // dd($friendRequest);
     return redirect()->action('UserController@notifications');
-  }
-
-  public function sidebarNotification()
-  {
-    $user = Auth::user();
-
-    $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
-    // dd($requests);
-    return view('userlayouts-master.user-master', compact('requests'));
   }
 }

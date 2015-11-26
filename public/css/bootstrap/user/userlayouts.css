@@ -147,3 +147,11 @@ p.user-given {
 .timeline-item-info {
   width: 120px !important;
 }
+
+/*.dropdown-menu>.active>a {*/
+.dropdown-menu .active .checkbox{
+    color: #fff;
+    text-decoration: none;
+    background-color: #337ab7;
+    outline: 0;
+}

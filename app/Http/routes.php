@@ -55,7 +55,7 @@ Route::get('user/cancelFriendRequest/{id?}', 'UserController@cancelFriendRequest
 Route::get('user/accept/{id?}', 'UserController@acceptFriendRequest');
 Route::get('user/decline/{id?}', 'UserController@declineFriendRequest');
 
-
+Route::post('user/add', 'UserController@addWish');
 
 
 
