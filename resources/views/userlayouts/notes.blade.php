@@ -21,8 +21,13 @@
                     {{ session('noteDelete') }}
                 </div>
               @endif
-              @if(isset($notes) and count($notes) > 0)
-                @foreach($notes as $note)
+              @if(session('noteStatus'))
+                <div class="alert alert-success">
+                    {{ session('noteStatus') }}
+                </div>
+              @endif
+              @if(isset($notes) and $notes->count())
+                @foreach($notes as $id => $note)
                   <div class="panel panel-default">
                     <div class="panel-body">
                       {!! $note->pivot->message !!}
@@ -32,61 +37,88 @@
                       <b>Sender:</b> {!! $note->firstname !!} {!! $note->lastname !!}<br />
                       <b>Received:</b> {!! date('F d, Y g:i a', strtotime($note->created_at)) !!}
                       <div class="pull-right">
-                        {!! Form::button('Reply', array('class'=>'btn btn-info', 'data-toggle'=>'modal', 'data-target'=>'#modal_reply')) !!}
-                        <a href="#" class="mb-control" data-box="#mb-delete"><button class="btn btn-default">Delete</button></a>
+                        <a href="#" data-toggle="modal" data-target="#modal_reply{!! $id !!}"><button class="btn btn-info">Reply</button></a>
+                        <a href="#" class="mb-control" data-box="#mb-deletenote{!! $id !!}"><button class="btn btn-default">Delete</button></a>
                       </div>
                     </div>
                   </div>
-                @endforeach
-              @else
-              <div class="alert alert-danger">
-                  No Notes.
-              </div>
-              @endif
-              @foreach($notes as $note)
-                <!-- message box-->
-                <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete">
-                    <div class="mb-container">
-                        <div class="mb-middle">
-                            <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Note</div>
-                            <div class="mb-content">
-                                <p>Are you sure you want to delete this note?</p>
-                            </div>
-                            <div class="mb-footer">
-                                @if(!empty($note))
-                                <div class="pull-right">
-                                    <a href="{!! action('UserController@deleteNote', $note->pivot->id) !!}" class="btn btn-success btn-lg">Yes</a>
-                                    <button class="btn btn-default btn-lg mb-control-close">No</button>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                  @endforeach
+                @else
+                <div class="alert alert-danger">
+                    No Notes.
                 </div>
-                <!--end of message box-->
-              @endforeach
-              </div>
-              <div class="modal" id="modal_reply" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                              <h4 class="modal-title" id="defModalHead">Accept Grant Request</h4>
-                          </div>
-                          <div class="modal-body">
-                              {!! Form::open() !!}
-                              {!! Form::textarea('caption', null, array('class'=>'form-control', 'placeholder'=>'Add a caption')) !!}
-                              <br />
-                          </div>
-                          <div class="modal-footer">
-                            {!! Form::button('Reply', ['class'=>'btn btn-info'])!!}
-                            {!! Form::reset('Cancel', ['class'=>'btn btn-default'])!!}
-                            {!! Form::close() !!}
+                @endif
+
+                <!-- message box -->
+                @if(isset($notes) and $notes->count())
+                  @foreach($notes as $id => $note)
+                  <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletenote{!! $id !!}">
+                      <div class="mb-container">
+                          <div class="mb-middle">
+                              <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Note</div>
+                              <div class="mb-content">
+                                  <p>Are you sure you want to delete this note?</p>
+                              </div>
+                              <div class="mb-footer">
+                                  @if(!empty($note))
+                                  <div class="pull-right">
+                                      <a href="{!! action('UserController@deleteNote', $note->pivot->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                      <button class="btn btn-default btn-lg mb-control-close">No</button>
+                                  </div>
+                                  @endif
+                              </div>
                           </div>
                       </div>
                   </div>
+                  @endforeach
+                @endif
+                <!--  -->
+
+                <!--reply modal -->
+                @if(isset($notes) and $notes->count())
+                  @foreach($notes as $id => $note)
+                  <div class="modal" id="modal_reply{!! $id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="defModalHead">Reply</h4>
+                            </div>
+                            <div class="modal-body">
+                            {!! Form::open(array(
+                                          'action' => array('UserController@createNoteModal', $note->id),
+                                          'class' => 'form')) !!}
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <label>Recipient:</label>
+                                  <br />
+                                  {!! Form::text('recipient', $note->firstname.' '.$note->lastname, array('class'=>'form-control', 'disabled'=>'true')) !!}
+                                </div>
+                              </div>
+                              <br />
+                              <div class="row">
+                                <div class="col-md-12">
+                                  {!! Form::textarea('message', null, ['class'=>'form-control', 'placeholder'=>'Note', 'size'=>'50x5']) !!}
+                                </div>
+                              </div>
+                              <br />
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="pull-right">
+                                    {!! Form::submit('Send', array('class'=>'btn btn-info')) !!}
+                                  </div>
+                                </div>
+                              </div>
+                              {!! Form::close() !!}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  <!--  -->
+                  @endforeach
+                @endif
               </div>
-          <!---->
+              <!--end of notes tab-->
               <div class="tab-pane" id="tab-tynotes">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -117,10 +149,10 @@
                 </div>
               </div>
             </div>
+          </div>
+
         </div>
-        <!---->
       </div>
     </div>
   </div>
-</div>
 @endsection
