@@ -48,7 +48,7 @@
               <label>Tag</label>
               <div class="row">
                 <div class="col-md-12">
-                  <select id="my-select" name="tags[]" multiple="multiple">
+                  <select class="my-select" name="tags[]" multiple="multiple">
                     @foreach($friends as $f)
                       <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
 

@@ -18,7 +18,7 @@ $(document).ready(function(){
 
     $(function() {
         // initialize sol
-        $('#my-select').searchableOptionList({
+        $('.my-select').searchableOptionList({
           showSelectAll: true,
           showSelectionBelowList: true,
 
