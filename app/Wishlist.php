@@ -17,6 +17,7 @@ class Wishlist extends Model
 
     public function wishes()
     {
-      return $this->hasMany('App\Wish', 'wishlistid', 'id');
+      return $this->hasMany('App\Wish', 'wishlistid', 'id')
+      ->where('status', '=', 1);
     }
 }

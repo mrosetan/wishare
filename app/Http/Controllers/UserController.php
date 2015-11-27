@@ -167,20 +167,45 @@ class UserController extends Controller
 
     if (!empty($request->tags)) {
       foreach ($request->tags as $t) {
-        // print_r($t);
         $tag = new Tag(array(
           'wishid' => $wish->id,
           'userid' => $t,
         ));
-        // print($t);
         $tag->save();
       }
     }
-    // die();
 
     return redirect('user/action/wish')->with('wishStatus', 'New wish added!');
-    // print($request);
-    // die();
+  }
+
+  public function editWish(WishRequest $request, $id)
+  {
+    $wish = Wish::where('id', '=', $id)->first();
+
+    if (!empty($wish)) {
+      # code...
+    }
+  }
+
+  public function deleteWish($id)
+  {
+    $wish = Wish::where('id', '=', $id)->first();
+
+    if(!empty($wish)){
+      $wish->status = 0;
+      $wish->save();
+
+      $tags = Tag::where('wishid', '=', $wish->id)->get();
+
+      if (!empty($tags)) {
+        foreach ($tags as $tag) {
+          $tag->delete();
+        }
+      }
+    }
+
+    return redirect('user/profile#tab-wishes')->with('wishDelete', 'Wish deleted!');
+
   }
 
   public function notesAction()
@@ -322,11 +347,11 @@ class UserController extends Controller
 
     //wishlist
     $wishlists = '';
-    // $wishlists = Wishlist::with('user')
-    //                     ->where('createdby_id', '=', $userId)
-    //                     ->where('status', '=', 1)
-    //                     ->orderBy('created_at', 'desc')
-    //                     ->get();
+    $wishlistsList = Wishlist::with('user')
+                        ->where('createdby_id', '=', $userId)
+                        ->where('status', '=', 1)
+                        ->orderBy('created_at', 'desc')
+                        ->lists('title', 'id');
 
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', '1')
                       ->get();
@@ -356,7 +381,7 @@ class UserController extends Controller
 
     //  dd($friends);
     if(count($wishlists) > 0 || !empty($user) || !empty($friends))
-      return view('userlayouts.profile', compact('user', 'wishlists', 'friends'));
+      return view('userlayouts.profile', compact('user', 'wishlists', 'friends', 'wishlistsList'));
     // /var_dump($wishlists);
 
 
