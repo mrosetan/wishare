@@ -47,11 +47,11 @@
                     <div class="panel-heading">
                       <p class="panel-title">
                         @if($wishlist->privacy == 0)
-                          <a href="#accOneColOne">
+                          <a href="#accOneColOne{!! $wishlist->id !!}">
                             {!! $wishlist->title !!}
                           </a>
                         @else
-                          <a href="#accOneColOne">
+                          <a href="#accOneColOne{!! $wishlist->id !!}">
                             <span class="fa fa-lock"></span> {!! $wishlist->title !!}
                           </a>
                         @endif
@@ -61,21 +61,29 @@
                         &nbsp;&nbsp;
                         <a href="#" data-toggle="modal" data-target="#modal_{!! $id !!}"><span class="glyphicon glyphicon-edit"></span></a>
                         &nbsp;&nbsp;
-                        <a href="#" class="mb-control" data-box="#mb-delete"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="#" class="mb-control" data-box="#mb-delete{!! $wishlist->id !!}"><span class="glyphicon glyphicon-trash"></span></a>
                         &nbsp;&nbsp;
                         <div class="fb-share-button" data-href="http://www.9gag.com" data-layout="icon"></div> <!-- URL of site -->
                       </div>
                     </div>
-                    <div class="panel-body" id="accOneColOne">
-                      <a href="{{ url('user/wish') }}" class="wish-name">Bobby</a>
-                      <div class="wish-icons pull-right">
-                        <a href="#"><span class="fa fa-star"></span></a>
-                        &nbsp;&nbsp;
-                        <a href="#"><span class="fa fa-bookmark"></span></a>
-                        &nbsp;&nbsp;
-                        <a href="#"><span class="fa fa-retweet"></span></a>
-                      </div>
-                    </div>
+                    @if(count($wishlist->wishes)>0)
+                        <div class="panel-body" id="accOneColOne{!! $wishlist->id !!}">
+                          @foreach($wishlist->wishes as $wish)
+                          <div class="panel panel-wishes">
+                            <a href="{{ action('UserController@wish', $wish->id ) }}" class="wish-name">{!! $wish->title !!}</a>
+                            <div class="wish-icons pull-right">
+                              <a href="#"><span class="fa fa-star"></span></a>
+                              &nbsp;&nbsp;
+                              <a href="#"><span class="fa fa-bookmark"></span></a>
+                              &nbsp;&nbsp;
+                              <a href="#"><span class="fa fa-retweet"></span></a>
+                            </div>
+                          </div>
+                          @endforeach
+                        </div>
+
+
+                    @endif
                   </div>
                 </div>
                 @endforeach
@@ -191,7 +199,9 @@
         </div>
         <!-- END TABS -->
         <!-- message box-->
-        <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete">
+        @if(isset($wishlists))
+        @foreach($wishlists as $id => $wishlist)
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{!! $wishlist->id !!}">
             <div class="mb-container">
                 <div class="mb-middle">
                     <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wishlist</div>
@@ -209,6 +219,8 @@
                 </div>
             </div>
         </div>
+        @endforeach
+        @endif
         <!--end of message box-->
         <!--  settings modal   -->
         @if(isset($wishlists))

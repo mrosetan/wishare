@@ -89,6 +89,9 @@ a.wish-name {
     max-height: 150px;
     overflow-y: scroll;
 }
+.panel-wishes{
+  padding: 10px;
+}
 
 img.user-friend.img-circle {
   height: 55px;
@@ -154,4 +157,8 @@ p.user-given {
     text-decoration: none;
     background-color: #337ab7;
     outline: 0;
+}
+
+.sol-caret{
+  display: none !important;
 }

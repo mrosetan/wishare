@@ -12,8 +12,11 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\SetPasswordRequest;
 use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
+use App\Http\Requests\WishRequest;
 use App\Http\Requests\FriendRequest;
 use App\Wishlist;
+use App\Wish;
+use App\Tag;
 use App\User;
 use App\DefaultWishlist;
 use App\Friend;
@@ -94,9 +97,14 @@ class UserController extends Controller
   {
     return view('userlayouts.notes');
   }
-  public function wish()
+  public function wish($id)
   {
-    return view('userlayouts.wish');
+    $user = Auth::user();
+
+    $wish = Wish::where('id', '=', $id)->first();
+    $tags = Tag::with('user')->where('wishid', '=', $id)->get();
+    // print($tags); die();
+    return view('userlayouts.wish', compact('wish', 'tags'));
   }
 
   public function deactivate()
@@ -122,24 +130,57 @@ class UserController extends Controller
   }
   public function wishlistAction()
   {
-    return view('userlayouts.wishlistAction');
+    return view('userlayouts.wishlistAction', compact('wishlists'));
   }
 
   public function wishAction()
   {
     $user = Auth::user();
     $userId = $user->id;
+    $wishlists = Wishlist::with('user')
+                        ->where('createdby_id', '=', $userId)
+                        ->where('status', '=', 1)
+                        ->orderBy('created_at', 'desc')
+                        ->lists('title', 'id');
 
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $friends = User::find($userId)->friends;
 
-    return view('userlayouts.wishAction', compact('friends'));
+    return view('userlayouts.wishAction', compact('friends', 'wishlists'));
   }
 
-  public function addWish(Request $request)
+  public function addWish(WishRequest $request)
   {
-    print($request);
-    die();
+    $user = Auth::user();
+
+    $wish = new Wish(array(
+      'wishlistid' => $request->wishlist,
+      'title' => $request->title,
+      'createdby_id' => $user->id,
+      'details' => $request->description,
+      'alternatives' => $request->alternatives,
+      'wishimageurl' => $request->details,
+      'status' => 1,
+    ));
+
+    $wish->save();
+
+    if (!empty($request->tags)) {
+      foreach ($request->tags as $t) {
+        // print_r($t);
+        $tag = new Tag(array(
+          'wishid' => $wish->id,
+          'userid' => $t,
+        ));
+        // print($t);
+        $tag->save();
+      }
+    }
+    // die();
+
+    return redirect('user/action/wish')->with('wishStatus', 'New wish added!');
+    // print($request);
+    // die();
   }
 
   public function notesAction()
@@ -281,12 +322,17 @@ class UserController extends Controller
 
     //wishlist
     $wishlists = '';
-    $wishlists = Wishlist::with('user')
-                        ->where('createdby_id', '=', $userId)
-                        ->where('status', '=', 1)
-                        ->orderBy('created_at', 'desc')
-                        ->get();
+    // $wishlists = Wishlist::with('user')
+    //                     ->where('createdby_id', '=', $userId)
+    //                     ->where('status', '=', 1)
+    //                     ->orderBy('created_at', 'desc')
+    //                     ->get();
 
+    $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', '1')
+                      ->get();
+
+    // print($wishlists); die();
+    // dd($wishlists);
     // $friends = Friend::with('userFriends', 'addedFriends')
     //                   ->where('status', '=', 1)
     //                   ->where(function ($query) use ($userId){
@@ -427,7 +473,7 @@ class UserController extends Controller
     $wishlist->status = 0;
     $wishlist->save();
 
-     if(count($wishlist) > 1)
+     if(count($wishlist) >= 1)
       return redirect('user/profile#tab-wishes')->with('wishlistDelete', 'Wishlist deleted!');
      else
        return redirect('user/profile#tab-wishes')->with('errormsg', 'No Wishlists.');

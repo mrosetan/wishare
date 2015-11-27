@@ -16,8 +16,9 @@ class CreateWishesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('wishlistid');
             $table->string('title', 255);
+            $table->bigInteger('createdby_id');
             $table->string('details', 255);
-            $table->string('wishimageurl');
+            $table->string('wishimageurl')->nullable();
             $table->string('alternatives');
             $table->timestamp('due_date');
             $table->timestamp('date_created');

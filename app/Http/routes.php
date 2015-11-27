@@ -33,7 +33,7 @@ Route::get('user/action/wish', 'UserController@wishAction');
 Route::get('user/action/notes', 'UserController@notesAction');
 Route::get('user/action/tynotes', 'UserController@tynotesAction');
 Route::get('user/notes', 'UserController@notes');
-Route::get('user/wish', 'UserController@wish');
+Route::get('user/wish/{id?}', 'UserController@wish');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
 Route::get('user/help', 'UserController@help');
 Route::get('user/setPassword', 'UserController@setPassword');

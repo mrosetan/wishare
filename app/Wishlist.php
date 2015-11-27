@@ -14,4 +14,9 @@ class Wishlist extends Model
     {
       return $this->belongsTo('App\User', 'createdby_id', 'id');
     }
+
+    public function wishes()
+    {
+      return $this->hasMany('App\Wish', 'wishlistid', 'id');
+    }
 }

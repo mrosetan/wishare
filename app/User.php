@@ -40,13 +40,18 @@ class User extends Model implements AuthenticatableContract,
 
     public function wishlists()
     {
-        return $this->hasMany('App\Wishlist');
+        return $this->hasMany('App\Wishlist', 'id');
     }
 
-    // public function friends()
-    // {
-    //     return $this->hasMany('App\Friend');
-    // }
+    public function wishes()
+    {
+        return $this->hasMany('App\Wish', 'id');
+    }
+
+    public function tags()
+    {
+        return $this->hasMany('App\Tag', 'userid');
+    }
 
     function friendsOfMine()
     {
