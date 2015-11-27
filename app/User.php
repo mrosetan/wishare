@@ -98,7 +98,7 @@ class User extends Model implements AuthenticatableContract,
     }
 
     //------------------------ Notes -----------------------------------
-    //user is the sender
+
     function myNotes()
     {
       return $this->belongsToMany('App\User', 'notes', 'senderid', 'receiverid')
@@ -110,7 +110,7 @@ class User extends Model implements AuthenticatableContract,
         ->withPivot('type')
         ->withPivot('id');
     }
-    //user is the receiver
+
     function notesOf()
     {
       return $this->belongsToMany('App\User', 'notes', 'receiverid', 'senderid')
