@@ -382,12 +382,35 @@
                               </div>
                             </div>
                             <br />
-                            <div class="row">
-                              {!! Form::file('photo')!!}
-                            </div>
+                            <!-- <div class="row">
+                              <div class="col-sm-12">
+                                <label>Due Date</label>
+                                {!! Form::text('duedate', '1995-01-01', array('id'=>'datepicker', 'class'=>'form-control', 'value'=>'1995-01-01')) !!}
+                              </div>
+                            </div> -->
+                            <br />
+                            <!-- <div class="row">
+                              <div class="col-md-12">
+                                <label>Add Wish Photo:</label>
+                                <br />
+                                {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
+                              </div>
+                            </div> -->
+                            <br />
+                            <!-- <div class="row">
+                              <div class="col-md-12">
+                                <label>Add Wish Photo:</label>
+                                <br />
+                                {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
+                              </div>
+                            </div> -->
                             <br />
                             <div class="row">
-                              <span class="glyphicon glyphicon-flag"></span><a href="#"><span class="xn-text">&nbsp;Flag wish</span></a>
+                              <div class="col-md-12">
+                                {!! Form::checkbox('flag', '1', ['class'=>'form-control ']) !!}
+                                <label><span class="glyphicon glyphicon-flag"></span> Flag </label>
+                                <!-- <span class="glyphicon glyphicon-flag"></span><a href="#"><span class="xn-text">&nbsp;Flag wish</span></a> -->
+                              </div>
                             </div>
                             <div class="row">
                               <div class="col-md-12">

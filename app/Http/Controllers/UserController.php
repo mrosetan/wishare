@@ -153,6 +153,9 @@ class UserController extends Controller
   public function addWish(WishRequest $request)
   {
     $user = Auth::user();
+    $flag = 0;
+    if(!empty($request->flag))
+      $flag = $request->flag;
 
     $wish = new Wish(array(
       'wishlistid' => $request->wishlist,
@@ -160,6 +163,7 @@ class UserController extends Controller
       'createdby_id' => $user->id,
       'details' => $request->description,
       'alternatives' => $request->alternatives,
+      'flagged' => $flag,
       'wishimageurl' => $request->details,
       'status' => 1,
     ));

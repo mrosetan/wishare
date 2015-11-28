@@ -13,6 +13,7 @@ use App\Http\Requests\EditAdminRequest;
 use App\Http\Requests\DefaultWishlistRequest;
 use App\Http\Requests\AdminSearchRequest;
 use App\User;
+use App\Wish;
 use App\DefaultWishlist;
 use App\Wishlist;
 use Auth;
@@ -126,7 +127,10 @@ class AdminController extends Controller
     {
 
       if (Auth::user()->type == 0) {
-        return view('admin.monitoringWishes');
+
+        $wishes = Wish::with('user', 'wishlist')->get();
+
+        return view('admin.monitoringWishes', compact('wishes'));
       }
       else
         return redirect('user/home');
