@@ -178,13 +178,40 @@ class UserController extends Controller
     return redirect('user/action/wish')->with('wishStatus', 'New wish added!');
   }
 
-  public function editWish(WishRequest $request, $id)
+  public function editTags($id)
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $tags = Tag::where('wishid', '=', $id)->get();
+
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $friends = User::find($userId)->friends;
+
+
+    for ($i=0; $i < count($friends) ; $i++) {
+      foreach ($tags as $t) {
+        if($friends[$i]['id'] == $t->userid){
+          $friends[$i]['tagstatus'] = 1;
+          break;
+        }
+        else{
+          $friends[$i]['tagstatus'] = 0;
+        }
+      }
+    }
+    return view('userlayouts.tagEdit', compact('friends', 'tags'));
+  }
+
+  public function updateWish(WishRequest $request, $id)
   {
     $wish = Wish::where('id', '=', $id)->first();
 
     if (!empty($wish)) {
-      # code...
+      
     }
+
+
   }
 
   public function deleteWish($id)
@@ -356,6 +383,8 @@ class UserController extends Controller
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', '1')
                       ->get();
 
+    $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
+    // print($tags); die();
     // print($wishlists); die();
     // dd($wishlists);
     // $friends = Friend::with('userFriends', 'addedFriends')
@@ -381,7 +410,7 @@ class UserController extends Controller
 
     //  dd($friends);
     if(count($wishlists) > 0 || !empty($user) || !empty($friends))
-      return view('userlayouts.profile', compact('user', 'wishlists', 'friends', 'wishlistsList'));
+      return view('userlayouts.profile', compact('user', 'wishlists', 'friends', 'wishlistsList', 'tags'));
     // /var_dump($wishlists);
 
 

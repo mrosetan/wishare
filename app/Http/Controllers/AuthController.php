@@ -146,20 +146,26 @@ class AuthController extends Controller
           }
           else
           {
-              $user = User::where('email', $request['email'])->firstorFail();
-              $status = $user->status;
+              $user = User::where('email', $request['email'])->first();
+              if(!empty($user)){
+                $status = $user->status;
 
-              if ($status == '0') {
-                $request->flash();
-                Session::flash('flash_message', 'This account has been deactivated.');
-                return redirect('/reactivate');
+                if ($status == '0') {
+                  $request->flash();
+                  Session::flash('flash_message', 'This account has been deactivated.');
+                  return redirect('/reactivate');
+                }
+                else {
+                  $request->flash();
+                  Session::flash('flash_message', 'Invalid email or password.');
+                  return redirect('/signin');
+                }
               }
-              else {
+              else{
                 $request->flash();
-                Session::flash('flash_message', 'Invalid email or password.');
+                Session::flash('flash_message', 'Please Sign Up or Connect to wishare with Facebook.');
                 return redirect('/signin');
               }
-
           }
       }
       else

@@ -87,6 +87,9 @@
                               <!-- <a href="#"><span class="glyphicon glyphicon-edit"></span></a> -->
                               <a href="#" data-toggle="modal" data-target="#modalwish{!! $wish->id !!}"><span class="glyphicon glyphicon-edit"></span></a>
                               &nbsp;&nbsp;
+                              <a href="{!! url('user/edit/wish', $wish->id) !!}"><span class="glyphicon glyphicon-tag"></span></a>
+                              <!-- <a href="#" data-toggle="modal" data-target="#tagwish{!! $wish->id !!}"><span class="glyphicon glyphicon-tag"></span></a> -->
+                              &nbsp;&nbsp;
                               <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish->id !!}"><span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                           </div>
@@ -347,7 +350,7 @@
                           @foreach($errors->all() as $error)
                               <p class="alert alert-danger"> {{ $error }}</p>
                           @endforeach
-                          {!! Form::open(array( 'action' => 'UserController@editWish',
+                          {!! Form::open(array( 'action' => array('UserController@editWish', $wish->id),
                                                 'class' => 'form')) !!}
                           <div class="form-group">
                             <div class="row">
@@ -371,18 +374,6 @@
                             <div class="row">
                               <div class="col-md-12">
                                 {!! Form::textarea('alternatives', $wish->alternatives, ['class'=>'form-control ', 'placeholder'=>'Wish alternatives', 'size'=>'102x5']) !!}
-                              </div>
-                            </div>
-                            <br />
-                            <label>Tag</label>
-                            <div class="row">
-                              <div class="col-md-12">
-                                <select class="my-select" name="tags[]" multiple="multiple">
-                                  @foreach($friends as $f)
-                                    <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
-
-                                  @endforeach
-                                </select>
                               </div>
                             </div>
                             <br />
@@ -412,7 +403,7 @@
         @endforeach
       @endif
 
-      <!-- =================================== WISHES =================================== -->
+
   </div>
 </div>
 @endsection
