@@ -30,9 +30,11 @@ Route::get('user/notifications', 'UserController@notifications');
 Route::get('user/action/wishlist{id?}', 'UserController@wishlistAction');
 Route::post('user/action/wishlist/{id?}', 'UserController@createWishlist');
 Route::get('user/action/wish', 'UserController@wishAction');
-Route::get('user/action/notes', 'UserController@notesAction');
+Route::get('user/action/notes', 'UserController@getRecipient');
+Route::post('user/action/notes', 'UserController@createNote');
 Route::get('user/action/tynotes', 'UserController@tynotesAction');
-Route::get('user/notes', 'UserController@notes');
+Route::get('user/notes', 'UserController@getNote');
+Route::get('user/notes/{id?}', 'UserController@deleteNote');
 Route::get('user/wish', 'UserController@wish');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
 Route::get('user/help', 'UserController@help');
@@ -55,7 +57,7 @@ Route::get('user/cancelFriendRequest/{id?}', 'UserController@cancelFriendRequest
 Route::get('user/accept/{id?}', 'UserController@acceptFriendRequest');
 Route::get('user/decline/{id?}', 'UserController@declineFriendRequest');
 
-
+Route::post('user/add', 'UserController@addWish');
 
 
 

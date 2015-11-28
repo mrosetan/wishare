@@ -43,6 +43,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Wishlist');
     }
 
+    // public function notes()
+    // {
+    //   return $this->hasMany('App\Notes');
+    // }
+
     // public function friends()
     // {
     //     return $this->hasMany('App\Friend');
@@ -85,5 +90,57 @@ class User extends Model implements AuthenticatableContract,
     protected function mergeFriends()
     {
         return $this->friendsOfMine->merge($this->friendOf);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->firstname . " " . $this->lastname;
+    }
+
+    //------------------------ Notes -----------------------------------
+
+    function myNotes()
+    {
+      return $this->belongsToMany('App\User', 'notes', 'senderid', 'receiverid')
+        // if you want to rely on accepted field, then add this:
+        ->wherePivot('status', '=', 1)
+        ->wherePivot('type', '=', 0)
+        ->withPivot('status')
+        ->withPivot('message')
+        ->withPivot('type')
+        ->withPivot('id');
+    }
+
+    function notesOf()
+    {
+      return $this->belongsToMany('App\User', 'notes', 'receiverid', 'senderid')
+        ->wherePivot('status', '=', 1)
+        ->wherePivot('type', '=', 0)
+        ->withPivot('status')
+        ->withPivot('message')
+        ->withPivot('type')
+        ->withPivot('id');
+    }
+
+    public function getNotesAttribute()
+    {
+        if ( ! array_key_exists('notes', $this->relations)) $this->loadNotes();
+
+        return $this->getRelation('notes');
+    }
+
+    protected function loadNotes()
+    {
+        if ( ! array_key_exists('notes', $this->relations))
+        {
+            $notes = $this->mergeNotes();
+
+            $this->setRelation('notes', $notes);
+        }
+    }
+
+    protected function mergeNotes()
+    {
+        return $this->myNotes->merge($this->notesOf);
     }
 }

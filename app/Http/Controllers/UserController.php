@@ -12,17 +12,20 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\SetPasswordRequest;
 use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
+use App\Http\Requests\NotesRequest;
 use App\Http\Requests\FriendRequest;
 use App\Wishlist;
 use App\User;
 use App\DefaultWishlist;
 use App\Friend;
+use App\Notes;
 use Input;
 use Image;
 use Session;
 use Hash;
 use Auth;
 use Redirect;
+use DB;
 
 class UserController extends Controller
 {
@@ -90,10 +93,7 @@ class UserController extends Controller
 
    return view('userlayouts.notifications', compact('requests'));
   }
-  public function notes()
-  {
-    return view('userlayouts.notes');
-  }
+
   public function wish()
   {
     return view('userlayouts.wish');
@@ -124,14 +124,29 @@ class UserController extends Controller
   {
     return view('userlayouts.wishlistAction');
   }
+
   public function wishAction()
   {
-    return view('userlayouts.wishAction');
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $friends = User::find($userId)->friends;
+
+    return view('userlayouts.wishAction', compact('friends'));
   }
+
+  public function addWish(Request $request)
+  {
+    print($request);
+    die();
+  }
+
   public function notesAction()
   {
     return view('userlayouts.notesAction');
   }
+
   public function tynotesAction()
   {
     return view('userlayouts.tynotesAction');
@@ -533,13 +548,57 @@ class UserController extends Controller
     // dd($friendRequest);
     return redirect()->action('UserController@notifications');
   }
-
-  public function sidebarNotification()
+  
+  public function getRecipient()
   {
     $user = Auth::user();
+    $userId = $user->id;
 
-    $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
-    // dd($requests);
-    return view('userlayouts-master.user-master', compact('requests'));
+    $recipient = User::find($userId)->friends
+                      ->lists('full_name', 'id');
+    // dd($recipient);
+    return view('userlayouts.notesAction', compact('recipient'));
+  }
+
+  public function createNote(NotesRequest $request)
+  {
+      $user = Auth::user();
+      $userId = $user->id;
+      // $receiver = User::find($userId)->friends;
+      $note = new Notes(array(
+        'senderid' => $user->id,
+        'receiverid' => $request->recipient,
+        'message' => $request->get('message'),
+        'type' => 0,
+        'status' => 1,
+      ));
+      $note->save();
+      return redirect('user/action/notes')->with('noteStatus', 'Note sent!');
+  }
+
+  public function getNote()
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $usersWithNotes = User::with('notesOf')->get();
+    $notes = User::find($userId)->notesOf;
+
+    return view('userlayouts.notes', compact('notes'));
+  }
+
+  public function deleteNote($id)
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+    $notes = Notes::where('id', $id)->firstorFail();
+
+    $notes->status = 0;
+    $notes->save();
+
+    if(count($notes) > 1)
+     return redirect('user/notes#tab-notes')->with('noteDelete', 'Note deleted!');
+    else
+     return redirect('user/notes#tab-notes')->with('errormsg', 'No Notes.');
   }
 }
