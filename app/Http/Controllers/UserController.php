@@ -213,9 +213,17 @@ class UserController extends Controller
       $tagged = Tag::where('wishid', '=', $id)->get();
       // dd($tagged);
       if(count($tagged)>0){
+
+        $tobeRemovedTags = Tag::where('wishid', '=', $id)->whereNotIn('userid', $updatedTags)->get();
+        if(count($tobeRemovedTags)>0){
+          foreach ($tobeRemovedTags as $rt) {
+            $rt->delete();
+          }
+        }
+
         for ($i=0; $i < count($updatedTags); $i++) {
           foreach ($tagged as $tag) {
-            $t = Tag::where('userid', '=', $updatedTags[$i])->first();
+            $t = Tag::where('userid', '=', $updatedTags[$i])->where('wishid', '=', $id)->first();
             if(!empty($t)){
               print('ALREADY TAGGED ///');
               break;
@@ -244,10 +252,25 @@ class UserController extends Controller
       }
     }
     else {
-      print('NOTHING TO TAG');
+      // print('else');
+      $tagged = Tag::where('wishid', '=', $id)->get();
+      if(count($tagged)>0){
+        // print('else2');
+        $tobeRemovedTags = Tag::where('wishid', '=', $id)->get();
+        // dd($tobeRemovedTags);
+        if(count($tobeRemovedTags)>0){
+          // print('else3');
+          foreach ($tobeRemovedTags as $rt) {
+            $rt->delete();
+            print('deleted');
+          }
+        }
+      }
+      // else
+      //   print('NOTHING TO TAG');
     }
-    die();
-
+    // die();
+    return redirect('user/profile#tab-wishes')->with('tagStatus', 'Tags has been updated!');
   }
 
   public function updateWish(WishRequest $request, $id)

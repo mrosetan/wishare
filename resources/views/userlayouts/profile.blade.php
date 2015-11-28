@@ -45,6 +45,11 @@
                     {{ session('wishDelete') }}
                 </div>
               @endif
+              @if(session('tagStatus'))
+                <div class="alert alert-success">
+                    {{ session('tagStatus') }}
+                </div>
+              @endif
 
               @if(count($wishlists) > 0)
               @foreach($wishlists as $id => $wishlist)

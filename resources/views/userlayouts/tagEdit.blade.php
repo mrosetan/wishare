@@ -5,8 +5,6 @@
 <div class="page-content-wrap">
   <div class="row">
     <div class="actions-container">
-      {!! Form::open(array(
-                            'class' => 'form')) !!}
 
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -17,6 +15,7 @@
 
               <div class="form-group">
               <label>Tagged</label>
+              
                 <div class="row">
                   <div class="col-sm-12">
 
