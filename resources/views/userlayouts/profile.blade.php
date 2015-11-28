@@ -87,7 +87,7 @@
                               <!-- <a href="#"><span class="glyphicon glyphicon-edit"></span></a> -->
                               <a href="#" data-toggle="modal" data-target="#modalwish{!! $wish->id !!}"><span class="glyphicon glyphicon-edit"></span></a>
                               &nbsp;&nbsp;
-                              <a href="{!! url('user/edit/wish', $wish->id) !!}"><span class="glyphicon glyphicon-tag"></span></a>
+                              <a href="{!! url('user/edit/tags', $wish->id) !!}"><span class="glyphicon glyphicon-tag"></span></a>
                               <!-- <a href="#" data-toggle="modal" data-target="#tagwish{!! $wish->id !!}"><span class="glyphicon glyphicon-tag"></span></a> -->
                               &nbsp;&nbsp;
                               <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish->id !!}"><span class="glyphicon glyphicon-trash"></span></a>

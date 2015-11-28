@@ -14,6 +14,7 @@ use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
 use App\Http\Requests\WishRequest;
 use App\Http\Requests\FriendRequest;
+use App\Http\Requests\TagRequest;
 use App\Wishlist;
 use App\Wish;
 use App\Tag;
@@ -180,6 +181,7 @@ class UserController extends Controller
 
   public function editTags($id)
   {
+    $wishid = $id;
     $user = Auth::user();
     $userId = $user->id;
 
@@ -200,7 +202,52 @@ class UserController extends Controller
         }
       }
     }
-    return view('userlayouts.tagEdit', compact('friends', 'tags'));
+    return view('userlayouts.tagEdit', compact('friends', 'tags', 'wishid'));
+  }
+
+  public function updateTags(TagRequest $request, $id)
+  {
+    $updatedTags = $request->tags;
+
+    if(!empty($updatedTags)){
+      $tagged = Tag::where('wishid', '=', $id)->get();
+      // dd($tagged);
+      if(count($tagged)>0){
+        for ($i=0; $i < count($updatedTags); $i++) {
+          foreach ($tagged as $tag) {
+            $t = Tag::where('userid', '=', $updatedTags[$i])->first();
+            if(!empty($t)){
+              print('ALREADY TAGGED ///');
+              break;
+            }
+            else{
+              print('add the thing');
+              $newtag = new Tag(array(
+                'wishid' => $id,
+                'userid' => $updatedTags[$i],
+              ));
+              $newtag->save();
+              break;
+            }
+          }
+        }
+      }
+      else{
+        print('ADD ALL THE THINGS');
+        foreach ($updatedTags as $uTag) {
+          $newtag = new Tag(array(
+            'wishid' => $id,
+            'userid' => $uTag,
+          ));
+          $newtag->save();
+        }
+      }
+    }
+    else {
+      print('NOTHING TO TAG');
+    }
+    die();
+
   }
 
   public function updateWish(WishRequest $request, $id)
@@ -208,7 +255,7 @@ class UserController extends Controller
     $wish = Wish::where('id', '=', $id)->first();
 
     if (!empty($wish)) {
-      
+
     }
 
 

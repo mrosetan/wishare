@@ -12,7 +12,8 @@
           <div class="panel-heading">
             <h5><a href="{{ url('user/profile') }}"><span class="fa fa-arrow-circle-o-left"></span>&nbsp;Back</a></h5>
             <h4>Edit or Add Tagged Friends</h4>
-
+              {!! Form::open(array( 'action' => array('UserController@updateTags', $wishid),
+                                    'class' => 'form')) !!}
 
               <div class="form-group">
               <label>Tagged</label>
@@ -46,7 +47,7 @@
                   </div>
                 </div>
             </div>
-
+            {!! Form::close() !!}
           </div>
         </div>
       {!! Form::close() !!}
