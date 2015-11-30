@@ -118,7 +118,8 @@ class User extends Model implements AuthenticatableContract,
         ->withPivot('status')
         ->withPivot('message')
         ->withPivot('type')
-        ->withPivot('id');
+        ->withPivot('id')
+        ->withPivot('updated_at');
     }
 
     function notesOf()
@@ -129,7 +130,8 @@ class User extends Model implements AuthenticatableContract,
         ->withPivot('status')
         ->withPivot('message')
         ->withPivot('type')
-        ->withPivot('id');
+        ->withPivot('id')
+        ->withPivot('updated_at');
     }
 
     public function getNotesAttribute()

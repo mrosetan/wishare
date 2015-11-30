@@ -35,7 +35,7 @@
                       <br />
                       <br />
                       <b>Sender:</b> {!! $note->firstname !!} {!! $note->lastname !!}<br />
-                      <b>Received:</b> {!! date('F d, Y g:i a', strtotime($note->created_at)) !!}
+                      <b>Received:</b> {!! date('F d, Y g:i A', strtotime($note->pivot->updated_at)) !!}
                       <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#modal_reply{!! $id !!}"><button class="btn btn-info">Reply</button></a>
                         <a href="#" class="mb-control" data-box="#mb-deletenote{!! $id !!}"><button class="btn btn-default">Delete</button></a>
