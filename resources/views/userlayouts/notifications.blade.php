@@ -19,7 +19,7 @@
                     @endif
                   </a>
                </li>
-               <li><a href="#tab-notif" role="tab" data-toggle="tab">Grant Requests <span class="badge badge-warning">3</span> </a></li>
+               <li><a href="#tab-gr" role="tab" data-toggle="tab">Grant Requests <span class="badge badge-warning">3</span> </a></li>
             </ul>
             <br />
             <!--notifications-->
@@ -33,7 +33,7 @@
                         </div>
                         <div class="user-details">
                           <p class="user-name">
-                            <a href="{!! action('UserController@otheruser', $t->tagger->id) !!}"> {!! $t->tagger->firstname !!} {!! $t->tagger->lastname !!} {!! $t->tagger->username !!} </a> tagged you in a <a href="{!! action('UserController@wish', $t->wish->id) !!}">wish</a>
+                            <a href="{!! action('UserController@otheruser', $t->tagger->id) !!}"> {!! $t->tagger->username !!} </a> tagged you in a <a href="{!! action('UserController@wish', $t->wish->id) !!}">wish</a>
                             <p>
                               {!! $t->created_at !!}
                             </p>
@@ -44,6 +44,26 @@
                   </div>
                 @endforeach
               </div>
+
+              <div class="tab-pane active" id="tab-gr">
+                  <div class="panel panel-default">
+                      <div class="panel-body">
+                        <div class="pull-left">
+                          {!! Html::image('' . $t->tagger->imageurl, '', array('class'=>'user-friend img-circle')) !!}
+                        </div>
+                        <div class="user-details">
+                          <p class="user-name">
+                            <p>Bobby granted your wish: Bobby</p>
+                            {!! Form::button('Accept', ['class'=>'btn btn-info', 'data-toggle'=>'modal', 'data-target'=>'#modal_acceptgrant'])!!}
+                            {!! Form::reset('Cancel', ['class'=>'btn btn-default'])!!}
+                            {!! Form::close() !!}
+                          </p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+
               <div class="modal" id="modal_acceptgrant" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
                   <div class="modal-dialog">
                       <div class="modal-content">

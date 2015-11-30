@@ -367,6 +367,10 @@ class UserController extends Controller
                           ->get();
       // print($requests);
       // die();
+      $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $id)->where('status', '=', '1')
+                        ->get();
+
+      $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
 
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($otherUser->id)->friends;
@@ -403,7 +407,7 @@ class UserController extends Controller
           return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status', 'requests'));
       }
       else {
-          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests'));
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests', 'wishlists', 'tags'));
       }
     }
     else {
@@ -762,10 +766,10 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
-    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)->friends
-                        ->where('type', 1)
-                        ->lists('full_name', 'id');
+    $recipient = User::select('id', DB::raw('CONCAT(firstname, " ", lastname, " (", username, ")") as displayName'))
+                      ->where('type', 1)
+                      ->lists('displayName', 'id');
+
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient'));
   }
