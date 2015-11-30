@@ -153,4 +153,11 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->myNotes->merge($this->notesOf);
     }
+
+    //------------------------ Notes -----------------------------------
+
+    public function tagged()
+    {
+      return $this->hasMany('App\Tag', 'App\Wish', 'id', 'userid');
+    }
 }

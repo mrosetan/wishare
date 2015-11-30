@@ -94,8 +94,24 @@ class UserController extends Controller
     $requests = Friend::where('friend_userid', '=', $user['id'])->where('status', '=', '0')->get();
     // print($requests);
     // die();
+    $tags = Tag::where('userid', '=', $user['id'])->orderby('created_at', 'desc')->get();
 
-   return view('userlayouts.notifications', compact('requests'));
+    for ($i=0; $i < count($tags); $i++) {
+      $wish = Wish::where('id', '=', $tags[$i]['wishid'])->where('status', '=', 1)->first();
+      // $tagger = User::where('id', '=', $tags[$i]['userid'])->where('status', '=', 1)->first();
+      if(!empty($wish)){
+        $tagger = User::where('id', '=', $wish['createdby_id'])->where('status', '=', 1)->first();
+        $tags[$i]['wish'] = $wish;
+        if(!empty($tagger)){
+          $tags[$i]['tagger'] = $tagger;
+        }
+      }
+
+    }
+
+    // json_encode($tags);print($tags); die();
+
+   return view('userlayouts.notifications', compact('requests', 'tags'));
   }
 
   public function notes()
@@ -339,9 +355,9 @@ class UserController extends Controller
   public function otheruser($id)
   {
     $user = Auth::user();
-    $userId = $user->id;
+    $userId = $user['id'];
 
-    if($user->id != $id){
+    if($userId != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
 
       $requests = Friend::with('friendRequest')
@@ -357,7 +373,7 @@ class UserController extends Controller
       // print($friend);
       // die();
       // if(count($friends)==0){
-      $friendRequest = Friend::where('userid', '=', $user->id)
+      $friendRequest = Friend::where('userid', '=', $userId)
                             ->where('friend_userid', '=', $id)
                             ->where('status', '=', 0)
                             ->first();
@@ -642,15 +658,16 @@ class UserController extends Controller
   public function addFriend($id)
   {
     $user = Auth::user();
-
+    $userId = $user['id'];
+    // dd($userId);
     $exists = Friend::where('friend_userid', '=', $id)
-                      ->where('userid', '='. $user->id)
+                      ->where('userid', '='. $userId)
                       ->get();
     // dd($exists);
     if(!empty($exists)){
       $friend = new Friend(array(
         'friend_userid' => $id,
-        'userid' => $user->id,
+        'userid' => $userId,
         'date_added' => date("Y-m-d h:i:s"),
         'status' => 0,
         'seen' => 0,
@@ -818,4 +835,5 @@ class UserController extends Controller
     else
      return redirect('user/notes#tab-notes')->with('errormsg', 'No Notes.');
   }
+
 }
