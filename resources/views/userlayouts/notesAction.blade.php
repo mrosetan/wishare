@@ -1,5 +1,5 @@
 @extends('userlayouts-master.user-master')
-@section('title', '')
+@section('title', 'Send Note')
 
 @section('content')
 <div class="page-content-wrap">
@@ -8,17 +8,29 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Send Note</h4>
-          {!! Form::open(array( 'class' => 'form')) !!}
+          @if(session('noteStatus'))
+            <div class="alert alert-success">
+                {{ session('noteStatus') }}
+            </div>
+          @endif
+          @foreach($errors->all() as $error)
+              <p class="alert alert-danger"> {{ $error }}</p>
+          @endforeach
+          {!! Form::open(array(
+                        'action' => array('UserController@createNote'),
+                        'class' => 'form')) !!}
           <div class="form-group">
             <div class="row">
               <div class="col-md-12">
-                {!! Form::text('search', null, array('class'=>'form-control', 'placeholder'=>'Recipient')) !!}
+                <label>Recipient:</label>
+                <br />
+                  {!! Form::select('recipient', $recipient, null, array('class'=>'form-control select')) !!}
               </div>
             </div>
             <br />
             <div class="row">
               <div class="col-md-12">
-                {!! Form::textarea('note', null, ['class'=>'form-control', 'placeholder'=>'Note', 'size'=>'50x5']) !!}
+                {!! Form::textarea('message', null, ['class'=>'form-control', 'placeholder'=>'Note', 'size'=>'50x5']) !!}
               </div>
             </div>
             <br />
@@ -26,7 +38,7 @@
               <div class="col-md-12">
                 <div class="pull-right">
                   {!! Form::submit('Send', array('class'=>'btn btn-info')) !!}
-                  {!! Form::button('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
+                  {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
                 </div>
               </div>
             </div>
