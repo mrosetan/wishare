@@ -50,7 +50,11 @@
                     {{ session('tagStatus') }}
                 </div>
               @endif
-
+              @if(session('wishStatus'))
+                <div class="alert alert-success">
+                    {{ session('wishStatus') }}
+                </div>
+              @endif
               @if(count($wishlists) > 0)
               @foreach($wishlists as $id => $wishlist)
                 <div class="panel-group accordion accordion-dc">
@@ -68,7 +72,7 @@
                         @endif
                       </p>
                       <div class="wishlist-icons pull-right">
-                        <a href="#"><span class="fa fa-plus"></span></a>
+                        <a href="#" data-toggle="modal" data-target="#modal_addwish{!! $id !!}"><span class="fa fa-plus"></span></a>
                         &nbsp;&nbsp;
                         <a href="#" data-toggle="modal" data-target="#modal_{!! $id !!}"><span class="glyphicon glyphicon-edit"></span></a>
                         &nbsp;&nbsp;
@@ -383,28 +387,18 @@
                               </div>
                             </div>
                             <br />
-                            <!-- <div class="row">
+                            <div class="row">
                               <div class="col-sm-12">
                                 <label>Due Date</label>
-                                {!! Form::text('duedate', '1995-01-01', array('id'=>'datepicker', 'class'=>'form-control', 'value'=>'1995-01-01')) !!}
+                                {!! Form::text('due_date', $wish->due_date, array('id'=>'datepicker', 'class'=>'form-control')) !!}
                               </div>
-                            </div> -->
+                            </div>
                             <br />
-                            <!-- <div class="row">
-                              <div class="col-md-12">
-                                <label>Add Wish Photo:</label>
-                                <br />
+                            <div class="row">
+                              <div class="col-sm-12">
                                 {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
                               </div>
-                            </div> -->
-                            <br />
-                            <!-- <div class="row">
-                              <div class="col-md-12">
-                                <label>Add Wish Photo:</label>
-                                <br />
-                                {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
-                              </div>
-                            </div> -->
+                            </div>
                             <br />
                             <div class="row">
                               <div class="col-md-12">
@@ -430,13 +424,114 @@
                     </div>
                   </div>
                 </div>
-              </div>
+
             @endforeach
           @endif
         @endforeach
       @endif
 
+      <!--  ===========================================ADD WISH MODAL==============================================-->
+      @if(isset($wishlists))
+        @foreach($wishlists as $id => $wishlist)
+          @if(count($wishlist->wishes)>0)
+            @foreach($wishlist->wishes as $wish)
+            <div class="modal" id="modal_addwish{!! $id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      <h4>Add Wish</h4>
+                    </div>
+                    <div class="modal-body">
+                      @if(session('wishStatus'))
+                        <div class="alert alert-success">
+                            {{ session('wishStatus') }}
+                        </div>
+                      @endif
+                      @foreach($errors->all() as $error)
+                          <p class="alert alert-danger"> {{ $error }}</p>
+                      @endforeach
+                      {!! Form::open(array( 'action' => array('UserController@addWishModal', $wishlist->id),
+                                            'class' => 'form',
+                                            'files'=>true)) !!}
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <!-- {!! Form::select('wishlist', $wishlists, null, array('class'=>'form-control'))!!} -->
+                            {!! Form::text('wishlist', $wishlist->title, array('class'=>'form-control', 'disabled'=>'true')) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::text('title', null, array('class'=>'form-control', 'placeholder'=>'Wish')) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::textarea('description', null, ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::textarea('alternatives', null, ['class'=>'form-control ', 'placeholder'=>'Wish alternatives', 'size'=>'102x5']) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <label>Due Date:</label>
+                            {!! Form::text('due_date', date('Y-m-d'), array('id'=>'datepicker', 'class'=>'form-control')) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <label>Upload:</label><br />
+                            {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            <label>Tag:</label>
+                            <select class="my-select" name="tags[]" multiple="multiple">
+                              @foreach($friends as $f)
+                                <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
 
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::checkbox('flag', '1', ['class'=>'form-control ']) !!}
+                            <label><span class="glyphicon glyphicon-flag"></span> Flag </label>
+                            <!-- <span class="glyphicon glyphicon-flag"></span><a href="#"><span class="xn-text">&nbsp;Flag wish</span></a> -->
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="pull-right">
+                              {!! Form::submit('Add', array('class'=>'btn btn-info')) !!}
+                              {!! Form::button('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {!! Form::close() !!}
+                    </div>
+                </div>
+              </div>
+            </div>
+          @endforeach
+        @endif
+      @endforeach
+    @endif
+    </div>
   </div>
 </div>
 @endsection

@@ -174,6 +174,14 @@ class UserController extends Controller
   {
 
     $user = Auth::user();
+
+    $newImage = '';
+    $hostURL = '192.168.1.18';
+    $newImage = Input::file('wishimageurl');
+    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+    $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+    Image::make($newImage->getRealPath())->fit(500,400)->save($path);
+
     if($request->flag == null)
       $flag = 0;
     else
@@ -182,11 +190,12 @@ class UserController extends Controller
     $wish = new Wish(array(
       'wishlistid' => $request->wishlist,
       'title' => $request->title,
+      'due_date' => $request->due_date,
       'createdby_id' => $user->id,
       'details' => $request->description,
       'alternatives' => $request->alternatives,
       'flagged' => $flag,
-      'wishimageurl' => $request->details,
+      'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
       'status' => 1,
     ));
 
@@ -203,6 +212,52 @@ class UserController extends Controller
     }
 
     return redirect('user/action/wish')->with('wishStatus', 'New wish added!');
+  }
+
+  public function addWishModal(WishRequest $request, $id)
+  {
+
+    $user = Auth::user();
+
+    $newImage = '';
+    $hostURL = '192.168.1.18';
+    $newImage = Input::file('wishimageurl');
+    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+    $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+    Image::make($newImage->getRealPath())->fit(500,400)->save($path);
+
+    if($request->flag == null)
+      $flag = 0;
+    else
+      $flag = 1;
+
+    $wishlists = Wishlist::where('id', $id)->get();
+
+    $wish = new Wish(array(
+      'wishlistid' => $id,
+      'title' => $request->title,
+      'due_date' => $request->due_date,
+      'createdby_id' => $user->id,
+      'details' => $request->description,
+      'alternatives' => $request->alternatives,
+      'flagged' => $flag,
+      'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
+      'status' => 1,
+    ));
+
+    $wish->save();
+
+    if (!empty($request->tags)) {
+      foreach ($request->tags as $t) {
+        $tag = new Tag(array(
+          'wishid' => $wish->id,
+          'userid' => $t,
+        ));
+        $tag->save();
+      }
+    }
+
+    return redirect('user/profile#tab-wishes')->with('wishStatus', 'New wish added!');
   }
 
   public function editTags($id)

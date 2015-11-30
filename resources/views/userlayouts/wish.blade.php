@@ -17,15 +17,17 @@
               <br />
               Alternatives: {!! $wish->alternatives !!}
               <br />
+              Due Date: {!! date('F d, Y', strtotime($wish->due_date)) !!}
+              <br />
               Tags:
               @foreach($tags as $t)
                 <a href="{!! action('UserController@otheruser', $t->user->id) !!}">{!! $t->user->firstname !!} {!! $t->user->lastname !!}, </a>
               @endforeach
-              <br />
-              <div class="text-center">
-                <h2>Pic here</h2>
+              <hr />
+              <div class="wish-image-container">
+                <img src='{!! $wish->wishimageurl !!}' class="wish-image"/>
               </div>
-              <br /><br /><br /><br /><br />
+              <br /><br /><hr />
               <div class="wish-icons pull-right">
                 <a href="#"><span class="fa fa-star"></span></a>
                 &nbsp;&nbsp;
