@@ -36,7 +36,7 @@ Route::get('user/action/tynotes', 'UserController@tynotesAction');
 Route::get('user/notes', 'UserController@notes');
 Route::get('user/wish/{id?}', 'UserController@wish');
 Route::get('user/notes', 'UserController@getNote');
--Route::post('user/notes/{id?}', 'UserController@createNoteModal');
+Route::post('user/notes/{id?}', 'UserController@createNoteModal');
 Route::get('user/notes/{id?}', 'UserController@deleteNote');
 Route::get('user/wish', 'UserController@wish');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
