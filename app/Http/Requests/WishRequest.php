@@ -25,7 +25,6 @@ class WishRequest extends Request
     {
         $currentDate = date('Y-m-d');
         return [
-            'wishlist' => 'required',
             'title'    => 'required',
             'due_date' => 'required|after:yesterday',
             'wishimageurl' => 'image',

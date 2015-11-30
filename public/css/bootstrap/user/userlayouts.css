@@ -2,6 +2,9 @@
 html {
   height: 100%;
 }
+.datepicker {
+  z-index: 1151 !important;
+}
 img.logo {
     position: absolute;
     margin: auto;

@@ -231,8 +231,6 @@ class UserController extends Controller
     else
       $flag = 1;
 
-    $wishlists = Wishlist::where('id', $id)->get();
-
     $wish = new Wish(array(
       'wishlistid' => $id,
       'title' => $request->title,
