@@ -79,6 +79,7 @@
                     </div>
                     @if(count($wishlist->wishes)>0)
                         <div class="panel-body" id="accOneColOne{!! $wishlist->id !!}">
+                          <!-- {!! $wishlist->wishes !!} -->
                           @foreach($wishlist->wishes as $wish)
                           <div class="panel panel-wishes">
                             <a href="{{ action('UserController@wish', $wish->id ) }}" class="wish-name">{!! $wish->title !!}</a>
