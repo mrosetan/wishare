@@ -745,8 +745,9 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
 
-    $recipient = User::find($userId)->friends
-                      ->lists('full_name', 'id');
+    $recipient = User::select('id', DB::raw('CONCAT(firstname, " ", lastname, " (", username, ")") as displayName'))
+                      ->where('type', 1)
+                      ->lists('displayName', 'id');
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient'));
   }
