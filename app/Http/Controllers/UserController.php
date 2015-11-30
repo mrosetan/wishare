@@ -13,6 +13,7 @@ use App\Http\Requests\SetPasswordRequest;
 use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
 use App\Http\Requests\WishRequest;
+use App\Http\Requests\NotesRequest;
 use App\Http\Requests\FriendRequest;
 use App\Http\Requests\TagRequest;
 use App\Wishlist;
@@ -21,12 +22,14 @@ use App\Tag;
 use App\User;
 use App\DefaultWishlist;
 use App\Friend;
+use App\Notes;
 use Input;
 use Image;
 use Session;
 use Hash;
 use Auth;
 use Redirect;
+use DB;
 
 class UserController extends Controller
 {
@@ -94,6 +97,7 @@ class UserController extends Controller
 
    return view('userlayouts.notifications', compact('requests'));
   }
+
   public function notes()
   {
     return view('userlayouts.notes');
@@ -326,6 +330,7 @@ class UserController extends Controller
   {
     return view('userlayouts.notesAction');
   }
+
   public function tynotesAction()
   {
     return view('userlayouts.tynotesAction');
@@ -733,5 +738,58 @@ class UserController extends Controller
 
     // dd($friendRequest);
     return redirect()->action('UserController@notifications');
+  }
+
+  public function getRecipient()
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $recipient = User::find($userId)->friends
+                      ->lists('full_name', 'id');
+    // dd($recipient);
+    return view('userlayouts.notesAction', compact('recipient'));
+  }
+
+  public function createNote(NotesRequest $request)
+  {
+      $user = Auth::user();
+      $userId = $user->id;
+      // $receiver = User::find($userId)->friends;
+      $note = new Notes(array(
+        'senderid' => $user->id,
+        'receiverid' => $request->recipient,
+        'message' => $request->get('message'),
+        'type' => 0,
+        'status' => 1,
+      ));
+      $note->save();
+      return redirect('user/action/notes')->with('noteStatus', 'Note sent!');
+  }
+
+  public function getNote()
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $usersWithNotes = User::with('notesOf')->get();
+    $notes = User::find($userId)->notesOf;
+
+    return view('userlayouts.notes', compact('notes'));
+  }
+
+  public function deleteNote($id)
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+    $notes = Notes::where('id', $id)->firstorFail();
+
+    $notes->status = 0;
+    $notes->save();
+
+    if(count($notes) > 1)
+     return redirect('user/notes#tab-notes')->with('noteDelete', 'Note deleted!');
+    else
+     return redirect('user/notes#tab-notes')->with('errormsg', 'No Notes.');
   }
 }
