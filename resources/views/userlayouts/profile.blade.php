@@ -355,7 +355,7 @@
                           @foreach($errors->all() as $error)
                               <p class="alert alert-danger"> {{ $error }}</p>
                           @endforeach
-                          {!! Form::open(array( 'action' => array('UserController@editWish', $wish->id),
+                          {!! Form::open(array( 'action' => array('UserController@updateWish', $wish->id),
                                                 'class' => 'form')) !!}
                           <div class="form-group">
                             <div class="row">
@@ -407,7 +407,11 @@
                             <br />
                             <div class="row">
                               <div class="col-md-12">
-                                {!! Form::checkbox('flag', '1', ['class'=>'form-control ']) !!}
+                                @if($wish->flagged ==  1)
+                                  {!! Form::checkbox('flag', '1', true) !!}
+                                @else
+                                  {!! Form::checkbox('flag', '1') !!}
+                                @endif
                                 <label><span class="glyphicon glyphicon-flag"></span> Flag </label>
                                 <!-- <span class="glyphicon glyphicon-flag"></span><a href="#"><span class="xn-text">&nbsp;Flag wish</span></a> -->
                               </div>

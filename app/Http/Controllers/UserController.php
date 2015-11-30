@@ -152,10 +152,12 @@ class UserController extends Controller
 
   public function addWish(WishRequest $request)
   {
+
     $user = Auth::user();
-    $flag = 0;
-    if(!empty($request->flag))
-      $flag = $request->flag;
+    if($request->flag == null)
+      $flag = 0;
+    else
+      $flag = 1;
 
     $wish = new Wish(array(
       'wishlistid' => $request->wishlist,
@@ -279,13 +281,24 @@ class UserController extends Controller
 
   public function updateWish(WishRequest $request, $id)
   {
-    $wish = Wish::where('id', '=', $id)->first();
+    if($request->flag == null)
+      $flag = 0;
+    else
+      $flag = 1;
+
+    $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
 
     if (!empty($wish)) {
-
+      $wish->wishlistid = $request->wishlist;
+      $wish->title = $request->title;
+      $wish->details = $request->description;
+      $wish->alternatives = $request->alternatives;
+      $wish->flagged = $flag;
+      $wish->save();
+      // $wish->wishimageurl =
     }
 
-
+    return redirect('user/profile#tab-wishes')->with('wishStatus', 'Wish udpated successfully!');
   }
 
   public function deleteWish($id)
