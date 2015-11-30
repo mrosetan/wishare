@@ -20,7 +20,7 @@ class CreateWishesTable extends Migration
             $table->string('details', 255);
             $table->string('wishimageurl')->nullable();
             $table->string('alternatives');
-            $table->timestamp('due_date');
+            $table->date('due_date');
             $table->timestamp('date_created');
             $table->tinyInteger('granted');
             $table->bigInteger('granterid');

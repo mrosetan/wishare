@@ -123,8 +123,8 @@
               </div>
               <hr />
               <div class="row">
-                <div class="ccol-sm-12">
-                  <div class="pull-right">
+                <div class="col-sm-12">
+                  <div class="">
                     {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
                   </div>
                 </div>
