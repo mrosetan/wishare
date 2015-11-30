@@ -38,7 +38,6 @@ Route::get('user/wish/{id?}', 'UserController@wish');
 Route::get('user/notes', 'UserController@getNote');
 Route::post('user/notes/{id?}', 'UserController@createNoteModal');
 Route::get('user/notes/{id?}', 'UserController@deleteNote');
-Route::get('user/wish', 'UserController@wish');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
 Route::get('user/help', 'UserController@help');
 Route::get('user/setPassword', 'UserController@setPassword');
