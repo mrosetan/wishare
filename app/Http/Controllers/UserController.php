@@ -399,7 +399,7 @@ class UserController extends Controller
   {
 
     $user = new User(array(
-      'imageurl' => 'img/userImages/default.jpg',
+      'imageurl' => 'http://192.168.1.17/wishareimages/userimages/default.jpg',
       'lastname' => trim($request->lastname),
       'firstname' => trim($request->firstname),
       'username' => trim($request->username),
@@ -749,6 +749,30 @@ class UserController extends Controller
                       ->lists('full_name', 'id');
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient'));
+  }
+
+  public function createNoteModal(NotesRequest $request, $id)
+  {
+      $user = Auth::user();
+      $userId = $user->id;
+
+      $usersWithNotes = User::with('notesOf')->get();
+      $withNotes = User::find($userId)->notesOf;
+
+      foreach($withNotes as $note)
+      {
+        $notes = new Notes(array(
+          'senderid' => $user->id,
+          'receiverid' => $id,
+          'message' => $request->get('message'),
+          'type' => 0,
+          'status' => 1,
+        ));
+      }
+      // print($notes);
+      $notes->save();
+      return redirect('user/notes')->with('noteStatus', 'Note sent!');
+
   }
 
   public function createNote(NotesRequest $request)
