@@ -91,7 +91,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     // $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
-    $requests = Friend::where('friend_userid', '=', $user->id)->where('status', '=', '0')->get();
+    $requests = Friend::where('friend_userid', '=', $user['id'])->where('status', '=', '0')->get();
     // print($requests);
     // die();
 
@@ -399,7 +399,7 @@ class UserController extends Controller
   {
 
     $user = new User(array(
-      'imageurl' => 'http://192.168.1.17/wishareimages/userimages/default.jpg',
+      'imageurl' => 'http://192.168.1.10/wishareimages/userimages/default.jpg',
       'lastname' => trim($request->lastname),
       'firstname' => trim($request->firstname),
       'username' => trim($request->username),
@@ -460,7 +460,7 @@ class UserController extends Controller
   {
     //profile details
     $user = Auth::user();
-    $userId = $user->id;
+    $userId = $user['id'];
     //var_dump($user);
     //
 
@@ -511,7 +511,7 @@ class UserController extends Controller
   public function editSettings()
   {
     $user = Auth::user();
-    $id = $user->id;
+    $id = $user['id'];
     //$user = User::where('id', $id)->first();
     //var_dump($user);
     return view('userlayouts.settings', compact('user'));
@@ -544,7 +544,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.17';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -743,11 +743,12 @@ class UserController extends Controller
   public function getRecipient()
   {
     $user = Auth::user();
-    $userId = $user->id;
+    $userId = $user['id'];
 
     $recipient = User::select('id', DB::raw('CONCAT(firstname, " ", lastname, " (", username, ")") as displayName'))
                       ->where('type', 1)
                       ->lists('displayName', 'id');
+
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient'));
   }
