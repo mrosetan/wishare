@@ -114,6 +114,15 @@ p.user-given {
   left: auto !important;
 }
 
+.wish-image-container {
+  margin: 0 auto;
+  width: 400px;
+  background-color: red;
+}
+
+img.wish-image {
+  margin: 0 auto;
+}
 /*Other User*/
 
 .friend-action-button{
