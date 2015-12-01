@@ -19,7 +19,8 @@
                 <p class="alert alert-danger"> {{ $error }}</p>
             @endforeach
             {!! Form::open(array( 'action' => 'UserController@addWish',
-                                  'class' => 'form')) !!}
+                                  'class' => 'form',
+                                  'files'=>true)) !!}
             <div class="form-group">
               <div class="row">
                 <div class="col-md-12">
@@ -45,17 +46,23 @@
                 </div>
               </div>
               <br />
-              <!-- <div class="row">
+              <div class="row">
                 <div class="col-sm-12">
-                  <label>Due Date</label>
-                  {!! Form::text('duedate', '1995-01-01', array('id'=>'datepicker', 'class'=>'form-control', 'value'=>'1995-01-01')) !!}
+                  <label>Due Date:</label>
+                  {!! Form::text('due_date', date('Y-m-d'), array('id'=>'datepicker', 'class'=>'form-control')) !!}
                 </div>
-              </div> -->
+              </div>
               <br />
-
+              <div class="row">
+                <div class="col-sm-12">
+                  <label>Upload:</label><br />
+                  {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
+                </div>
+              </div>
+              <br />
               <div class="row">
                 <div class="col-md-12">
-                  <label>Tag</label>
+                  <label>Tag:</label>
                   <select class="my-select" name="tags[]" multiple="multiple">
                     @foreach($friends as $f)
                       <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
@@ -77,7 +84,6 @@
 
                 </div>
               </div>
-              <br />
               <!-- <div class="row">
                 <div class="col-md-12">
                   <label>Add Wish Photo:</label>

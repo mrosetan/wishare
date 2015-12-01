@@ -23,9 +23,12 @@ class WishRequest extends Request
      */
     public function rules()
     {
+        $currentDate = date('Y-m-d');
         return [
-            'wishlist' => 'required',
-            'title' => 'required',
+            'title'    => 'required',
+            'due_date' => 'required|after:yesterday',
+            'wishimageurl' => 'image',
         ];
+
     }
 }

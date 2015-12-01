@@ -183,6 +183,11 @@
           var hash = window.location.hash;
           $('#myTab a[href="' + hash + '"]').tab('show');
 
+          $(function() {
+              $("body").delegate("#datepicker", "focusin", function(){
+                  $(this).datepicker();
+              });
+          });
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>

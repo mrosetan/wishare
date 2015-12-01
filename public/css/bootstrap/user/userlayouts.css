@@ -2,6 +2,9 @@
 html {
   height: 100%;
 }
+.datepicker {
+  z-index: 1151 !important;
+}
 img.logo {
     position: absolute;
     margin: auto;
@@ -114,6 +117,15 @@ p.user-given {
   left: auto !important;
 }
 
+.wish-image-container {
+  margin: 0 auto;
+  width: 400px;
+  background-color: red;
+}
+
+img.wish-image {
+  margin: 0 auto;
+}
 /*Other User*/
 
 .friend-action-button{

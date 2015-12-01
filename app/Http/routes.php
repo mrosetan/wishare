@@ -60,6 +60,7 @@ Route::get('user/accept/{id?}', 'UserController@acceptFriendRequest');
 Route::get('user/decline/{id?}', 'UserController@declineFriendRequest');
 
 Route::post('user/add', 'UserController@addWish');
+Route::post('user/add/{id?}', 'UserController@addWishModal');
 Route::get('user/edit/tags/{id?}', 'UserController@editTags');
 Route::post('user/edit/tags/{id?}', 'UserController@updateTags');
 Route::post('user/edit/wish/{id?}', 'UserController@updateWish');
