@@ -361,7 +361,9 @@
                               <p class="alert alert-danger"> {{ $error }}</p>
                           @endforeach
                           {!! Form::open(array( 'action' => array('UserController@updateWish', $wish->id),
-                                                'class' => 'form')) !!}
+                                                'class' => 'form',
+                                                'files'=>true,
+                                                'enctype'=>'multipart/form-data')) !!}
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-12">
