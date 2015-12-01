@@ -73,6 +73,72 @@
 
             </div>
         </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="pull-left">
+                  <img class="user stream img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                </div>
+                <div class="stream-header">
+                  <b>Brenda Mage </b>( PrettyCutie ) added a new wish.
+                  <br />
+                  December 1, 2015
+                </div>
+
+              </div>
+              <hr />
+              <div class="col-xs-12">
+                <div class="stream-margin">
+
+                  <h4>Bobby</h4>
+                </div>
+              </div>
+              <div id ="links" class="col-xs-6 col-xs-offset-3 stream-body">
+                <a href="{{ URL::asset('img/test.jpg') }}" title="Bobby" data-gallery>
+                    <img src="{{ URL::asset('img/test.jpg') }}" class="img-responsive img-text"/>
+                </a>
+              </div>
+
+              <div class="col-xs-12">
+                <div class="stream-margin">
+                  <p>
+                  Due Date: January 23, 2016
+                  </p>
+                  <p>
+                  Details:
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                  <p>
+                  Alternatives:
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+
+              <div class="col-xs-12">
+                <ul class="list-tags">
+                    <li><a href="#"><span class="fa fa-tag"></span> Yenhaha</a></li>
+                    <li><a href="#"><span class="fa fa-tag"></span> RoseBecher</a></li>
+                    <li><a href="#"><span class="fa fa-tag"></span> JermaineDilao</a></li>
+                    <li><a href="#"><span class="fa fa-tag"></span> MikeL</a></li>
+                </ul>
+                <div class="pull-right">
+                  <a href="#"><span class="fa fa-star"></span></a>
+                  &nbsp;&nbsp;
+                  <a href="#"><span class="fa fa-bookmark"></span></a>
+                  &nbsp;&nbsp;
+                  <a data-toggle="modal" data-target="#modal_rewish"><span class="fa fa-retweet"></span></a>
+                  &nbsp;&nbsp;
+                  <a data-toggle="modal" data-target="#modal_grant"><span class="fa fa-magic"></span></a>
+                </div>
+              </div>
+
+            </div>
+        </div>
+
+        
       </div>
   </div>
   <!-- BLUEIMP GALLERY -->
