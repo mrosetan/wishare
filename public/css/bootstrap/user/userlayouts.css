@@ -52,6 +52,19 @@ img.user.stream.img-circle {
   width: 60px;
   margin-right: 20px;
 }
+
+img.user.granter.img-circle {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+.granter-caption{
+  margin-left: 50px;
+}
+
+.granter-grantee-body{
+  padding: 15px;
+}
 .stream-header{
   margin-top: 10px;
 }
@@ -64,6 +77,11 @@ img.user.stream.img-circle {
 }
 .stream-margin{
   margin-left: 80px;
+}
+
+.stream-granter{
+  width: auto;
+  margin-left: 140px;
 }
 
 /*   Profile   */
