@@ -33,11 +33,11 @@ use DB;
 
 class UserController extends Controller
 {
-  // public function __construct()
-  // {
-  //     $this->middleware('auth');
-  //
-  // }
+  public function __construct()
+  {
+      $this->middleware('auth');
+
+  }
 
   public function dashboard()
   {
@@ -468,66 +468,66 @@ class UserController extends Controller
     }
   }
 
-  public function store(UserRequest $request)
-  {
-
-    $user = new User(array(
-      'imageurl' => 'http://192.168.1.18/wishareimages/userimages/default.jpg',
-      'lastname' => trim($request->lastname),
-      'firstname' => trim($request->firstname),
-      'username' => trim($request->username),
-      'email' => trim($request->email),
-      'privacy' => 0,
-      'type' => 1,
-      'status' => 1,
-      'defaultwishlist' => 0,
-      'password' => trim(bcrypt($request->get('password'))),
-    ));
-
-    $user->save();
-
-    //========= get default wishlists and store to users wishlists
-    if(!Auth::check()){
-      if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
-      {
-        $user = User::where('email', $request['email'])->firstorFail();
-        $type = $user->type;
-        $status = $user->status;
-        // var_dump($user);
-
-        $defaultwishlists = DefaultWishlist::where('status', '=', 1)
-                                            ->orderBy('created_at', 'desc')
-                                            ->get();
-
-        // var_dump($defaultwishlists);
-
-        foreach ($defaultwishlists as $dw) {
-
-          $wishlist = new Wishlist(array(
-            'title' => $dw->title,
-            'createdby_id' => $user->id,
-            'privacy' => 0,
-            'status' => 1,
-          ));
-
-          $wishlist->save();
-        }
-
-        $user->defaultwishlist = 1;
-
-        $user->save();
-
-
-        return view('userlayouts.home');
-
-      }
-    }
-    else {
-      print("Not logged in");
-    }
-
-    // return redirect('/user/home');
-  }
+  // public function store(UserRequest $request)
+  // {
+  //
+  //   $user = new User(array(
+  //     'imageurl' => 'http://192.168.1.10/wishareimages/userimages/default.jpg',
+  //     'lastname' => trim($request->lastname),
+  //     'firstname' => trim($request->firstname),
+  //     'username' => trim($request->username),
+  //     'email' => trim($request->email),
+  //     'privacy' => 0,
+  //     'type' => 1,
+  //     'status' => 1,
+  //     'defaultwishlist' => 0,
+  //     'password' => trim(bcrypt($request->get('password'))),
+  //   ));
+  //
+  //   $user->save();
+  //
+  //   //========= get default wishlists and store to users wishlists
+  //   if(!Auth::check()){
+  //     if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
+  //     {
+  //       $user = User::where('email', $request['email'])->firstorFail();
+  //       $type = $user->type;
+  //       $status = $user->status;
+  //       // var_dump($user);
+  //
+  //       $defaultwishlists = DefaultWishlist::where('status', '=', 1)
+  //                                           ->orderBy('created_at', 'desc')
+  //                                           ->get();
+  //
+  //       // var_dump($defaultwishlists);
+  //
+  //       foreach ($defaultwishlists as $dw) {
+  //
+  //         $wishlist = new Wishlist(array(
+  //           'title' => $dw->title,
+  //           'createdby_id' => $user->id,
+  //           'privacy' => 0,
+  //           'status' => 1,
+  //         ));
+  //
+  //         $wishlist->save();
+  //       }
+  //
+  //       $user->defaultwishlist = 1;
+  //
+  //       $user->save();
+  //
+  //
+  //       return view('userlayouts.home');
+  //
+  //     }
+  //   }
+  //   else {
+  //     print("Not logged in");
+  //   }
+  //
+  //   // return redirect('/user/home');
+  // }
 
   public function getUserDetails()
   {
@@ -617,7 +617,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
