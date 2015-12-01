@@ -38,6 +38,7 @@ img.user.img-circle {
   height: 70px;
   width: 70px;
 }
+
 .user-details {
   width: 100%;
 }
@@ -45,6 +46,16 @@ h5.user-name{
   margin-left: 80px;
   margin-top: 10px;
 }
+
+img.user.stream.img-circle {
+  height: 60px;
+  width: 60px;
+  margin-right: 20px;
+}
+.stream-header{
+
+}
+
 /*   Profile   */
 a:hover {
   cursor: pointer;

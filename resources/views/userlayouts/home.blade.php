@@ -2,16 +2,68 @@
 @section('title', 'Home')
 
 @section('content')
+
+
+
 <div class="page-title">
-    <!-- <h4>Event Stream</h4> -->
+    <h4>Event Stream</h4>
 </div>
 <div class="page-content-wrap container-fluid">
-    <div class="row">
+  <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="pull-left">
+                  <img class="user stream img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                </div>
+
+                <p>
+                  <b>Brenda Mage </b>( PrettyCutie ) added a new wish.
+                </p>
+                <p>
+                  December 1, 2015
+                </p>
+              </div>
+              <!-- <div class="pull-left">
+                <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
+              </div>
+              <div class="stream-header">
+                asdasdasd
+              </div>
+              <div class="user-details">
+                <h5 class="user-name">
+                  Brenda Mage
+                  <br />
+                  Wish: Bobby's Heart
+                  <br />
+                  Date: 10/2/2015
+                </h5>
+              </div> -->
+              <div class="pull-right">
+                <a href="#"><span class="fa fa-star"></span></a>
+                &nbsp;&nbsp;
+                <a href="#"><span class="fa fa-bookmark"></span></a>
+                &nbsp;&nbsp;
+                <a data-toggle="modal" data-target="#modal_rewish"><span class="fa fa-retweet"></span></a>
+                &nbsp;&nbsp;
+                <a data-toggle="modal" data-target="#modal_grant"><span class="fa fa-magic"></span></a>
+              </div>
+            </div>
+        </div>
+      </div>
+  </div>
+
+
+    <!-- <div class="row">
         <div class="col-xs-12">
           <div class="panel panel-default">
               <div class="panel-body">
                 <div class="pull-left">
                   <img class="user img-circle" src="{{ URL::asset('img/test.jpg') }}">
+                </div>
+                <div class="stream-header">
+                  asdasdasd
                 </div>
                 <div class="user-details">
                   <h5 class="user-name">
@@ -21,9 +73,6 @@
                     <br />
                     Date: 10/2/2015
                   </h5>
-                  <p>
-                    skdjfldsjflsdkfjlsdkfj lsdkfj lsdkfj lsdkfj ldskjf sldkjf sldkjf lsdkfj sldkfj lskdjf lskdfj sldkjf lskdf lsdkfj slkdfj lsdkflsdkfsldkfsldkdkdkdkd
-                  </p>
                 </div>
                 <div class="pull-right">
                   <a href="#"><span class="fa fa-star"></span></a>
@@ -37,7 +86,7 @@
               </div>
           </div>
         </div>
-    </div>
+    </div> -->
     <!--  Rewish  -->
     <div class="modal" id="modal_rewish" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
         <div class="modal-dialog">
@@ -152,7 +201,7 @@
         </div>
     </div>
   </div>
-  <!--
+
     <div class="message-box animated fadeIn" id="mb-rewish">
         <div class="mb-container wish">
             <div class="mb-middle">
@@ -212,6 +261,6 @@
             </div>
         </div>
     </div>
-  -->
+
 </div>
 @endsection
