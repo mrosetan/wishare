@@ -361,7 +361,7 @@
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-12">
-                                {!! Form::select('wishlist', $wishlistsList, null, array('class'=>'form-control'))!!}
+                                {!! Form::select('wishlist', $wishlistsList, $wish->wishlistid, array('class'=>'form-control'))!!}
                               </div>
                             </div>
                             <br />
