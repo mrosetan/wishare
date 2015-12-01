@@ -358,7 +358,7 @@ class UserController extends Controller
     $newImage = '';
     $hostURL = '192.168.1.18';
     $newImage = Input::file('wishimageurl');
-    
+
     if($newImage == null) {
       if($request->flag == null)
         $flag = 0;
@@ -367,16 +367,14 @@ class UserController extends Controller
       $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
 
       if (!empty($wish)) {
-        foreach($wish as $w) {
-          $wish->wishlistid = $request->wishlist;
-          $wish->title = $request->title;
-          $wish->details = $request->description;
-          $wish->alternatives = $request->alternatives;
-          $wish->flagged = $flag;
-          $wish->wishimageurl = $w['wishimageurl'];
-          $wish->save();
-        }
-      }
+        $wish->wishlistid = $request->wishlist;
+        $wish->title = $request->title;
+        $wish->details = $request->description;
+        $wish->alternatives = $request->alternatives;
+        $wish->flagged = $flag;
+        $wish->wishimageurl = $wish->wishimageurl;
+        $wish->save();
+     }
     }
     else {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
