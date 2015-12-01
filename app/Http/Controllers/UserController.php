@@ -354,21 +354,50 @@ class UserController extends Controller
 
   public function updateWish(WishRequest $request, $id)
   {
-    if($request->flag == null)
-      $flag = 0;
-    else
-      $flag = 1;
+    $user = Auth::user();
+    $newImage = '';
+    $hostURL = '192.168.1.18';
+    $newImage = Input::file('wishimageurl');
 
-    $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
+    if($newImage == null) {
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+      $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
 
-    if (!empty($wish)) {
-      $wish->wishlistid = $request->wishlist;
-      $wish->title = $request->title;
-      $wish->details = $request->description;
-      $wish->alternatives = $request->alternatives;
-      $wish->flagged = $flag;
-      $wish->save();
-      // $wish->wishimageurl =
+      if (!empty($wish)) {
+        $wish->wishlistid = $request->wishlist;
+        $wish->title = $request->title;
+        $wish->details = $request->description;
+        $wish->alternatives = $request->alternatives;
+        $wish->flagged = $flag;
+        $wish->wishimageurl = $wish->wishimageurl;
+        $wish->save();
+     }
+    }
+    else {
+      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+      Image::make($newImage->getRealPath())->save($path);
+
+
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
+
+      if (!empty($wish)) {
+        $wish->wishlistid = $request->wishlist;
+        $wish->title = $request->title;
+        $wish->details = $request->description;
+        $wish->alternatives = $request->alternatives;
+        $wish->flagged = $flag;
+        $wish->wishimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
+        $wish->save();
+      }
     }
 
     return redirect('user/profile#tab-wishes')->with('wishStatus', 'Wish udpated successfully!');
