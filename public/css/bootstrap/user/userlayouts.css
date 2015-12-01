@@ -53,7 +53,18 @@ img.user.stream.img-circle {
   margin-right: 20px;
 }
 .stream-header{
+  margin-top: 10px;
+}
+.stream-body{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.stream-wish-img{
+  width: 100% !important;
+}
 
+.stream-margin{
+  margin-left: 80px;
 }
 
 /*   Profile   */
