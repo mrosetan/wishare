@@ -99,7 +99,8 @@ Route::get('/admin/reactivate/{id?}', 'AdminController@reactivate');
 
 // Auth
 Route::post('/auth/signin', 'AuthController@signin');
-Route::post('/auth/signup', 'UserController@store');
+// Route::post('/auth/signup', 'UserController@store');
+Route::post('/auth/signup', 'AuthController@store');
 Route::get('/auth/signout', 'AuthController@signout');
 
 //Social Login
