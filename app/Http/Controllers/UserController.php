@@ -180,7 +180,7 @@ class UserController extends Controller
     $newImage = Input::file('wishimageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
-    Image::make($newImage->getRealPath())->fit(500,400)->save($path);
+    Image::make($newImage->getRealPath())->save($path);
 
     if($request->flag == null)
       $flag = 0;
@@ -224,7 +224,7 @@ class UserController extends Controller
     $newImage = Input::file('wishimageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
-    Image::make($newImage->getRealPath())->fit(500,400)->save($path);
+    Image::make($newImage->getRealPath())->save($path);
 
     if($request->flag == null)
       $flag = 0;
