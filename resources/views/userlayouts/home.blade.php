@@ -3,11 +3,11 @@
 
 @section('content')
 <div class="page-title">
-    <h4>Event Stream</h4>
+    <!-- <h4>Event Stream</h4> -->
 </div>
-<div class="page-content-wrap">
+<div class="page-content-wrap container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12">
           <div class="panel panel-default">
               <div class="panel-body">
                 <div class="pull-left">
@@ -21,6 +21,9 @@
                     <br />
                     Date: 10/2/2015
                   </h5>
+                  <p>
+                    skdjfldsjflsdkfjlsdkfj lsdkfj lsdkfj lsdkfj ldskjf sldkjf sldkjf lsdkfj sldkfj lskdjf lskdfj sldkjf lskdf lsdkfj slkdfj lsdkflsdkfsldkfsldkdkdkdkd
+                  </p>
                 </div>
                 <div class="pull-right">
                   <a href="#"><span class="fa fa-star"></span></a>
