@@ -121,32 +121,6 @@
                 </div>
               </div>
 
-              <div class="col-xs-12 granter-grantee-body">
-                <div class="stream-margin">
-                  <div class="col-xs-12">
-                    <div class="pull-left">
-                      <img class="user granter img-circle" src="{{ URL::asset('img/test.jpg') }}">
-                    </div>
-                    <div class="stream-header">
-                      <b>Brenda Mage </b>( PrettyCutie ):
-                    </div>
-
-                  </div>
-
-                  <div class="col-xs-12">
-                    <p class="granter-caption">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                  </div>
-                  <div id ="links" class="col-xs-6 col-xs-offset-3 stream-body">
-                    <a href="{{ URL::asset('img/test.jpg') }}" title="Bobby" data-gallery>
-                        <img src="{{ URL::asset('img/test.jpg') }}" class="img-responsive img-text"/>
-                    </a>
-                  </div>
-
-                </div>
-              </div>
-
 
               <div class="col-xs-12">
                 <div class="stream-margin">

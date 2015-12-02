@@ -176,7 +176,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
@@ -220,7 +220,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
@@ -356,7 +356,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -646,7 +646,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -943,7 +943,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.18';
+      $hostURL = '192.168.1.10';
       if($newImage == null)
       {
         if($request->sticker == 1)
