@@ -1048,7 +1048,7 @@ class UserController extends Controller
       }
      $tynote->save();
       // print($tynote);
-     return redirect('user/action/tynotes#tab-tynotes')->with('tynoteStatus', 'Thank You Note sent!');
+     return redirect('user/action/tynotes')->with('tynoteStatus', 'Thank You Note sent!');
   }
 
   public function getTYNote()
@@ -1077,5 +1077,27 @@ class UserController extends Controller
      return redirect('user/notes#tab-tynotes')->with('errormsg', 'No Thank You Notes.');
   }
 
+  // public function outbox()
+  // {
+  //   $user = Auth::user();
+  //   $userId = $user->id;
+  //   //get notes
+  //   $usersWithNotes = User::with('notesOf')->get();
+  //   $notesOutbox = User::find($userId)->notesOf;
+  //   //get tynotes
+  //   $usersWithTYNotes = User::with('tynotesOf')->get();
+  //   $tynotesOutbox = User::find($userId)->tynotesOf->reverse();
+  //   //note recipient
+  //   $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+  //   $noteRecipient = User::find($userId)->friends
+  //                       ->where('type', 0)
+  //                       ->lists('full_name', 'id');
+  //   //tynote recipient
+  //   $tynoteRecipient = User::find($userId)->friends
+  //                       ->where('type', 1)
+  //                       ->lists('full_name', 'id');
+  //
+  //   return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox', '$noteRecipient', 'tynoteRecipient'));
+  // }
 
 }
