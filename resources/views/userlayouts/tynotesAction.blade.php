@@ -19,7 +19,7 @@
           {!! Form::open(array(
                         'action' => array('UserController@createTYNote'),
                         'class' => 'form',
-                        'files'=>true )) !!}
+                        'files'=>true)) !!}
           <div class="form-group">
             <div class="row">
               <div class="col-md-12">
@@ -36,7 +36,7 @@
             <label>Thank You Sticker:</label>
             <div class="row">
               <div class="col-md-4">
-                {!! Form::radio('sticker', '1', true) !!} Sticker 1<br />
+                {!! Form::radio('sticker', '1') !!} Sticker 1<br />
                 <img src="http://192.168.1.18/wishareimages/tynotessticker/sticker1.jpg" />
               </div>
               <div class="col-md-4">

@@ -942,53 +942,113 @@ class UserController extends Controller
       $user = Auth::user();
       $userId = $user->id;
       $newImage = '';
-      $hostURL = '192.168.1.18';
       $newImage = Input::file('imageurl');
-      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-
-      $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
-      Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
-
-      if($request->sticker == 1)
+      $hostURL = '192.168.1.18';
+      if($newImage == null)
       {
-        $tynote = new Notes(array(
-          'senderid' => $user->id,
-          'receiverid' => $request->recipient,
-          'message' => $request->get('message'),
-          'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
-          'type' => 1,
-          'status' => 1,
-          'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker1.jpg',
-        ));
-      }
-      else if($request->sticker == 2)
-      {
-        $tynote = new Notes(array(
-          'senderid' => $user->id,
-          'receiverid' => $request->recipient,
-          'message' => $request->get('message'),
-          'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
-          'type' => 1,
-          'status' => 1,
-          'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
-        ));
+        if($request->sticker == 1)
+        {
+          $tynote = new Notes(array(
+            'senderid' => $user->id,
+            'receiverid' => $request->recipient,
+            'message' => $request->get('message'),
+            'imageurl' => 'null',
+            'type' => 1,
+            'status' => 1,
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker1.jpg',
+          ));
+        }
+        else if($request->sticker == 2)
+        {
+          $tynote = new Notes(array(
+            'senderid' => $user->id,
+            'receiverid' => $request->recipient,
+            'message' => $request->get('message'),
+            'imageurl' => 'null',
+            'type' => 1,
+            'status' => 1,
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
+          ));
+        }
+        else if($request->sticker == 3)
+        {
+          $tynote = new Notes(array(
+            'senderid' => $user->id,
+            'receiverid' => $request->recipient,
+            'message' => $request->get('message'),
+            'imageurl' => 'null',
+            'type' => 1,
+            'status' => 1,
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
+          ));
+        }
+        else
+        {
+          $tynote = new Notes(array(
+            'senderid' => $user->id,
+            'receiverid' => $request->recipient,
+            'message' => $request->get('message'),
+            'imageurl' => 'null',
+            'type' => 1,
+            'status' => 1,
+            'sticker' => 'null',
+          ));
+        }
       }
       else
       {
-        $tynote = new Notes(array(
-          'senderid' => $user->id,
-          'receiverid' => $request->recipient,
-          'message' => $request->get('message'),
-          'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
-          'type' => 1,
-          'status' => 1,
-          'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker3.jpg',
-        ));
+        if($request->sticker == 1)
+        {
+          $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+          $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
+          Image::make($newImage->getRealPath())->save($path);
 
+          $tynote = new Notes(array(
+            'senderid' => $user->id,
+            'receiverid' => $request->recipient,
+            'message' => $request->get('message'),
+            'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
+            'type' => 1,
+            'status' => 1,
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker1.jpg',
+          ));
+        }
+        else if($request->sticker == 2)
+        {
+          $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+          $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
+          Image::make($newImage->getRealPath())->save($path);
+
+          $tynote = new Notes(array(
+            'senderid' => $user->id,
+            'receiverid' => $request->recipient,
+            'message' => $request->get('message'),
+            'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
+            'type' => 1,
+            'status' => 1,
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
+          ));
+        }
+        else
+        {
+          $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+          $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
+          Image::make($newImage->getRealPath())->save($path);
+
+          $tynote = new Notes(array(
+            'senderid' => $user->id,
+            'receiverid' => $request->recipient,
+            'message' => $request->get('message'),
+            'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
+            'type' => 1,
+            'status' => 1,
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker3.jpg',
+          ));
+        }
       }
      $tynote->save();
       // print($tynote);
-     return redirect('user/action/tynotes')->with('tynoteStatus', 'Thank You Note sent!');
+     return redirect('user/action/tynotes#tab-tynotes')->with('tynoteStatus', 'Thank You Note sent!');
   }
 
   public function getTYNote()
@@ -1012,7 +1072,7 @@ class UserController extends Controller
     $tynote->save();
 
     if(count($tynote) > 1)
-     return redirect('user/notes#tab-tynotes')->with('tynoteDelete', 'Thank You Note deleted!');
+     return redirect('user/notes#tab-tynotes');
     else
      return redirect('user/notes#tab-tynotes')->with('errormsg', 'No Thank You Notes.');
   }

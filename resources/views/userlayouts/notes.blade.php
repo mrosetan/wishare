@@ -7,7 +7,7 @@
     <div class="notes-container">
       <div class="col-md-12">
         <div class="panel panel-default tabs">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
+            <ul class="nav nav-tabs nav-justified" role="tablist" id="myTab">
                 <li class="active"><a href="#tab-notes" role="tab" data-toggle="tab">Notes</a></li>
                 <li><a href="#tab-tynotes" role="tab" data-toggle="tab">Thank You Notes</a></li>
                 <li><a href="#tab-outbox" role="tab" data-toggle="tab">Outbox</a></li>
@@ -120,36 +120,38 @@
               </div>
               <!--end of notes tab-->
               <!-- ty notes tab -->
-              @if(session('tynoteDelete'))
-                <div class="alert alert-success">
-                    {{ session('tynoteDelete') }}
-                </div>
-              @endif
               <div class="tab-pane" id="tab-tynotes">
                 @if(isset($tynotes) and $tynotes->count())
                 @foreach($tynotes as $id => $ty)
                 <div class="panel-group accordion accordion-dc">
                   <div class="panel panel-default">
                     <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a href="#tynote-content">
-                          <h6>From {!! $ty->firstname!!} {!! $ty->lastname !!} - {!! date('F d, Y', strtotime($ty->pivot->updated_at)) !!}</h6>
+                      <h6 class="panel-title">
+                        <a href="#tynote-content{!! $id !!}">
+                          <h6>From {!! $ty->firstname!!} {!! $ty->lastname !!} - {!! date('m/d/y g:i A', strtotime($ty->pivot->updated_at)) !!}</h6>
                         </a>
-                      </h4>
+                      </h6>
+                      <div class="pull-right">
+                        <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $id !!}"><span class="glyphicon glyphicon-trash"></span></a>
+                      </div>
                     </div>
-                    <div class="panel-body" id="tynote-content">
+                    <div class="panel-body" id="tynote-content{!! $id !!}">
                       <h5>{!! $ty->pivot->message !!}</h5>
                       <b>Sender:</b> {!! $ty->firstname !!} {!! $ty->lastname !!} <br />
                       <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
                       <hr />
-                      <div class="tynote-image-container">
-                        <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
-                      </div>
-                      <hr />
-                      <div class="tynote-sticker-container">
-                        <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
-                      </div>
-                      <hr />
+                      @if($ty->pivot->imageurl == 'null' || $ty->pivot->sticker == 'null')
+                        <div></div>
+                      @else
+                        <div class="tynote-image-container">
+                          <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
+                        </div>
+                        <hr />
+                        <div class="tynote-sticker-container">
+                          <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
+                        </div>
+                        <hr />
+                      @endif
                       <div class="pull-right">
                         <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $id !!}"><button class="btn btn-info">Delete</button></a>
                       </div>
