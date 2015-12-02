@@ -160,10 +160,29 @@ p.user-given {
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  background-color: red;
 }
 
 img.wish-image {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.tynote-image-container {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.tynote-sticker-container {
+  margin: 0 auto;
+  width: 150px;
+}
+.tynote-sticker {
+  margin: 0 auto;
+}
+
+img.tynote-image {
   margin: 0 auto;
   width: 100%;
   height: 100%;

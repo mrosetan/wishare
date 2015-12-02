@@ -49,7 +49,7 @@
                 </div>
                 @endif
 
-                <!-- message box -->
+                <!-- note message box -->
                 @if(isset($notes) and $notes->count())
                   @foreach($notes as $id => $note)
                   <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletenote{!! $id !!}">
@@ -119,23 +119,76 @@
                 @endif
               </div>
               <!--end of notes tab-->
+              <!-- ty notes tab -->
+              @if(session('tynoteDelete'))
+                <div class="alert alert-success">
+                    {{ session('tynoteDelete') }}
+                </div>
+              @endif
               <div class="tab-pane" id="tab-tynotes">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                      <h5>Thank you sprikitik!</h5>
-                      '<'picture or sticker here'>'
-                      <br />
-                      <br />
-                      <br />
-                      Sender: Bobby <br />
-                      2:08AM 11/06/15
+                @if(isset($tynotes) and $tynotes->count())
+                @foreach($tynotes as $id => $ty)
+                <div class="panel-group accordion accordion-dc">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a href="#tynote-content">
+                          <h6>From {!! $ty->firstname!!} {!! $ty->lastname !!} - {!! date('F d, Y', strtotime($ty->pivot->updated_at)) !!}</h6>
+                        </a>
+                      </h4>
+                    </div>
+                    <div class="panel-body" id="tynote-content">
+                      <h5>{!! $ty->pivot->message !!}</h5>
+                      <b>Sender:</b> {!! $ty->firstname !!} {!! $ty->lastname !!} <br />
+                      <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
+                      <hr />
+                      <div class="tynote-image-container">
+                        <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
+                      </div>
+                      <hr />
+                      <div class="tynote-sticker-container">
+                        <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
+                      </div>
+                      <hr />
                       <div class="pull-right">
-                          {!! Form::button('Delete', array('class'=>'btn btn-default mb-control-close')) !!}
+                        <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $id !!}"><button class="btn btn-info">Delete</button></a>
                       </div>
                     </div>
+                  </div>
                 </div>
+                @endforeach
+
+                @else
+                <div class="alert alert-danger">
+                    No Thank You Notes.
+                </div>
+                @endif
+                <!-- tynote message box -->
+                @if(isset($tynotes) and $tynotes->count())
+                  @foreach($tynotes as $id => $ty)
+                  <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletetynote{!! $id !!}">
+                      <div class="mb-container">
+                          <div class="mb-middle">
+                              <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Thank You Note</div>
+                              <div class="mb-content">
+                                  <p>Are you sure you want to delete this note?</p>
+                              </div>
+                              <div class="mb-footer">
+                                  @if(!empty($ty))
+                                  <div class="pull-right">
+                                      <a href="{!! action('UserController@deleteTYNote', $ty->pivot->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                      <button class="btn btn-default btn-lg mb-control-close">No</button>
+                                  </div>
+                                  @endif
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  @endforeach
+                @endif
               </div>
-              <!---->
+              <!-- end of tynotes tab -->
+              <!-- outbox tab -->
               <div class="tab-pane" id="tab-outbox">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -148,9 +201,9 @@
                     </div>
                 </div>
               </div>
+              <!--end of outbox tab-->
             </div>
           </div>
-
         </div>
       </div>
     </div>

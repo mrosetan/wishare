@@ -162,4 +162,57 @@ class User extends Model implements AuthenticatableContract,
     {
       return $this->hasMany('App\Tag', 'App\Wish', 'id', 'userid');
     }
+
+    //------------------------ TY Notes ----------------------------------
+    function myTYNotes()
+    {
+      return $this->belongsToMany('App\User', 'notes', 'senderid', 'receiverid')
+        // if you want to rely on accepted field, then add this:
+        ->wherePivot('status', '=', 1)
+        ->wherePivot('type', '=', 1)
+        ->withPivot('status')
+        ->withPivot('message')
+        ->withPivot('imageurl')
+        ->withPivot('sticker')
+        ->withPivot('type')
+        ->withPivot('id')
+        ->withPivot('updated_at');
+    }
+
+    function tynotesOf()
+    {
+      return $this->belongsToMany('App\User', 'notes', 'receiverid', 'senderid')
+        ->wherePivot('status', '=', 1)
+        ->wherePivot('type', '=', 1)
+        ->withPivot('status')
+        ->withPivot('message')
+        ->withPivot('imageurl')
+        ->withPivot('sticker')
+        ->withPivot('type')
+        ->withPivot('id')
+        ->withPivot('updated_at');
+    }
+
+    public function getNTYotesAttribute()
+    {
+        if ( ! array_key_exists('tynotes', $this->relations)) $this->loadTYNotes();
+
+        return $this->getRelation('ntyotes');
+    }
+
+    protected function loadTYNotes()
+    {
+        if ( ! array_key_exists('tynotes', $this->relations))
+        {
+            $tynotes = $this->mergeTYNotes();
+
+            $this->setRelation('tynotes', $tynotes);
+        }
+    }
+
+    protected function mergeTYNotes()
+    {
+        return $this->myTYNotes->merge($this->tynotesOf);
+    }
+
 }

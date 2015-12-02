@@ -176,7 +176,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('wishimageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
@@ -220,7 +220,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('wishimageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
@@ -356,7 +356,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -646,7 +646,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -843,7 +843,7 @@ class UserController extends Controller
     return redirect()->action('UserController@notifications');
   }
 
-  public function getRecipient()
+  public function getNoteRecipient()
   {
     $user = Auth::user();
     $userId = $user['id'];
@@ -855,6 +855,20 @@ class UserController extends Controller
 
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient'));
+  }
+
+  public function getTYNoteRecipient()
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $recipient = User::find($userId)->friends
+                        ->where('type', 1)
+                        ->lists('full_name', 'id');
+
+    // dd($recipient);
+    return view('userlayouts.tynotesAction', compact('recipient'));
   }
 
   public function createNoteModal(NotesRequest $request, $id)
@@ -922,5 +936,86 @@ class UserController extends Controller
     else
      return redirect('user/notes#tab-notes')->with('errormsg', 'No Notes.');
   }
+
+  public function createTYNote(NotesRequest $request)
+  {
+      $user = Auth::user();
+      $userId = $user->id;
+      $newImage = '';
+      $hostURL = '192.168.1.18';
+      $newImage = Input::file('imageurl');
+      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+
+      $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
+      Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
+
+      if($request->sticker == 1)
+      {
+        $tynote = new Notes(array(
+          'senderid' => $user->id,
+          'receiverid' => $request->recipient,
+          'message' => $request->get('message'),
+          'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
+          'type' => 1,
+          'status' => 1,
+          'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker1.jpg',
+        ));
+      }
+      else if($request->sticker == 2)
+      {
+        $tynote = new Notes(array(
+          'senderid' => $user->id,
+          'receiverid' => $request->recipient,
+          'message' => $request->get('message'),
+          'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
+          'type' => 1,
+          'status' => 1,
+          'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
+        ));
+      }
+      else
+      {
+        $tynote = new Notes(array(
+          'senderid' => $user->id,
+          'receiverid' => $request->recipient,
+          'message' => $request->get('message'),
+          'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
+          'type' => 1,
+          'status' => 1,
+          'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker3.jpg',
+        ));
+
+      }
+     $tynote->save();
+      // print($tynote);
+     return redirect('user/action/tynotes')->with('tynoteStatus', 'Thank You Note sent!');
+  }
+
+  public function getTYNote()
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+
+    $usersWithTYNotes = User::with('tynotesOf')->get();
+    $tynotes = User::find($userId)->tynotesOf->reverse();
+    // dd($tynotes);
+    return view('userlayouts.notes', compact('tynotes'));
+  }
+
+  public function deleteTYNote($id)
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+    $tynote = Notes::where('id', $id)->firstorFail();
+
+    $tynote->status = 0;
+    $tynote->save();
+
+    if(count($tynote) > 1)
+     return redirect('user/notes#tab-tynotes')->with('tynoteDelete', 'Thank You Note deleted!');
+    else
+     return redirect('user/notes#tab-tynotes')->with('errormsg', 'No Thank You Notes.');
+  }
+
 
 }

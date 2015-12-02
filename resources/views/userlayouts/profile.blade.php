@@ -72,7 +72,7 @@
                         @endif
                       </p>
                       <div class="wishlist-icons pull-right">
-                        <a href="#" data-toggle="modal" data-target="#modal_addwish{!! $id !!}"><span class="fa fa-plus"></span></a>
+                        <a href="#" data-toggle="modal" data-target="#modal_addwish{!! $wishlist->id !!}"><span class="fa fa-plus"></span></a>
                         &nbsp;&nbsp;
                         <a href="#" data-toggle="modal" data-target="#modal_{!! $id !!}"><span class="glyphicon glyphicon-edit"></span></a>
                         &nbsp;&nbsp;
@@ -432,12 +432,11 @@
         @endforeach
       @endif
 
-      <!--  ===========================================ADD WISH MODAL==============================================-->
+      <!--  ======================================ADD WISH MODAL=============================-->
       @if(isset($wishlists))
         @foreach($wishlists as $id => $wishlist)
           @foreach($wishlist->wishes as $wish)
-          @if(count($wish) >= 0)
-          <div class="modal" id="modal_addwish{!! $id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+          <div class="modal" id="modal_addwish{!! $wishlist->id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
@@ -526,7 +525,6 @@
               </div>
             </div>
           </div>
-          @endif
         @endforeach
       @endforeach
     @endif
