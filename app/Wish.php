@@ -28,11 +28,26 @@ class Wish extends Model
   }
 
   public function stream($friendsId){
-    $stream = DB::table('wishes')
-              ->whereIn('createdby_id', $friendsId)
-              ->get();
+    // $stream = DB::table('wishes')
+    //           ->where('status', '=', 1)
+    //           ->whereIn('createdby_id', $friendsId)
+    //           ->get();
 
-              print_r($stream); die();
+    $stream = DB::table('wishes')
+                     ->leftJoin('wishare_users AS wisher','wisher.id','=','wishes.createdby_id')
+                     ->leftJoin('wishare_users AS granter','granter.id','=','wishes.granterid')
+                     ->leftJoin('wishlists','wishlists.id','=','wishes.wishlistid')
+                     ->select('wisher.id AS userid', 'wisher.firstname', 'wisher.lastname', 'wisher.username','wisher.imageurl',
+                              'wishes.id AS wishid', 'wishes.created_at', 'wishes.wishlistid','wishes.title','wishes.details',
+                              'wishes.wishimageurl','wishes.alternatives','wishes.due_date','wishes.granted', 'wishes.date_granted',
+                              'wishes.granterid','wishes.granteddetails','wishes.grantedimageurl', DB::raw('IFNULL(granter.firstname, "") AS granterfirstname'), DB::raw('IFNULL(granter.lastname, "") AS granterlastname'), DB::raw('IFNULL(granter.username, "") AS granterusername'),
+                              DB::raw('IFNULL(granter.imageurl, "") AS granterimageurl'))
+                     ->where('wishes.status','=','1')
+                     ->where('wishlists.privacy','=','0')
+                     ->whereIn('wishes.createdby_id',$friendsId)
+                     ->orderBy('wishes.updated_at','desc')
+                     ->paginate();
+              // dd($stream); die();
 
     return $stream;
   }

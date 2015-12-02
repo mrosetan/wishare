@@ -65,15 +65,34 @@ class UserController extends Controller
 
       }
 
-
+      // $wishes = new Wish();
+      // $stream = $wishes->stream($friendsId);
+      // foreach ($stream as $s) {
+      //   $s = (array)$s;
+      //   $s['tagged'] = $s;
+      //   dd($s); die();
+      // }
 
       $wishes = new Wish();
       $stream = $wishes->stream($friendsId);
+      foreach ($stream as $s) {
+        $s = (array)$s;
+        $tags = Tag::with('user')->where('wishid', '=', $s['wishid'])->get();
+        if(count($tags)>0){
+          foreach ($tags as $t) {
+              // $t = (array)$t;
+              // dd($t->user); die();
+              $s['tagged'] = $t->user;
+              // dd($s);
+          }
+        }
+        $fstream[] = $s;
+      }
 
-      // die();
 
-      dd($stream); die();
-      return view('userlayouts.home');
+      dd($fstream);
+      die();
+      return view('userlayouts.home', compact('stream'));
     }
     else {
       return redirect('user/setPassword');
