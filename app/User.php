@@ -214,5 +214,5 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->myTYNotes->merge($this->tynotesOf);
     }
-
+    
 }

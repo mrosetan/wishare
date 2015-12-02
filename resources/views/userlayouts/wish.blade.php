@@ -24,10 +24,16 @@
                 <a href="{!! action('UserController@otheruser', $t->user->id) !!}">{!! $t->user->firstname !!} {!! $t->user->lastname !!}, </a>
               @endforeach
               <hr />
-              <div class="wish-image-container">
-                <img src='{!! $wish->wishimageurl !!}' class="wish-image"/>
-              </div>
-              <br /><br /><hr />
+              @if($wish->wishimageurl == 'null')
+                <div></div>
+              @else
+                @if($wish->wishimageurl != 'null')
+                <div class="wish-image-container">
+                  <img src='{!! $wish->wishimageurl !!}' class="wish-image"/>
+                </div>
+                <br /><br /><hr />
+                @endif
+              @endif
               <div class="wish-icons pull-right">
                 <a href="#"><span class="fa fa-star"></span></a>
                 &nbsp;&nbsp;
