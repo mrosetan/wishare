@@ -140,17 +140,22 @@
                       <b>Sender:</b> {!! $ty->firstname !!} {!! $ty->lastname !!} <br />
                       <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
                       <hr />
-                      @if($ty->pivot->imageurl == 'null' || $ty->pivot->sticker == 'null')
+                      @if($ty->pivot->imageurl == 'null' and $ty->pivot->sticker == 'null')
                         <div></div>
                       @else
-                        <div class="tynote-image-container">
-                          <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
-                        </div>
-                        <hr />
-                        <div class="tynote-sticker-container">
-                          <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
-                        </div>
-                        <hr />
+                        @if($ty->pivot->imageurl != 'null')
+                          <div class="tynote-image-container">
+                            <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
+                          </div>
+                          <hr />
+                        @elseif($ty->pivot->sticker != 'null')
+                          <div class="tynote-sticker-container">
+                            <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
+                          </div>
+                          <hr />
+                        @else
+                          <hr />
+                        @endif
                       @endif
                       <div class="pull-right">
                         <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $id !!}"><button class="btn btn-info">Delete</button></a>

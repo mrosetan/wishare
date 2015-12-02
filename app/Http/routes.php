@@ -38,6 +38,7 @@ Route::get('user/notes', 'UserController@notes');
 Route::get('user/wish/{id?}', 'UserController@wish');
 Route::get('user/notes', 'UserController@getNote');
 Route::get('user/notes', 'UserController@getTYNote');
+// Route::get('user/notes', 'UserController@outbox');
 Route::post('user/notes/{id?}', 'UserController@createNoteModal');
 Route::get('user/notes/{id?}', 'UserController@deleteNote');
 Route::get('user/notes/{id?}', 'UserController@deleteTYNote');
