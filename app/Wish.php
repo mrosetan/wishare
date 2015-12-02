@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Wish extends Model
 {
@@ -24,5 +25,15 @@ class Wish extends Model
   {
     // return $this->hasManyThrough('App\Tag', 'App\User', 'id', 'userid');
     return $this->hasMany('App\Tag', 'wishid', 'id');
+  }
+
+  public function stream($friendsId){
+    $stream = DB::table('wishes')
+              ->whereIn('createdby_id', $friendsId)
+              ->get();
+
+              print_r($stream); die();
+
+    return $stream;
   }
 }

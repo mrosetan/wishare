@@ -49,6 +49,30 @@ class UserController extends Controller
     $user = Auth::user();
 
     if (!empty(Auth::user()->password)){
+      $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+      $friends = User::find($user->id)->friends;
+      // $friendsId[] = '';
+
+
+      foreach($friends as $friend){
+        if ($user->id == $friend->pivot->userid) {
+          // print($friend);
+          $friendsId[] = $friend->pivot->friend_userid;
+        } else {
+          // print($friend->pivot);
+          $friendsId[] = $friend->pivot->userid;
+        }
+
+      }
+
+
+
+      $wishes = new Wish();
+      $stream = $wishes->stream($friendsId);
+
+      // die();
+
+      dd($stream); die();
       return view('userlayouts.home');
     }
     else {
