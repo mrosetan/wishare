@@ -22,6 +22,7 @@ Route::get('/blank', 'PagesController@blank');
 /* User */
 Route::get('user/usermaster', 'UserController@dashboard');
 Route::get('user/home', 'UserController@home');
+Route::post('user/home/{id?}', 'UserController@reWish');
 Route::get('user/profile', 'UserController@getUserDetails');
 Route::get('user/profile/wishlists', 'UserController@getWishlist');
 Route::post('user/profile/{id?}', 'UserController@updateWishlist');

@@ -42,17 +42,21 @@
                     <hr />
                     <div class="col-xs-12">
                       <div class="stream-margin">
-
                         <h4>{!! $s['title'] !!}</h4>
+                        <hr />
                       </div>
                     </div>
 
-                    @if(!empty($s['wishimageurl']))
-                      <div id ="links" class="col-xs-8 col-xs-offset-2 stream-body">
-                        <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
-                            <img src="{!! $s['wishimageurl'] !!}" class="img-responsive img-text"/>
-                        </a>
-                      </div>
+                    @if($s['wishimageurl'] == 'null')
+                      <div></div>
+                    @else
+                      @if(!empty($s['wishimageurl']))
+                        <div id ="links" class="col-xs-8 col-xs-offset-2 stream-body">
+                          <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
+                              <img src="{!! $s['wishimageurl'] !!}" class="img-responsive img-text"/>
+                          </a>
+                        </div>
+                      @endif
                     @endif
 
                     <div class="col-xs-12">
@@ -86,7 +90,6 @@
                           @endforeach
                         </ul>
                       @endif
-
                       <div class="pull-right">
                         <a href="#"><span class="fa fa-star"></span></a>
                         &nbsp;&nbsp;
@@ -118,7 +121,7 @@
                                   <p class="alert alert-danger"> {{ $error }}</p>
                               @endforeach
 
-                              {!! Form::open(array( 'class' => 'form')) !!}
+                              {!! Form::open(array('action'=>array('UserController@reWish', $s['wishid']), 'class' => 'form', 'files'=>true)) !!}
 
                               <div class="form-group">
                                 <div class="row">
@@ -129,7 +132,7 @@
                                 <br />
                                 <div class="row">
                                   <div class="col-md-12">
-                                    {!! Form::text('title', $s['title'], array('class'=>'form-control', 'placeholder'=>'Wish')) !!}
+                                    {!! Form::text('title', $s['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true')) !!}
                                   </div>
                                 </div>
                                 <br />
