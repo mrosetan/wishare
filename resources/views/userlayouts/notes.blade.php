@@ -7,15 +7,15 @@
     <div class="notes-container">
       <div class="col-md-12">
         <div class="panel panel-default tabs">
-            <ul class="nav nav-tabs nav-justified" role="tablist" id="myTab">
-                <li class="active"><a href="#tab-notes" role="tab" data-toggle="tab">Notes</a></li>
-                <li><a href="#tab-tynotes" role="tab" data-toggle="tab">Thank You Notes</a></li>
-                <li><a href="#tab-outbox" role="tab" data-toggle="tab">Outbox</a></li>
+            <ul class="nav nav-tabs nav-justified" role="tablist" id="myTabs">
+                <li class="active"><a href="#notes" role="tab" data-toggle="tab">Notes</a></li>
+                <li><a href="#tynotes" role="tab" data-toggle="tab">Thank You Notes</a></li>
+                <li><a href="#outbox" role="tab" data-toggle="tab">Outbox</a></li>
             </ul>
             <br />
             <!---->
             <div class="panel-body tab-content">
-              <div class="tab-pane active" id="tab-notes">
+              <div class="tab-pane active" id="notes">
               @if(session('noteDelete'))
                 <div class="alert alert-success">
                     {{ session('noteDelete') }}
@@ -120,22 +120,22 @@
               </div>
               <!--end of notes tab-->
               <!-- ty notes tab -->
-              <div class="tab-pane" id="tab-tynotes">
-                @if(isset($tynotes) and $tynotes->count())
-                @foreach($tynotes as $id => $ty)
+              <div class="tab-pane" id="tynotes">
+              @if(isset($tynotes) and $tynotes->count())
+                @foreach($tynotes as $tyid => $ty)
                 <div class="panel-group accordion accordion-dc">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h6 class="panel-title">
-                        <a href="#tynote-content{!! $id !!}">
+                        <a href="#tynote-content{!! $tyid !!}">
                           <h6>From {!! $ty->firstname!!} {!! $ty->lastname !!} - {!! date('m/d/y g:i A', strtotime($ty->pivot->updated_at)) !!}</h6>
                         </a>
                       </h6>
                       <div class="pull-right">
-                        <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $id !!}"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><span class="glyphicon glyphicon-trash"></span></a>
                       </div>
                     </div>
-                    <div class="panel-body" id="tynote-content{!! $id !!}">
+                    <div class="panel-body" id="tynote-content{!! $tyid !!}">
                       <h5>{!! $ty->pivot->message !!}</h5>
                       <b>Sender:</b> {!! $ty->firstname !!} {!! $ty->lastname !!} <br />
                       <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
@@ -158,7 +158,7 @@
                         @endif
                       @endif
                       <div class="pull-right">
-                        <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $id !!}"><button class="btn btn-info">Delete</button></a>
+                        <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><button class="btn btn-info">Delete</button></a>
                       </div>
                     </div>
                   </div>
@@ -172,8 +172,8 @@
                 @endif
                 <!-- tynote message box -->
                 @if(isset($tynotes) and $tynotes->count())
-                  @foreach($tynotes as $id => $ty)
-                  <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletetynote{!! $id !!}">
+                  @foreach($tynotes as $tyid => $ty)
+                  <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletetynote{!! $tyid !!}">
                       <div class="mb-container">
                           <div class="mb-middle">
                               <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Thank You Note</div>
@@ -194,19 +194,71 @@
                   @endforeach
                 @endif
               </div>
-              <!-- end of tynotes tab -->
+              <!-- end of tynotes tab
               <!-- outbox tab -->
-              <div class="tab-pane" id="tab-outbox">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                      To: Bobby <br/>
-                      Sent: 2:29AM 11/06/15
-                      <br />
-                      <br />
-                      <br />
-                      <h5>I miss you huhu</h5>
-                    </div>
+              <div class="tab-pane" id="outbox">
+                <!-- notes -->
+              <label>Notes</label>
+              <hr/>
+              @if(isset($notesOutbox) and $notesOutbox->count())
+              @foreach($notesOutbox as $nid => $note)
+
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  {!! $note->pivot->message !!}
+                  <br />
+                  <br />
+                  <br />
+                  <b>Recipient:</b> {!! $note->firstname !!} {!! $note->lastname !!}<br />
+                  <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($note->pivot->updated_at)) !!}
                 </div>
+              </div>
+              <hr/>
+              @endforeach
+              @endif
+              <br />
+              <label>Thank You Notes</label>
+              <hr/>
+              <!-- ty notes -->
+              @if(isset($tynotesOutbox) and $tynotesOutbox->count())
+              @foreach($tynotesOutbox as $tid => $tynotes)
+
+              <div class="panel-group accordion accordion-dc">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h6 class="panel-title">
+                      <a href="#tynote{!! $tid !!}">
+                        <h6>Sent to {!! $tynotes->firstname!!} {!! $tynotes->lastname !!} - {!! date('m/d/y g:i A', strtotime($tynotes->pivot->updated_at)) !!}</h6>
+                      </a>
+                    </h6>
+                  </div>
+                  <div class="panel-body" id="tynote{!! $tid !!}">
+                    <h5>{!! $tynotes->pivot->message !!}</h5>
+                    <b>Recipient:</b> {!! $tynotes->firstname !!} {!! $tynotes->lastname !!} <br />
+                    <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($tynotes->pivot->updated_at)) !!}
+                    <hr />
+                    @if($tynotes->pivot->imageurl == 'null' and $tynotes->pivot->sticker == 'null')
+                      <div></div>
+                    @else
+                      @if($tynotes->pivot->imageurl != 'null')
+                        <div class="tynote-image-container">
+                          <img src="{!! $tynotes->pivot->imageurl!!}" class="tynote-image" />
+                        </div>
+                        <hr />
+                      @elseif($tynotes->pivot->sticker != 'null')
+                        <div class="tynote-sticker-container">
+                          <img src="{!! $tynotes->pivot->sticker !!}" class="tynote-sticker" />
+                        </div>
+                        <hr />
+                      @else
+                        <hr />
+                      @endif
+                    @endif
+                  </div>
+                </div>
+              </div>
+              @endforeach
+              @endif
               </div>
               <!--end of outbox tab-->
             </div>

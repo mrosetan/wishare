@@ -221,26 +221,51 @@ class UserController extends Controller
     $newImage = '';
     $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
-    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-    $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
-    Image::make($newImage->getRealPath())->save($path);
 
-    if($request->flag == null)
-      $flag = 0;
+    if($newImage == null)
+    {
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wish = new Wish(array(
+        'wishlistid' => $request->wishlist,
+        'title' => $request->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'null',
+        'status' => 1,
+      ));
+    }
     else
-      $flag = 1;
+    {
+      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+      Image::make($newImage->getRealPath())->save($path);
 
-    $wish = new Wish(array(
-      'wishlistid' => $request->wishlist,
-      'title' => $request->title,
-      'due_date' => $request->due_date,
-      'createdby_id' => $user->id,
-      'details' => $request->description,
-      'alternatives' => $request->alternatives,
-      'flagged' => $flag,
-      'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
-      'status' => 1,
-    ));
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wish = new Wish(array(
+        'wishlistid' => $request->wishlist,
+        'title' => $request->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'null',
+        'status' => 1,
+      ));
+
+    }
+
 
     $wish->save();
 
@@ -265,26 +290,50 @@ class UserController extends Controller
     $newImage = '';
     $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
-    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-    $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
-    Image::make($newImage->getRealPath())->save($path);
 
-    if($request->flag == null)
-      $flag = 0;
+    if($newImage == null)
+    {
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wish = new Wish(array(
+        'wishlistid' => $id,
+        'title' => $request->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'null',
+        'status' => 1,
+      ));
+    }
     else
-      $flag = 1;
+    {
+      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+      Image::make($newImage->getRealPath())->save($path);
 
-    $wish = new Wish(array(
-      'wishlistid' => $id,
-      'title' => $request->title,
-      'due_date' => $request->due_date,
-      'createdby_id' => $user->id,
-      'details' => $request->description,
-      'alternatives' => $request->alternatives,
-      'flagged' => $flag,
-      'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
-      'status' => 1,
-    ));
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wish = new Wish(array(
+        'wishlistid' => $id,
+        'title' => $request->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
+        'status' => 1,
+      ));
+    }
+
 
     $wish->save();
 
@@ -954,17 +1003,6 @@ class UserController extends Controller
       return redirect('user/action/notes')->with('noteStatus', 'Note sent!');
   }
 
-  public function getNote()
-  {
-    $user = Auth::user();
-    $userId = $user->id;
-
-    $usersWithNotes = User::with('notesOf')->get();
-    $notes = User::find($userId)->notesOf->reverse();
-    // dd($notes);
-    return view('userlayouts.notes', compact('notes'));
-  }
-
   public function deleteNote($id)
   {
     $user = Auth::user();
@@ -979,6 +1017,7 @@ class UserController extends Controller
     else
      return redirect('user/notes#tab-notes')->with('errormsg', 'No Notes.');
   }
+
 
   public function createTYNote(NotesRequest $request)
   {
@@ -1094,17 +1133,6 @@ class UserController extends Controller
      return redirect('user/action/tynotes')->with('tynoteStatus', 'Thank You Note sent!');
   }
 
-  public function getTYNote()
-  {
-    $user = Auth::user();
-    $userId = $user->id;
-
-    $usersWithTYNotes = User::with('tynotesOf')->get();
-    $tynotes = User::find($userId)->tynotesOf->reverse();
-    // dd($tynotes);
-    return view('userlayouts.notes', compact('tynotes'));
-  }
-
   public function deleteTYNote($id)
   {
     $user = Auth::user();
@@ -1120,27 +1148,37 @@ class UserController extends Controller
      return redirect('user/notes#tab-tynotes')->with('errormsg', 'No Thank You Notes.');
   }
 
-  // public function outbox()
-  // {
-  //   $user = Auth::user();
-  //   $userId = $user->id;
-  //   //get notes
-  //   $usersWithNotes = User::with('notesOf')->get();
-  //   $notesOutbox = User::find($userId)->notesOf;
-  //   //get tynotes
-  //   $usersWithTYNotes = User::with('tynotesOf')->get();
-  //   $tynotesOutbox = User::find($userId)->tynotesOf->reverse();
-  //   //note recipient
-  //   $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-  //   $noteRecipient = User::find($userId)->friends
-  //                       ->where('type', 0)
-  //                       ->lists('full_name', 'id');
-  //   //tynote recipient
-  //   $tynoteRecipient = User::find($userId)->friends
-  //                       ->where('type', 1)
-  //                       ->lists('full_name', 'id');
-  //
-  //   return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox', '$noteRecipient', 'tynoteRecipient'));
-  // }
+  public function getOutbox()
+  {
+    $user = Auth::user();
+    $userId = $user->id;
 
+
+
+    return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox'));
+  }
+
+
+  public function getAllNotes()
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+    //notes tab
+    $usersWithNotes = User::with('notesOf')->get();
+    $notes = User::find($userId)->notesOf->reverse();
+    //ty notes tab
+    $usersWithTYNotes = User::with('tynotesOf')->get();
+    $tynotes = User::find($userId)->tynotesOf->reverse();
+
+    //outbox tab
+    //notes
+    $WithNotes = User::with('myNotes')->get();
+    $notesOutbox = User::find($userId)->myNotes->reverse();
+    // tynotes
+    $WithTYNotes = User::with('myTYNotes')->get();
+    $tynotesOutbox = User::find($userId)->myTYNotes->reverse();
+
+    if(!empty($notes) || !empty($tynotes) || !empty($notesOutbox) || !empty($tynotesOutbox))
+    return view('userlayouts.notes', compact('notes', 'tynotes', 'notesOutbox', 'tynotesOutbox'));
+  }
 }
