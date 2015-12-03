@@ -51,7 +51,7 @@ class UserController extends Controller
     if (!empty(Auth::user()->password)){
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($user->id)->friends;
-      // $friendsId[] = '';
+      $friendsId[] = $user->id;
 
 
       foreach($friends as $friend){
@@ -82,7 +82,7 @@ class UserController extends Controller
           foreach ($tags as $t) {
               // $t = (array)$t;
               // dd($t->user); die();
-              $s['tagged'] = $t->user;
+              $s['tagged'][] = $t->user;
               // dd($s);
           }
         }
