@@ -115,7 +115,7 @@
         <div class="message-box animated fadeIn open" id="mb-wishlist">
             <div class="mb-container">
                 <div class="mb-middle">
-                    <div class="mb-title"><span class="<span class="glyphicon glyphicon-pencil"></span> You don't have wishlists.</div>
+                    <div class="mb-title"><span class="glyphicon glyphicon-pencil"></span> You don't have wishlists.</div>
                     <div class="mb-content">
                         <p>You need to create a wishlist.</p>
                     </div>

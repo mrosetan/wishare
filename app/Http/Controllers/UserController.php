@@ -49,8 +49,15 @@ class UserController extends Controller
     $user = Auth::user();
 
     if (!empty(Auth::user()->password)){
+      $wishlists = Wishlist::with('user')
+                          ->where('createdby_id', '=', $user->id)
+                          ->where('status', '=', 1)
+                          ->orderBy('created_at', 'desc')
+                          ->lists('title', 'id');
+
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($user->id)->friends;
+
       $friendsId[] = $user->id;
 
 
@@ -65,34 +72,27 @@ class UserController extends Controller
 
       }
 
-      // $wishes = new Wish();
-      // $stream = $wishes->stream($friendsId);
-      // foreach ($stream as $s) {
-      //   $s = (array)$s;
-      //   $s['tagged'] = $s;
-      //   dd($s); die();
-      // }
-
       $wishes = new Wish();
       $stream = $wishes->stream($friendsId);
-      foreach ($stream as $s) {
-        $s = (array)$s;
-        $tags = Tag::with('user')->where('wishid', '=', $s['wishid'])->get();
-        if(count($tags)>0){
-          foreach ($tags as $t) {
-              // $t = (array)$t;
-              // dd($t->user); die();
-              $s['tagged'][] = $t->user;
-              // dd($s);
+      if(!empty($stream)){
+        foreach ($stream as $s) {
+          $s = (array)$s;
+          $tags = Tag::with('user')->where('wishid', '=', $s['wishid'])->get();
+          if(count($tags)>0){
+            foreach ($tags as $t) {
+                // $t = (array)$t;
+                // dd($t->user); die();
+                $s['tagged'][] = $t->user;
+                // dd($s);
+            }
           }
+          $fstream[] = $s;
         }
-        $fstream[] = $s;
       }
 
-
-      dd($fstream);
-      die();
-      return view('userlayouts.home', compact('stream'));
+      // dd($fstream);
+      // die();
+      return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
     }
     else {
       return redirect('user/setPassword');
