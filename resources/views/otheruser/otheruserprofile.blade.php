@@ -533,19 +533,57 @@
                 </div>
                 <div class="tab-pane" id="tab-ty">
                   <div class="panel-group accordion accordion-dc">
-                      <div class="panel panel-default">
+                    @if(isset($tynotes) and $tynotes->count())
+                      @foreach($tynotes as $tyid => $ty)
+                      @foreach($friends as $fr)
+                      <div class="panel-group accordion accordion-dc">
+                        <div class="panel panel-default">
                           <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a href="#accTwoColThree">
-                                    Sent by Brenda
-                                </a>
-                            </h4>
+                            <h6 class="panel-title">
+                              <a href="#tynote-content{!! $tyid !!}">
+                                <h6>From {!! $fr->firstname!!} {!! $fr->lastname !!} - {!! date('m/d/y g:i A', strtotime($ty->pivot->updated_at)) !!}</h6>
+                              </a>
+                            </h6>
+                            <div class="pull-right">
+                              <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><span class="glyphicon glyphicon-trash"></span></a>
+                            </div>
                           </div>
-                          <div class="panel-body" id="accTwoColThree">
-                            <h4>Sprikitik! <3 ;)</h4>
-                            <img src="{{ URL::asset('img/test.jpg') }}">
+                          <div class="panel-body" id="tynote-content{!! $tyid !!}">
+                            <h5>{!! $ty->pivot->message !!}</h5>
+                            <b>Sender:</b> {!! $fr->firstname !!} {!! $fr->lastname !!} <br />
+                            <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
+                            <hr />
+                            @if($ty->pivot->imageurl == 'null' and $ty->pivot->sticker == 'null')
+                              <div></div>
+                            @else
+                              @if($ty->pivot->imageurl != 'null')
+                                <div class="tynote-image-container">
+                                  <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
+                                </div>
+                                <hr />
+                              @elseif($ty->pivot->sticker != 'null')
+                                <div class="tynote-sticker-container">
+                                  <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
+                                </div>
+                                <hr />
+                              @else
+                                <hr />
+                              @endif
+                            @endif
+                            <div class="pull-right">
+                              <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><button class="btn btn-info">Delete</button></a>
+                            </div>
                           </div>
+                        </div>
                       </div>
+                      @endforeach
+                      @endforeach
+
+                      @else
+                      <div class="alert alert-danger">
+                          No Thank You Notes.
+                      </div>
+                      @endif
                     </div>
                 </div>
             </div>

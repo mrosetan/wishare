@@ -505,6 +505,10 @@ class UserController extends Controller
 
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($otherUser->id)->friends;
+
+      $usersWithTYNotes = User::with('myTYNotes')->get();
+      $tynotes = User::find($userId)->myTYNotes->reverse();
+
       // print($friend);
       // die();
       // if(count($friends)==0){
@@ -538,7 +542,7 @@ class UserController extends Controller
           return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status', 'requests'));
       }
       else {
-          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests', 'wishlists', 'tags'));
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests', 'wishlists', 'tags', 'tynotes'));
       }
     }
     else {
@@ -649,11 +653,13 @@ class UserController extends Controller
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($userId)->friends;
 
+      $usersWithTYNotes = User::with('tynotesOf')->get();
+      $tynotes = User::find($userId)->tynotesOf->reverse();
       // dd($user);
 
     //  dd($friends);
     if(count($wishlists) > 0 || !empty($user) || !empty($friends))
-      return view('userlayouts.profile', compact('user', 'wishlists', 'friends', 'wishlistsList', 'tags'));
+      return view('userlayouts.profile', compact('user', 'wishlists', 'friends', 'wishlistsList', 'tags', 'tynotes'));
     // /var_dump($wishlists);
 
 
