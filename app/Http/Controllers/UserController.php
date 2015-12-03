@@ -63,10 +63,9 @@ class UserController extends Controller
 
       foreach($friends as $friend){
         if ($user->id == $friend->pivot->userid) {
-          // print($friend);
           $friendsId[] = $friend->pivot->friend_userid;
         } else {
-          // print($friend->pivot);
+
           $friendsId[] = $friend->pivot->userid;
         }
 
@@ -80,18 +79,13 @@ class UserController extends Controller
           $tags = Tag::with('user')->where('wishid', '=', $s['wishid'])->get();
           if(count($tags)>0){
             foreach ($tags as $t) {
-                // $t = (array)$t;
-                // dd($t->user); die();
                 $s['tagged'][] = $t->user;
-                // dd($s);
             }
           }
           $fstream[] = $s;
         }
       }
-
       // dd($fstream);
-      // die();
       return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
     }
     else {

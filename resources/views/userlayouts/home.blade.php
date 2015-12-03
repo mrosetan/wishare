@@ -21,13 +21,18 @@
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
-                        <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
+                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                          <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
+                        </a>
                       </div>
                       <div class="stream-header">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                          <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )
+                        </a>
                         @if($s['created_at'] == $s['updated_at'])
-                          <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} ) added a new wish.
+                           added a new wish.
                         @else
-                          <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} ) updated a wish.
+                          updated a wish.
                         @endif
                         <br />
                         {!! date('F d, Y g:i A', strtotime($s['updated_at']))  !!}
@@ -361,7 +366,6 @@
                                     </ul>
                                   </div>
                                   <!-- <div class="panel panel-wishes">
-
                                   </div> -->
                                 </div>
 
