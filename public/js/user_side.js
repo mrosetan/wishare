@@ -21,6 +21,7 @@ $(document).ready(function(){
         $('.my-select').searchableOptionList({
           showSelectAll: true,
           showSelectionBelowList: true,
+          maxHeight: 100,
 
         });
     });
