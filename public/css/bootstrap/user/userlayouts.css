@@ -214,6 +214,9 @@ img.tynote-image {
   margin: 0 auto;
   margin-top: 50px;
   width: 800px;
+  /*width: 900px;*/
+  /*height: 525px;*/
+  /*overflow-y: scroll;*/
 }
 /* Settings */
 .settings-container {

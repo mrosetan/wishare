@@ -213,7 +213,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -254,7 +254,7 @@ class UserController extends Controller
         'details' => $request->description,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'null',
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
         'status' => 1,
       ));
 
@@ -282,7 +282,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -442,7 +442,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -738,7 +738,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.18';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1025,7 +1025,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.10';
+      $hostURL = '192.168.1.18';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1158,7 +1158,6 @@ class UserController extends Controller
     return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox'));
   }
 
-
   public function getAllNotes()
   {
     $user = Auth::user();
@@ -1180,5 +1179,77 @@ class UserController extends Controller
 
     if(!empty($notes) || !empty($tynotes) || !empty($notesOutbox) || !empty($tynotesOutbox))
     return view('userlayouts.notes', compact('notes', 'tynotes', 'notesOutbox', 'tynotesOutbox'));
+  }
+
+  public function reWish(WishRequest $request, $id)
+  {
+    $user = Auth::user();
+
+    $newImage = '';
+    $hostURL = '192.168.1.18';
+    $newImage = Input::file('wishimageurl');
+
+    if($newImage == null)
+    {
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wishTitle = Wish::where('id', $id)->firstorFail();
+
+      $wish = new Wish(array(
+        'wishlistid' => $request->wishlist,
+        'title' => $wishTitle->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'null',
+        'status' => 1,
+      ));
+    }
+    else
+    {
+      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+      Image::make($newImage->getRealPath())->save($path);
+
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wishTitle = Wish::where('id', $id)->firstorFail();
+
+      $wish = new Wish(array(
+        'wishlistid' => $request->wishlist,
+        'title' => $wishTitle->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
+        'status' => 1,
+      ));
+
+    }
+
+
+    $wish->save();
+
+    if (!empty($request->tags)) {
+      foreach ($request->tags as $t) {
+        $tag = new Tag(array(
+          'wishid' => $wish->id,
+          'userid' => $t,
+        ));
+        $tag->save();
+      }
+    }
+
+    return redirect('user/home');
   }
 }

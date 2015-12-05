@@ -198,67 +198,73 @@
               <!-- outbox tab -->
               <div class="tab-pane" id="outbox">
                 <!-- notes -->
-              <label>Notes</label>
-              <hr/>
-              @if(isset($notesOutbox) and $notesOutbox->count())
-              @foreach($notesOutbox as $nid => $note)
+                <div class="row">
+                    <div class="col-md-6">
+                      <label>Notes</label>
+                      <hr/>
+                      @if(isset($notesOutbox) and $notesOutbox->count())
+                      @foreach($notesOutbox as $nid => $note)
 
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  {!! $note->pivot->message !!}
-                  <br />
-                  <br />
-                  <br />
-                  <b>Recipient:</b> {!! $note->firstname !!} {!! $note->lastname !!}<br />
-                  <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($note->pivot->updated_at)) !!}
-                </div>
-              </div>
-              <hr/>
-              @endforeach
-              @endif
-              <br />
-              <label>Thank You Notes</label>
-              <hr/>
-              <!-- ty notes -->
-              @if(isset($tynotesOutbox) and $tynotesOutbox->count())
-              @foreach($tynotesOutbox as $tid => $tynotes)
-
-              <div class="panel-group accordion accordion-dc">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h6 class="panel-title">
-                      <a href="#tynote{!! $tid !!}">
-                        <h6>Sent to {!! $tynotes->firstname!!} {!! $tynotes->lastname !!} - {!! date('m/d/y g:i A', strtotime($tynotes->pivot->updated_at)) !!}</h6>
-                      </a>
-                    </h6>
-                  </div>
-                  <div class="panel-body" id="tynote{!! $tid !!}">
-                    <h5>{!! $tynotes->pivot->message !!}</h5>
-                    <b>Recipient:</b> {!! $tynotes->firstname !!} {!! $tynotes->lastname !!} <br />
-                    <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($tynotes->pivot->updated_at)) !!}
-                    <hr />
-                    @if($tynotes->pivot->imageurl == 'null' and $tynotes->pivot->sticker == 'null')
-                      <div></div>
-                    @else
-                      @if($tynotes->pivot->imageurl != 'null')
-                        <div class="tynote-image-container">
-                          <img src="{!! $tynotes->pivot->imageurl!!}" class="tynote-image" />
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          {!! $note->pivot->message !!}
+                          <br />
+                          <br />
+                          <br />
+                          <b>Recipient:</b> {!! $note->firstname !!} {!! $note->lastname !!}<br />
+                          <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($note->pivot->updated_at)) !!}
                         </div>
-                        <hr />
-                      @elseif($tynotes->pivot->sticker != 'null')
-                        <div class="tynote-sticker-container">
-                          <img src="{!! $tynotes->pivot->sticker !!}" class="tynote-sticker" />
-                        </div>
-                        <hr />
-                      @else
-                        <hr />
+                      </div>
+                      <hr/>
+                      @endforeach
                       @endif
+                  </div>
+
+                  <div class="col-md-6">
+                    <label>Thank You Notes</label>
+                    <hr/>
+                    <!-- ty notes -->
+                    @if(isset($tynotesOutbox) and $tynotesOutbox->count())
+                    @foreach($tynotesOutbox as $tid => $tynotes)
+
+                    <div class="panel-group accordion accordion-dc">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h6 class="panel-title">
+                            <a href="#tynote{!! $tid !!}">
+                              <h6>Sent to {!! $tynotes->firstname!!} {!! $tynotes->lastname !!} - {!! date('m/d/y g:i A', strtotime($tynotes->pivot->updated_at)) !!}</h6>
+                            </a>
+                          </h6>
+                        </div>
+                        <div class="panel-body" id="tynote{!! $tid !!}">
+                          <h5>{!! $tynotes->pivot->message !!}</h5>
+                          <b>Recipient:</b> {!! $tynotes->firstname !!} {!! $tynotes->lastname !!} <br />
+                          <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($tynotes->pivot->updated_at)) !!}
+                          <hr />
+                          @if($tynotes->pivot->imageurl == 'null' and $tynotes->pivot->sticker == 'null')
+                            <div></div>
+                          @else
+                            @if($tynotes->pivot->imageurl != 'null')
+                              <div class="tynote-image-container">
+                                <img src="{!! $tynotes->pivot->imageurl!!}" class="tynote-image" />
+                              </div>
+                              <hr />
+                            @elseif($tynotes->pivot->sticker != 'null')
+                              <div class="tynote-sticker-container">
+                                <img src="{!! $tynotes->pivot->sticker !!}" class="tynote-sticker" />
+                              </div>
+                              <hr />
+                            @else
+                              <hr />
+                            @endif
+                          @endif
+                        </div>
+                      </div>
+                    </div>
+                    @endforeach
                     @endif
                   </div>
                 </div>
-              </div>
-              @endforeach
-              @endif
               </div>
               <!--end of outbox tab-->
             </div>
