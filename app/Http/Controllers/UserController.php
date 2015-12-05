@@ -44,6 +44,12 @@ class UserController extends Controller
     return view('userlayouts-master.user-master');
   }
 
+  public function postSignup()
+  {
+    // return redirect()->action('UserController@notifications');
+    return view('userlayouts.postSignup');
+  }
+
   public function home()
   {
     $user = Auth::user();
@@ -70,9 +76,10 @@ class UserController extends Controller
         }
 
       }
-
+      $fstream = array();
       $wishes = new Wish();
       $stream = $wishes->stream($friendsId);
+      // dd($stream);
       if(!empty($stream)){
         foreach ($stream as $s) {
           $s = (array)$s;
@@ -85,8 +92,12 @@ class UserController extends Controller
           $fstream[] = $s;
         }
       }
-      // dd($fstream);
-      return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
+
+      // if(!empty($fstream))
+        return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
+      // else
+        // return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
+        // return redirect('user/home')->with('status', 'New wish added!');
     }
     else {
       return redirect('user/setPassword');
@@ -213,7 +224,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -282,7 +293,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -442,7 +453,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -738,7 +749,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1025,7 +1036,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.18';
+      $hostURL = '192.168.1.10';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1186,7 +1197,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.18';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)

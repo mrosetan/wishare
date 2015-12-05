@@ -77,7 +77,8 @@ class AuthController extends Controller
         $user->save();
 
 
-        return view('userlayouts.home');
+        return redirect()->action('UserController@postSignup');
+        // return view('userlayouts.home');
 
       }
     }
@@ -132,7 +133,8 @@ class AuthController extends Controller
         $user->save();
       }
 
-      return redirect('user/home');
+      // return redirect('user/home');
+      return redirect()->action('UserController@postSignup');
       // return redirect()->route('user.home');
 
 

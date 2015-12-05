@@ -4,13 +4,15 @@
 @section('content')
 
 
-<br />
+
 <!-- <div class="page-title">
     <h4>Event Stream</h4>
 </div> -->
-<div class="page-content-wrap container-fluid">
+<div class="page-content-wrap container-fluid {!! count($fstream) < 1 ? no-stream-content : '' !!}">
   <div class="row">
+    <br />
       <div class="col-md-8 col-md-offset-2">
+
         @if(count($fstream) > 0)
           @foreach($fstream as $s)
 
@@ -395,7 +397,7 @@
             @endif
           @endforeach
         @else
-          Nothing to stream
+          <img src="{{ URL::asset('img/logo.png') }}" class="img-responsive no-stream-content-img"/>
         @endif
 
 
