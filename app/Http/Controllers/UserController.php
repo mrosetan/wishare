@@ -79,11 +79,12 @@ class UserController extends Controller
       $fstream = array();
       $wishes = new Wish();
       $stream = $wishes->stream($friendsId);
-      // dd($stream);
+
       if(!empty($stream)){
         foreach ($stream as $s) {
           $s = (array)$s;
           $tags = Tag::with('user')->where('wishid', '=', $s['wishid'])->get();
+
           if(count($tags)>0){
             foreach ($tags as $t) {
                 $s['tagged'][] = $t->user;
@@ -92,12 +93,8 @@ class UserController extends Controller
           $fstream[] = $s;
         }
       }
-
-      // if(!empty($fstream))
+      // dd($fstream);
         return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
-      // else
-        // return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
-        // return redirect('user/home')->with('status', 'New wish added!');
     }
     else {
       return redirect('user/setPassword');
@@ -547,7 +544,7 @@ class UserController extends Controller
       // print($requests);
       // die();
       $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $id)->where('status', '=', '1')
-                        ->get();
+                        ->orderBy('created_at', 'desc')->get();
 
       $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
 
@@ -676,7 +673,7 @@ class UserController extends Controller
                         ->lists('title', 'id');
 
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', '1')
-                      ->get();
+                      ->orderBy('created_at', 'desc')->get();
 
     $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
     // print($tags); die();

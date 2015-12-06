@@ -48,8 +48,7 @@ class Wish extends Model
                      ->orderBy('wishes.updated_at','desc')
                     //  ->paginate();
                      ->get();
-              // dd($stream); die();
-
+                    // dd($stream);
     return $stream;
   }
 }

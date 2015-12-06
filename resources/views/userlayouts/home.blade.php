@@ -11,7 +11,7 @@
 <div class="page-content-wrap container-fluid {!! count($fstream) < 1 ? no-stream-content : '' !!}">
   <div class="row">
     <br />
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-8 col-md-offset-2" id="stream">
 
         @if(count($fstream) > 0)
           @foreach($fstream as $s)
@@ -55,7 +55,7 @@
                       @if(!empty($s['wishimageurl']))
                         <div id ="links" class="col-xs-8 col-xs-offset-2 stream-body">
                           <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
-                              <img src="{!! $s['wishimageurl'] !!}" class="img-responsive img-text"/>
+                              <img src="{!! $s['wishimageurl'] !!}" class="img-responsive"/>
                           </a>
                         </div>
                       @endif
@@ -402,6 +402,8 @@
 
 
       </div>
+
+
   </div>
   <!-- BLUEIMP GALLERY -->
           <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">

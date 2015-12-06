@@ -26,7 +26,7 @@ $(document).ready(function(){
         });
     });
 
-    $('#links').onclick = function (event) {
+    $('#stream').onclick = function (event) {
         event = event || window.event;
         var target = event.target || event.srcElement,
             link = target.src ? target.parentNode : target,
@@ -38,5 +38,6 @@ $(document).ready(function(){
             links = this.getElementsByTagName('a');
         blueimp.Gallery(links, options);
     };
+
 
 });

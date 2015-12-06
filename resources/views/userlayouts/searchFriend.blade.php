@@ -1,5 +1,5 @@
 @extends('userlayouts-master.user-master')
-@section('title', 'Change Password')
+@section('title', 'Search')
 
 @section('content')
 <div class="row">

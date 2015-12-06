@@ -119,10 +119,13 @@
                         @endif
                       </p>
                       <div class="wishlist-icons pull-right">
-                        <div class="fb-share-button" data-href="http://www.9gag.com" data-layout="icon"></div> <!-- URL of site -->
+                        @if($wishlist->privacy == 0)
+                          <div class="fb-share-button" data-href="http://www.9gag.com" data-layout="icon"></div> <!-- URL of site -->
+                        @endif
                       </div>
                     </div>
                     @if(count($wishlist->wishes)>0)
+                      @if($wishlist->privacy == 0)
                         <div class="panel-body" id="accOneColOne{!! $wishlist->id !!}">
                           <!-- {!! $wishlist->wishes !!} -->
                           @foreach($wishlist->wishes as $wish)
@@ -255,6 +258,7 @@
 
                           @endforeach
                         </div>
+                      @endif
 
 
                     @endif

@@ -205,6 +205,8 @@
         <script type="text/javascript" src="{!! asset('js/bootstrap-multiselect.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/sol.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/blueimp/jquery.blueimp-gallery.min.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/jquery.jscroll.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/jquery.jscroll.min.js') !!}"></script>
         <!-- END PAGE PLUGINS -->
 
         <!-- START TEMPLATE -->

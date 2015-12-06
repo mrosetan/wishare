@@ -18,6 +18,8 @@ class Wishlist extends Model
     public function wishes()
     {
       return $this->hasMany('App\Wish', 'wishlistid', 'id')
-      ->where('status', '=', 1);
+      ->where('status', '=', 1)
+      ->orderBy('created_at', 'desc')
+      ->orderBy('flagged', 'desc');
     }
 }
