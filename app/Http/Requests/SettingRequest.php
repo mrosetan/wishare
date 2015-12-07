@@ -28,8 +28,8 @@ class SettingRequest extends Request
           'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
           'lastname'  => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
           'city'      => 'min:2|max:50|regex:/^[\pL\s]+$/u',
-          'username'  => 'min:2|max:50|alpha_num',
-          'email'     => 'email',
+          'username'  => 'min:2|max:50|alpha_num|unique:wishare_users',
+          'email'     => 'email|unique:wishare_users',
           'facebook'  => 'min:3|max:50|',
           'birthdate' => 'date|before:tomorrow|date_format:Y-m-d',
         ];
