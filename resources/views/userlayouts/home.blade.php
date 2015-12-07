@@ -8,7 +8,7 @@
 <!-- <div class="page-title">
     <h4>Event Stream</h4>
 </div> -->
-<div class="page-content-wrap container-fluid {!! count($fstream) < 1 ? no-stream-content : '' !!}">
+<div class="page-content-wrap container-fluid ">
   <div class="row">
     <br />
       <div class="col-md-8 col-md-offset-2" id="stream">
