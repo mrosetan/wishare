@@ -601,9 +601,6 @@
                                 <h6>From {!! $fr->firstname!!} {!! $fr->lastname !!} - {!! date('m/d/y g:i A', strtotime($ty->pivot->updated_at)) !!}</h6>
                               </a>
                             </h6>
-                            <div class="pull-right">
-                              <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><span class="glyphicon glyphicon-trash"></span></a>
-                            </div>
                           </div>
                           <div class="panel-body" id="tynote-content{!! $tyid !!}">
                             <h5>{!! $ty->pivot->message !!}</h5>
@@ -627,9 +624,6 @@
                                 <hr />
                               @endif
                             @endif
-                            <div class="pull-right">
-                              <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><button class="btn btn-info">Delete</button></a>
-                            </div>
                           </div>
                         </div>
                       </div>
