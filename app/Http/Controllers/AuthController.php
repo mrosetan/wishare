@@ -205,7 +205,8 @@ class AuthController extends Controller
               if($type == '0')
                   return redirect('/admin');
               else
-                  return redirect('/user/home');
+                  return redirect()->action('UserController@postSignup');
+                  // return redirect('/user/home');
 
           }
           else
