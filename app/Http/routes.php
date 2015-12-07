@@ -54,6 +54,7 @@ Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
 Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic');
 /* Other user */
 Route::get('otheruser/{id?}', 'UserController@otheruser');
+Route::post('otheruser/{id?}', 'UserController@reWishOtherUser');
 
 Route::get('user/search', 'UserController@search');
 Route::post('user/search', 'UserController@search');

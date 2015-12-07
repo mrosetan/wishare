@@ -221,7 +221,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.9';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -290,7 +290,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.9';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -450,7 +450,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.9';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -546,10 +546,16 @@ class UserController extends Controller
       $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $id)->where('status', '=', '1')
                         ->orderBy('created_at', 'desc')->get();
 
+      $wishlistOtherUser = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
+                          ->orderBy('created_at', 'desc')->lists('title', 'id');
+
       $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
 
       $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
       $friends = User::find($otherUser->id)->friends;
+
+      $myFriends = User::with('friendsOfMine')->get();
+      $friendsOtherUser = User::find($userId)->friends;
 
       $usersWithTYNotes = User::with('myTYNotes')->get();
       $tynotes = User::find($userId)->myTYNotes->reverse();
@@ -587,7 +593,7 @@ class UserController extends Controller
           return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status', 'requests'));
       }
       else {
-          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests', 'wishlists', 'tags', 'tynotes'));
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests', 'wishlists', 'tags', 'tynotes', 'wishlistOtherUser', 'friendsOtherUser'));
       }
     }
     else {
@@ -599,7 +605,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.10/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.9/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -672,8 +678,11 @@ class UserController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->lists('title', 'id');
 
-    $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', '1')
+    $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
                       ->orderBy('created_at', 'desc')->get();
+
+    $wishlistsRewish = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
+                      ->orderBy('created_at', 'desc')->lists('title', 'id');
 
     $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
     // print($tags); die();
@@ -704,7 +713,7 @@ class UserController extends Controller
 
     //  dd($friends);
     if(count($wishlists) > 0 || !empty($user) || !empty($friends))
-      return view('userlayouts.profile', compact('user', 'wishlists', 'friends', 'wishlistsList', 'tags', 'tynotes'));
+      return view('userlayouts.profile', compact('user', 'wishlists', 'friends', 'wishlistsList', 'tags', 'tynotes', 'wishlistsRewish'));
     // /var_dump($wishlists);
 
 
@@ -746,7 +755,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.9';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1033,7 +1042,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.10';
+      $hostURL = '192.168.1.9';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1194,7 +1203,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.9';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1258,6 +1267,78 @@ class UserController extends Controller
       }
     }
 
+    return redirect('user/home');
+  }
+
+  public function reWishOtherUser(WishRequest $request, $id)
+  {
+    $user = Auth::user();
+
+    $newImage = '';
+    $hostURL = '192.168.1.9';
+    $newImage = Input::file('wishimageurl');
+
+    if($newImage == null)
+    {
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wishTitle = Wish::where('id', $id)->firstorFail();
+
+      $wish = new Wish(array(
+        'wishlistid' => $request->wishlist,
+        'title' => $wishTitle->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'null',
+        'status' => 1,
+      ));
+    }
+    else
+    {
+      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+      Image::make($newImage->getRealPath())->save($path);
+
+      if($request->flag == null)
+        $flag = 0;
+      else
+        $flag = 1;
+
+      $wishTitle = Wish::where('id', $id)->firstorFail();
+
+      $wish = new Wish(array(
+        'wishlistid' => $request->wishlist,
+        'title' => $wishTitle->title,
+        'due_date' => $request->due_date,
+        'createdby_id' => $user->id,
+        'details' => $request->description,
+        'alternatives' => $request->alternatives,
+        'flagged' => $flag,
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
+        'status' => 1,
+      ));
+
+    }
+
+
+    $wish->save();
+
+    if (!empty($request->tags)) {
+      foreach ($request->tags as $t) {
+        $tag = new Tag(array(
+          'wishid' => $wish->id,
+          'userid' => $t,
+        ));
+        $tag->save();
+      }
+    }
+    // dd($wish);
     return redirect('user/home');
   }
 }
