@@ -20,7 +20,7 @@
         <div class="page-container">
 
             <!-- START PAGE SIDEBAR -->
-            <div class="page-sidebar">
+            <div class="page-sidebar ">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
@@ -36,7 +36,7 @@
                     </li>
 
                     <li>
-                        <a href="{{ URL::to('/admin/reports')}}"><span class="fa fa-file"></span> <span class="xn-text">Reports</span></a>
+                        <a href="{{ URL::to('/admin/report')}}"><span class="fa fa-file"></span> <span class="xn-text">Report</span></a>
                     </li>
 
                     <li>
@@ -165,7 +165,7 @@
         <script type='text/javascript' src="{!! asset('js/plugins/icheck/icheck.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>
 
-        <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>   
+        <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>
 
         <!-- END PAGE PLUGINS -->
 
