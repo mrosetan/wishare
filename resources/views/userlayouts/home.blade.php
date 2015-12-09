@@ -34,7 +34,11 @@
                         @if($s['created_at'] == $s['updated_at'])
                            added a new wish.
                         @else
-                          updated a wish.
+                          @if(($s['granterid'] != 0) and ($s['date_granted'] == '0000-00-00 00:00:00'))
+                            wished for
+                          @else
+                            updated a wish.
+                          @endif
                         @endif
                         <br />
                         {!! date('F d, Y g:i A', strtotime($s['updated_at']))  !!}
@@ -45,17 +49,18 @@
                     <div class="col-xs-12">
                       <div class="stream-margin">
                         <h4>{!! $s['title'] !!}</h4>
-                        <hr />
+
                       </div>
+                      <hr />
                     </div>
 
                     @if($s['wishimageurl'] == 'null')
                       <div></div>
                     @else
                       @if(!empty($s['wishimageurl']))
-                        <div id ="links" class="col-xs-8 col-xs-offset-2 stream-body">
+                        <div id ="links" class="col-xs-12 stream-body">
                           <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
-                              <img src="{!! $s['wishimageurl'] !!}" class="img-responsive"/>
+                              <img src="{!! $s['wishimageurl'] !!}" class="img-responsive stream-wish-img"/>
                           </a>
                         </div>
                       @endif

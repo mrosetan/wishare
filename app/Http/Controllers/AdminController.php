@@ -35,7 +35,7 @@ class AdminController extends Controller
     public function index()
     {
       if (Auth::user()->type == 0) {
-        return view('admin.master');
+        return redirect('admin/stats');
       }
       else{
         return redirect('user/home');
@@ -43,10 +43,93 @@ class AdminController extends Controller
 
     }
 
-    public function reports()
+    public function stats()
     {
       if (Auth::user()->type == 0) {
-        return view('admin.reports');
+
+        $userCount = User::where('type', 1)
+                          ->count();
+
+        $userActiveCount = User::where('status', 1)
+                                ->where('type', 1)
+                                ->count();
+
+        $userInactiveCount = User::where('status', 0)
+                                  ->where('type', 1)
+                                  ->count();
+
+        $adminActiveCount = User::where('status', 1)
+                                ->where('type', 0)
+                                ->count();
+
+        $adminInactiveCount = User::where('status', 0)
+                                  ->where('type', 0)
+                                  ->count();
+
+        $wishesCount = Wish::count();
+
+        $wishDelCount = Wish::where('status', 0)
+                        ->count();
+
+        $wishGrantedCount = Wish::where('granted', 1)
+                                  ->count();
+
+        $granters = Wish::where('granted', 1)
+                          ->distinct('granterid')
+                          ->count('granterid');
+
+
+
+        // print($granters);
+        // die();
+
+        return view('admin.stats', compact('userCount', 'userActiveCount', 'userInactiveCount', 'adminActiveCount', 'adminInactiveCount', 'wishesCount', 'wishDelCount', 'wishGrantedCount', 'granters'));
+      }
+      else
+        return redirect('user/home');
+    }
+
+    public function report(){
+      if (Auth::user()->type == 0) {
+
+        $userCount = User::where('type', 1)
+                          ->count();
+
+        $userActiveCount = User::where('status', 1)
+                                ->where('type', 1)
+                                ->count();
+
+        $userInactiveCount = User::where('status', 0)
+                                  ->where('type', 1)
+                                  ->count();
+
+        $adminActiveCount = User::where('status', 1)
+                                ->where('type', 0)
+                                ->count();
+
+        $adminInactiveCount = User::where('status', 0)
+                                  ->where('type', 0)
+                                  ->count();
+
+        $wishesCount = Wish::count();
+
+        $wishDelCount = Wish::where('status', 0)
+                        ->count();
+
+        $wishGrantedCount = Wish::where('granted', 1)
+                                  ->count();
+
+        $granters = Wish::where('granted', 1)
+                          ->distinct('granterid')
+                          ->count('granterid');
+
+
+
+        // print($granters);
+        // die();
+
+        return view('admin.report', compact('userCount', 'userActiveCount', 'userInactiveCount', 'adminActiveCount', 'adminInactiveCount', 'wishesCount', 'wishDelCount', 'wishGrantedCount', 'granters'));
+
       }
       else
         return redirect('user/home');

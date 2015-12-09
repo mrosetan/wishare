@@ -1,7 +1,10 @@
 /*  User master  */
-html {
+html,body {
   height: 100%;
+  background: #f5f5f5 !important;
 }
+
+
 .datepicker {
   z-index: 1151 !important;
 }
@@ -258,4 +261,19 @@ img.tynote-image {
 
 .sol-caret{
   display: none !important;
+}
+
+/*SIDEBAR*/
+.page-sidebar-fixed{
+  background-color: #33414E;
+  /*height: 100%;*/
+}
+
+/*CONTENT*/
+.page-container{
+  height: 100% !important;
+}
+
+.page-content{
+  height: inherit;
 }

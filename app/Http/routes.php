@@ -76,7 +76,8 @@ Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');
-Route::get('/admin/reports', 'AdminController@reports');
+Route::get('/admin/stats', 'AdminController@stats');
+Route::get('/admin/report', 'AdminController@report');
 Route::get('/admin/create/admin', 'AdminController@createAdmin');
 Route::get('/admin/create/defaultwishlist', 'AdminController@createDefaultWishlist');
 Route::get('/admin/view/admins', 'AdminController@showAdmins');
