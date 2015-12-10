@@ -235,7 +235,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -304,7 +304,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -464,7 +464,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -828,7 +828,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1115,7 +1115,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.10';
+      $hostURL = '192.168.1.13';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1276,7 +1276,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1361,7 +1361,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
