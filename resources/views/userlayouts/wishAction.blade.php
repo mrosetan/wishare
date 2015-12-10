@@ -49,7 +49,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label>Due Date:</label>
-                  {!! Form::text('due_date', date('Y-m-d'), array('id'=>'datepicker', 'class'=>'form-control')) !!}
+                  {!! Form::text('due_date', date('Y-m-d'), array('class'=>'form-control', 'data-beatpicker'=>'true', 'data-beatpicker-position'=>'['*','*']', 'data-beatpicker-module'=>'clear,icon')) !!}
                 </div>
               </div>
               <br />
