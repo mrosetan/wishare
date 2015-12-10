@@ -9,7 +9,7 @@ class Wish extends Model
 {
   protected $table = 'wishes';
 
-  protected $fillable = ['wishlistid', 'title', 'createdby_id', 'details', 'wishimageurl', 'alternatives', 'due_date', 'granted', 'grantedid', 'granteddetails', 'granteddetails', 'grantedimageurl', 'date_granted', 'flagged', 'status'];
+  protected $fillable = ['wishlistid', 'title', 'createdby_id', 'details', 'wishimageurl', 'alternatives', 'due_date', 'granted', 'granterid', 'granteddetails', 'granteddetails', 'grantedimageurl', 'date_granted', 'flagged', 'status'];
 
   public function wishlist()
   {

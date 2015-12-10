@@ -189,6 +189,10 @@
                   $(this).datepicker();
               });
           });
+
+          $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
+              $("#home-alert").alert('close');
+          });
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>

@@ -7,6 +7,7 @@ html,body {
 
 .datepicker {
   z-index: 1151 !important;
+  /*position: relative;*/
 }
 img.logo {
     position: absolute;
@@ -157,7 +158,7 @@ img.user-friend.img-circle {
 p.user-name{
   margin-left: 80px;
   margin-top: 10px;
-  font-size: 14px;
+  /*font-size: 14px;*/
 }
 p.user-given {
   font-size: 16px;
@@ -232,6 +233,11 @@ img.tynote-image {
   /*width: 900px;*/
   /*height: 525px;*/
   /*overflow-y: scroll;*/
+}
+.rewish-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 500px;
 }
 /* Settings */
 .settings-container {

@@ -12,7 +12,11 @@
   <div class="row">
     <br />
       <div class="col-md-8 col-md-offset-2" id="stream">
-
+        @if(session('homeAlert'))
+          <div class="alert alert-info" id="home-alert">
+              {{ session('homeAlert') }}
+          </div>
+        @endif
         @if(count($fstream) > 0)
           @foreach($fstream as $s)
 
@@ -102,7 +106,7 @@
                         &nbsp;&nbsp;
                         <a href="#"><span class="fa fa-bookmark"></span></a>
                         &nbsp;&nbsp;
-                        <a data-toggle="modal" data-target="#modal_rewish{!! $s['wishid'] !!}"><span class="fa fa-retweet"></span></a>
+                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}"><span class="fa fa-retweet"></span></a>
                         &nbsp;&nbsp;
                         <a data-toggle="modal" data-target="#modal_grant{!! $s['wishid'] !!}"><span class="fa fa-magic"></span></a>
                       </div>
@@ -110,174 +114,8 @@
 
                   </div>
               </div>
-              <!--  Grant  -->
-              <div class="modal" id="modal_grant{!! $s['wishid'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4>Grant Wish</h4>
-                          </div>
-                          <div class="modal-body">
-                            @foreach($errors->all() as $error)
-                                <p class="alert alert-danger"> {{ $error }}</p>
-                            @endforeach
-                            {!! Form::open(array('class' => 'form', 'files'=>true)) !!}
-                            <div class="form-group">
-                              <div class="row">
-                                <div class="col-sm-12">
-                                  <label>Wish</label>
-                                  {!! Form::text('wish', $s['title'], array('class'=>'form-control', 'placeholder'=>'', 'disabled'=>'disabled')) !!}
-                                </div>
-                              </div>
-                              <br />
-                              <div class="row">
-                                <div class="col-sm-12">
-                                  {!! Form::text('granteddetails', null, array('class'=>'form-control', 'placeholder'=>'Caption'))!!}
-                                </div>
-                              </div>
-                              <br />
-                              <div class="row">
-                                {!! Form::file('grantedimageurl', array('class'=>'fileinput btn btn-info'))!!}
-                              </div>
-                              <br />
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="pull-right">
-                                    {!! Form::submit('Grant', array('class'=>'btn btn-info')) !!}
-                                    {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            {!! Form::close() !!}
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <!--  Rewish  -->
-              @if(count($wishlists)>0)
-                <div class="modal" id="modal_rewish{!! $s['wishid'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                              <h4>Re-Wish</h4>
-                            </div>
-
-                            <div class="modal-body">
-
-
-                              @foreach($errors->all() as $error)
-                                  <p class="alert alert-danger"> {{ $error }}</p>
-                              @endforeach
-
-                              {!! Form::open(array('action'=>array('UserController@reWish', $s['wishid']), 'class' => 'form', 'files'=>true)) !!}
-
-                              <div class="form-group">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::select('wishlist', $wishlists, null, array('class'=>'form-control'))!!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::text('title', $s['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true')) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::textarea('description', null, ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::textarea('alternatives', null, ['class'=>'form-control ', 'placeholder'=>'Wish alternatives', 'size'=>'102x5']) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-sm-12">
-                                    <label>Due Date:</label>
-                                    {!! Form::text('due_date', date('Y-m-d'), array('id'=>'datepicker', 'class'=>'form-control')) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-sm-12">
-                                    <label>Upload:</label><br />
-                                    {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <label>Tag:</label>
-                                    <select class="my-select" name="tags[]" multiple="multiple">
-                                      @foreach($friends as $f)
-                                        <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
-
-                                      @endforeach
-                                    </select>
-
-
-                                  </div>
-                                </div>
-
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::checkbox('flag', '1', ['class'=>'form-control ']) !!}
-                                    <label><span class="glyphicon glyphicon-flag"></span> Flag </label>
-
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="pull-right">
-                                      {!! Form::submit('Add', array('class'=>'btn btn-info')) !!}
-                                      {!! Form::button('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-
-
-                              {!! Form::close() !!}
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-              @else
-                <div class="message-box animated fadeIn open" id="mb-wishlist">
-                    <div class="mb-container">
-                        <div class="mb-middle">
-                            <div class="mb-title"><span class="glyphicon glyphicon-pencil"></span> You don't have wishlists.</div>
-                            <div class="mb-content">
-                                <p>You need to create a wishlist.</p>
-                            </div>
-                            <div class="mb-footer">
-                                <div class="pull-right">
-                                    <a href="{{ url('/user/action/wishlist') }}" class="btn btn-success btn-lg">Create Wishlist</a>
-                                    <a href="{{ url('/user/home') }}" class="btn btn-success btn-lg">Go back to home</a>
-                                    <!-- <button class="btn btn-default btn-lg mb-control-close">No</button> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-              @endif
-              <!--  Rewish  -->
               <!-- ============ ADDED NEW WISH ============ -->
-            @else
+            @elseif($s['granted'] == 1)
               <!-- ============ GRANTED WISH ============ -->
               <div class="panel panel-default">
                   <div class="panel-body">
@@ -304,7 +142,7 @@
                     <hr />
                     <div class="col-xs-12">
                       <div class="stream-margin">
-                        <h4>{!! $s['title'] !!}</h4>
+                        <h4>{!! $s['granteddetails'] !!}</h4>
                         <hr />
                       </div>
                     </div>
@@ -323,6 +161,11 @@
 
                     <div class="col-xs-12">
                       <div class="stream-margin">
+                        @if(!empty($s['title']))
+                          <p>
+                            <b>Wish: </b> {!! $s['title'] !!}
+                          </p>
+                        @endif
                         @if($s['due_date'] != 0000-00-00)
                           <p>
                             <b>Due Date:</b> {!! date('F d, Y', strtotime($s['due_date']))  !!}
@@ -361,127 +204,10 @@
                     </div>
                   </div>
               </div>
-              <!--  Rewish  -->
-              @if(count($wishlists)>0)
-                <div class="modal" id="modal_rewish{!! $s['wishid'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                              <h4>Re-Wish</h4>
-                            </div>
-
-                            <div class="modal-body">
-
-
-                              @foreach($errors->all() as $error)
-                                  <p class="alert alert-danger"> {{ $error }}</p>
-                              @endforeach
-
-                              {!! Form::open(array('action'=>array('UserController@reWish', $s['wishid']), 'class' => 'form', 'files'=>true)) !!}
-
-                              <div class="form-group">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::select('wishlist', $wishlists, null, array('class'=>'form-control'))!!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::text('title', $s['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true')) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::textarea('description', null, ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::textarea('alternatives', null, ['class'=>'form-control ', 'placeholder'=>'Wish alternatives', 'size'=>'102x5']) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-sm-12">
-                                    <label>Due Date:</label>
-                                    {!! Form::text('due_date', date('Y-m-d'), array('id'=>'datepicker', 'class'=>'form-control')) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-sm-12">
-                                    <label>Upload:</label><br />
-                                    {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
-                                  </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <label>Tag:</label>
-                                    <select class="my-select" name="tags[]" multiple="multiple">
-                                      @foreach($friends as $f)
-                                        <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
-
-                                      @endforeach
-                                    </select>
-
-
-                                  </div>
-                                </div>
-
-                                <br />
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    {!! Form::checkbox('flag', '1', ['class'=>'form-control ']) !!}
-                                    <label><span class="glyphicon glyphicon-flag"></span> Flag </label>
-
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="pull-right">
-                                      {!! Form::submit('Add', array('class'=>'btn btn-info')) !!}
-                                      {!! Form::button('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-
-
-                              {!! Form::close() !!}
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
               @else
-                <div class="message-box animated fadeIn open" id="mb-wishlist">
-                    <div class="mb-container">
-                        <div class="mb-middle">
-                            <div class="mb-title"><span class="glyphicon glyphicon-pencil"></span> You don't have wishlists.</div>
-                            <div class="mb-content">
-                                <p>You need to create a wishlist.</p>
-                            </div>
-                            <div class="mb-footer">
-                                <div class="pull-right">
-                                    <a href="{{ url('/user/action/wishlist') }}" class="btn btn-success btn-lg">Create Wishlist</a>
-                                    <a href="{{ url('/user/home') }}" class="btn btn-success btn-lg">Go back to home</a>
-                                    <!-- <button class="btn btn-default btn-lg mb-control-close">No</button> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-              @endif
-              <!--  Rewish  -->
+              <!-- <div class="alert alert-info" id="home-alert">
+                Grant request sent!
+              </div> -->
               <!-- ============ GRANTED WISH ============ -->
             @endif
           @endforeach
@@ -489,6 +215,76 @@
           <img src="{{ URL::asset('img/logo.png') }}" class="img-responsive no-stream-content-img"/>
         @endif
       </div>
+      <!-- modals -->
+      <!--  Rewish  -->
+      <!--
+
+        <div class="message-box animated fadeIn open" id="mb-wishlist">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="glyphicon glyphicon-pencil"></span> You don't have wishlists.</div>
+                    <div class="mb-content">
+                        <p>You need to create a wishlist.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="{{ url('/user/action/wishlist') }}" class="btn btn-success btn-lg">Create Wishlist</a>
+                            <a href="{{ url('/user/home') }}" class="btn btn-success btn-lg">Go back to home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      -->
+      @if(isset($wishlists))
+        @foreach($fstream as $s)
+      <!--  Grant  -->
+      <div class="modal" id="modal_grant{!! $s['wishid'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4>Grant Wish</h4>
+                  </div>
+                  <div class="modal-body">
+                    @foreach($errors->all() as $error)
+                        <p class="alert alert-danger"> {{ $error }}</p>
+                    @endforeach
+                    {!! Form::open(array('action'=>array('UserController@grantWish', $s['wishid']), 'class' => 'form', 'files'=>true)) !!}
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label>Wish</label>
+                          {!! Form::text('wish', $s['title'], array('class'=>'form-control', 'placeholder'=>'', 'disabled'=>'disabled')) !!}
+                        </div>
+                      </div>
+                      <br />
+                      <div class="row">
+                        <div class="col-sm-12">
+                          {!! Form::text('granteddetails', null, array('class'=>'form-control', 'placeholder'=>'Caption'))!!}
+                        </div>
+                      </div>
+                      <br />
+                      <div class="row">
+                        {!! Form::file('grantedimageurl', array('class'=>'fileinput btn btn-info'))!!}
+                      </div>
+                      <br />
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="pull-right">
+                            {!! Form::submit('Grant', array('class'=>'btn btn-info')) !!}
+                            {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {!! Form::close() !!}
+                  </div>
+              </div>
+          </div>
+      </div>
+      @endforeach
+      @endif
   </div>
   <!-- BLUEIMP GALLERY -->
   <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
