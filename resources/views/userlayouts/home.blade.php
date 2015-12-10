@@ -155,12 +155,12 @@
                           <div class="panel panel-default">
                             <div class="panel-heading" style="height: 30px; padding: initial;">
                               <p class="panel-title">
-                                  <a href="#accOneColOne" style="font-size:11px;">
+                                  <a href="#accOneColOne{!! $s['wishid'] !!}" style="font-size:11px;">
                                     Wish Details
                                   </a>
                               </p>
                             </div>
-                                <div class="panel-body" id="accOneColOne">
+                                <div class="panel-body" id="accOneColOne{!! $s['wishid'] !!}">
                                   <!-- <div id ="links" class="col-xs-6 col-xs-offset-3 stream-body">
                                     <a href="{{ URL::asset('img/test.jpg') }}" title="Bobby" data-gallery>
                                         <img src="{{ URL::asset('img/test.jpg') }}" class="img-responsive img-text"/>
