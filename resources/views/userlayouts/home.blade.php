@@ -198,8 +198,7 @@
                       <div class="pull-right">
                         <a href="#"><span class="fa fa-star"></span></a>
                         &nbsp;&nbsp;
-                        <a data-toggle="modal" data-target="#modal_rewish{!! $s['wishid'] !!}"><span class="fa fa-retweet"></span></a>
-
+                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}"><span class="fa fa-retweet"></span></a>
                       </div>
                     </div>
                   </div>

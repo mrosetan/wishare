@@ -5,10 +5,18 @@ html,body {
 }
 
 
-.datepicker {
-  z-index: 1151 !important;
-  /*position: relative;*/
-}
+/*input#datepicker.form-control {
+  z-index: 1141 !important;
+  position: relative;
+}*/
+
+/*.datepicker.datepicker-dropdown .dropdown-menu.datepicker-orient-left.datepicker-orient-bottom {
+    display: block;
+    top: 35px;
+    left: 247px;
+    z-index: 1151 !important;
+}*/
+
 img.logo {
     position: absolute;
     margin: auto;
@@ -247,7 +255,7 @@ img.tynote-image {
 }
 .btn.btn-info.btn-settings {
   margin: 0 auto;
-  width: 475px;
+  width: 450px;
 }
 /* Help */
 .timeline-date {

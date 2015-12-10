@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-multiselect.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/searchableOptionList.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/sol.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/BeatPicker.css') }}">
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
@@ -154,22 +155,23 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-file-input.js') }}"></script>
         <!-- END PLUGINS -->
 
-        <!-- THIS PAGE PLUGINS
-        <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>-->
+
+        <!-- <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script> -->
         <script>
         //  $(function() {
         //    var date = $('#datepicker').datepicker();
         //    //$( "#datepicker" ).datepicker();
         //  });
-        $(function() {
-            $("#datepicker" ).datepicker();
-          });
+        // $(function() {
+        //     $("#datepicker" ).datepicker({
+        //       container:'#myDatePicker'
+        //     });
+        //   });
 
-          $('#myTabs a').click(function (e) {
+        $('#myTabs a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
         });
@@ -201,6 +203,8 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/owl/owl.carousel.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/tagsinput/jquery.tagsinput.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-select.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/BeatPicker.js') }}"></script>
+        <!-- <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script> -->
 
         <script type='text/javascript' src="{!! asset('js/plugins/icheck/icheck.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>
