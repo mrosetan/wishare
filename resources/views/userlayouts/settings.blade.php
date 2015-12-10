@@ -53,14 +53,14 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label>Username:</label>
-                    {!! Form::text('username', $user->username, array('class'=>'form-control')) !!}
+                    {!! Form::text('username', $user->username, array('class'=>'form-control', 'Required')) !!}
                 </div>
               </div>
               <br />
               <div class="row">
                 <div class="col-sm-12">
                   <label>E-mail:</label>
-                    {!! Form::email('email', $user->email, array('class'=>'form-control')) !!}
+                    {!! Form::email('email', $user->email, array('class'=>'form-control', 'Required')) !!}
                 </div>
               </div>
               <br/ >
@@ -95,8 +95,8 @@
               <hr />
               <div class="row">
                 <div class="col-sm-12">
-                  <div class="pull-right">
-                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+                  <div class="">
+                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-block')) !!}
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="">
-                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-block')) !!}
                   </div>
                 </div>
               </div>

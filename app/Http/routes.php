@@ -100,10 +100,14 @@ Route::get('/admin/edit/defaultwishlist/{id?}', 'AdminController@editDefaultWish
 Route::post('/admin/edit/defaultwishlist/{id?}', 'AdminController@updateDefaultWishlist');
 Route::get('/admin/delete/defaultwishlist/{id?}', 'AdminController@deleteDefaultWishlist');
 
-Route::get('/admin/search', 'AdminController@searchUserOrAdmin');
+// Route::get('/admin/search', 'AdminController@searchUserOrAdmin');
+Route::get('admin/search', 'AdminController@search');
+Route::post('admin/search', 'AdminController@search');
 
 Route::get('/admin/deactivate/{id?}', 'AdminController@deactivate');
 Route::get('/admin/reactivate/{id?}', 'AdminController@reactivate');
+
+Route::get('admin/wuser/{id?}', 'AdminController@userdetails');
 
 // Route::get('/admin/search', 'AdminController@search');
 // Route::post('/admin/search', 'AdminController@searchUser');

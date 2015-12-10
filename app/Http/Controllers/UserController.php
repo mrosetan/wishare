@@ -31,6 +31,7 @@ use Hash;
 use Auth;
 use Redirect;
 use DB;
+use Validator;
 
 class UserController extends Controller
 {
@@ -234,7 +235,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -303,7 +304,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -463,7 +464,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -742,26 +743,84 @@ class UserController extends Controller
     return view('userlayouts.settings', compact('user'));
   }
 
-  public function updateUserSettings(SettingRequest $request)
+  public function updateUserSettings(Request $request)
   {
     //$user = User::where('id', $id);
     $user = Auth::user();
     $id = $user->id;
+    $details = array();
+    // $user->firstname = $request->get('firstname');
+    // $user->lastname = $request->get('lastname');
+    // $user->city = $request->get('city');
+    // $user->username = $request->get('username');
+    // $user->email = $request->get('email');
+    // $user->facebook = $request->get('facebook');
+    // $user->birthdate = $request->get('birthdate');
+
+    if($request->get('firstname') != '')
+      $details['firstname'] = $request->get('firstname');
+
+    if($request->get('lastname') != '')
+      $details['lastname'] = $request->get('lastname');
+
+    // if($request->get('city') != '')
+      $details['city'] = $request->get('city');
+
+    if($request->get('username') != '' and $request->get('username') != $user->username){
+      // if ($request->get('username') != $user->username) {
+        // $details['username'] = $user->username;
+      // }
+      // else {
+        $details['username'] = $request->get('username');
+      // }
+    }
+
+    if($request->get('email') != '' and $request->get('email') != $user->email){
+      // if ($request->get('email') != $user->email) {
+        // $details['email'] = $user->email;
+      // }
+      // else {
+        $details['email'] = $request->get('email');
+      // }
+    }
+
+    if($request->get('facebook') != '')
+      $details['facebook'] = $request->get('facebook');
+
+    if($request->get('birthdate') != '')
+      $details['birthdate'] = $request->get('birthdate');
+
+    $details['privacy'] = $request->privacy;
+
+    $validator = Validator::make($details, [
+        'imageurl'  => 'image',
+        'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
+        'lastname'  => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
+        'city'      => 'min:2|max:50|regex:/^[\pL\s]+$/u',
+        'username'  => 'sometimes|required|min:2|max:50|alpha_num|unique:wishare_users',
+        'email'     => 'sometimes|required|email|unique:wishare_users',
+        'facebook'  => 'min:3|max:50|',
+        'birthdate' => 'date|before:tomorrow|date_format:Y-m-d',
+      ]);
+
+      if ($validator->fails()) {
+          return redirect('user/settings')
+                      ->withErrors($validator);
+                      // ->withInput();
+      }
+      else{
+        // $user->save();
+        $updateUser = User::where('id','=',$user->id)->update($details);
+
+        //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
+        return redirect('user/settings')->with('status', 'Saved!');
+      }
 
 
-    $user->firstname = $request->get('firstname');
-    $user->lastname = $request->get('lastname');
-    $user->city = $request->get('city');
-    $user->username = $request->get('username');
-    $user->email = $request->get('email');
-    $user->facebook = $request->get('facebook');
-    $user->birthdate = $request->get('birthdate');
-    $user->privacy = $request->privacy;
-
-    $user->save();
-
-    //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
-    return redirect('user/settings')->with('status', 'Saved!');
+    // $user->save();
+    //
+    // //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
+    // return redirect('user/settings')->with('status', 'Saved!');
   }
 
   public function updateProfilePic()
@@ -769,7 +828,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1056,7 +1115,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.13';
+      $hostURL = '192.168.1.10';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1217,7 +1276,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1302,7 +1361,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.9';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();

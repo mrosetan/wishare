@@ -170,6 +170,29 @@ class AdminController extends Controller
     // }
     // ===================================Search ver 1=====
 
+    public function search(Request $request)
+    {
+      $user = Auth::user();
+      $search = $request->search;
+
+      $results = User::where(function ($query) use ($search){
+                          $query->where('firstname', 'like', '%'.$search.'%')
+                                ->orWhere('lastname', 'like', '%'.$search.'%')
+                                ->orWhere('username', 'like', '%'.$search.'%');
+                      })
+                      // ->where('firstname', 'like', '%'.$search.'%')
+                      // ->orWhere('lastname', 'like', '%'.$search.'%')
+                      // ->orWhere('username', 'like', '%'.$search.'%')
+                      ->paginate();
+                      // ->get();
+      // dd($results);
+      // if(!empty($results))
+        return view('admin.search2', compact('results'));
+      // else{
+        // return view('userlayouts.searchFriend')->with('errormsg', 'Not found');
+      // }
+    }
+
     public function searchUserOrAdmin()
     {
       if (Auth::user()->type == 0) {
@@ -185,14 +208,16 @@ class AdminController extends Controller
     {
 
       if (Auth::user()->type == 0) {
-        $users = User::where('status', '=', 1)
-                      ->where('type', '=', 1)
-                      ->orderBy('created_at', 'desc')
-                      // ->get();
-                      ->paginate();
+        // $users = User::where('status', '=', 1)
+        //               ->where('type', '=', 1)
+        //               ->orderBy('created_at', 'desc')
+        //               // ->get();
+        //               ->paginate();
+
+        $users = User::paginate();
 
         // $users->setPath('http://192.168.1.10/wishare/public/admin/monitor/users');
-        // print_r($users);
+        // dd($users);
         return view('admin.monitoringUsers', compact('users'));
       }
       else
@@ -552,7 +577,8 @@ class AdminController extends Controller
 
         $results = User::paginate();
 
-        return view('admin.search', compact('results'));
+        return redirect(action('AdminController@userdetails', $user->id));
+        // return view('admin.search', compact('results'));
 
     }
 
@@ -566,7 +592,15 @@ class AdminController extends Controller
 
         $results = User::paginate();
 
-        return view('admin.search', compact('results'));
+        return redirect(action('AdminController@userdetails', $user->id));
+        // return view('admin.search', compact('results'));
 
+    }
+
+    public function userdetails($id)
+    {
+      $user = User::where('id', $id)->firstorFail();
+
+      return view('admin.userdetails', compact('user'));
     }
 }

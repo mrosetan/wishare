@@ -7,7 +7,7 @@
 </div>
 <div class="page-content-wrap">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8 col-md-offset-2">
       <h5><a href="{{ url('user/profile') }}"><span class="fa fa-arrow-circle-o-left"></span>&nbsp;Back</a></h5>
       <div class="panel panel-default">
           <div class="panel-body">
