@@ -20,7 +20,7 @@
         @if(count($fstream) > 0)
           @foreach($fstream as $s)
 
-            @if($s['granted'] == 0)
+            @if($s['granted'] != 1)
               <!-- ============ ADDED NEW WISH ============ -->
 
               <div class="panel panel-default">
@@ -39,7 +39,7 @@
                            added a new wish.
                         @else
                           @if(($s['granterid'] != 0) and ($s['date_granted'] == '0000-00-00 00:00:00'))
-                            wished for
+                            's wish has a grant request
                           @else
                             updated a wish.
                           @endif
@@ -107,8 +107,13 @@
                         <a href="#"><span class="fa fa-bookmark"></span></a>
                         &nbsp;&nbsp;
                         <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}"><span class="fa fa-retweet"></span></a>
+                        @if(($s['granterid'] != 0) and ($s['date_granted'] == '0000-00-00 00:00:00'))
+                          <!-- &nbsp;&nbsp;
+                          <a data-toggle="modal" data-target="#modal_grant{!! $s['wishid'] !!}"><span class="fa fa-magic"></span></a> -->
+                        @else
                         &nbsp;&nbsp;
                         <a data-toggle="modal" data-target="#modal_grant{!! $s['wishid'] !!}"><span class="fa fa-magic"></span></a>
+                        @endif
                       </div>
                     </div>
 
@@ -118,6 +123,221 @@
             @elseif($s['granted'] == 1)
               <!-- ============ GRANTED WISH ============ -->
               <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="col-xs-12">
+                      <div class="pull-left">
+                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                          <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
+                        </a>
+                      </div>
+                      <div class="stream-header">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                          <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )'s
+                        </a>
+                        wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                          <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ).
+                        </a>
+                        <br />
+                        {!! date('F d, Y g:i A', strtotime($s['date_granted']))  !!}
+                      </div>
+
+                    </div>
+                    <div class="col-xs-12">
+                      <div class="stream-margin">
+
+                        <h4>{!! $s['title'] !!}</h4>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                      <div class="stream-margin">
+                        <div class="panel-group accordion accordion-dc">
+                          <div class="panel panel-default">
+                            <div class="panel-heading" style="height: 30px; padding: initial;">
+                              <p class="panel-title">
+                                  <a href="#accOneColOne" style="font-size:11px;">
+                                    Wish Details
+                                  </a>
+                              </p>
+                            </div>
+                                <div class="panel-body" id="accOneColOne">
+                                  <!-- <div id ="links" class="col-xs-6 col-xs-offset-3 stream-body">
+                                    <a href="{{ URL::asset('img/test.jpg') }}" title="Bobby" data-gallery>
+                                        <img src="{{ URL::asset('img/test.jpg') }}" class="img-responsive img-text"/>
+                                    </a>
+                                  </div> -->
+
+                                  @if($s['wishimageurl'] == 'null')
+                                    <div></div>
+                                  @else
+                                    @if(!empty($s['wishimageurl']))
+                                      <div id ="links" class="col-xs-12 stream-body">
+                                        <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
+                                            <img src="{!! $s['wishimageurl'] !!}" class="img-responsive stream-wish-img"/>
+                                        </a>
+                                      </div>
+                                    @endif
+                                  @endif
+
+                                  <div class="col-xs-12">
+                                    <div class="">
+                                      @if($s['due_date'] != 0000-00-00)
+                                        <p>
+                                          <b>Due Date:</b> {!! date('F d, Y', strtotime($s['due_date']))  !!}
+                                        </p>
+                                      @endif
+
+                                      @if(!empty($s['details']))
+                                        <p>
+                                        <b>Details:</b> {!! $s['details'] !!}
+                                        </p>
+                                      @endif
+
+                                      @if(!empty($s['alternatives']))
+                                      <p>
+                                        <b>Alternatives:</b> {!! $s['alternatives'] !!}
+                                      </p>
+                                      @endif
+
+                                    </div>
+                                  </div>
+
+                                  <div class="col-xs-12">
+                                    @if(!empty($s['tagged']))
+                                      <ul class="list-tags">
+                                        @foreach($s['tagged'] as $tag)
+                                          <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                        @endforeach
+                                      </ul>
+                                    @endif
+                                  </div>
+                                  <!-- <div class="panel panel-wishes">
+                                  </div> -->
+                                </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <!-- <div class="pull-right">
+                        <a href="#"><span class="fa fa-star"></span></a>
+                        &nbsp;&nbsp;
+                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}"><span class="fa fa-retweet"></span></a>
+
+                      </div> -->
+                    </div>
+
+                    <div class="col-xs-12 granter-grantee-body">
+                      <div class="stream-margin">
+                        <div class="col-xs-12">
+                          <div class="pull-left">
+                            <a href="{!! !empty($s['granterimageurl']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                              <img class="user granter img-circle" src="{!! $s['granterimageurl'] !!}">
+                            </a>
+                          </div>
+                          <div class="stream-header">
+                            <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                              <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ):
+                            </a>
+                          </div>
+
+                        </div>
+
+                        <div class="col-xs-12">
+                          <p class="granter-caption">
+                            {!! $s['granteddetails'] !!}
+                          </p>
+                        </div>
+                        <div id ="links" class="col-xs-12 stream-body">
+                          <a href="{!! $s['grantedimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!} granted by: {!! $s['granterusername'] !!}" data-gallery>
+                              <img src="{!! $s['grantedimageurl'] !!}" class="img-responsive stream-wish-img"/>
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <div class="col-xs-12">
+                      <!-- <div class="stream-margin">
+                        <div class="panel-group accordion accordion-dc">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <p class="panel-title">
+                                  <a href="#accOneColOne">
+                                    Wish Details
+                                  </a>
+                              </p>
+                            </div>
+                                <div class="panel-body" id="accOneColOne">
+
+                                  @if($s['wishimageurl'] == 'null')
+                                    <div></div>
+                                  @else
+                                    @if(!empty($s['wishimageurl']))
+                                      <div id ="links" class="col-xs-12 stream-body">
+                                        <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
+                                            <img src="{!! $s['wishimageurl'] !!}" class="img-responsive stream-wish-img"/>
+                                        </a>
+                                      </div>
+                                    @endif
+                                  @endif
+
+                                  <div class="col-xs-12">
+                                    <div class="">
+                                      @if($s['due_date'] != 0000-00-00)
+                                        <p>
+                                          <b>Due Date:</b> {!! date('F d, Y', strtotime($s['due_date']))  !!}
+                                        </p>
+                                      @endif
+
+                                      @if(!empty($s['details']))
+                                        <p>
+                                        <b>Details:</b> {!! $s['details'] !!}
+                                        </p>
+                                      @endif
+
+                                      @if(!empty($s['alternatives']))
+                                      <p>
+                                        <b>Alternatives:</b> {!! $s['alternatives'] !!}
+                                      </p>
+                                      @endif
+
+                                    </div>
+                                  </div>
+
+                                  <div class="col-xs-12">
+                                    @if(!empty($s['tagged']))
+                                      <ul class="list-tags">
+                                        @foreach($s['tagged'] as $tag)
+                                          <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                        @endforeach
+                                      </ul>
+                                    @endif
+                                  </div>
+                                </div>
+
+                          </div>
+                        </div>
+
+                      </div> -->
+
+                      <div class="pull-right">
+                        <a href="#"><span class="fa fa-star"></span></a>
+                        &nbsp;&nbsp;
+                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}"><span class="fa fa-retweet"></span></a>
+
+                      </div>
+                    </div>
+
+
+
+
+
+                  </div>
+              </div>
+              <!-- <div class="panel panel-default">
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
@@ -203,7 +423,7 @@
                       </div>
                     </div>
                   </div>
-              </div>
+              </div> -->
               @else
               <!-- <div class="alert alert-info" id="home-alert">
                 Grant request sent!
