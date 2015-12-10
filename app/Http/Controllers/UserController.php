@@ -13,6 +13,7 @@ use App\Http\Requests\SetPasswordRequest;
 use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
 use App\Http\Requests\WishRequest;
+use App\Http\Requests\GrantWishRequest;
 use App\Http\Requests\NotesRequest;
 use App\Http\Requests\FriendRequest;
 use App\Http\Requests\TagRequest;
@@ -137,6 +138,16 @@ class UserController extends Controller
     $user = Auth::user();
 
     // $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
+    $grant = Wish::where('createdby_id', '=', $user['id'])->where('status', '=', 1)->where('granted', '=', 2)->get();
+    if(!empty($grant))
+    {
+      for($i=0; $i < count($grant); $i++) {
+        $granter = User::where('id', '=', $grant[$i]['granterid'])->where('status', '=', 1)->first();
+        if(!empty($granter))
+          $grant[$i]['granter'] = $granter;
+      }
+    }
+
     $requests = Friend::where('friend_userid', '=', $user['id'])->where('status', '=', '0')->get();
     // print($requests);
     // die();
@@ -152,12 +163,9 @@ class UserController extends Controller
           $tags[$i]['tagger'] = $tagger;
         }
       }
-
     }
-
     // json_encode($tags);print($tags); die();
-
-   return view('userlayouts.notifications', compact('requests', 'tags'));
+   return view('userlayouts.notifications', compact('requests', 'tags', 'grant'));
   }
 
   public function notes()
@@ -167,11 +175,16 @@ class UserController extends Controller
   public function wish($id)
   {
     $user = Auth::user();
-
+    $userId = $user->id;
     $wish = Wish::where('id', '=', $id)->first();
+    $grant = Wish::where('id', '=', $id)->get();
     $tags = Tag::with('user')->where('wishid', '=', $id)->get();
+    $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
+                      ->orderBy('created_at', 'desc')->get();
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $friends = User::find($userId)->friends;
     // print($tags); die();
-    return view('userlayouts.wish', compact('wish', 'tags'));
+    return view('userlayouts.wish', compact('wish', 'tags', 'wishlists', 'friends', 'grant'));
   }
 
   public function deactivate()
@@ -222,7 +235,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -237,7 +250,7 @@ class UserController extends Controller
         'title' => $request->title,
         'due_date' => $request->due_date,
         'createdby_id' => $user->id,
-        'details' => $request->description,
+        'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
         'wishimageurl' => 'null',
@@ -260,7 +273,7 @@ class UserController extends Controller
         'title' => $request->title,
         'due_date' => $request->due_date,
         'createdby_id' => $user->id,
-        'details' => $request->description,
+        'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
         'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
@@ -291,7 +304,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -306,7 +319,7 @@ class UserController extends Controller
         'title' => $request->title,
         'due_date' => $request->due_date,
         'createdby_id' => $user->id,
-        'details' => $request->description,
+        'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
         'wishimageurl' => 'null',
@@ -329,7 +342,7 @@ class UserController extends Controller
         'title' => $request->title,
         'due_date' => $request->due_date,
         'createdby_id' => $user->id,
-        'details' => $request->description,
+        'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
         'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
@@ -451,7 +464,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -464,7 +477,7 @@ class UserController extends Controller
       if (!empty($wish)) {
         $wish->wishlistid = $request->wishlist;
         $wish->title = $request->title;
-        $wish->details = $request->description;
+        $wish->details = $request->details;
         $wish->alternatives = $request->alternatives;
         $wish->flagged = $flag;
         $wish->wishimageurl = $wish->wishimageurl;
@@ -487,7 +500,7 @@ class UserController extends Controller
       if (!empty($wish)) {
         $wish->wishlistid = $request->wishlist;
         $wish->title = $request->title;
-        $wish->details = $request->description;
+        $wish->details = $request->details;
         $wish->alternatives = $request->alternatives;
         $wish->flagged = $flag;
         $wish->wishimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
@@ -536,6 +549,7 @@ class UserController extends Controller
 
     if($userId != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
+
 
       $requests = Friend::with('friendRequest')
                           ->where('userid', '=', $otherUser->id)
@@ -606,7 +620,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.10/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.13/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -814,7 +828,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1101,7 +1115,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.10';
+      $hostURL = '192.168.1.13';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1262,7 +1276,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.13';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1279,7 +1293,7 @@ class UserController extends Controller
         'title' => $wishTitle->title,
         'due_date' => $request->due_date,
         'createdby_id' => $user->id,
-        'details' => $request->description,
+        'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
         'wishimageurl' => 'null',
@@ -1304,7 +1318,7 @@ class UserController extends Controller
         'title' => $wishTitle->title,
         'due_date' => $request->due_date,
         'createdby_id' => $user->id,
-        'details' => $request->description,
+        'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
         'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
@@ -1312,7 +1326,6 @@ class UserController extends Controller
       ));
 
     }
-
 
     $wish->save();
 
@@ -1329,75 +1342,193 @@ class UserController extends Controller
     return redirect('user/home');
   }
 
-  public function reWishOtherUser(WishRequest $request, $id)
+  public function rewishDetails($id)
   {
     $user = Auth::user();
+    $userId = $user->id;
+    $wish = Wish::where('id', '=', $id)->first();
+    $tags = Tag::with('user')->where('wishid', '=', $id)->get();
+    $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
+                      ->lists('title', 'id');
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $friends = User::find($userId)->friends;
 
+    return view('userlayouts.rewish', compact('wish', 'tags', 'wishlists', 'friends'));
+  }
+
+  public function grantWish(GrantWishRequest $request, $id)
+  {
+    $user = Auth::user();
+    $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
-    $newImage = Input::file('wishimageurl');
+    $hostURL = '192.168.1.9';
+    $newImage = Input::file('grantedimageurl');
 
-    if($newImage == null)
+    $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
+
+    $request->granterid = $userId;
+
+    if($request->granterid == $wish->createdby_id)
     {
-      if($request->flag == null)
-        $flag = 0;
+      // dd($userId);
+      if($newImage == null)
+      {
+        if($request->flag == null)
+          $flag = 0;
+        else
+          $flag = 1;
+
+        $wishDetails = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
+
+        if (!empty($wishDetails)) {
+          $wishDetails->wishlistid = $wishDetails->wishlistid;
+          $wishDetails->title = $wishDetails->title;
+          $wishDetails->createdby_id = $wishDetails->createdby_id;
+          $wishDetails->details = $wishDetails->details;
+          $wishDetails->wishimageurl = $wishDetails->wishimageurl;
+          $wishDetails->alternatives = $wishDetails->alternatives;
+          $wishDetails->due_date = $wishDetails->due_date;
+          $wishDetails->granted = 1;
+          $wishDetails->granterid = $user->id;
+          $wishDetails->granteddetails = $request->granteddetails;
+          $wishDetails->grantedimageurl = 'null';
+          $wishDetails->date_granted = date('Y-m-d H:i:s');
+          $wishDetails->flagged = $flag;
+          $wishDetails->status = 1;
+          // dd($wishDetails);
+          $wishDetails->save();
+        }
+      }
       else
-        $flag = 1;
+      {
+        $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+        $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+        Image::make($newImage->getRealPath())->save($path);
 
-      $wishTitle = Wish::where('id', $id)->firstorFail();
+        if($request->flag == null)
+          $flag = 0;
+        else
+          $flag = 1;
 
-      $wish = new Wish(array(
-        'wishlistid' => $request->wishlist,
-        'title' => $wishTitle->title,
-        'due_date' => $request->due_date,
-        'createdby_id' => $user->id,
-        'details' => $request->description,
-        'alternatives' => $request->alternatives,
-        'flagged' => $flag,
-        'wishimageurl' => 'null',
-        'status' => 1,
-      ));
+        $wishDetails = Wish::where('id', $id)->firstorFail();
+
+        if (!empty($wishDetails)) {
+          $wishDetails->wishlistid = $wishDetails->wishlistid;
+          $wishDetails->title = $wishDetails->title;
+          $wishDetails->createdby_id = $wishDetails->createdby_id;
+          $wishDetails->details = $wishDetails->details;
+          $wishDetails->wishimageurl = $wishDetails->wishimageurl;
+          $wishDetails->alternatives = $wishDetails->alternatives;
+          $wishDetails->due_date = $wishDetails->due_date;
+          $wishDetails->granted = 1;
+          $wishDetails->granterid = $user->id;
+          $wishDetails->granteddetails = $request->granteddetails;
+          $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
+          $wishDetails->date_granted = date('Y-m-d H:i:s');
+          $wishDetails->flagged = $flag;
+          $wishDetails->status = 1;
+          // dd($wishDetails);
+          $wishDetails->save();
+        }
+      }
+    }
+    else if($wish->granterid != $wish->createdby_id)
+    {
+      if($newImage == null)
+      {
+        if($request->flag == null)
+          $flag = 0;
+        else
+          $flag = 1;
+
+        $wishDetails = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
+
+        if (!empty($wishDetails)) {
+          $wishDetails->wishlistid = $wishDetails->wishlistid;
+          $wishDetails->title = $wishDetails->title;
+          $wishDetails->createdby_id = $wishDetails->createdby_id;
+          $wishDetails->details = $wishDetails->details;
+          $wishDetails->wishimageurl =  $wishDetails->wishimageurl;
+          $wishDetails->alternatives = $wishDetails->alternatives;
+          $wishDetails->due_date = $wishDetails->due_date;
+          $wishDetails->granted = 2;
+          $wishDetails->granterid = $user->id;
+          $wishDetails->granteddetails = $request->granteddetails;
+          $wishDetails->grantedimageurl = 'null';
+          $wishDetails->flagged = $flag;
+          $wishDetails->status = 1;
+          // dd($wishDetails);
+          $wishDetails->save();
+        }
+      }
+      else
+      {
+        $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+        $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
+        Image::make($newImage->getRealPath())->save($path);
+
+        if($request->flag == null)
+          $flag = 0;
+        else
+          $flag = 1;
+
+        $wishDetails = Wish::where('id', $id)->firstorFail();
+
+        if (!empty($wishDetails)) {
+          $wishDetails->wishlistid = $wishDetails->wishlistid;
+          $wishDetails->title = $wishDetails->title;
+          $wishDetails->createdby_id = $wishDetails->createdby_id;
+          $wishDetails->details = $wishDetails->details;
+          $wishDetails->wishimageurl = $wishDetails->wishimageurl;
+          $wishDetails->alternatives = $wishDetails->alternatives;
+          $wishDetails->due_date = $wishDetails->due_date;
+          $wishDetails->granted = 2;
+          $wishDetails->granterid = $user->id;
+          $wishDetails->granteddetails = $request->granteddetails;
+          $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
+          $wishDetails->flagged = $flag;
+          $wishDetails->status = 1;
+          // dd($wishDetails);
+          $wishDetails->save();
+        }
+      }
     }
     else
     {
-      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-      $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
-      Image::make($newImage->getRealPath())->save($path);
-
-      if($request->flag == null)
-        $flag = 0;
-      else
-        $flag = 1;
-
-      $wishTitle = Wish::where('id', $id)->firstorFail();
-
-      $wish = new Wish(array(
-        'wishlistid' => $request->wishlist,
-        'title' => $wishTitle->title,
-        'due_date' => $request->due_date,
-        'createdby_id' => $user->id,
-        'details' => $request->description,
-        'alternatives' => $request->alternatives,
-        'flagged' => $flag,
-        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
-        'status' => 1,
-      ));
-
+      $check = '';
     }
-
-
-    $wish->save();
-
     if (!empty($request->tags)) {
       foreach ($request->tags as $t) {
         $tag = new Tag(array(
-          'wishid' => $wish->id,
+          'wishid' => $wishDetails->id,
           'userid' => $t,
         ));
         $tag->save();
       }
     }
-    // dd($wish);
-    return redirect('user/home');
+
+    if($wishDetails->granterid != $wishDetails->createdby_id)
+      return redirect('user/home')->with('homeAlert', 'Grant request sent!');
+    else
+      return redirect('user/home');
+  }
+
+  public function confirmGrantRequest($id)
+  {
+    $user = Auth::user();
+
+    $grantRequest = Wish::where('id', '=', $id)
+            ->where('status', '=', 1)
+            ->where('granted', '=', 2)
+            ->first();
+      // dd($grantRequest);
+    if(!empty($grantRequest)){
+      $grantRequest->date_granted = date("Y-m-d h:i:s");
+      $grantRequest->granted = 1;
+
+      $grantRequest->save();
+    }
+
+    return redirect()->action('UserController@notifications');
   }
 }

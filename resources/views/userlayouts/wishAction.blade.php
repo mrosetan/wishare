@@ -36,7 +36,7 @@
               <br />
               <div class="row">
                 <div class="col-md-12">
-                  {!! Form::textarea('description', null, ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
+                  {!! Form::textarea('details', null, ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
                 </div>
               </div>
               <br />

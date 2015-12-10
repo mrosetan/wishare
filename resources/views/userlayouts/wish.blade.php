@@ -34,20 +34,19 @@
                 <br /><br /><hr />
                 @endif
               @endif
-              <div class="wish-icons pull-right">
+              <!-- <div class="wish-icons pull-right">
                 <a href="#"><span class="fa fa-star"></span></a>
                 &nbsp;&nbsp;
                 <a href="#"><span class="fa fa-bookmark"></span></a>
                 &nbsp;&nbsp;
                 <a href="#"><span class="fa fa-retweet"></span></a>
-              </div>
+              </div> -->
             @else
               <div class="alert alert-info">
                 Wish not found
               </div>
             @endif
           </div>
-
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@
       <div class="col-md-12">
         <div class="panel panel-default tabs">
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="active"><a href="#tab-notif" role="tab" data-toggle="tab">Activity <span class="badge badge-warning">3</span> </a></li>
+                <li class="active"><a href="#tab-notif" role="tab" data-toggle="tab">Activity</a></li>
                 <li>
                   <a href="#tab-fr" role="tab" data-toggle="tab">Friend Requests
                     @if(count($requests) > 0)
@@ -19,7 +19,13 @@
                     @endif
                   </a>
                </li>
-               <li><a href="#tab-gr" role="tab" data-toggle="tab">Grant Requests <span class="badge badge-warning">3</span> </a></li>
+               <li>
+                 <a href="#tab-gr" role="tab" data-toggle="tab">Grant Requests
+                   @if(count($grant) > 0)
+                    <span class="badge badge-warning">{!! count($grant) !!}</span>
+                   @endif
+                 </a>
+               </li>
             </ul>
             <br />
             <!--notifications-->
@@ -34,10 +40,9 @@
                           </div>
                           <div class="user-details">
                             <p class="user-name">
-                              <a href="{!! action('UserController@otheruser', $t->tagger->id) !!}"> {!! $t->tagger->username !!} </a> tagged you in a <a href="{!! action('UserController@wish', $t->wish->id) !!}">wish</a>
-                              <p>
-                                {!! $t->created_at !!}
-                              </p>
+                              <a href="{!! action('UserController@otheruser', $t->tagger->id) !!}"> {!! $t->tagger->firstname !!} {!! $t->tagger->lastname !!} </a> tagged you in a <a href="{!! action('UserController@wish', $t->wish->id) !!}">wish</a>
+                              <br/>
+                              {!! date('m/d/y g:i A', strtotime($t->created_at)) !!}
                             </p>
 
                           </div>
@@ -96,50 +101,43 @@
 
               <!--================================friend requests================================-->
 
-
+              <!--================================grant requests================================-->
               <div class="tab-pane" id="tab-gr">
+                @if(count($grant)>0)
+                  @foreach($grant as $g)
                   <div class="panel panel-default">
                       <div class="panel-body">
                         <div class="pull-left">
-                          IMAGE
+                          {!! Html::image('' . $g->granter['imageurl'], '', array('class'=>'user img-circle')) !!}
                         </div>
                         <div class="user-details">
                           <p class="user-name">
-                            <p>Bobby granted your wish: Bobby</p>
-                            {!! Form::button('Accept', ['class'=>'btn btn-info', 'data-toggle'=>'modal', 'data-target'=>'#modal_acceptgrant'])!!}
-                            {!! Form::reset('Cancel', ['class'=>'btn btn-default'])!!}
-                            {!! Form::close() !!}
+                            {!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!} granted your wish: <a href="{!! action('UserController@wish', $g['id']) !!}"> {!! $g['title'] !!} </a>
+                            <div class="fr-buttons">
+                              {!! Form::open(array(
+                                            'action' => array('UserController@confirmGrantRequest', $g->id),
+                                            'class' => 'form friendActions friend-action-button',
+                                            'method'=> 'get')) !!}
+                                  {!! Form::submit('Accept', array('class'=>'btn btn-info')) !!}
+                              {!! Form::close() !!}
+                              {!! Form::open(array(
+                                            'action' => array('UserController@declineFriendRequest', $g->id),
+                                            'class' => 'form friendActions friend-action-button',
+                                            'method' => 'get')) !!}
+                                  {!! Form::submit('Decline', array('class'=>'btn btn-default')) !!}
+                              {!! Form::close() !!}
+                            </div>
                           </p>
                         </div>
                       </div>
                   </div>
-              </div>
-
-
-              <div class="modal" id="modal_acceptgrant" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                              <h4 class="modal-title" id="defModalHead">Accept Grant Request</h4>
-                          </div>
-                          <div class="modal-body">
-                              <h5>Bobby granted your wish: Bobby</h5> <br />
-                              {!! Form::open() !!}
-                              {!! Form::text('caption', null, array('class'=>'form-control', 'placeholder'=>'Add a caption')) !!}
-                              <br />
-                              {!! Form::file('photo')!!}
-                          </div>
-                          <div class="modal-footer">
-                            {!! Form::button('Accept', ['class'=>'btn btn-info', 'data-toggle'=>'modal', 'data-target'=>'#modal_acceptgrant'])!!}
-                            {!! Form::reset('Cancel', ['class'=>'btn btn-default'])!!}
-                            {!! Form::close() !!}
-                          </div>
-                      </div>
+                  @endforeach
+                @else
+                  <div class="alert alert-info">
+                    No Grant Request.
                   </div>
+                @endif
               </div>
-
-
             </div>
         </div>
         <!---->
