@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class UserRequest extends Request
+class GrantWishRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,8 +16,6 @@ class UserRequest extends Request
         return true;
     }
 
-
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,11 +24,7 @@ class UserRequest extends Request
     public function rules()
     {
         return [
-            'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
-            'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
-            'username' => 'required|min:3|max:15|alpha_num|unique:wishare_users',
-            'password' => 'required|min:3|max:30|alpha_num',
-            'email' => 'required|email|unique:wishare_users',
+            'grantedimageurl' => 'image',
         ];
     }
 }

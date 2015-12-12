@@ -20,8 +20,11 @@ Route::get('/blank', 'PagesController@blank');
 
 
 /* User */
+Route::get('user/w', 'UserController@postSignup');
 Route::get('user/usermaster', 'UserController@dashboard');
 Route::get('user/home', 'UserController@home');
+Route::post('user/grant/{id?}', 'UserController@grantWish');
+Route::get('user/grant/accept/{id?}', 'UserController@confirmGrantRequest');
 Route::get('user/profile', 'UserController@getUserDetails');
 Route::get('user/profile/wishlists', 'UserController@getWishlist');
 Route::post('user/profile/{id?}', 'UserController@updateWishlist');
@@ -30,12 +33,19 @@ Route::get('user/notifications', 'UserController@notifications');
 Route::get('user/action/wishlist{id?}', 'UserController@wishlistAction');
 Route::post('user/action/wishlist/{id?}', 'UserController@createWishlist');
 Route::get('user/action/wish', 'UserController@wishAction');
-Route::get('user/action/notes', 'UserController@getRecipient');
+Route::get('user/action/notes', 'UserController@getNoteRecipient');
 Route::post('user/action/notes', 'UserController@createNote');
-Route::get('user/action/tynotes', 'UserController@tynotesAction');
-Route::get('user/notes', 'UserController@getNote');
+Route::post('user/action/tynotes', 'UserController@createTYNote');
+Route::get('user/action/tynotes', 'UserController@getTYNoteRecipient');
+Route::get('user/notes', 'UserController@notes');
+Route::get('user/notes', 'UserController@notes');
+Route::get('user/wish/{id?}', 'UserController@wish');
+Route::get('user/wish/rewish/{id?}', 'UserController@rewishDetails');
+Route::post('user/wish/rewish/{id?}', 'UserController@reWish');
+Route::get('user/notes', 'UserController@getAllNotes');
+Route::post('user/notes/{id?}', 'UserController@createNoteModal');
 Route::get('user/notes/{id?}', 'UserController@deleteNote');
-Route::get('user/wish', 'UserController@wish');
+Route::get('user/notes/{id?}', 'UserController@deleteTYNote');
 Route::get('user/settings/deactivate', 'UserController@deactivate');
 Route::get('user/help', 'UserController@help');
 Route::get('user/setPassword', 'UserController@setPassword');
@@ -47,6 +57,7 @@ Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
 Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic');
 /* Other user */
 Route::get('otheruser/{id?}', 'UserController@otheruser');
+Route::post('otheruser/{id?}', 'UserController@reWishOtherUser');
 
 Route::get('user/search', 'UserController@search');
 Route::post('user/search', 'UserController@search');
@@ -58,12 +69,20 @@ Route::get('user/accept/{id?}', 'UserController@acceptFriendRequest');
 Route::get('user/decline/{id?}', 'UserController@declineFriendRequest');
 
 Route::post('user/add', 'UserController@addWish');
+Route::post('user/add/{id?}', 'UserController@addWishModal');
+Route::get('user/edit/tags/{id?}', 'UserController@editTags');
+Route::post('user/edit/tags/{id?}', 'UserController@updateTags');
+Route::post('user/edit/wish/{id?}', 'UserController@updateWish');
+Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
+
+Route::get('user/setup', 'UserController@setUsernameAndPassword');
 
 
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');
-Route::get('/admin/reports', 'AdminController@reports');
+Route::get('/admin/stats', 'AdminController@stats');
+Route::get('/admin/report', 'AdminController@report');
 Route::get('/admin/create/admin', 'AdminController@createAdmin');
 Route::get('/admin/create/defaultwishlist', 'AdminController@createDefaultWishlist');
 Route::get('/admin/view/admins', 'AdminController@showAdmins');
@@ -83,17 +102,22 @@ Route::get('/admin/edit/defaultwishlist/{id?}', 'AdminController@editDefaultWish
 Route::post('/admin/edit/defaultwishlist/{id?}', 'AdminController@updateDefaultWishlist');
 Route::get('/admin/delete/defaultwishlist/{id?}', 'AdminController@deleteDefaultWishlist');
 
-Route::get('/admin/search', 'AdminController@searchUserOrAdmin');
+// Route::get('/admin/search', 'AdminController@searchUserOrAdmin');
+Route::get('admin/search', 'AdminController@search');
+Route::post('admin/search', 'AdminController@search');
 
 Route::get('/admin/deactivate/{id?}', 'AdminController@deactivate');
 Route::get('/admin/reactivate/{id?}', 'AdminController@reactivate');
+
+Route::get('admin/wuser/{id?}', 'AdminController@userdetails');
 
 // Route::get('/admin/search', 'AdminController@search');
 // Route::post('/admin/search', 'AdminController@searchUser');
 
 // Auth
 Route::post('/auth/signin', 'AuthController@signin');
-Route::post('/auth/signup', 'UserController@store');
+// Route::post('/auth/signup', 'UserController@store');
+Route::post('/auth/signup', 'AuthController@store');
 Route::get('/auth/signout', 'AuthController@signout');
 
 //Social Login

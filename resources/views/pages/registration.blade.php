@@ -16,7 +16,7 @@
   @endforeach
 
   {!! Form::open(array(
-                'action' => 'UserController@store',
+                'action' => 'AuthController@store',
                 'class' => 'form')) !!}
 
   <div class="form-group">

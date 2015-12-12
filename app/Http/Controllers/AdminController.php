@@ -13,6 +13,7 @@ use App\Http\Requests\EditAdminRequest;
 use App\Http\Requests\DefaultWishlistRequest;
 use App\Http\Requests\AdminSearchRequest;
 use App\User;
+use App\Wish;
 use App\DefaultWishlist;
 use App\Wishlist;
 use Auth;
@@ -34,7 +35,7 @@ class AdminController extends Controller
     public function index()
     {
       if (Auth::user()->type == 0) {
-        return view('admin.master');
+        return redirect('admin/stats');
       }
       else{
         return redirect('user/home');
@@ -42,10 +43,93 @@ class AdminController extends Controller
 
     }
 
-    public function reports()
+    public function stats()
     {
       if (Auth::user()->type == 0) {
-        return view('admin.reports');
+
+        $userCount = User::where('type', 1)
+                          ->count();
+
+        $userActiveCount = User::where('status', 1)
+                                ->where('type', 1)
+                                ->count();
+
+        $userInactiveCount = User::where('status', 0)
+                                  ->where('type', 1)
+                                  ->count();
+
+        $adminActiveCount = User::where('status', 1)
+                                ->where('type', 0)
+                                ->count();
+
+        $adminInactiveCount = User::where('status', 0)
+                                  ->where('type', 0)
+                                  ->count();
+
+        $wishesCount = Wish::count();
+
+        $wishDelCount = Wish::where('status', 0)
+                        ->count();
+
+        $wishGrantedCount = Wish::where('granted', 1)
+                                  ->count();
+
+        $granters = Wish::where('granted', 1)
+                          ->distinct('granterid')
+                          ->count('granterid');
+
+
+
+        // print($granters);
+        // die();
+
+        return view('admin.stats', compact('userCount', 'userActiveCount', 'userInactiveCount', 'adminActiveCount', 'adminInactiveCount', 'wishesCount', 'wishDelCount', 'wishGrantedCount', 'granters'));
+      }
+      else
+        return redirect('user/home');
+    }
+
+    public function report(){
+      if (Auth::user()->type == 0) {
+
+        $userCount = User::where('type', 1)
+                          ->count();
+
+        $userActiveCount = User::where('status', 1)
+                                ->where('type', 1)
+                                ->count();
+
+        $userInactiveCount = User::where('status', 0)
+                                  ->where('type', 1)
+                                  ->count();
+
+        $adminActiveCount = User::where('status', 1)
+                                ->where('type', 0)
+                                ->count();
+
+        $adminInactiveCount = User::where('status', 0)
+                                  ->where('type', 0)
+                                  ->count();
+
+        $wishesCount = Wish::count();
+
+        $wishDelCount = Wish::where('status', 0)
+                        ->count();
+
+        $wishGrantedCount = Wish::where('granted', 1)
+                                  ->count();
+
+        $granters = Wish::where('granted', 1)
+                          ->distinct('granterid')
+                          ->count('granterid');
+
+
+
+        // print($granters);
+        // die();
+
+        return view('admin.report', compact('userCount', 'userActiveCount', 'userInactiveCount', 'adminActiveCount', 'adminInactiveCount', 'wishesCount', 'wishDelCount', 'wishGrantedCount', 'granters'));
+
       }
       else
         return redirect('user/home');
@@ -86,6 +170,29 @@ class AdminController extends Controller
     // }
     // ===================================Search ver 1=====
 
+    public function search(Request $request)
+    {
+      $user = Auth::user();
+      $search = $request->search;
+
+      $results = User::where(function ($query) use ($search){
+                          $query->where('firstname', 'like', '%'.$search.'%')
+                                ->orWhere('lastname', 'like', '%'.$search.'%')
+                                ->orWhere('username', 'like', '%'.$search.'%');
+                      })
+                      // ->where('firstname', 'like', '%'.$search.'%')
+                      // ->orWhere('lastname', 'like', '%'.$search.'%')
+                      // ->orWhere('username', 'like', '%'.$search.'%')
+                      ->paginate();
+                      // ->get();
+      // dd($results);
+      // if(!empty($results))
+        return view('admin.search2', compact('results'));
+      // else{
+        // return view('userlayouts.searchFriend')->with('errormsg', 'Not found');
+      // }
+    }
+
     public function searchUserOrAdmin()
     {
       if (Auth::user()->type == 0) {
@@ -101,14 +208,16 @@ class AdminController extends Controller
     {
 
       if (Auth::user()->type == 0) {
-        $users = User::where('status', '=', 1)
-                      ->where('type', '=', 1)
-                      ->orderBy('created_at', 'desc')
-                      // ->get();
-                      ->paginate();
+        // $users = User::where('status', '=', 1)
+        //               ->where('type', '=', 1)
+        //               ->orderBy('created_at', 'desc')
+        //               // ->get();
+        //               ->paginate();
+
+        $users = User::paginate();
 
         // $users->setPath('http://192.168.1.10/wishare/public/admin/monitor/users');
-        // print_r($users);
+        // dd($users);
         return view('admin.monitoringUsers', compact('users'));
       }
       else
@@ -126,7 +235,10 @@ class AdminController extends Controller
     {
 
       if (Auth::user()->type == 0) {
-        return view('admin.monitoringWishes');
+
+        $wishes = Wish::with('user', 'wishlist')->get();
+
+        return view('admin.monitoringWishes', compact('wishes'));
       }
       else
         return redirect('user/home');
@@ -465,7 +577,8 @@ class AdminController extends Controller
 
         $results = User::paginate();
 
-        return view('admin.search', compact('results'));
+        return redirect(action('AdminController@userdetails', $user->id));
+        // return view('admin.search', compact('results'));
 
     }
 
@@ -479,7 +592,15 @@ class AdminController extends Controller
 
         $results = User::paginate();
 
-        return view('admin.search', compact('results'));
+        return redirect(action('AdminController@userdetails', $user->id));
+        // return view('admin.search', compact('results'));
 
+    }
+
+    public function userdetails($id)
+    {
+      $user = User::where('id', $id)->firstorFail();
+
+      return view('admin.userdetails', compact('user'));
     }
 }

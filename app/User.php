@@ -40,7 +40,17 @@ class User extends Model implements AuthenticatableContract,
 
     public function wishlists()
     {
-        return $this->hasMany('App\Wishlist');
+        return $this->hasMany('App\Wishlist', 'id');
+    }
+
+    public function wishes()
+    {
+        return $this->hasMany('App\Wish', 'id');
+    }
+
+    public function tags()
+    {
+        return $this->hasMany('App\Tag', 'userid');
     }
 
     // public function notes()
@@ -94,7 +104,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function getFullNameAttribute()
     {
-        return $this->firstname . " " . $this->lastname;
+        return $this->firstname . " " . $this->lastname . " (" . $this->username . ")";
     }
 
     //------------------------ Notes -----------------------------------
@@ -108,7 +118,8 @@ class User extends Model implements AuthenticatableContract,
         ->withPivot('status')
         ->withPivot('message')
         ->withPivot('type')
-        ->withPivot('id');
+        ->withPivot('id')
+        ->withPivot('updated_at');
     }
 
     function notesOf()
@@ -119,7 +130,8 @@ class User extends Model implements AuthenticatableContract,
         ->withPivot('status')
         ->withPivot('message')
         ->withPivot('type')
-        ->withPivot('id');
+        ->withPivot('id')
+        ->withPivot('updated_at');
     }
 
     public function getNotesAttribute()
@@ -143,4 +155,64 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->myNotes->merge($this->notesOf);
     }
+
+    //------------------------ Notes -----------------------------------
+
+    public function tagged()
+    {
+      return $this->hasMany('App\Tag', 'App\Wish', 'id', 'userid');
+    }
+
+    //------------------------ TY Notes ----------------------------------
+    function myTYNotes()
+    {
+      return $this->belongsToMany('App\User', 'notes', 'senderid', 'receiverid')
+        // if you want to rely on accepted field, then add this:
+        ->wherePivot('status', '=', 1)
+        ->wherePivot('type', '=', 1)
+        ->withPivot('status')
+        ->withPivot('message')
+        ->withPivot('imageurl')
+        ->withPivot('sticker')
+        ->withPivot('type')
+        ->withPivot('id')
+        ->withPivot('updated_at');
+    }
+
+    function tynotesOf()
+    {
+      return $this->belongsToMany('App\User', 'notes', 'receiverid', 'senderid')
+        ->wherePivot('status', '=', 1)
+        ->wherePivot('type', '=', 1)
+        ->withPivot('status')
+        ->withPivot('message')
+        ->withPivot('imageurl')
+        ->withPivot('sticker')
+        ->withPivot('type')
+        ->withPivot('id')
+        ->withPivot('updated_at');
+    }
+
+    public function getNTYotesAttribute()
+    {
+        if ( ! array_key_exists('tynotes', $this->relations)) $this->loadTYNotes();
+
+        return $this->getRelation('ntyotes');
+    }
+
+    protected function loadTYNotes()
+    {
+        if ( ! array_key_exists('tynotes', $this->relations))
+        {
+            $tynotes = $this->mergeTYNotes();
+
+            $this->setRelation('tynotes', $tynotes);
+        }
+    }
+
+    protected function mergeTYNotes()
+    {
+        return $this->myTYNotes->merge($this->tynotesOf);
+    }
+
 }

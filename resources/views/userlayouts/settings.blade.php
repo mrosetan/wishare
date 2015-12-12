@@ -53,14 +53,14 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label>Username:</label>
-                    {!! Form::text('username', $user->username, array('class'=>'form-control')) !!}
+                    {!! Form::text('username', $user->username, array('class'=>'form-control', 'Required')) !!}
                 </div>
               </div>
               <br />
               <div class="row">
                 <div class="col-sm-12">
                   <label>E-mail:</label>
-                    {!! Form::email('email', $user->email, array('class'=>'form-control')) !!}
+                    {!! Form::email('email', $user->email, array('class'=>'form-control', 'Required')) !!}
                 </div>
               </div>
               <br/ >
@@ -74,7 +74,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label>Birthdate:</label>
-                  {!! Form::text('birthdate', ($user->birthdate == 0000-00-00 ? '1995-01-01':$user->birthdate), array('id'=>'datepicker', 'class'=>'form-control', 'value'=>'1995-01-01')) !!}
+                  {!! Form::text('birthdate', ($user->birthdate == 0000-00-00 ? '1995-01-01':$user->birthdate), array('class'=>'form-control', 'data-beatpicker'=>'true', 'data-beatpicker-position'=>'["top","left"]', 'data-beatpicker-module'=>'clear,icon')) !!}
                 </div>
               </div>
               <br />
@@ -95,8 +95,8 @@
               <hr />
               <div class="row">
                 <div class="col-sm-12">
-                  <div class="pull-right">
-                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+                  <div class="">
+                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-block')) !!}
                   </div>
                 </div>
               </div>
@@ -123,9 +123,9 @@
               </div>
               <hr />
               <div class="row">
-                <div class="ccol-sm-12">
-                  <div class="pull-right">
-                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-settings')) !!}
+                <div class="col-sm-12">
+                  <div class="">
+                    {!! Form::submit('Save', array('class'=>'btn btn-info btn-block')) !!}
                   </div>
                 </div>
               </div>

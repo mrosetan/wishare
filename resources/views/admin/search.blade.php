@@ -83,7 +83,7 @@
                             </td>
 
 
-                            <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{!! $r->id !!}">
+                            <!-- <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{!! $r->id !!}">
                                 <div class="mb-container">
                                     <div class="mb-middle">
                                         <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Delete {!! $r->lastname!!}, {!! $r->firstname !!}?</div>
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                         </tr>
@@ -126,6 +126,47 @@
             </div>
         </div>
         <!-- END DEFAULT DATATABLE -->
+
+        @foreach($results as $r)
+
+
+              <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{!! $r->id !!}">
+                  <div class="mb-container">
+                      <div class="mb-middle">
+                          <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Delete {!! $r->lastname!!}, {!! $r->firstname !!}?</div>
+                          <div class="mb-content">
+                              <p>Are you sure you want to delete this user?</p>
+                          </div>
+                          <div class="mb-footer">
+                              <div class="pull-right">
+                                  <a href="{!! action('AdminController@deactivate', $r->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                  <button class="btn btn-default btn-lg mb-control-close">No</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="message-box animated fadeIn" data-sound="alert" id="mb-undo{!! $r->id !!}">
+                  <div class="mb-container">
+                      <div class="mb-middle">
+                          <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Reactivate {!! $r->lastname!!}, {!! $r->firstname !!}?</div>
+                          <div class="mb-content">
+                              <p>Are you sure you want to reactivate this user?</p>
+                          </div>
+                          <div class="mb-footer">
+                              <div class="pull-right">
+                                  <a href="{!! action('AdminController@reactivate', $r->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                  <button class="btn btn-default btn-lg mb-control-close">No</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+          </tr>
+        @endforeach
     </div>
 </div>
 

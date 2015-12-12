@@ -13,10 +13,12 @@
         <!-- CSS INCLUDE -->
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/theme-blue.css') }}"/>
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/bootstrap/user/userlayouts.css') }}"/>
+        <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/bootstrap/user/solo-wish.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/calendar-bootstrap.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-multiselect.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/searchableOptionList.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/sol.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/BeatPicker.css') }}">
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
@@ -65,6 +67,24 @@
                     <li class="xn-logo">
                         <a href="#"><img class="logo" src="{{ URL::asset('img/logo.png') }}"</a>
                         <a href="#" class="x-navigation-control"></a>
+                    </li>
+                    <li class="xn-profile">
+                        <a href="#" class="profile-mini">
+                            <img src="{!! $user->imageurl !!}" alt="John Doe"/>
+                        </a>
+                        <div class="profile">
+                            <div class="profile-image">
+                                <img src="{!! $user->imageurl !!}" alt="{!! $user->username !!}"/>
+                            </div>
+                            <div class="profile-data">
+                                <div class="profile-data-name">{!! $user->firstname !!} {!! $user->lastname !!}</div>
+
+                            </div>
+                            <div class="profile-controls">
+                                <!-- <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a> -->
+                                <!-- <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a> -->
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <a href="{{ url('user/home') }}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
@@ -154,35 +174,46 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-file-input.js') }}"></script>
         <!-- END PLUGINS -->
 
-        <!-- THIS PAGE PLUGINS
-        <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script>-->
+
+        <!-- <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script> -->
         <script>
         //  $(function() {
         //    var date = $('#datepicker').datepicker();
         //    //$( "#datepicker" ).datepicker();
         //  });
-        $(function() {
-            $("#datepicker" ).datepicker();
+        // $(function() {
+        //     $("#datepicker" ).datepicker({
+        //       container:'#myDatePicker'
+        //     });
+        //   });
+
+        $('#myTabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+
+        // store the currently selected tab in the hash value
+        $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+            var id = $(e.target).attr("href").substr(1);
+            window.location.hash = id;
+        });
+
+        // on load of the page: switch to the currently selected tab
+        var hash = window.location.hash;
+        $('#myTabs a[href="' + hash + '"]').tab('show');
+
+          $(function() {
+              $("body").delegate("#datepicker", "focusin", function(){
+                  $(this).datepicker();
+              });
           });
 
-          $('#myTab a').click(function (e) {
-              e.preventDefault();
-              $(this).tab('show');
+          $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
+              $("#home-alert").alert('close');
           });
-
-          // store the currently selected tab in the hash value
-          $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
-              var id = $(e.target).attr("href").substr(1);
-              window.location.hash = id;
-          });
-          // on load of the page: switch to the currently selected tab
-          var hash = window.location.hash;
-          $('#myTab a[href="' + hash + '"]').tab('show');
-
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
@@ -191,6 +222,8 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/owl/owl.carousel.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/tagsinput/jquery.tagsinput.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-select.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/BeatPicker.js') }}"></script>
+        <!-- <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script> -->
 
         <script type='text/javascript' src="{!! asset('js/plugins/icheck/icheck.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>
@@ -198,6 +231,9 @@
         <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/bootstrap-multiselect.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/sol.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/plugins/blueimp/jquery.blueimp-gallery.min.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/jquery.jscroll.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('js/jquery.jscroll.min.js') !!}"></script>
         <!-- END PAGE PLUGINS -->
 
         <!-- START TEMPLATE -->

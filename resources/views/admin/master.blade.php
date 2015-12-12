@@ -20,7 +20,7 @@
         <div class="page-container">
 
             <!-- START PAGE SIDEBAR -->
-            <div class="page-sidebar">
+            <div class="page-sidebar ">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
@@ -36,17 +36,17 @@
                     </li>
 
                     <li>
-                        <a href="{{ URL::to('/admin/reports')}}"><span class="fa fa-file"></span> <span class="xn-text">Reports</span></a>
+                        <a href="{{ URL::to('/admin/report')}}"><span class="fa fa-file"></span> <span class="xn-text">Report</span></a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="{{ URL::to('/admin/search')}}"><span class="fa fa-search"></span> <span class="xn-text">Search Users</span></a>
-                    </li>
+                    </li> -->
 
                     <li class="xn-openable">
                         <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Monitoring</span></a>
                         <ul>
-                            <li><a href="{{ URL::to('/admin/monitor/users')}}"><span class="fa fa-users"></span> Active Users</a></li>
+                            <li><a href="{{ URL::to('/admin/monitor/users')}}"><span class="fa fa-users"></span> Users</a></li>
                             <li><a href="{{ URL::to('/admin/monitor/wishes')}}"><span class="fa fa-star"></span> Wishes</a></li>
                             <li><a href="{{ URL::to('/admin/monitor/wishlists')}}"><span class="fa fa-list"></span> Wishlists</a></li>
                         </ul>
@@ -88,6 +88,18 @@
 
 
                     </li>
+                    <div class="pull-right">
+                      <li class="xn-search">
+                            {!! Form::open(array(
+                                      'action' => array('AdminController@search'),
+                                      'class' => 'form')) !!}
+                                      {!! Form::text('search', null,
+                                                array('class'=>'form-control',
+                                                'placeholder'=>'Search...')) !!}
+                          {!! Form::close()!!}
+                      </li>
+                    </div>
+
                     <!-- END SIGN OUT -->
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
@@ -165,7 +177,7 @@
         <script type='text/javascript' src="{!! asset('js/plugins/icheck/icheck.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>
 
-        <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>   
+        <script type="text/javascript" src="{!! asset('js/plugins/datatables/jquery.dataTables.min.js') !!}"></script>
 
         <!-- END PAGE PLUGINS -->
 

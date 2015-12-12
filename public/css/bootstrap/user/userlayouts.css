@@ -1,7 +1,12 @@
 /*  User master  */
-html {
-  height: 100%;
+html,body {
+  /*height: 100%;*/
+  background: #f5f5f5 !important;
 }
+a.header-navbar-button.nav-btn.prev.button, a.header-navbar-button.nav-btn.current-indicator.button, a.header-navbar-button.nav-btn.next.button, .today.today.button, li.days-cell.cell.notable-today.today-box, .goto-date-button.date-input-button.button{
+    background-color: #1caf9a;
+}
+
 img.logo {
     position: absolute;
     margin: auto;
@@ -28,6 +33,18 @@ span.fa.fa-lock.otheruser {
 }
 
 /*   Home   */
+.no-stream-content{
+  background: url('../../../img/backgrounds/bg2.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+}
+.no-stream-content-img{
+  margin-top: 140px;
+}
+
 .page-title {
   margin-top: 10px;
 }
@@ -35,6 +52,7 @@ img.user.img-circle {
   height: 70px;
   width: 70px;
 }
+
 .user-details {
   width: 100%;
 }
@@ -42,6 +60,44 @@ h5.user-name{
   margin-left: 80px;
   margin-top: 10px;
 }
+
+img.user.stream.img-circle {
+  height: 60px;
+  width: 60px;
+  margin-right: 20px;
+}
+
+img.user.granter.img-circle {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+.granter-caption{
+  margin-left: 50px;
+}
+
+.granter-grantee-body{
+  padding: 15px;
+}
+.stream-header{
+  margin-top: 10px;
+}
+.stream-body{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.stream-wish-img{
+  width: 100% !important;
+}
+.stream-margin{
+  margin-left: 80px;
+}
+
+.stream-granter{
+  width: auto;
+  margin-left: 140px;
+}
+
 /*   Profile   */
 a:hover {
   cursor: pointer;
@@ -89,6 +145,9 @@ a.wish-name {
     max-height: 150px;
     overflow-y: scroll;
 }
+.panel-wishes{
+  padding: 10px;
+}
 
 img.user-friend.img-circle {
   height: 55px;
@@ -97,7 +156,7 @@ img.user-friend.img-circle {
 p.user-name{
   margin-left: 80px;
   margin-top: 10px;
-  font-size: 14px;
+  /*font-size: 14px;*/
 }
 p.user-given {
   font-size: 16px;
@@ -107,6 +166,41 @@ p.user-given {
   margin: 0 auto;
 }
 
+.sol-selection-container{
+  left: auto !important;
+}
+
+.wish-image-container {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+img.wish-image {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.tynote-image-container {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.tynote-sticker-container {
+  margin: 0 auto;
+  width: 150px;
+}
+.tynote-sticker {
+  margin: 0 auto;
+}
+
+img.tynote-image {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
 /*Other User*/
 
 .friend-action-button{
@@ -134,6 +228,14 @@ p.user-given {
   margin: 0 auto;
   margin-top: 50px;
   width: 800px;
+  /*width: 900px;*/
+  /*height: 525px;*/
+  /*overflow-y: scroll;*/
+}
+.rewish-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 500px;
 }
 /* Settings */
 .settings-container {
@@ -143,7 +245,7 @@ p.user-given {
 }
 .btn.btn-info.btn-settings {
   margin: 0 auto;
-  width: 475px;
+  width: 450px;
 }
 /* Help */
 .timeline-date {
@@ -159,4 +261,23 @@ p.user-given {
     text-decoration: none;
     background-color: #337ab7;
     outline: 0;
+}
+
+.sol-caret{
+  display: none !important;
+}
+
+/*SIDEBAR*/
+.page-sidebar-fixed{
+  background-color: #33414E;
+  /*height: 100%;*/
+}
+
+/*CONTENT*/
+.page-container{
+  /*height: 100% !important;*/
+}
+
+.page-content{
+  /*height: inherit;*/
 }

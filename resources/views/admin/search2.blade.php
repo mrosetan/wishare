@@ -1,9 +1,9 @@
-@extends('userlayouts-master.user-master')
-@section('title', 'Search')
-
+ @extends('admin.master')
+@section('title', 'Search User/Admin')
 @section('content')
+
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8 col-md-offset-2">
 
 
         <!-- START SIMPLE DATATABLE -->
@@ -35,7 +35,7 @@
                     @foreach($results as $r)
                       <tr>
                           <td>
-                              <a href="{!! action('UserController@otheruser', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
+                              <a href="{!! action('AdminController@userdetails', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
                               {!! $r->username !!}</a>
                           </td>
 
@@ -50,4 +50,4 @@
 
     </div>
 </div>
-@endsection
+@stop

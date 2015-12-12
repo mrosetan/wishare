@@ -13,3 +13,24 @@
 .deactivated-indicator{
   color: #ff0000;
 }
+
+.wishare-report{
+  font-size: 13px;
+}
+
+.report-header{
+  margin-bottom: 20px;
+}
+
+.report-header-img{
+  width: inherit;
+}
+
+.wishare-report-row{
+  margin: 10px;
+  padding: 5px;
+}
+
+.report-alt-color{
+  background-color: #C4DFE6;
+}

@@ -1,5 +1,5 @@
 @extends('userlayouts-master.user-master')
-@section('title', '')
+@section('title', 'Send Thank You Note')
 
 @section('content')
 <div class="page-content-wrap">
@@ -8,35 +8,53 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Send Thank You Note</h4>
-          {!! Form::open(array( 'class' => 'form')) !!}
+          @if(session('tynoteStatus'))
+            <div class="alert alert-success">
+                {{ session('tynoteStatus') }}
+            </div>
+          @endif
+          @foreach($errors->all() as $error)
+              <p class="alert alert-danger"> {{ $error }}</p>
+          @endforeach
+          {!! Form::open(array(
+                        'action' => array('UserController@createTYNote'),
+                        'class' => 'form',
+                        'files'=>true)) !!}
           <div class="form-group">
             <div class="row">
               <div class="col-md-12">
-                {!! Form::text('search', null, array('class'=>'form-control', 'placeholder'=>'Recipient')) !!}
+                {!! Form::select('recipient', $recipient, null, array('class'=>'form-control select', 'data-live-search'=>'true')) !!}
               </div>
             </div>
             <br />
             <div class="row">
               <div class="col-md-12">
-                {!! Form::textarea('note', null, ['class'=>'form-control', 'placeholder'=>'Note', 'size'=>'50x5']) !!}
+                {!! Form::textarea('message', null, ['class'=>'form-control', 'placeholder'=>'Note', 'size'=>'50x5']) !!}
               </div>
             </div>
             <br />
-            <label>Thank You Sticker</label>
+            <label>Thank You Sticker:</label>
             <div class="row">
               <div class="col-md-4">
-                {!! Form::radio('sticker', '1') !!}&nbsp;Sticker 1
+                {!! Form::radio('sticker', '1') !!} Sticker 1<br />
+                <img src="http://192.168.1.10/wishareimages/tynotessticker/sticker1.jpg" />
               </div>
               <div class="col-md-4">
-                {!! Form::radio('sticker', '1') !!}&nbsp;Sticker 2
+                {!! Form::radio('sticker', '2') !!} Sticker 2<br />
+                <img src="http://192.168.1.10/wishareimages/tynotessticker/sticker2.jpg" />
               </div>
               <div class="col-md-4">
-                {!! Form::radio('sticker', '1') !!}&nbsp;Sticker 3
+                {!! Form::radio('sticker', '3') !!} Sticker 3<br />
+                <img src="http://192.168.1.10/wishareimages/tynotessticker/sticker3.jpg" />
               </div>
             </div>
             <br />
             <div class="row">
-              {!! Form::file('photo')!!}
+              <div class="col-md-12">
+                <label>Upload:</label>
+                <br />
+                {!! Form::file('imageurl', array('class'=>'fileinput btn btn-info')) !!}
+              </div>
             </div>
             <br />
             <div class="row">
