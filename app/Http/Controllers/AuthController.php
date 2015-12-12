@@ -134,8 +134,13 @@ class AuthController extends Controller
       }
 
       // return redirect('user/home');
-      return redirect()->action('UserController@postSignup');
-      // return redirect()->route('user.home');
+      if (empty($user->username) && empty($user->password)) {
+        return redirect()->action('UserController@setUsernameAndPassword');
+      }
+      else{
+        return redirect()->action('UserController@postSignup');
+      }
+// return redirect()->route('user.home');
 
 
       // var_dump($authUser);
@@ -151,13 +156,13 @@ class AuthController extends Controller
             return $authUser;
         }
 
-        $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
+        // $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
         // else{
           return User::create([
             'fb_id' => $fbUser->id,
             'lastname' => $fbUser->lastname,
             'firstname' => $fbUser->firstname,
-            'username' => $username,
+            // 'username' => $username,
             'email' => $fbUser->email,
             'imageurl' => $fbUser->avatar,
             'privacy' => 0,

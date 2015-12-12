@@ -24,7 +24,8 @@ class SetPasswordRequest extends Request
     public function rules()
     {
         return [
-            'password' => 'confirmed'
+            'username' => 'required|min:3|max:15|alpha_num|unique:wishare_users',
+            'password' => 'confirmed|required',
         ];
     }
 }

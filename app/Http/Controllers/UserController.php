@@ -48,8 +48,9 @@ class UserController extends Controller
 
   public function postSignup()
   {
+    $user = Auth::user();
     // return redirect()->action('UserController@notifications');
-    return view('userlayouts.postSignup');
+    return view('userlayouts.postSignup', compact('user'));
   }
 
   public function home()
@@ -96,7 +97,7 @@ class UserController extends Controller
         }
       }
       // dd($fstream);
-        return view('userlayouts.home', compact('fstream', 'friends', 'wishlists'));
+        return view('userlayouts.home', compact('fstream', 'friends', 'wishlists', 'user'));
     }
     else {
       return redirect('user/setPassword');
@@ -122,7 +123,7 @@ class UserController extends Controller
                     // ->get();
     // dd($results);
     // if(!empty($results))
-      return view('userlayouts.searchFriend', compact('results'));
+      return view('userlayouts.searchFriend', compact('results', 'user'));
     // else{
       // return view('userlayouts.searchFriend')->with('errormsg', 'Not found');
     // }
@@ -130,7 +131,8 @@ class UserController extends Controller
 
   public function setPassword()
   {
-      return view('userlayouts.setPassword');
+      $user = Auth::user();
+      return view('userlayouts.setPassword', compact('user'));
   }
 
   public function notifications()
@@ -165,26 +167,27 @@ class UserController extends Controller
       }
     }
     // json_encode($tags);print($tags); die();
-   return view('userlayouts.notifications', compact('requests', 'tags', 'grant'));
+   return view('userlayouts.notifications', compact('requests', 'tags', 'grant', 'user'));
   }
 
   public function notes()
   {
-    return view('userlayouts.notes');
+    $user = Auth::user();
+    return view('userlayouts.notes', compact('user'));
   }
   public function wish($id)
   {
     $user = Auth::user();
     $userId = $user->id;
-    $wish = Wish::where('id', '=', $id)->first();
+    $wish = Wish::with('granter', 'wishlist', 'user')->where('id', '=', $id)->first();
     $grant = Wish::where('id', '=', $id)->get();
     $tags = Tag::with('user')->where('wishid', '=', $id)->get();
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
                       ->orderBy('created_at', 'desc')->get();
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $friends = User::find($userId)->friends;
-    // print($tags); die();
-    return view('userlayouts.wish', compact('wish', 'tags', 'wishlists', 'friends', 'grant'));
+    // print($wish); die();
+    return view('userlayouts.wish', compact('wish', 'tags', 'wishlists', 'friends', 'grant', 'user'));
   }
 
   public function deactivate()
@@ -193,14 +196,15 @@ class UserController extends Controller
   }
   public function help()
   {
-    return view('userlayouts.help');
+    $user = Auth::user();
+    return view('userlayouts.help', compact('user'));
   }
   public function changepass()
   {
     $user = Auth::user();
 
     if (!empty(Auth::user()->password)){
-      return view('userlayouts.changepass');
+      return view('userlayouts.changepass', compact('user'));
       // return view('userlayouts.home');
     }
     else {
@@ -210,7 +214,8 @@ class UserController extends Controller
   }
   public function wishlistAction()
   {
-    return view('userlayouts.wishlistAction', compact('wishlists'));
+    $user = Auth::user();
+    return view('userlayouts.wishlistAction', compact('wishlists', 'user'));
   }
 
   public function wishAction()
@@ -226,7 +231,7 @@ class UserController extends Controller
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $friends = User::find($userId)->friends;
 
-    return view('userlayouts.wishAction', compact('friends', 'wishlists'));
+    return view('userlayouts.wishAction', compact('friends', 'wishlists', 'user'));
   }
 
   public function addWish(WishRequest $request)
@@ -235,7 +240,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -304,7 +309,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -389,7 +394,7 @@ class UserController extends Controller
         }
       }
     }
-    return view('userlayouts.tagEdit', compact('friends', 'tags', 'wishid'));
+    return view('userlayouts.tagEdit', compact('friends', 'tags', 'wishid', 'user'));
   }
 
   public function updateTags(TagRequest $request, $id)
@@ -464,7 +469,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -534,12 +539,14 @@ class UserController extends Controller
 
   public function notesAction()
   {
-    return view('userlayouts.notesAction');
+    $user = Auth::user();
+    return view('userlayouts.notesAction', compact('user'));
   }
 
   public function tynotesAction()
   {
-    return view('userlayouts.tynotesAction');
+    $user = Auth::user();
+    return view('userlayouts.tynotesAction', compact('user'));
   }
   /* Other user */
   public function otheruser($id)
@@ -605,10 +612,10 @@ class UserController extends Controller
 
       if(($otherUser->privacy == 1) && $status != 1){
 
-          return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status', 'requests'));
+          return view('otheruser.otheruserprivate', compact('otherUser', 'friends', 'status', 'requests', 'user'));
       }
       else {
-          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests', 'wishlists', 'tags', 'tynotes', 'wishlistOtherUser', 'friendsOtherUser'));
+          return view('otheruser.otheruserprofile', compact('otherUser', 'friends', 'status', 'requests', 'wishlists', 'tags', 'tynotes', 'wishlistOtherUser', 'friendsOtherUser', 'user'));
       }
     }
     else {
@@ -828,7 +835,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -846,7 +853,7 @@ class UserController extends Controller
   public function updateToSetPassword(SetPasswordRequest $request)
   {
     $user = Auth::user();
-
+    $user->username = $request->get('username');
     $user->password = bcrypt($request->get('password'));
 
     $user->save();
@@ -1036,7 +1043,7 @@ class UserController extends Controller
                         ->lists('full_name', 'id');
 
     // dd($recipient);
-    return view('userlayouts.notesAction', compact('recipient'));
+    return view('userlayouts.notesAction', compact('recipient', 'user'));
   }
 
   public function getTYNoteRecipient()
@@ -1050,7 +1057,7 @@ class UserController extends Controller
                         ->lists('full_name', 'id');
 
     // dd($recipient);
-    return view('userlayouts.tynotesAction', compact('recipient'));
+    return view('userlayouts.tynotesAction', compact('recipient', 'user'));
   }
 
   public function createNoteModal(NotesRequest $request, $id)
@@ -1115,7 +1122,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.13';
+      $hostURL = '192.168.1.10';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1245,7 +1252,7 @@ class UserController extends Controller
 
 
 
-    return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox'));
+    return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox', 'user'));
   }
 
   public function getAllNotes()
@@ -1268,7 +1275,7 @@ class UserController extends Controller
     $tynotesOutbox = User::find($userId)->myTYNotes->reverse();
 
     if(!empty($notes) || !empty($tynotes) || !empty($notesOutbox) || !empty($tynotesOutbox))
-    return view('userlayouts.notes', compact('notes', 'tynotes', 'notesOutbox', 'tynotesOutbox'));
+    return view('userlayouts.notes', compact('notes', 'tynotes', 'notesOutbox', 'tynotesOutbox', 'user'));
   }
 
   public function reWish(WishRequest $request, $id)
@@ -1276,7 +1283,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1353,7 +1360,7 @@ class UserController extends Controller
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $friends = User::find($userId)->friends;
 
-    return view('userlayouts.rewish', compact('wish', 'tags', 'wishlists', 'friends'));
+    return view('userlayouts.rewish', compact('wish', 'tags', 'wishlists', 'friends', 'user'));
   }
 
   public function grantWish(GrantWishRequest $request, $id)
@@ -1361,7 +1368,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.13';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
@@ -1530,5 +1537,10 @@ class UserController extends Controller
     }
 
     return redirect()->action('UserController@notifications');
+  }
+
+  public function setUsernameAndPassword()
+  {
+    return view('userlayouts.setPassAndUsername');
   }
 }

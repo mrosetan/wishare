@@ -51,4 +51,8 @@ class Wish extends Model
                     // dd($stream);
     return $stream;
   }
+
+  public function granter(){
+    return $this->hasOne('App\User', 'id', 'granterid');
+  }
 }

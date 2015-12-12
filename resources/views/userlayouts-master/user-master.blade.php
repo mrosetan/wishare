@@ -13,6 +13,7 @@
         <!-- CSS INCLUDE -->
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/theme-blue.css') }}"/>
         <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/bootstrap/user/userlayouts.css') }}"/>
+        <link rel="stylesheet" type="text/css" id="theme" href="{{ URL::asset('css/bootstrap/user/solo-wish.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/calendar-bootstrap.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-multiselect.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/searchableOptionList.css') }}">
@@ -66,6 +67,24 @@
                     <li class="xn-logo">
                         <a href="#"><img class="logo" src="{{ URL::asset('img/logo.png') }}"</a>
                         <a href="#" class="x-navigation-control"></a>
+                    </li>
+                    <li class="xn-profile">
+                        <a href="#" class="profile-mini">
+                            <img src="{!! $user->imageurl !!}" alt="John Doe"/>
+                        </a>
+                        <div class="profile">
+                            <div class="profile-image">
+                                <img src="{!! $user->imageurl !!}" alt="{!! $user->username !!}"/>
+                            </div>
+                            <div class="profile-data">
+                                <div class="profile-data-name">{!! $user->firstname !!} {!! $user->lastname !!}</div>
+
+                            </div>
+                            <div class="profile-controls">
+                                <!-- <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a> -->
+                                <!-- <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a> -->
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <a href="{{ url('user/home') }}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>

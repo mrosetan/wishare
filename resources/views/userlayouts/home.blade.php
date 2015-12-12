@@ -52,7 +52,7 @@
                     <hr />
                     <div class="col-xs-12">
                       <div class="stream-margin">
-                        <h4>{!! $s['title'] !!}</h4>
+                        <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
 
                       </div>
                       <hr />
@@ -95,24 +95,24 @@
 
                     <div class="col-xs-12">
                       @if(!empty($s['tagged']))
-                        <ul class="list-tags">
+                        <ul class="list-tags tagged-user">
                           @foreach($s['tagged'] as $tag)
-                            <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                            <li class="tagged-user"><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                           @endforeach
                         </ul>
                       @endif
                       <div class="pull-right">
-                        <a href="#"><span class="fa fa-star"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a>
                         &nbsp;&nbsp;
-                        <a href="#"><span class="fa fa-bookmark"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Track Wish"><span class="fa fa-bookmark"></span></a>
                         &nbsp;&nbsp;
-                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}"><span class="fa fa-retweet"></span></a>
+                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
                         @if(($s['granterid'] != 0) and ($s['date_granted'] == '0000-00-00 00:00:00'))
                           <!-- &nbsp;&nbsp;
                           <a data-toggle="modal" data-target="#modal_grant{!! $s['wishid'] !!}"><span class="fa fa-magic"></span></a> -->
                         @else
                         &nbsp;&nbsp;
-                        <a data-toggle="modal" data-target="#modal_grant{!! $s['wishid'] !!}"><span class="fa fa-magic"></span></a>
+                        <span data-toggle="tooltip" data-placement="top" title="Grant"><a data-toggle="modal" data-target="#modal_grant{!! $s['wishid'] !!}"><span class="fa fa-magic"></span></a></span>
                         @endif
                       </div>
                     </div>
@@ -145,7 +145,7 @@
                     <div class="col-xs-12">
                       <div class="stream-margin">
 
-                        <h4>{!! $s['title'] !!}</h4>
+                        <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
                       </div>
                     </div>
 
@@ -324,9 +324,9 @@
                       </div> -->
 
                       <div class="pull-right">
-                        <a href="#"><span class="fa fa-star"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a>
                         &nbsp;&nbsp;
-                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}"><span class="fa fa-retweet"></span></a>
+                        <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
 
                       </div>
                     </div>

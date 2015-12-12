@@ -28,7 +28,7 @@ class UserRequest extends Request
         return [
             'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
             'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
-            'username' => 'required|min:3|max:30|alpha_num|unique:wishare_users',
+            'username' => 'required|min:3|max:15|alpha_num|unique:wishare_users',
             'password' => 'required|min:3|max:30|alpha_num',
             'email' => 'required|email|unique:wishare_users',
         ];

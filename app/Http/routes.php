@@ -75,6 +75,8 @@ Route::post('user/edit/tags/{id?}', 'UserController@updateTags');
 Route::post('user/edit/wish/{id?}', 'UserController@updateWish');
 Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
 
+Route::get('user/setup', 'UserController@setUsernameAndPassword');
+
 
 
 // ADMIN
