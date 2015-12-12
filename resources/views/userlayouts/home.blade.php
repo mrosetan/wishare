@@ -206,7 +206,7 @@
                                     @if(!empty($s['tagged']))
                                       <ul class="list-tags">
                                         @foreach($s['tagged'] as $tag)
-                                          <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                          <li class="tagged-user"><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                                         @endforeach
                                       </ul>
                                     @endif
