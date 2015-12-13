@@ -18,7 +18,6 @@
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-multiselect.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/searchableOptionList.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/sol.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('css/BeatPicker.css') }}">
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
@@ -175,6 +174,8 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-file-input.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>
+
         <!-- END PLUGINS -->
 
 
@@ -189,6 +190,22 @@
         //       container:'#myDatePicker'
         //     });
         //   });
+
+        $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+        $(function() {
+          var datePicker = $('#datepicker').datepicker();
+
+          $(".demo").scroll(function() {
+            datePicker.datepicker('hide');
+            $('#datepicker').blur();
+          });
+
+          $(window).resize(function() {
+            datePicker.datepicker('hide');
+            $('#datepicker').blur();
+          });
+        });
 
         $('#myTabs a').click(function (e) {
             e.preventDefault();
@@ -205,15 +222,9 @@
         var hash = window.location.hash;
         $('#myTabs a[href="' + hash + '"]').tab('show');
 
-          $(function() {
-              $("body").delegate("#datepicker", "focusin", function(){
-                  $(this).datepicker();
-              });
-          });
-
-          $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
-              $("#home-alert").alert('close');
-          });
+        $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
+            $("#home-alert").alert('close');
+        });
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
@@ -222,8 +233,6 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/owl/owl.carousel.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/tagsinput/jquery.tagsinput.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-select.js') }}"></script>
-        <script type="text/javascript" src="{{ URL::asset('js/BeatPicker.js') }}"></script>
-        <!-- <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script> -->
 
         <script type='text/javascript' src="{!! asset('js/plugins/icheck/icheck.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>

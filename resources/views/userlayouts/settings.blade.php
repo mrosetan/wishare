@@ -74,7 +74,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label>Birthdate:</label>
-                  {!! Form::text('birthdate', ($user->birthdate == 0000-00-00 ? '1995-01-01':$user->birthdate), array('class'=>'form-control', 'data-beatpicker'=>'true', 'data-beatpicker-position'=>'["top","left"]', 'data-beatpicker-module'=>'clear,icon')) !!}
+                  {!! Form::text('birthdate', ($user->birthdate == 0000-00-00 ? '1995-01-01':$user->birthdate), array('class'=>'calendar form-control', 'id'=>'datepicker')) !!}
                 </div>
               </div>
               <br />

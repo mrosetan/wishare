@@ -140,22 +140,17 @@
                       <b>Sender:</b> {!! $ty->firstname !!} {!! $ty->lastname !!} <br />
                       <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
                       <hr />
-                      @if($ty->pivot->imageurl == 'null' and $ty->pivot->sticker == 'null')
-                        <div></div>
-                      @else
-                        @if($ty->pivot->imageurl != 'null')
-                          <div class="tynote-image-container">
-                            <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
-                          </div>
-                          <hr />
-                        @elseif($ty->pivot->sticker != 'null')
-                          <div class="tynote-sticker-container">
-                            <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
-                          </div>
-                          <hr />
-                        @else
-                          <hr />
-                        @endif
+                      @if(!empty($ty->pivot->imageurl))
+                        <div class="tynote-image-container">
+                          <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
+                        </div>
+                        <hr />
+                      @endif
+                      @if(!empty($ty->pivot->sticker))
+                        <div class="tynote-sticker-container">
+                          <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
+                        </div>
+                        <hr />
                       @endif
                       <div class="pull-right">
                         <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><button class="btn btn-info">Delete</button></a>
@@ -241,22 +236,17 @@
                           <b>Recipient:</b> {!! $tynotes->firstname !!} {!! $tynotes->lastname !!} <br />
                           <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($tynotes->pivot->updated_at)) !!}
                           <hr />
-                          @if($tynotes->pivot->imageurl == 'null' and $tynotes->pivot->sticker == 'null')
-                            <div></div>
-                          @else
-                            @if($tynotes->pivot->imageurl != 'null')
-                              <div class="tynote-image-container">
-                                <img src="{!! $tynotes->pivot->imageurl!!}" class="tynote-image" />
-                              </div>
-                              <hr />
-                            @elseif($tynotes->pivot->sticker != 'null')
-                              <div class="tynote-sticker-container">
-                                <img src="{!! $tynotes->pivot->sticker !!}" class="tynote-sticker" />
-                              </div>
-                              <hr />
-                            @else
-                              <hr />
-                            @endif
+                          @if(!empty($tynotes->pivot->imageurl))
+                            <div class="tynote-image-container">
+                              <img src="{!! $tynotes->pivot->imageurl!!}" class="tynote-image" />
+                            </div>
+                            <hr />
+                          @endif
+                          @if(!empty($tynotes->pivot->sticker))
+                            <div class="tynote-sticker-container">
+                              <img src="{!! $tynotes->pivot->sticker !!}" class="tynote-sticker" />
+                            </div>
+                            <hr />
                           @endif
                         </div>
                       </div>

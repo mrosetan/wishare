@@ -58,7 +58,7 @@
                       <hr />
                     </div>
 
-                    @if($s['wishimageurl'] == 'null')
+                    @if(empty($s['wishimageurl']))
                       <div></div>
                     @else
                       @if(!empty($s['wishimageurl']))
@@ -167,7 +167,7 @@
                                     </a>
                                   </div> -->
 
-                                  @if($s['wishimageurl'] == 'null')
+                                  @if(empty($s['wishimageurl']))
                                     <div></div>
                                   @else
                                     @if(!empty($s['wishimageurl']))

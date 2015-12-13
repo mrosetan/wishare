@@ -6,6 +6,24 @@ html,body {
 a.header-navbar-button.nav-btn.prev.button, a.header-navbar-button.nav-btn.current-indicator.button, a.header-navbar-button.nav-btn.next.button, .today.today.button, li.days-cell.cell.notable-today.today-box, .goto-date-button.date-input-button.button{
     background-color: #1caf9a;
 }
+.datepicker {
+    z-index: 1151 !important;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+/*Datepicker*/
+.calendar {
+  /*position: absolute;*/
+  /*width: 280px;*/
+  /*left: 50%;*/
+  /*top: 50%;*/
+  /*margin: -145px 0px 0px -140px;*/
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index:1151 !important;
+}
 
 img.logo {
     position: absolute;

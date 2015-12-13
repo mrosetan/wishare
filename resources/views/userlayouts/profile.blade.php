@@ -223,15 +223,15 @@
                           <b>Sender:</b> {!! $ty->firstname !!} {!! $ty->lastname !!} <br />
                           <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
                           <hr />
-                          @if($ty->pivot->imageurl == 'null' and $ty->pivot->sticker == 'null')
+                          @if(empty($ty->pivot->imageurl) and empty($ty->pivot->sticker))
                             <div></div>
                           @else
-                            @if($ty->pivot->imageurl != 'null')
+                            @if(!empty($ty->pivot->imageurl))
                               <div class="tynote-image-container">
                                 <img src="{!! $ty->pivot->imageurl!!}" class="tynote-image" />
                               </div>
                               <hr />
-                            @elseif($ty->pivot->sticker != 'null')
+                            @elseif(!empty($ty->pivot->sticker))
                               <div class="tynote-sticker-container">
                                 <img src="{!! $ty->pivot->sticker !!}" class="tynote-sticker" />
                               </div>
@@ -472,6 +472,7 @@
       @if(isset($wishlists))
         @foreach($wishlists as $id => $wishlist)
           @foreach($wishlist->wishes as $wish)
+          @if($wish->count() >= 0)
           <div class="modal" id="modal_addwish{!! $wishlist->id !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -517,7 +518,7 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <label>Due Date:</label>
-                          {!! Form::text('due_date', date('Y-m-d'), array('id'=>'datepicker', 'class'=>'form-control')) !!}
+                          {!! Form::text('due_date', date('Y-m-d'), array('id'=>'datepicker', 'class'=>'calendar form-control datepicker')) !!}
                         </div>
                       </div>
                       <br />
@@ -561,6 +562,7 @@
               </div>
             </div>
           </div>
+          @endif
         @endforeach
       @endforeach
     @endif

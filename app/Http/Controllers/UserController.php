@@ -240,7 +240,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.11';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -258,7 +258,6 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'null',
         'status' => 1,
       ));
     }
@@ -309,7 +308,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.11';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -327,7 +326,6 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'null',
         'status' => 1,
       ));
     }
@@ -469,7 +467,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.11';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -627,7 +625,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.13/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.11/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -835,7 +833,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.11';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1122,7 +1120,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.10';
+      $hostURL = '192.168.1.11';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1131,7 +1129,6 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
             'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker1.jpg',
@@ -1143,7 +1140,6 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
             'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
@@ -1155,7 +1151,6 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
             'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
@@ -1167,10 +1162,8 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
-            'sticker' => 'null',
           ));
         }
       }
@@ -1245,16 +1238,6 @@ class UserController extends Controller
      return redirect('user/notes#tab-tynotes')->with('errormsg', 'No Thank You Notes.');
   }
 
-  public function getOutbox()
-  {
-    $user = Auth::user();
-    $userId = $user->id;
-
-
-
-    return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox', 'user'));
-  }
-
   public function getAllNotes()
   {
     $user = Auth::user();
@@ -1274,6 +1257,7 @@ class UserController extends Controller
     $WithTYNotes = User::with('myTYNotes')->get();
     $tynotesOutbox = User::find($userId)->myTYNotes->reverse();
 
+    // dd($tynotes);
     if(!empty($notes) || !empty($tynotes) || !empty($notesOutbox) || !empty($tynotesOutbox))
     return view('userlayouts.notes', compact('notes', 'tynotes', 'notesOutbox', 'tynotesOutbox', 'user'));
   }
@@ -1283,7 +1267,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.11';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1303,7 +1287,6 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'null',
         'status' => 1,
       ));
     }
@@ -1368,7 +1351,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.10';
+    $hostURL = '192.168.1.11';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
@@ -1398,7 +1381,6 @@ class UserController extends Controller
           $wishDetails->granted = 1;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
-          $wishDetails->grantedimageurl = 'null';
           $wishDetails->date_granted = date('Y-m-d H:i:s');
           $wishDetails->flagged = $flag;
           $wishDetails->status = 1;
@@ -1461,7 +1443,6 @@ class UserController extends Controller
           $wishDetails->granted = 2;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
-          $wishDetails->grantedimageurl = 'null';
           $wishDetails->flagged = $flag;
           $wishDetails->status = 1;
           // dd($wishDetails);
