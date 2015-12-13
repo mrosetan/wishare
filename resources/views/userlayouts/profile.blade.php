@@ -258,6 +258,28 @@
             </div>
         </div>
         <!-- END TABS -->
+        @if(isset($tynotes) and $tynotes->count())
+          @foreach($tynotes as $tyid => $ty)
+                <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletetynote{!! $tyid !!}">
+                    <div class="mb-container">
+                        <div class="mb-middle">
+                            <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Thank You Note</div>
+                            <div class="mb-content">
+                                <p>Are you sure you want to delete this note?</p>
+                            </div>
+                            <div class="mb-footer">
+                                @if(!empty($ty))
+                                <div class="pull-right">
+                                    <a href="{!! action('UserController@deleteTYNoteProfile', $ty->pivot->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                    <button class="btn btn-default btn-lg mb-control-close">No</button>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              @endforeach
+            @endif
 
       <!-- =================================== WISHLIST =================================== -->
 

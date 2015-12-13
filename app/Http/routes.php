@@ -29,6 +29,7 @@ Route::get('user/profile', 'UserController@getUserDetails');
 Route::get('user/profile/wishlists', 'UserController@getWishlist');
 Route::post('user/profile/{id?}', 'UserController@updateWishlist');
 Route::get('user/profile/{id?}', 'UserController@deleteWishlist');
+Route::get('user/profile/{id?}', 'UserController@deleteTYNoteProfile');
 Route::get('user/notifications', 'UserController@notifications');
 Route::get('user/action/wishlist{id?}', 'UserController@wishlistAction');
 Route::post('user/action/wishlist/{id?}', 'UserController@createWishlist');

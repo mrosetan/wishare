@@ -1238,6 +1238,21 @@ class UserController extends Controller
      return redirect('user/notes#tab-tynotes')->with('errormsg', 'No Thank You Notes.');
   }
 
+  public function deleteTYNoteProfile($id)
+  {
+    $user = Auth::user();
+    $userId = $user->id;
+    $tynote = Notes::where('id', $id)->firstorFail();
+
+    $tynote->status = 0;
+    $tynote->save();
+
+    if(count($tynote) > 1)
+     return redirect('user/profile#tab-ty');
+    else
+     return redirect('user/profile#tab-ty')->with('errormsg', 'No Thank You Notes.');
+  }
+
   public function getAllNotes()
   {
     $user = Auth::user();
