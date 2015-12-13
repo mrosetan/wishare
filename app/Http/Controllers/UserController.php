@@ -266,7 +266,7 @@ class UserController extends Controller
     else
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-      $path = ('/var/www/images.wishare.net/public_html/wishimages/' . $filename);
+      $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
       // $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
@@ -337,7 +337,7 @@ class UserController extends Controller
     else
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-      $path = ('/var/www/images.wishare.net/public_html/wishimages/' . $filename);
+      $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
       // $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
@@ -496,7 +496,7 @@ class UserController extends Controller
     }
     else {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-      $path = ('/var/www/images.wishare.net/public_html/wishimages/' . $filename);
+      $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
 
@@ -846,7 +846,7 @@ class UserController extends Controller
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
 
-    $path = ('/var/www/images.wishare.net/public_html/wishimages/' . $filename);
+    $path = ('/var/www/images.wishare.net/public_html/wishareimages/userimages/' . $filename);
     // $path = ('C:/xampp/htdocs/wishareimages/userimages/' . $filename);
     Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
     $user->imageurl =  'http://' . $hostURL . '/userimages/'.$filename;
@@ -1187,7 +1187,7 @@ class UserController extends Controller
         if($request->sticker == 1)
         {
           $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-          $path = ('/var/www/images.wishare.net/tynotesimages/' . $filename);
+          $path = ('/var/www/images.wishare.net/wishareimages/tynotesimages/' . $filename);
           // $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
           Image::make($newImage->getRealPath())->save($path);
 
@@ -1204,7 +1204,7 @@ class UserController extends Controller
         else if($request->sticker == 2)
         {
           $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-          $path = ('/var/www/images.wishare.net/tynotesimages/' . $filename);
+          $path = ('/var/www/images.wishare.net/wishareimages/tynotesimages/' . $filename);
           Image::make($newImage->getRealPath())->save($path);
 
           $tynote = new Notes(array(
@@ -1220,7 +1220,7 @@ class UserController extends Controller
         else
         {
           $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-          $path = ('/var/www/images.wishare.net/tynotesimages/' . $filename);
+          $path = ('/var/www/images.wishare.net/wishareimages/tynotesimages/' . $filename);
           Image::make($newImage->getRealPath())->save($path);
 
           $tynote = new Notes(array(
@@ -1320,7 +1320,7 @@ class UserController extends Controller
     else
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-      $path = ('/var/www/images.wishare.net/' . $filename);
+      $path = ('/var/www/images.wishare.net/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
       if($request->flag == null)
@@ -1420,7 +1420,7 @@ class UserController extends Controller
       else
       {
         $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-        $path = ('/var/www/images.wishare.net/public_html/wishimages/' . $filename);
+        $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
         Image::make($newImage->getRealPath())->save($path);
 
         if($request->flag == null)
@@ -1482,7 +1482,7 @@ class UserController extends Controller
       else
       {
         $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-        $path = ('/var/www/images.wishare.net/public_html/wishimages/' . $filename);
+        $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
         Image::make($newImage->getRealPath())->save($path);
 
         if($request->flag == null)
