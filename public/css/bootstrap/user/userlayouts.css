@@ -116,6 +116,30 @@ img.user.granter.img-circle {
   margin-left: 140px;
 }
 
+.favorite{
+  cursor: pointer;
+}
+
+.favorited-icon{
+  color: #ce5a57;
+}
+
+.unfave-icon{
+  color: #428bca;
+}
+
+.trackwish{
+  cursor: pointer;
+}
+
+.tracked-icon{
+  color: #ce5a57;
+}
+
+.untracked-icon{
+  color: #428bca;
+}
+
 /*   Profile   */
 a:hover {
   cursor: pointer;
