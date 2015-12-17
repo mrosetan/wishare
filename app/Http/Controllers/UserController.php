@@ -182,6 +182,7 @@ class UserController extends Controller
       $wish = Wish::where('id', '=', $tags[$i]['wishid'])->where('status', '=', 1)->first();
       // $tagger = User::where('id', '=', $tags[$i]['userid'])->where('status', '=', 1)->first();
       if(!empty($wish)){
+        $tags[$i]['notificationtype'] = 'tagged';
         $tagger = User::where('id', '=', $wish['createdby_id'])->where('status', '=', 1)->first();
         $tags[$i]['wish'] = $wish;
         if(!empty($tagger)){
@@ -189,8 +190,26 @@ class UserController extends Controller
         }
       }
     }
-    // json_encode($tags);print($tags); die();
-   return view('userlayouts.notifications', compact('requests', 'tags', 'grant', 'user'));
+
+    $trackfave = FavoriteTrack::with('wish', 'user')->whereHas('wish', function($query){
+      $query->where('createdby_id', '=', 2);
+    })->get();
+    foreach ($trackfave as $tf) {
+      if ($tf->type == 1) {
+        $tf['notificationtype'] = 'tracked';
+      }
+      else {
+        $tf['notificationtype'] = 'favorited';
+      }
+    }
+
+    $notifs = $tags->merge($trackfave);
+    $notifs = $notifs->sortByDesc('created_at');
+    $notifs->values()->all();
+    // dd($notifs);
+    // print_r($ttf); die();
+    // json_encode($ttf);print($ttf); die();
+   return view('userlayouts.notifications', compact('requests', 'tags', 'grant', 'user', 'notifs'));
   }
 
   public function notes()

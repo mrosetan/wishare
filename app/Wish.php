@@ -55,4 +55,8 @@ class Wish extends Model
   public function granter(){
     return $this->hasOne('App\User', 'id', 'granterid');
   }
+
+  public function trackfave(){
+    return $this->hasMany('App\FavoriteTrack', 'wishid', 'id');
+  }
 }
