@@ -191,9 +191,10 @@ class UserController extends Controller
       }
     }
 
-    $trackfave = FavoriteTrack::with('wish', 'user')->whereHas('wish', function($query){
-      $query->where('createdby_id', '=', 2);
+    $trackfave = FavoriteTrack::with('wish', 'user')->whereHas('wish', function($query) use($user){
+      $query->where('createdby_id', '=', $user['id']);
     })->get();
+    // dd($trackfave);
     foreach ($trackfave as $tf) {
       if ($tf->type == 1) {
         $tf['notificationtype'] = 'tracked';
@@ -202,9 +203,9 @@ class UserController extends Controller
         $tf['notificationtype'] = 'favorited';
       }
     }
-
-    $notifs = $tags->merge($trackfave);
-    $notifs = $notifs->sortByDesc('created_at');
+    // dd($trackfave);
+    $n = $tags->merge($trackfave);
+    $notifs = $n->sortByDesc('created_at');
     $notifs->values()->all();
     // dd($notifs);
     // print_r($ttf); die();
@@ -222,6 +223,19 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $wish = Wish::with('granter', 'wishlist', 'user')->where('id', '=', $id)->first();
+
+    if (!empty($wish)) {
+      $wish['favorited'] = FavoriteTrack::where('wishid', $wish->id)
+                                          ->where('userid', $userId)
+                                          ->where('type', 2)
+                                          ->first();
+
+      $wish['tracked'] = FavoriteTrack::where('wishid', $wish->id)
+                                          ->where('userid', $userId)
+                                          ->where('type', 1)
+                                          ->first();
+    }
+    // dd($wish);
     $grant = Wish::where('id', '=', $id)->get();
     $tags = Tag::with('user')->where('wishid', '=', $id)->get();
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
