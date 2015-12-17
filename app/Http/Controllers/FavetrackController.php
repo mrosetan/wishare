@@ -41,8 +41,12 @@ class FavetrackController extends Controller
 
       $fave->save();
 
+      $faves = FavoriteTrack::where('wishid', '=', $wishid)
+                              ->where('type', '=', 2)
+                              ->count();
+      // dd($faves);                
       $status = 'ok';
-      return json_encode($status);
+      return json_encode($faves);
       // echo json_encode($data);
     }
 
@@ -61,9 +65,12 @@ class FavetrackController extends Controller
         $fave->delete();
       }
 
+      $faves = FavoriteTrack::where('wishid', '=', $wishid)
+                              ->where('type', '=', 2)
+                              ->count();
 
       $status = 'ok';
-      return json_encode($status);
+      return json_encode($faves);
       // echo json_encode($data);
     }
 
@@ -81,8 +88,12 @@ class FavetrackController extends Controller
 
       $fave->save();
 
+      $tracks = FavoriteTrack::where('wishid', '=', $wishid)
+                              ->where('type', '=', 1)
+                              ->count();
+
       $status = 'ok';
-      return json_encode($status);
+      return json_encode($tracks);
       // echo json_encode($data);
     }
 
@@ -101,9 +112,12 @@ class FavetrackController extends Controller
         $fave->delete();
       }
 
+      $tracks = FavoriteTrack::where('wishid', '=', $wishid)
+                              ->where('type', '=', 1)
+                              ->count();
 
       $status = 'ok';
-      return json_encode($status);
+      return json_encode($tracks);
       // echo json_encode($data);
     }
 

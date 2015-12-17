@@ -100,9 +100,14 @@ class UserController extends Controller
                                   ->where('userid', '=', $user->id)
                                   ->where('type', '=', 2)
                                   ->first();
+          $faves = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('type', '=', 2)
+                                  ->count();
           $s['favorited'] = '';
+          $s['faves'] = $faves;
           if(!empty($fave)){
               $s['favorited'] = $fave;
+
 
           }
 
@@ -110,9 +115,14 @@ class UserController extends Controller
                                   ->where('userid', '=', $user->id)
                                   ->where('type', '=', 1)
                                   ->first();
+          $tracks = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('type', '=', 1)
+                                  ->count();
           $s['tracked'] = '';
+          $s['tracks'] = $tracks;
           if(!empty($track)){
               $s['tracked'] = $track;
+
 
           }
 
@@ -224,16 +234,31 @@ class UserController extends Controller
     $userId = $user->id;
     $wish = Wish::with('granter', 'wishlist', 'user')->where('id', '=', $id)->first();
 
+    $wish['favorited'] = '';
+
+    $wish['faves'] = '';
+
+    $wish['tracked'] = '';
+
+    $wish['tracks'] = '';
     if (!empty($wish)) {
       $wish['favorited'] = FavoriteTrack::where('wishid', $wish->id)
                                           ->where('userid', $userId)
                                           ->where('type', 2)
                                           ->first();
 
+      $wish['faves'] = FavoriteTrack::where('wishid', '=', $wish->id)
+                            ->where('type', '=', 2)
+                            ->count();
+
       $wish['tracked'] = FavoriteTrack::where('wishid', $wish->id)
                                           ->where('userid', $userId)
                                           ->where('type', 1)
                                           ->first();
+
+      $wish['tracks'] = FavoriteTrack::where('wishid', '=', $wish->id)
+                            ->where('type', '=', 1)
+                            ->count();
     }
     // dd($wish);
     $grant = Wish::where('id', '=', $id)->get();

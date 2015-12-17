@@ -57,10 +57,11 @@ $(document).ready(function(){
             type: 'POST',
             url: '/favorite',
             data: {id: wishid},
-            success: function(status)
+            context: this,
+            success: function(faves)
             {
-                $(this).attr('data-favestatus', 'unfave');
-                // alert(status);
+                $(this).children('span.count').text(""+faves);
+                // alert('favorited' + faves);
 
             },
             error: function()
@@ -69,6 +70,7 @@ $(document).ready(function(){
             }
         });
         $(this).children().css("color", "#ce5a57");
+
         $(this).attr('data-favestatus', 'unfave');
       }
       else{
@@ -76,10 +78,12 @@ $(document).ready(function(){
             type: 'POST',
             url: '/unfavorite',
             data: {id: wishid},
-            success: function(status)
+            context: this,
+            success: function(faves)
             {
-                $this.attr('data-favestatus', 'favorite');
-                alert(status);
+
+              $(this).children('span.count').text(""+faves);
+                // alert('unfavorited' + faves);
 
             },
             error: function()
@@ -105,10 +109,11 @@ $(document).ready(function(){
             type: 'POST',
             url: '/trackwish',
             data: {id: wishid},
-            success: function(status)
+            context: this,
+            success: function(tracks)
             {
-                $(this).attr('data-trackstatus', 'untrack');
-                // alert(status);
+                $(this).find('span.count').text(tracks);
+                // alert(tracks);
 
             },
             error: function()
@@ -124,10 +129,11 @@ $(document).ready(function(){
             type: 'POST',
             url: '/untrackwish',
             data: {id: wishid},
-            success: function(status)
+            context: this,
+            success: function(tracks)
             {
-                $this.attr('data-trackstatus', 'trackwish');
-                alert(status);
+                $(this).find('span.count').text(tracks);
+                // alert(tracks);
 
             },
             error: function()

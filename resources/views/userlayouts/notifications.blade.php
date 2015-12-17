@@ -41,7 +41,8 @@
                             </div>
                             <div class="user-details">
                               <p class="user-name">
-                                <a href="{!! action('UserController@otheruser', $n->tagger->id) !!}"> {!! $n->tagger->firstname !!} {!! $n->tagger->lastname !!} </a> tagged you in a <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish</a>
+                                <a href="{!! action('UserController@otheruser', $n->tagger->id) !!}"> {!! $n->tagger->firstname !!} {!! $n->tagger->lastname !!} </a> tagged you in a <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br />
+                                  <b>({!! $n->wish->title !!})</b></a>
                                 <br/>
                                 {!! date('F d, Y g:i A', strtotime($n->created_at)) !!}
                               </p>
@@ -58,7 +59,8 @@
                               </div>
                               <div class="user-details">
                                 <p class="user-name">
-                                  <a href="{!! action('UserController@otheruser', $n->user->id) !!}"> {!! $n->user->firstname !!} {!! $n->user->lastname !!} </a> {!! $n->notificationtype !!} your <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish</a>
+                                  <a href="{!! action('UserController@otheruser', $n->user->id) !!}"> {!! $n->user->firstname !!} {!! $n->user->lastname !!} </a> {!! $n->notificationtype !!} your <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br/>
+                                    <b>({!! $n->wish->title !!})</b></a>
                                   <br/>
                                   {!! date('F d, Y g:i A', strtotime($n->created_at)) !!}
                                 </p>
