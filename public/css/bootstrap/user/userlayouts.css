@@ -323,3 +323,7 @@ img.tynote-image {
 .page-content{
   /*height: inherit;*/
 }
+
+.wishaction-btns{
+  font-size: 20px;
+}

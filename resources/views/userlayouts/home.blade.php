@@ -101,7 +101,7 @@
                           @endforeach
                         </ul>
                       @endif
-                      <div class="pull-right">
+                      <div class="pull-right wishaction-btns">
                         <span data-wishid="{!! $s['wishid']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($s['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($s['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span></span>
                         &nbsp;&nbsp;
                         <span data-wishid="{!! $s['wishid']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($s['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($s['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span></span>
@@ -324,7 +324,7 @@
 
                       </div> -->
 
-                      <div class="pull-right">
+                      <div class="pull-right wishaction-btns">
                         <span data-wishid="{!! $s['wishid']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($s['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($s['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span></span>
                         <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a> -->
                         &nbsp;&nbsp;
