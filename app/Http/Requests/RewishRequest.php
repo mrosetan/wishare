@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class WishRequest extends Request
+class RewishRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class WishRequest extends Request
     public function rules()
     {
         return [
-            'title'    => 'required',
-            'due_date' => 'required|after:yesterday',
-            'wishimageurl' => 'image',
+          'due_date' => 'required|after:yesterday',
+          'wishimageurl' => 'image',
         ];
-
     }
 }

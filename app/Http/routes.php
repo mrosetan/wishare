@@ -18,7 +18,11 @@ Route::get('/signup', 'PagesController@signup');
 Route::get('/reactivate', 'PagesController@activateAccount');
 Route::get('/blank', 'PagesController@blank');
 
-
+// Profile
+Route::get('/profilemaster', 'ProfileController@profile');
+Route::get('/profile', 'ProfileController@wishlists');
+Route::get('profile/friends', 'ProfileController@friends');
+Route::get('profile/wishes/{id?}', 'ProfileController@wishes');
 /* User */
 Route::get('user/w', 'UserController@postSignup');
 Route::get('user/usermaster', 'UserController@dashboard');

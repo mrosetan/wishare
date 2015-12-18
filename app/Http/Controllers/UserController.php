@@ -13,6 +13,7 @@ use App\Http\Requests\SetPasswordRequest;
 use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
 use App\Http\Requests\WishRequest;
+use App\Http\Requests\RewishRequest;
 use App\Http\Requests\GrantWishRequest;
 use App\Http\Requests\NotesRequest;
 use App\Http\Requests\FriendRequest;
@@ -366,7 +367,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('user/profile#tab-wishes')->with('wishStatus', 'New wish added!');
+    return redirect('/profile')->with('wishStatus', 'New wish added!');
   }
 
   public function editTags($id)
@@ -460,7 +461,7 @@ class UserController extends Controller
       //   print('NOTHING TO TAG');
     }
     // die();
-    return redirect('user/profile#tab-wishes')->with('tagStatus', 'Tags has been updated!');
+    return redirect('/profile')->with('tagStatus', 'Tags has been updated!');
   }
 
   public function updateWish(WishRequest $request, $id)
@@ -511,7 +512,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('user/profile#tab-wishes')->with('wishStatus', 'Wish udpated successfully!');
+    return redirect('/profile')->with('wishStatus', 'Wish udpated successfully!');
   }
 
   public function deleteWish($id)
@@ -531,7 +532,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('user/profile#tab-wishes')->with('wishDelete', 'Wish deleted!');
+    return redirect('/profile')->with('wishDelete', 'Wish deleted!');
 
   }
 
@@ -1277,7 +1278,7 @@ class UserController extends Controller
     return view('userlayouts.notes', compact('notes', 'tynotes', 'notesOutbox', 'tynotesOutbox', 'user'));
   }
 
-  public function reWish(WishRequest $request, $id)
+  public function reWish(RewishRequest $request, $id)
   {
     $user = Auth::user();
 
@@ -1317,7 +1318,6 @@ class UserController extends Controller
         $flag = 1;
 
       $wishTitle = Wish::where('id', $id)->firstorFail();
-
       $wish = new Wish(array(
         'wishlistid' => $request->wishlist,
         'title' => $wishTitle->title,

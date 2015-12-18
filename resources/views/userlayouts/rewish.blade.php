@@ -22,7 +22,7 @@
             <br />
             <div class="row">
               <div class="col-md-12">
-                {!! Form::text('title', $wish['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true')) !!}
+                {!! Form::text('title', $wish['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true', 'value'=>$wish['title'])) !!}
               </div>
             </div>
             <br />

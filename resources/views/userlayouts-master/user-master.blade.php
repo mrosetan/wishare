@@ -69,7 +69,7 @@
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src="{!! $user->imageurl !!}" alt="John Doe"/>
+                            <img src="{!! $user->imageurl !!}" alt="{!! $user->firstname !!} {!! $user->lastname !!}"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
@@ -89,7 +89,7 @@
                         <a href="{{ url('user/home') }}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
                     </li>
                     <li>
-                        <a href="{{ url('user/profile') }}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
+                        <a href="{{ url('/profile') }}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
                     </li>
 
                     <li>
