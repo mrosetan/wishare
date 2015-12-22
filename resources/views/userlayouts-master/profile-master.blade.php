@@ -106,11 +106,11 @@
                             <!--END OF ADD AS FRIEND -->
                             <div class="panel-body list-group border-bottom">
                                 <a href="{{ URL::to('/profile') }}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishes </a>
-                                <a href="#" class="list-group-item"><span class="fa fa-list-ul"></span> Wishes Granted </a>
-                                <a href="#" class="list-group-item"><span class="fa fa-list-ul"></span> Wishes Given </a>
+                                <a href="{{ URL::to('profile/granted') }}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishes Granted </a>
+                                <a href="{{ URL::to('profile/given') }}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishes Given </a>
                                 <a href="#" class="list-group-item"><span class="fa fa-list-ul"></span> Tracked Wishes </a>
                                 <a href="{!! action('ProfileController@friends') !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
-                                <a href="#" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
+                                <a href="{!! URL::to('profile/tynotes') !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
                             </div>
                         </div>
 
@@ -191,6 +191,11 @@
                 $("#home-alert").alert('close');
             });
 
+            $('.list-group-item').on('click',function(e){
+             var previous = $(this).closest(".panel-body.list-group").children(".active");
+             previous.removeClass('active'); // previous list-item
+             $(e.target).addClass('active'); // activated list-item
+           });
             // document.getElementById('links').onclick = function (event) {
             //     event = event || window.event;
             //     var target = event.target || event.srcElement;

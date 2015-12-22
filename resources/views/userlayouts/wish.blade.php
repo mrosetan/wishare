@@ -70,14 +70,14 @@
               <hr />
               @if(!empty($wish->wishimageurl))
                 <div></div>
-              @else
-                @if(!empty($wish->wishimageurl))
+              @endif
+              @if(!empty($wish->wishimageurl))
                 <div class="wish-image-container">
                   <img src='{!! $wish->wishimageurl !!}' class="wish-image"/>
                 </div>
                 <hr />
-                @endif
               @endif
+
 
               @if($wish->granted == 1)
                 <div class="panel panel-success">

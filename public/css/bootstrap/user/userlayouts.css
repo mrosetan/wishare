@@ -212,6 +212,24 @@ img.wish-image {
   margin: 0 auto;
 }
 
+.tysticker-container {
+  width: 140px;
+  height: 140px;
+}
+
+.tysticker-image {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.tysticker-imageprofile {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  margin-bottom: 10px; 
+}
+
 img.tynote-image {
   margin: 0 auto;
   width: 100%;

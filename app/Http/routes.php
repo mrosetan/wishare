@@ -23,6 +23,10 @@ Route::get('/profilemaster', 'ProfileController@profile');
 Route::get('/profile', 'ProfileController@wishlists');
 Route::get('profile/friends', 'ProfileController@friends');
 Route::get('profile/wishes/{id?}', 'ProfileController@wishes');
+Route::get('profile/granted', 'ProfileController@granted');
+Route::get('profile/given', 'ProfileController@given');
+Route::get('profile/tynotes', 'ProfileController@tynotes');
+Route::get('profile/tynotes/{id?}', 'ProfileController@deleteTYNoteProfile');
 /* User */
 Route::get('user/w', 'UserController@postSignup');
 Route::get('user/usermaster', 'UserController@dashboard');

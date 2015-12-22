@@ -241,7 +241,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.11';
+    $hostURL = '192.168.1.16';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -309,7 +309,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.11';
+    $hostURL = '192.168.1.16';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -468,7 +468,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.11';
+    $hostURL = '192.168.1.16';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -618,7 +618,7 @@ class UserController extends Controller
       }
     }
     else {
-      return redirect()->action('UserController@getUserDetails');
+      return redirect()->action('ProfileController@wishlists');
     }
   }
 
@@ -626,7 +626,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.11/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.16/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -834,7 +834,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.11';
+    $hostURL = '192.168.1.16';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1121,7 +1121,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.11';
+      $hostURL = '192.168.1.16';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1132,7 +1132,7 @@ class UserController extends Controller
             'message' => $request->get('message'),
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker1.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty1.png',
           ));
         }
         else if($request->sticker == 2)
@@ -1143,7 +1143,7 @@ class UserController extends Controller
             'message' => $request->get('message'),
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty2.png',
           ));
         }
         else if($request->sticker == 3)
@@ -1154,7 +1154,7 @@ class UserController extends Controller
             'message' => $request->get('message'),
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty3.png',
           ));
         }
         else
@@ -1183,7 +1183,7 @@ class UserController extends Controller
             'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker1.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty1.png',
           ));
         }
         else if($request->sticker == 2)
@@ -1199,7 +1199,7 @@ class UserController extends Controller
             'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker2.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty2.png',
           ));
         }
         else
@@ -1215,7 +1215,7 @@ class UserController extends Controller
             'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/sticker3.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty3.png',
           ));
         }
       }
@@ -1283,7 +1283,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.11';
+    $hostURL = '192.168.1.16';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1366,7 +1366,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.11';
+    $hostURL = '192.168.1.16';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
