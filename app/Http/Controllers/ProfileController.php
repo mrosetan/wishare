@@ -25,6 +25,7 @@ use App\User;
 use App\DefaultWishlist;
 use App\Friend;
 use App\Notes;
+use App\FavoriteTrack;
 use Input;
 use Image;
 use Session;
@@ -109,6 +110,31 @@ class ProfileController extends Controller
         if(!empty($granter))
           $granted[$i]['granter'] = $granter;
       }
+
+      foreach ($granted as $g) {
+        $g['favorited'] = '';
+        $g['faves'] = '';
+        $g['tracked'] = '';
+        $g['tracks'] = '';
+
+        $g['favorited'] = FavoriteTrack::where('wishid', $g->id)
+                                            ->where('userid', $userId)
+                                            ->where('type', 2)
+                                            ->first();
+
+        $g['faves'] = FavoriteTrack::where('wishid', '=', $g->id)
+                              ->where('type', '=', 2)
+                              ->count();
+
+        $g['tracked'] = FavoriteTrack::where('wishid', $g->id)
+                                            ->where('userid', $userId)
+                                            ->where('type', 1)
+                                            ->first();
+
+        $g['tracks'] = FavoriteTrack::where('wishid', '=', $g->id)
+                              ->where('type', '=', 1)
+                              ->count();
+      }
     }
     return view('profile.profile-granted', compact('user', 'granted'));
   }
@@ -126,6 +152,35 @@ class ProfileController extends Controller
               ->orderBy('created_at', 'desc')
               ->get();
 
+
+    if (!empty($given)) {
+      foreach ($given as $g) {
+        $g['favorited'] = '';
+        $g['faves'] = '';
+        $g['tracked'] = '';
+        $g['tracks'] = '';
+
+        $g['favorited'] = FavoriteTrack::where('wishid', $g->id)
+                                            ->where('userid', $userId)
+                                            ->where('type', 2)
+                                            ->first();
+
+        $g['faves'] = FavoriteTrack::where('wishid', '=', $g->id)
+                              ->where('type', '=', 2)
+                              ->count();
+
+        $g['tracked'] = FavoriteTrack::where('wishid', $g->id)
+                                            ->where('userid', $userId)
+                                            ->where('type', 1)
+                                            ->first();
+
+        $g['tracks'] = FavoriteTrack::where('wishid', '=', $g->id)
+                              ->where('type', '=', 1)
+                              ->count();
+      }
+
+    }
+    // dd($given);
     return view('profile.profile-given', compact('user', 'given'));
   }
 

@@ -11,7 +11,7 @@
             <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
           </a>
           <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> granted <a href="{!! action('UserController@otheruser', $gi->user['id']) !!}"><b>{!! $gi->user['firstname'] !!} {!! $gi->user['lastname'] !!}</b> ({!! $gi->user['username'] !!})</a>'s wish: <b><a href="{!! action('UserController@wish', $gi['id'] ) !!}">{!! $gi['title'] !!}</a></b>
-          <br /> 
+          <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gi['updated_at']))  !!}
           <br />
             <b>Wishlist: </b>{!! $gi->wishlist['title'] !!}
@@ -30,13 +30,15 @@
         @endif
         <br />
         <div class="wish-icons pull-right">
-          <a href="#"><span class="fa fa-star"></span></a>
+          <!-- <a href="#"><span class="fa fa-star"></span></a> -->
+          <span data-wishid="{!! $gi['id']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($gi['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($gi['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $gi['faves'] !!}</span> </span>
           &nbsp;&nbsp;
-          <a href="#"><span class="fa fa-bookmark"></span></a>
+          <!-- <a href="#"><span class="fa fa-bookmark"></span></a> -->
+          <span data-wishid="{!! $gi['id']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($gi['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($gi['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $gi['tracks'] !!}</span> </span>
           &nbsp;&nbsp;
-          <a href="{!! action('UserController@rewishDetails', $gi['id']) !!}"><span class="fa fa-retweet"></span></a>
+          <a href="{!! action('UserController@rewishDetails', $gi['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
           &nbsp;&nbsp;
-          <a href="#" class="mb-control" data-box="#mb-deletewish{!! $gi['id'] !!}"><span class="glyphicon glyphicon-trash"></span></a>
+          <a href="#" class="mb-control" data-box="#mb-deletewish{!! $gi['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
         </div>
       </div>
       <!-- end of panel body -->
