@@ -35,6 +35,11 @@
                     @foreach($results as $r)
                       <tr>
                           <td>
+                            <div class="pull-left">
+                              <a href="{!! !empty($r['imageurl']) ? action('UserController@otheruser', $r['userid']) : '' !!}">
+                                <img class="user stream img-circle" src="{!! $r['imageurl'] !!}">
+                              </a>
+                            </div>
                               <a href="{!! action('UserController@otheruser', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
                               {!! $r->username !!}</a>
                           </td>

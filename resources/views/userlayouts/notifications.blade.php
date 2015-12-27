@@ -31,7 +31,48 @@
             <!--notifications-->
             <div class="panel-body tab-content">
               <div class="tab-pane active" id="tab-notif">
-                @if(count($tags)>0)
+                @if(count($notifs)>0)
+                  @foreach($notifs as $n)
+                    @if($n->notificationtype == 'tagged')
+                      <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="pull-left">
+                              {!! Html::image('' . $n->tagger->imageurl, '', array('class'=>'user-friend img-circle')) !!}
+                            </div>
+                            <div class="user-details">
+                              <p class="user-name">
+                                <a href="{!! action('UserController@otheruser', $n->tagger->id) !!}"> {!! $n->tagger->firstname !!} {!! $n->tagger->lastname !!} </a> tagged you in a <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br />
+                                  <b>({!! $n->wish->title !!})</b></a>
+                                <br/>
+                                {!! date('F d, Y g:i A', strtotime($n->created_at)) !!}
+                              </p>
+
+                            </div>
+                          </div>
+                      </div>
+                    @else
+                      @if($n->user->id != $user->id)
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                              <div class="pull-left">
+                                {!! Html::image('' . $n->user->imageurl, '', array('class'=>'user-friend img-circle')) !!}
+                              </div>
+                              <div class="user-details">
+                                <p class="user-name">
+                                  <a href="{!! action('UserController@otheruser', $n->user->id) !!}"> {!! $n->user->firstname !!} {!! $n->user->lastname !!} </a> {!! $n->notificationtype !!} your <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br/>
+                                    <b>({!! $n->wish->title !!})</b></a>
+                                  <br/>
+                                  {!! date('F d, Y g:i A', strtotime($n->created_at)) !!}
+                                </p>
+
+                              </div>
+                            </div>
+                        </div>
+                      @endif
+                    @endif
+                  @endforeach
+                @endif
+                <!-- @if(count($tags)>0)
                   @foreach($tags as $t)
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -49,7 +90,7 @@
                         </div>
                     </div>
                   @endforeach
-                @endif
+                @endif -->
               </div>
 
 

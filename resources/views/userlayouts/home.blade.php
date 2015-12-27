@@ -101,10 +101,11 @@
                           @endforeach
                         </ul>
                       @endif
-                      <div class="pull-right">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a>
+                      <div class="pull-right wishaction-btns">
+                        <span data-wishid="{!! $s['wishid']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($s['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($s['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $s['faves'] !!}</span> </span>
                         &nbsp;&nbsp;
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Track Wish"><span class="fa fa-bookmark"></span></a>
+                        <span data-wishid="{!! $s['wishid']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($s['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($s['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $s['tracks'] !!}</span> </span>
+                        <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Track Wish"><span class="fa fa-bookmark"></span></a> -->
                         &nbsp;&nbsp;
                         <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
                         @if(($s['granterid'] != 0) and ($s['date_granted'] == '0000-00-00 00:00:00'))
@@ -323,8 +324,9 @@
 
                       </div> -->
 
-                      <div class="pull-right">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a>
+                      <div class="pull-right wishaction-btns">
+                        <span data-wishid="{!! $s['wishid']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($s['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($s['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $s['faves'] !!}</span> </span>
+                        <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a> -->
                         &nbsp;&nbsp;
                         <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
 

@@ -38,19 +38,19 @@
               <div class="col-md-4">
                 {!! Form::radio('sticker', '1') !!} Sticker 1<br />
                 <div class="tysticker-container">
-                  <img src="http://192.168.1.16/wishareimages/tynotessticker/ty1.png" class="tysticker-image"/>
+                  <img src="http://192.168.1.10/wishareimages/tynotessticker/ty1.png" class="tysticker-image"/>
                 </div>
               </div>
               <div class="col-md-4">
                 {!! Form::radio('sticker', '2') !!} Sticker 2<br />
                 <div class="tysticker-container">
-                  <img src="http://192.168.1.16/wishareimages/tynotessticker/ty2.png" class="tysticker-image"/>
+                  <img src="http://192.168.1.10/wishareimages/tynotessticker/ty2.png" class="tysticker-image"/>
                 </div>
               </div>
               <div class="col-md-4">
                 {!! Form::radio('sticker', '3') !!} Sticker 3<br />
                 <div class="tysticker-container">
-                  <img src="http://192.168.1.16/wishareimages/tynotessticker/ty3.png" class="tysticker-image"/>
+                  <img src="http://192.168.1.10/wishareimages/tynotessticker/ty3.png" class="tysticker-image"/>
                 </div>
               </div>
             </div>

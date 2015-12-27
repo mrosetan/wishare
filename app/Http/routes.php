@@ -86,7 +86,11 @@ Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
 
 Route::get('user/setup', 'UserController@setUsernameAndPassword');
 
+Route::post('favorite', 'FavetrackController@favorite');
+Route::post('unfavorite', 'FavetrackController@unfavorite');
 
+Route::post('trackwish', 'FavetrackController@trackwish');
+Route::post('untrackwish', 'FavetrackController@untrackwish');
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');

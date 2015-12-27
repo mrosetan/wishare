@@ -25,6 +25,7 @@ use App\User;
 use App\DefaultWishlist;
 use App\Friend;
 use App\Notes;
+use App\FavoriteTrack;
 use Input;
 use Image;
 use Session;
@@ -58,7 +59,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password)){
+    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
       $wishlists = Wishlist::with('user')
                           ->where('createdby_id', '=', $user->id)
                           ->where('status', '=', 1)
@@ -94,6 +95,38 @@ class UserController extends Controller
                 $s['tagged'][] = $t->user;
             }
           }
+          // $fstream[] = $s;
+
+          $fave = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('userid', '=', $user->id)
+                                  ->where('type', '=', 2)
+                                  ->first();
+          $faves = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('type', '=', 2)
+                                  ->count();
+          $s['favorited'] = '';
+          $s['faves'] = $faves;
+          if(!empty($fave)){
+              $s['favorited'] = $fave;
+
+
+          }
+
+          $track = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('userid', '=', $user->id)
+                                  ->where('type', '=', 1)
+                                  ->first();
+          $tracks = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('type', '=', 1)
+                                  ->count();
+          $s['tracked'] = '';
+          $s['tracks'] = $tracks;
+          if(!empty($track)){
+              $s['tracked'] = $track;
+
+
+          }
+
           $fstream[] = $s;
         }
       }
@@ -101,7 +134,7 @@ class UserController extends Controller
         return view('userlayouts.home', compact('fstream', 'friends', 'wishlists', 'user'));
     }
     else {
-      return redirect('user/setPassword');
+      return redirect('user/setup');
     }
   }
 
@@ -160,6 +193,7 @@ class UserController extends Controller
       $wish = Wish::where('id', '=', $tags[$i]['wishid'])->where('status', '=', 1)->first();
       // $tagger = User::where('id', '=', $tags[$i]['userid'])->where('status', '=', 1)->first();
       if(!empty($wish)){
+        $tags[$i]['notificationtype'] = 'tagged';
         $tagger = User::where('id', '=', $wish['createdby_id'])->where('status', '=', 1)->first();
         $tags[$i]['wish'] = $wish;
         if(!empty($tagger)){
@@ -167,8 +201,27 @@ class UserController extends Controller
         }
       }
     }
-    // json_encode($tags);print($tags); die();
-   return view('userlayouts.notifications', compact('requests', 'tags', 'grant', 'user'));
+
+    $trackfave = FavoriteTrack::with('wish', 'user')->whereHas('wish', function($query) use($user){
+      $query->where('createdby_id', '=', $user['id']);
+    })->get();
+    // dd($trackfave);
+    foreach ($trackfave as $tf) {
+      if ($tf->type == 1) {
+        $tf['notificationtype'] = 'tracked';
+      }
+      else {
+        $tf['notificationtype'] = 'favorited';
+      }
+    }
+    // dd($trackfave);
+    $n = $tags->merge($trackfave);
+    $notifs = $n->sortByDesc('created_at');
+    $notifs->values()->all();
+    // dd($notifs);
+    // print_r($ttf); die();
+    // json_encode($ttf);print($ttf); die();
+   return view('userlayouts.notifications', compact('requests', 'tags', 'grant', 'user', 'notifs'));
   }
 
   public function notes()
@@ -181,6 +234,34 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $wish = Wish::with('granter', 'wishlist', 'user')->where('id', '=', $id)->first();
+
+    $wish['favorited'] = '';
+
+    $wish['faves'] = '';
+
+    $wish['tracked'] = '';
+
+    $wish['tracks'] = '';
+    if (!empty($wish)) {
+      $wish['favorited'] = FavoriteTrack::where('wishid', $wish->id)
+                                          ->where('userid', $userId)
+                                          ->where('type', 2)
+                                          ->first();
+
+      $wish['faves'] = FavoriteTrack::where('wishid', '=', $wish->id)
+                            ->where('type', '=', 2)
+                            ->count();
+
+      $wish['tracked'] = FavoriteTrack::where('wishid', $wish->id)
+                                          ->where('userid', $userId)
+                                          ->where('type', 1)
+                                          ->first();
+
+      $wish['tracks'] = FavoriteTrack::where('wishid', '=', $wish->id)
+                            ->where('type', '=', 1)
+                            ->count();
+    }
+    // dd($wish);
     $grant = Wish::where('id', '=', $id)->get();
     $tags = Tag::with('user')->where('wishid', '=', $id)->get();
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
@@ -204,12 +285,12 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password)){
+    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
       return view('userlayouts.changepass', compact('user'));
       // return view('userlayouts.home');
     }
     else {
-      return redirect('user/setPassword');
+      return redirect('user/setup');
     }
     // return view('userlayouts.changepass');
   }
@@ -241,7 +322,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.16';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -309,7 +390,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.16';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -468,7 +549,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.16';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -626,7 +707,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.16/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.10/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -834,7 +915,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.16';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
     $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
     // dd($filename);
@@ -1121,7 +1202,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.16';
+      $hostURL = '192.168.1.10';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1283,7 +1364,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.16';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1366,7 +1447,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.16';
+    $hostURL = '192.168.1.10';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
