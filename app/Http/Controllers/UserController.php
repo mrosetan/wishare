@@ -549,7 +549,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {

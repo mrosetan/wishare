@@ -138,6 +138,12 @@ img.user.granter.img-circle {
   color: #428bca;
 }
 
+.count{
+  font-size: 12px;
+  /*display: table-cell;
+  vertical-align: middle;*/
+}
+
 /*   Profile   */
 a:hover {
   cursor: pointer;
