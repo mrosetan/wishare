@@ -57,11 +57,12 @@ class ProfileController extends Controller
     $wishes = Wish::with('wishlist')
                   ->where('createdby_id', '=', $userId)
                   ->where('status', '=', 1)
+                  ->where('granted', '!=', 1)
                   ->orderBy('created_at', 'desc')
                   ->take(5)
                   ->get();
 
-    $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
+    $tags = Tag::where('userid', '=', $user['id'])->orderby('created_at', 'desc')->get();
 
     if (!empty($wishes)) {
       foreach ($wishes as $w) {

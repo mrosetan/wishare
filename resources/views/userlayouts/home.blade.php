@@ -27,12 +27,12 @@
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
-                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['imageurl']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )
                         </a>
                         @if($s['created_at'] == $s['updated_at'])
@@ -97,7 +97,7 @@
                       @if(!empty($s['tagged']))
                         <ul class="list-tags tagged-user">
                           @foreach($s['tagged'] as $tag)
-                            <li class="tagged-user"><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                            <li class="tagged-user"><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['firstname'] !!} {!!$tag['lastname'] !!}</a></li>
                           @endforeach
                         </ul>
                       @endif
@@ -144,15 +144,15 @@
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
-                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['imageurl']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )'s
                         </a>
-                        wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                        wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('OtherUserController@profile', $s['granterid']) : '' !!}">
                           <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ).
                         </a>
                         <br />
@@ -224,7 +224,7 @@
                                     @if(!empty($s['tagged']))
                                       <ul class="list-tags">
                                         @foreach($s['tagged'] as $tag)
-                                          <li class="tagged-user"><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                          <li class="tagged-user"><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                                         @endforeach
                                       </ul>
                                     @endif
@@ -250,12 +250,12 @@
                       <div class="stream-margin">
                         <div class="col-xs-12">
                           <div class="pull-left">
-                            <a href="{!! !empty($s['granterimageurl']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                            <a href="{!! !empty($s['granterimageurl']) ? action('OtherUserController@profile', $s['granterid']) : '' !!}">
                               <img class="user granter img-circle" src="{!! $s['granterimageurl'] !!}">
                             </a>
                           </div>
                           <div class="stream-header">
-                            <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                            <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('OtherUserController@profile', $s['granterid']) : '' !!}">
                               <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ):
                             </a>
                           </div>
@@ -329,7 +329,7 @@
                                     @if(!empty($s['tagged']))
                                       <ul class="list-tags">
                                         @foreach($s['tagged'] as $tag)
-                                          <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                          <li><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                                         @endforeach
                                       </ul>
                                     @endif
@@ -376,12 +376,12 @@
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
-                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['imageurl']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )
                         </a>
                         @if($s['created_at'] == $s['updated_at'])
@@ -446,7 +446,7 @@
                       @if(!empty($s['tagged']))
                         <ul class="list-tags">
                           @foreach($s['tagged'] as $tag)
-                            <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                            <li><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                           @endforeach
                         </ul>
                       @endif

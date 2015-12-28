@@ -59,6 +59,7 @@ class OtherUserController extends Controller
       $wishes = Wish::with('wishlist')
                     ->where('createdby_id', '=', $id)
                     ->where('status', '=', 1)
+                    ->where('granted', '!=', 1)
                     ->orderBy('created_at', 'desc')
                     ->take(5)
                     ->get();

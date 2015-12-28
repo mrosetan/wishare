@@ -49,7 +49,7 @@
 <!-- message box-->
 @if(isset($given))
   @foreach($gi as $gi)
-    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $gi->id !!}">
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $gi['id'] !!}">
         <div class="mb-container">
             <div class="mb-middle">
                 <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
