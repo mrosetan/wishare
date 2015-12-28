@@ -27,6 +27,18 @@
         </div>
         <hr />
         @endif
+        @if(count($wish->tags)>0)
+        <p>
+          Tagged:
+        </p>
+          <ul class="list-tags">
+          @foreach($tags as $t)
+              <li class="tagged-user">
+                 <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!! $t->user->lastname !!}</a>
+              </li>
+          @endforeach
+          </ul>
+        @endif
         <br />
         <div class="wish-icons pull-right">
           <!-- <a href="#"><span class="fa fa-star"></span></a> -->
@@ -34,6 +46,10 @@
           &nbsp;&nbsp;
           <!-- <a href="#"><span class="fa fa-bookmark"></span></a> -->
           <span data-wishid="{!! $wish['id']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span> </span>
+          &nbsp;&nbsp;
+          <a href="#" data-toggle="modal" data-target="#modalwish{!! $wish->id !!}"><span class="glyphicon glyphicon-edit"></span></a>
+          &nbsp;&nbsp;
+          <a href="{!! url('user/edit/tags', $wish->id) !!}"><span class="glyphicon glyphicon-tag"></span></a>
           &nbsp;&nbsp;
           <a href="{!! action('UserController@rewishDetails', $wish['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
           &nbsp;&nbsp;

@@ -114,12 +114,20 @@
                     <li>
                         <a href="{{ url('user/help') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
-                    <li class="xn-openable">
+                    <!-- <li class="xn-openable">
                         <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
                         <ul>
                             <li><a href="{{ url('user/settings') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                             <li><a href="{{ url('user/settings/changepassword') }}"><span class="fa fa-lock"></span> Change Password</a></li>
                         </ul>
+                    </li> -->
+
+                    <li class="xn-openable">
+                      <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                      <ul>
+                          <li><a href="{{ url('user/settings') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                          <li><a href="{{ url('user/settings/changepassword') }}"><span class="fa fa-lock"></span> Change Password</a></li>
+                      </ul>
                     </li>
                     <li>
                         <a href="{{ url('auth/signout') }}"><span class="fa fa-power-off"></span> <span class="xn-text">Sign Out</span></a>
@@ -214,12 +222,7 @@
         $('#myTabs a[href="' + hash + '"]').tab('show');
 
         $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
-            $("#home-alert").alert('close');
-        });
-
-        $(".x-navigation li").on("click", function() {
-          $(".x-navigation li").removeClass("active");
-          $(this).addClass("active");
+          $("#home-alert").alert('close');
         });
 
         </script>

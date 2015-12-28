@@ -193,11 +193,6 @@
                 $("#home-alert").alert('close');
             });
 
-            $("a.list-group-item").on("click",function(e){
-             var previous = $(this).closest(".list-group").children(".active");
-             previous.removeClass("active"); // previous list-item
-             $(e.target).addClass("active"); // activated list-item
-           });
             // document.getElementById('links').onclick = function (event) {
             //     event = event || window.event;
             //     var target = event.target || event.srcElement;
@@ -233,7 +228,6 @@
             <!-- START TEMPLATE -->
             <script type="text/javascript" src="{{ URL::asset('js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ URL::asset('js/actions.js') }}"></script>
-            <script type="text/javascript" src="{{ URL::asset('js/demo_dashboard.js') }}"></script>
 
             <script type="text/javascript" src="{{ URL::asset('js/user_side.js') }}"></script>
 

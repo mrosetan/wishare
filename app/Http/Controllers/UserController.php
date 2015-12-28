@@ -613,7 +613,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('/profile')->with('wishDelete', 'Wish deleted!');
+    return redirect('/profile');
 
   }
 

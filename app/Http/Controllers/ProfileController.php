@@ -61,6 +61,8 @@ class ProfileController extends Controller
                   ->take(5)
                   ->get();
 
+    $tags = Wish::with('tags')->where('createdby_id', '=', $userId)->where('status', '=', 1)->get();
+
     if (!empty($wishes)) {
       foreach ($wishes as $w) {
         $w['favorited'] = '';
@@ -88,7 +90,29 @@ class ProfileController extends Controller
       }
 
     }
-    return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList'));
+    dd($tags);
+    return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags'));
+  }
+
+  public function deleteWish($id)
+  {
+    $wish = Wish::where('id', '=', $id)->first();
+
+    if(!empty($wish)){
+      $wish->status = 0;
+      $wish->save();
+
+      $tags = Tag::where('wishid', '=', $wish->id)->get();
+
+      if (!empty($tags)) {
+        foreach ($tags as $tag) {
+          $tag->delete();
+        }
+      }
+    }
+
+    return redirect('/profile');
+
   }
 
   public function friends()

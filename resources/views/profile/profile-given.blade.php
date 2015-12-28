@@ -47,9 +47,9 @@
 @endif
 
 <!-- message box-->
-@if(isset($wishes))
-  @foreach($wishes as $wish)
-    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
+@if(isset($given))
+  @foreach($gi as $gi)
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $gi->id !!}">
         <div class="mb-container">
             <div class="mb-middle">
                 <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
@@ -57,7 +57,7 @@
                     <p>Are you sure you want to delete this wish?</p>
                 </div>
                 <div class="mb-footer">
-                    @if(!empty($wishes))
+                    @if(!empty($gies))
                     <div class="pull-right">
                         <a href="{!! action('UserController@deleteWish', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
                         <button class="btn btn-default btn-lg mb-control-close">No</button>

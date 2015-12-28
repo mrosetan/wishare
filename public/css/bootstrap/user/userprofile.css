@@ -35,13 +35,12 @@
 .panel-body.profile {
   z-index: 1;
 }
-span.fa.fa-star.fave-icon {
-  z-index: 1;
-}
-
 a {
   z-index: 2;
   position: relative;
+}
+span {
+  z-index: 100;
 }
 a:hover, a:focus {
   color:#1caf9a;
