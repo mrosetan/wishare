@@ -89,30 +89,30 @@
                             <!-- <div class="panel-body profile" style="background: url('assets/images/gallery/music-4.jpg') center center no-repeat;"> -->
                             <!-- END OF COVER PHOTO -->
                               <div class="profile-image">
-                                  <img src="{!! $user['imageurl'] !!}" />
+                                  <img src="{!! $otherUser['imageurl'] !!}" />
                               </div>
                               <div class="profile-data">
-                                  <div class="profile-data-name">{!! $user['firstname'] !!} {!! $user['lastname'] !!}</div>
-                                  <div class="profile-data-title" style="color: #FFF;">{!! $user['city'] !!}</div>
+                                  <div class="profile-data-name">{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</div>
+                                  <div class="profile-data-title" style="color: #FFF;">{!! $otherUser['city'] !!}</div>
                               </div>
                             </div>
                             <!--ADD AS FRIEND -->
-                            <!-- <div class="panel-body">
+                            <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-6 col-md-offset-3">
                                         <button class="btn btn-info btn-rounded btn-block"><span class="fa fa-plus"></span> Add as Friend</button>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <!--END OF ADD AS FRIEND -->
                             <div class="panel-body list-group border-bottom">
-                                <a href="{{ URL::to('/profile') }}" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
-                                <a href="{{ URL::to('profile/wishlists') }}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishlists and Wishes </a>
-                                <a href="{{ URL::to('profile/granted') }}" class="list-group-item"><span class="fa fa-magic"></span> Wishes Granted </a>
-                                <a href="{{ URL::to('profile/given') }}" class="list-group-item"><span class="fa fa-gift"></span> Wishes Given </a>
-                                <a href="{{ URL::to('profile/tracked') }}" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
-                                <a href="{!! action('ProfileController@friends') !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
-                                <a href="{!! URL::to('profile/tynotes') !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
+                                <a href="" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
+                                <a href="" class="list-group-item"><span class="fa fa-list-ul"></span> Wishlists and Wishes </a>
+                                <a href="" class="list-group-item"><span class="fa fa-magic"></span> Wishes Granted </a>
+                                <a href="" class="list-group-item"><span class="fa fa-gift"></span> Wishes Given </a>
+                                <a href="" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
+                                <a href="" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
+                                <a href="" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
                             </div>
                         </div>
 

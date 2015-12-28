@@ -23,10 +23,29 @@ Route::get('/profilemaster', 'ProfileController@profile');
 Route::get('/profile', 'ProfileController@wishlists');
 Route::get('profile/friends', 'ProfileController@friends');
 Route::get('profile/wishes/{id?}', 'ProfileController@wishes');
+Route::get('profile/wishlists', 'ProfileController@wishWishlists');
 Route::get('profile/granted', 'ProfileController@granted');
 Route::get('profile/given', 'ProfileController@given');
+Route::get('profile/tracked', 'ProfileController@tracked');
 Route::get('profile/tynotes', 'ProfileController@tynotes');
 Route::get('profile/tynotes/{id?}', 'ProfileController@deleteTYNoteProfile');
+
+
+//other user new
+Route::get('other/home/{id?}', 'OtherUserController@profile');
+Route::get('other/profile/{id?}', 'OtherUserController@wishlists');
+Route::get('other/wishlists/{id?}', 'OtherUserController@wishWishlists');
+Route::get('other/granted/{id?}', 'OtherUserController@granted');
+Route::get('other/given/{id?}', 'OtherUserController@given');
+Route::get('other/tracked/{id?}', 'OtherUserController@tracked');
+Route::get('other/friends/{id?}', 'OtherUserController@friends');
+Route::get('other/tynotes/{id?}', 'OtherUserController@tynotes');
+
+
+// Other User old
+Route::get('otheruser/{id?}', 'UserController@otheruser');
+Route::post('otheruser/{id?}', 'UserController@reWishOtherUser');
+
 /* User */
 Route::get('user/w', 'UserController@postSignup');
 Route::get('user/usermaster', 'UserController@dashboard');
@@ -64,9 +83,6 @@ Route::post('user/settings/changepassword', 'UserController@changeAccountPasswor
 Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
 Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic');
-/* Other user */
-Route::get('otheruser/{id?}', 'UserController@otheruser');
-Route::post('otheruser/{id?}', 'UserController@reWishOtherUser');
 
 Route::get('user/search', 'UserController@search');
 Route::post('user/search', 'UserController@search');

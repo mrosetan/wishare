@@ -14,7 +14,7 @@
           <br />
         </h4>
         <h5 class="userprofile-addr">
-          Cebu City, Philippines
+          {!! $otherUser->city!!}
         </h5>
         @if(count($requests)>0)
           @foreach($requests as $req)

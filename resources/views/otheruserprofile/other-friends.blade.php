@@ -1,4 +1,4 @@
-@extends('userlayouts-master.profile-master')
+@extends('userlayouts-master.other-master')
 @section('title', 'Friends')
 @section('newcontent')
 <br />

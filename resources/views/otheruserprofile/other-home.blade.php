@@ -1,4 +1,4 @@
-@extends('userlayouts-master.profile-master')
+@extends('userlayouts-master.other-master')
 @section('title', 'Wishes')
 @section('newcontent')
 <br />
@@ -8,9 +8,9 @@
       <div class="panel-body">
         <div class="pull-left">
           <a href="#">
-            <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
+            <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
           </a>
-          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> added a new wish: <b><a href="{!! action('UserController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
+          <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b> added a new wish: <b><a href="{!! action('UserController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
           <br />

@@ -57,6 +57,6 @@ class Wish extends Model
   }
 
   public function trackfave(){
-    return $this->hasMany('App\FavoriteTrack', 'wishid', 'id');
+    return $this->hasMany('App\FavoriteTrack', 'wishid', 'id', 'type');
   }
 }
