@@ -88,6 +88,7 @@ class ProfileController extends Controller
       }
 
     }
+
     return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList'));
   }
 
@@ -261,7 +262,7 @@ class ProfileController extends Controller
                     ->where('userid', '=', $userId)
                     ->orderBy('created_at', 'desc')
                     ->get();
-
+    // dd($tracked);
     if (!empty($tracked)) {
       foreach ($tracked as $tr) {
         $tr['favorited'] = '';
@@ -269,27 +270,27 @@ class ProfileController extends Controller
         $tr['tracked'] = '';
         $tr['tracks'] = '';
 
-        $tr['favorited'] = FavoriteTrack::where('wishid', $tr->id)
+        $tr['favorited'] = FavoriteTrack::where('wishid', $tr->wishid)
                                             ->where('userid', $userId)
                                             ->where('type', 2)
                                             ->first();
 
-        $tr['faves'] = FavoriteTrack::where('wishid', '=', $tr->id)
+        $tr['faves'] = FavoriteTrack::where('wishid', '=', $tr->wishid)
                               ->where('type', '=', 2)
                               ->count();
 
-        $tr['tracked'] = FavoriteTrack::where('wishid', $tr->id)
+        $tr['tracked'] = FavoriteTrack::where('wishid', $tr->wishid)
                                             ->where('userid', $userId)
                                             ->where('type', 1)
                                             ->first();
 
-        $tr['tracks'] = FavoriteTrack::where('wishid', '=', $tr->id)
+        $tr['tracks'] = FavoriteTrack::where('wishid', '=', $tr->wishid)
                               ->where('type', '=', 1)
                               ->count();
       }
 
     }
-
+    // dd($tracked);
     return view('profile.profile-tracked', compact('user', 'tracked'));
   }
 }

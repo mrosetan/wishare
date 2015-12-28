@@ -233,7 +233,7 @@
             <!-- START TEMPLATE -->
             <script type="text/javascript" src="{{ URL::asset('js/plugins.js') }}"></script>
             <script type="text/javascript" src="{{ URL::asset('js/actions.js') }}"></script>
-            <script type="text/javascript" src="{{ URL::asset('js/demo_dashboard.js') }}"></script>
+            <!-- <script type="text/javascript" src="{{ URL::asset('js/demo_dashboard.js') }}"></script> -->
 
             <script type="text/javascript" src="{{ URL::asset('js/user_side.js') }}"></script>
 
