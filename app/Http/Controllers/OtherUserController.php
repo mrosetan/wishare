@@ -201,6 +201,24 @@ class OtherUserController extends Controller
     return view('otheruserprofile.other-granted', compact('otherUser', 'granted'));
   }
 
+  public function wishes($id)
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    if($userId != $id){
+      $otherUser = User::where('id', '=', $id)->firstorFail();
+
+      $wishlists = Wishlist::with('wishes')
+                            ->where('id', '=', $id)
+                            ->where('createdby_id', '!=', $userId)
+                            ->where('status', '=', 1)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+    }
+    return view('otheruserprofile.other-wishes', compact('otherUser', 'wishlists'));
+  }
+
   public function given($id)
   {
     $user = Auth::user();
