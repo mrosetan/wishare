@@ -24,7 +24,8 @@ class PagesController extends Controller
         }
       }
       else
-        return view('pages.landingpage');
+        return view('pages.landing');
+        // return view('pages.landingpage');
   }
 
   public function signin()

@@ -1,0 +1,63 @@
+.heroshot{
+  background-image:url('../../img/backgrounds/bg4.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.lp-header-logo{
+  height: 30px;
+}
+
+.button-fb {
+  background-color: #45629d;
+  color: #fff;
+}
+
+.button-fb:hover {
+  background-color: #2c3e50;
+}
+
+.lp-2nd-header h3{
+  margin-top: 0px !important;
+}
+
+.lp-2nd-header img{
+  width: 255px;
+}
+
+.lp-icons{
+  width: 150px;
+}
+
+.about1{
+  background-color: #113742;
+  color: #fff;
+}
+
+.about1 .text16,
+.about2 .text16{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.text16{
+  font-size: 16px;
+}
+
+#prefooter{
+  background-image:url('../../img/backgrounds/bg7.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+#prefooter h2{
+  color: #fff;
+}
