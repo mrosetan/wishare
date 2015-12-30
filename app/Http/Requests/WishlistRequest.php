@@ -27,4 +27,13 @@ class WishlistRequest extends Request
             'title' => 'required|min:2|max:20',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Wishlist title is required.',
+            'title.min' => 'Wishlist title must be at least 2 characters.',
+            'title.max' => 'Wishlist title may not be greater than 20 characters.',
+        ];
+    }
 }

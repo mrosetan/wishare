@@ -28,4 +28,13 @@ class RewishRequest extends Request
           'wishimageurl' => 'image',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'due_date.required'  => 'Please add the date of when you would like to get this wish.',
+            'due_date.after'  => 'Due date must not be before today.',
+            'wishimageurl.image'  => 'File to be uploaded must be an image file (jpeg, png, bmp, gif, or svg).',
+        ];
+    }
 }

@@ -27,4 +27,12 @@ class NotesRequest extends Request
             'message' => 'required|max:255'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'message.required'  => 'Please add the content of your note.',
+            'message.max'  => 'Your note must not be greater than 255 characters.',
+        ];
+    }
 }
