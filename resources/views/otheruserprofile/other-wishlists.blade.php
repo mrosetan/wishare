@@ -1,5 +1,5 @@
-@extends('userlayouts-master.profile-master')
-@section('title', 'Wishes')
+@extends('userlayouts-master.other-master')
+@section('title', 'Home')
 @section('newcontent')
 <br />
 @if(isset($wishes))
@@ -8,9 +8,9 @@
       <div class="panel-body">
         <div class="pull-left">
           <a href="#">
-            <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
+            <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
           </a>
-          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> added a new wish: <b><a href="{!! action('UserController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
+          <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b> added a new wish: <b><a href="{!! action('UserController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
           <br />
@@ -27,18 +27,6 @@
         </div>
         <hr />
         @endif
-        <!-- @if(count($wish->tags)>0)
-        <p>
-          Tagged:
-        </p>
-          <ul class="list-tags">
-          @foreach($tags as $t)
-              <li class="tagged-user">
-                 <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!!$t->user->lastname !!}</a>
-              </li>
-          @endforeach
-          </ul>
-        @endif -->
         <br />
         <div class="wish-icons pull-right">
           <!-- <a href="#"><span class="fa fa-star"></span></a> -->
@@ -57,7 +45,6 @@
           &nbsp;&nbsp;
           <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
         </div>
-      </div>
       <!-- end of panel body -->
     </div>
     @endforeach
@@ -227,5 +214,6 @@
 @endforeach
 @endif
 </div>
+
 
 @endsection

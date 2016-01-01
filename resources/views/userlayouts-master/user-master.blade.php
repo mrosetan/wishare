@@ -114,12 +114,20 @@
                     <li>
                         <a href="{{ url('user/help') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
-                    <li class="xn-openable">
+                    <!-- <li class="xn-openable">
                         <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
                         <ul>
                             <li><a href="{{ url('user/settings') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                             <li><a href="{{ url('user/settings/changepassword') }}"><span class="fa fa-lock"></span> Change Password</a></li>
                         </ul>
+                    </li> -->
+
+                    <li class="xn-openable">
+                      <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                      <ul>
+                          <li><a href="{{ url('user/settings') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                          <li><a href="{{ url('user/settings/changepassword') }}"><span class="fa fa-lock"></span> Change Password</a></li>
+                      </ul>
                     </li>
                     <li>
                         <a href="{{ url('auth/signout') }}"><span class="fa fa-power-off"></span> <span class="xn-text">Sign Out</span></a>
@@ -182,16 +190,6 @@
 
         <!-- <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script> -->
         <script>
-        //  $(function() {
-        //    var date = $('#datepicker').datepicker();
-        //    //$( "#datepicker" ).datepicker();
-        //  });
-        // $(function() {
-        //     $("#datepicker" ).datepicker({
-        //       container:'#myDatePicker'
-        //     });
-        //   });
-
         $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
         $(function() {
@@ -224,8 +222,9 @@
         $('#myTabs a[href="' + hash + '"]').tab('show');
 
         $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
-            $("#home-alert").alert('close');
+          $("#home-alert").alert('close');
         });
+
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
@@ -249,7 +248,6 @@
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="{{ URL::asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/actions.js') }}"></script>
-
 
         <script type="text/javascript" src="{{ URL::asset('js/user_side.js') }}"></script>
 

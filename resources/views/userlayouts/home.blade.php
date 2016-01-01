@@ -27,12 +27,12 @@
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
-                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['imageurl']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )
                         </a>
                         @if($s['created_at'] == $s['updated_at'])
@@ -97,7 +97,7 @@
                       @if(!empty($s['tagged']))
                         <ul class="list-tags tagged-user">
                           @foreach($s['tagged'] as $tag)
-                            <li class="tagged-user"><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                            <li class="tagged-user"><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['firstname'] !!} {!!$tag['lastname'] !!}</a></li>
                           @endforeach
                         </ul>
                       @endif
@@ -115,6 +115,23 @@
                         &nbsp;&nbsp;
                         <span data-toggle="tooltip" data-placement="top" title="Grant"><a data-toggle="modal" data-target="#modal_grant{!! $s['wishid'] !!}"><span class="fa fa-magic"></span></a></span>
                         @endif
+
+                        @if($s['userid'] == $user->id)
+                          &nbsp;&nbsp;
+                          <a href="#" data-toggle="modal" data-target="#modalwish{!! $s['wishid'] !!}">
+                            <span class="fa fa-edit"></span>
+                          </a>
+
+                          &nbsp;&nbsp;
+                          <a data-toggle="tooltip" data-placement="top" title="Tag" href="{!! url('user/edit/tags', $s['wishid']) !!}">
+                            <span class="fa fa-tag"></span>
+                          </a>
+
+                          &nbsp;&nbsp;
+                          <a data-toggle="tooltip" data-placement="top" title="delete" href="#" class="mb-control" data-box="#mb-deletewish{!! $s['wishid'] !!}">
+                            <span class="fa fa-trash-o"></span>
+                          </a>
+                        @endif
                       </div>
                     </div>
 
@@ -127,15 +144,15 @@
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
-                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['imageurl']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )'s
                         </a>
-                        wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                        wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('OtherUserController@profile', $s['granterid']) : '' !!}">
                           <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ).
                         </a>
                         <br />
@@ -207,7 +224,7 @@
                                     @if(!empty($s['tagged']))
                                       <ul class="list-tags">
                                         @foreach($s['tagged'] as $tag)
-                                          <li class="tagged-user"><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                          <li class="tagged-user"><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                                         @endforeach
                                       </ul>
                                     @endif
@@ -233,12 +250,12 @@
                       <div class="stream-margin">
                         <div class="col-xs-12">
                           <div class="pull-left">
-                            <a href="{!! !empty($s['granterimageurl']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                            <a href="{!! !empty($s['granterimageurl']) ? action('OtherUserController@profile', $s['granterid']) : '' !!}">
                               <img class="user granter img-circle" src="{!! $s['granterimageurl'] !!}">
                             </a>
                           </div>
                           <div class="stream-header">
-                            <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserController@otheruser', $s['granterid']) : '' !!}">
+                            <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('OtherUserController@profile', $s['granterid']) : '' !!}">
                               <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ):
                             </a>
                           </div>
@@ -312,7 +329,7 @@
                                     @if(!empty($s['tagged']))
                                       <ul class="list-tags">
                                         @foreach($s['tagged'] as $tag)
-                                          <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                          <li><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                                         @endforeach
                                       </ul>
                                     @endif
@@ -330,6 +347,22 @@
                         &nbsp;&nbsp;
                         <a href="{!! action('UserController@rewishDetails', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
 
+                        @if($s['userid'] == $user->id)
+                          &nbsp;&nbsp;
+                          <a href="#" data-toggle="modal" data-target="#modalwish{!! $s['wishid'] !!}">
+                            <span class="fa fa-edit"></span>
+                          </a>
+
+                          &nbsp;&nbsp;
+                          <a data-toggle="tooltip" data-placement="top" title="Tag" href="{!! url('user/edit/tags', $s['wishid']) !!}">
+                            <span class="fa fa-tag"></span>
+                          </a>
+
+                          &nbsp;&nbsp;
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="Delete" class="mb-control" data-box="#mb-deletewish{!! $s['wishid'] !!}">
+                            <span class="fa fa-trash-o"></span>
+                          </a>
+                        @endif
                       </div>
                     </div>
 
@@ -343,12 +376,12 @@
                   <div class="panel-body">
                     <div class="col-xs-12">
                       <div class="pull-left">
-                        <a href="{!! !empty($s['imageurl']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['imageurl']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserController@otheruser', $s['userid']) : '' !!}">
+                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('OtherUserController@profile', $s['userid']) : '' !!}">
                           <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )
                         </a>
                         @if($s['created_at'] == $s['updated_at'])
@@ -413,7 +446,7 @@
                       @if(!empty($s['tagged']))
                         <ul class="list-tags">
                           @foreach($s['tagged'] as $tag)
-                            <li><a href="{!! action('UserController@otheruser', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                            <li><a href="{!! action('OtherUserController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
                           @endforeach
                         </ul>
                       @endif
@@ -519,5 +552,124 @@
   </div>
   <!-- END BLUEIMP GALLERY -->
   </div>
+
+
+  <!-- =================================== WISHES =================================== -->
+
+
+    @if(count($fstream) > 0)
+      @foreach($fstream as $s)
+        @if($s['userid'] == $user->id)
+            <!-- message box-->
+            <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $s['wishid'] !!}">
+                <div class="mb-container">
+                    <div class="mb-middle">
+                        <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
+                        <div class="mb-content">
+                            <p>Are you sure you want to delete this wish?</p>
+                        </div>
+                        <div class="mb-footer">
+                            <div class="pull-right">
+                                <a href="{!! action('UserController@deleteWish', $s['wishid']) !!}" class="btn btn-success btn-lg">Yes</a>
+                                <button class="btn btn-default btn-lg mb-control-close">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- message box-->
+
+            <!-- modal -->
+
+            <div class="modal" id="modalwish{!! $s['wishid'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      <h4>Edit Wish</h4>
+                    </div>
+                    <div class="modal-body">
+                      @if(session('wishStatus'))
+                        <div class="alert alert-success">
+                            {{ session('wishStatus') }}
+                        </div>
+                      @endif
+                      @foreach($errors->all() as $error)
+                          <p class="alert alert-danger"> {{ $error }}</p>
+                      @endforeach
+                      {!! Form::open(array( 'action' => array('UserController@updateWish', $s['wishid']),
+                                            'class' => 'form',
+                                            'files'=>true,
+                                            'enctype'=>'multipart/form-data')) !!}
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::select('wishlist', $wishlists, $s['wishlistid'], array('class'=>'form-control'))!!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::text('title', $s['title'], array('class'=>'form-control', 'placeholder'=>'Wish')) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::textarea('details', $s['details'], ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            {!! Form::textarea('alternatives', $s['alternatives'], ['class'=>'form-control ', 'placeholder'=>'Wish alternatives', 'size'=>'102x5']) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <label>Due Date</label>
+                            {!! Form::text('due_date', $s['due_date'], array('id'=>'datepicker', 'class'=>'form-control')) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-sm-12">
+                            {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
+                          </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                          <div class="col-md-12">
+                            @if($s['flagged'] ==  1)
+                              {!! Form::checkbox('flag', '1', true) !!}
+                            @else
+                              {!! Form::checkbox('flag', '1') !!}
+                            @endif
+                            <label><span class="glyphicon glyphicon-flag"></span> Flag </label>
+                            <!-- <span class="glyphicon glyphicon-flag"></span><a href="#"><span class="xn-text">&nbsp;Flag wish</span></a> -->
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="pull-right">
+                              {!! Form::submit('Update', array('class'=>'btn btn-info')) !!}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {!! Form::close() !!}
+                    </div>
+                </div>
+              </div>
+            </div>
+          <!-- modal -->
+
+          @endif
+
+
+      @endforeach
+    @endif
+
 </div>
 @endsection

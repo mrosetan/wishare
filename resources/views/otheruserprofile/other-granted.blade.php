@@ -1,4 +1,4 @@
-@extends('userlayouts-master.profile-master')
+@extends('userlayouts-master.other-master')
 @section('title', 'Granted')
 @section('newcontent')
 <br />
@@ -8,9 +8,9 @@
       <div class="panel-body">
         <div class="pull-left">
           <a href="#">
-            <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
+            <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
           </a>
-          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b>'s wish has been granted: <b><a href="{!! action('UserController@wish', $gr['id'] ) !!}">{!! $gr['title'] !!}</a></b>
+          <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b>'s wish has been granted: <b><a href="{!! action('UserController@wish', $gr['id'] ) !!}">{!! $gr['title'] !!}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gr['updated_at']))  !!}
           <br />
@@ -49,9 +49,9 @@
 @endif
 
 <!-- message box-->
-@if(isset($granted))
-  @foreach($granted as $g)
-    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $g->id !!}">
+@if(isset($wishes))
+  @foreach($wishes as $wish)
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
         <div class="mb-container">
             <div class="mb-middle">
                 <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
@@ -59,9 +59,9 @@
                     <p>Are you sure you want to delete this wish?</p>
                 </div>
                 <div class="mb-footer">
-                    @if(!empty($granted))
+                    @if(!empty($wishes))
                     <div class="pull-right">
-                        <a href="{!! action('UserController@deleteWish', $g->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                        <a href="{!! action('UserController@deleteWish', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
                         <button class="btn btn-default btn-lg mb-control-close">No</button>
                     </div>
                     @endif
