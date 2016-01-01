@@ -41,6 +41,7 @@ Route::get('other/tracked/{id?}', 'OtherUserController@tracked');
 Route::get('other/friends/{id?}', 'OtherUserController@friends');
 Route::get('other/tynotes/{id?}', 'OtherUserController@tynotes');
 Route::get('other/wishes/{id?}', 'OtherUserController@wishes');
+Route::get('other/profile/add/{id?}', 'OtherUserController@privateUser');
 
 
 // Other User old

@@ -38,9 +38,16 @@ use Validator;
 
 class OtherUserController extends Controller
 {
-  public function privateUser()
+  public function privateUser($id)
   {
-    return view('otheruserprofile.other-private');
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    if($userId != $id){
+      $otherUser = User::where('id', '=', $id)->firstorFail();
+    }
+
+    return view('otheruserprofile.other-private', compact('otherUser'));
   }
   public function profile($id)
   {

@@ -57,3 +57,12 @@ a:hover, a:focus {
   width: 200px;
   height: 200px;
 }
+
+span.fa.fa-lock.private-acct {
+  font-size: 6em;
+  margin: 0 auto;
+}
+.private-acct-container {
+  width: 75px;
+  margin: 0 auto;
+}
