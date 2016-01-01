@@ -41,7 +41,7 @@
                             </div>
                             <div class="user-details">
                               <p class="user-name">
-                                <a href="{!! action('OtherUserController@profile', $n->tagger['id']) !!}"> {!! $n->tagger['firstname'] !!} {!! $n->tagger['lastname'] !!} </a> tagged you in a <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br />
+                                <a href="{!! action('OtherUserController@profile', $n->tagger['id']) !!}"> {!! $n->tagger['firstname'] !!} {!! $n->tagger['lastname'] !!} </a> tagged you in a <a href="{!! action('UserController@wish', $n->wish['id']) !!}">wish <br />
                                   <b>({!! $n->wish['title'] !!})</b></a>
                                 <br/>
                                 {!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}
@@ -59,7 +59,7 @@
                               </div>
                               <div class="user-details">
                                 <p class="user-name">
-                                  <a href="{!! action('OtherUserController@profile', $n->user->id) !!}"> {!! $n->user['firstname'] !!} {!! $n->user['lastname'] !!} </a> {!! $n['notificationtype'] !!} your <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br/>
+                                  <a href="{!! action('OtherUserController@profile', $n->user['id']) !!}"> {!! $n->user['firstname'] !!} {!! $n->user['lastname'] !!} </a> {!! $n['notificationtype'] !!} your <a href="{!! action('UserController@wish', $n->wish['id']) !!}">wish <br/>
                                     <b>({!! $n->wish['title'] !!})</b></a>
                                   <br/>
                                   {!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}
@@ -72,25 +72,6 @@
                     @endif
                   @endforeach
                 @endif
-                <!-- @if(count($tags)>0)
-                  @foreach($tags as $t)
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                          <div class="pull-left">
-                            {!! Html::image('' . $t->tagger->imageurl, '', array('class'=>'user-friend img-circle')) !!}
-                          </div>
-                          <div class="user-details">
-                            <p class="user-name">
-                              <a href="{!! action('OtherUserController@profile', $t->tagger->id) !!}"> {!! $t->tagger->firstname !!} {!! $t->tagger->lastname !!} </a> tagged you in a <a href="{!! action('UserController@wish', $t->wish->id) !!}">wish</a>
-                              <br/>
-                              {!! date('m/d/y g:i A', strtotime($t->created_at)) !!}
-                            </p>
-
-                          </div>
-                        </div>
-                    </div>
-                  @endforeach
-                @endif -->
               </div>
 
 
@@ -107,7 +88,7 @@
                           </div>
                           <div class="user-details">
                             <h5 class="user-name">
-                              <a href="{!! action('OtherUserController@profile', $r->friendRequest->id) !!}">
+                              <a href="{!! action('OtherUserController@profile', $r->friendRequest['id']) !!}">
                               {!! $r->friendRequest->firstname !!} {!! $r->friendRequest['lastname'] !!}
                             </a>
                             </h5>
