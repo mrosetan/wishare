@@ -66,3 +66,7 @@ span.fa.fa-lock.private-acct {
   width: 75px;
   margin: 0 auto;
 }
+.wishes-image {
+  width: auto;
+  height: 100%;
+}
