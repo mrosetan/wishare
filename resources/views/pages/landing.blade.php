@@ -219,7 +219,7 @@
                 <div class="col-lg-12 text-center">
                     <h2>Keep track of your wishes</h2>
                     <h4>Share your wishes and wants to your friends</h4>
-                    <p class="text16">You never know, someone out there might is looking for the perfect thing to give you.</p>
+                    <p class="text16">You never know, someone out there is looking for the perfect thing to give you.</p>
                 </div>
             </div>
             <br />

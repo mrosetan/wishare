@@ -99,8 +99,71 @@
                             <!--ADD AS FRIEND -->
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        <button class="btn btn-info btn-rounded btn-block"><span class="fa fa-plus"></span> Add as Friend</button>
+                                    <div class="">
+                                        @if(count($requests)>0)
+                                          @foreach($requests as $req)
+                                            <div class="row accept-or-decline">
+                                              <p class="text-center">
+                                                You have a friend request from this user.
+                                              </p>
+                                              <div class="col-md-6">
+                                                {!! Form::open(array(
+                                                              'action' => array('UserController@acceptFriendRequest', $req->id),
+                                                              'class' => 'form friendActions',
+                                                              'method' => 'get')) !!}
+                                                    {!! Form::submit('Accept', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
+                                                {!! Form::close() !!}
+                                              </div>
+                                              <div class="col-md-6">
+                                                {!! Form::open(array(
+                                                              'action' => array('UserController@declineFriendRequest', $req->id),
+                                                              'class' => 'form friendActions',
+                                                              'method' => 'get')) !!}
+                                                    {!! Form::submit('Decline', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
+                                                {!! Form::close() !!}
+                                              </div>
+
+
+
+                                              <!-- <a href="{!! action('UserController@acceptFriendRequest', $req->id) !!}" class="btn btn-info">Accept</a>
+                                              <a href="{!! action('UserController@declineFriendRequest', $req->id) !!}" class="btn btn-default">Decline</a> -->
+                                            </div>
+                                          @endforeach
+                                        @else
+                                          @if(isset($status) and ($status == 0 || $status == 1))
+
+                                            @if($status == 0)
+                                              {!! Form::open(array(
+                                                            'action' => array('UserController@cancelFriendRequest', $otherUser->id),
+                                                            'class' => 'form friendActions',
+                                                            'method' => 'get')) !!}
+                                                  {!! Form::submit('Cancel Friend Request', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
+                                              {!! Form::close() !!}
+                                              <!-- <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a> -->
+                                            @endif
+                                            @if($status == 1)
+                                              {!! Form::open(array(
+                                                            'action' => array('UserController@unfriend', $otherUser->id),
+                                                            'class' => 'form friendActions',
+                                                            'method' => 'get')) !!}
+                                                  {!! Form::submit('Unfriend', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
+                                              {!! Form::close() !!}
+                                              <!-- <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a> -->
+                                            @endif
+                                          @else
+                                            {!! Form::open(array(
+                                                          'action' => array('UserController@addFriend', $otherUser->id),
+                                                          'class' => 'form friendActions',
+                                                          'method' => 'get')) !!}
+                                                {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
+                                            {!! Form::close() !!}
+                                            <!-- <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a> -->
+
+                                          @endif
+                                        @endif
+
+                                        <!-- <button class="btn btn-info btn-rounded btn-block"><span class="fa fa-plus"></span> Add as Friend</button> -->
+
                                     </div>
                                 </div>
                             </div>
