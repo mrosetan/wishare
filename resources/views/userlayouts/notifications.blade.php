@@ -72,25 +72,7 @@
                     @endif
                   @endforeach
                 @endif
-                <!-- @if(count($tags)>0)
-                  @foreach($tags as $t)
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                          <div class="pull-left">
-                            {!! Html::image('' . $t->tagger->imageurl, '', array('class'=>'user-friend img-circle')) !!}
-                          </div>
-                          <div class="user-details">
-                            <p class="user-name">
-                              <a href="{!! action('OtherUserController@profile', $t->tagger->id) !!}"> {!! $t->tagger->firstname !!} {!! $t->tagger->lastname !!} </a> tagged you in a <a href="{!! action('UserController@wish', $t->wish->id) !!}">wish</a>
-                              <br/>
-                              {!! date('m/d/y g:i A', strtotime($t->created_at)) !!}
-                            </p>
-
-                          </div>
-                        </div>
-                    </div>
-                  @endforeach
-                @endif -->
+                
               </div>
 
 
