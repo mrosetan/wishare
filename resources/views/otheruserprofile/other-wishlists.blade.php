@@ -38,12 +38,14 @@
           <span data-toggle="tooltip" data-placement="top" title="Grant"><a data-toggle="modal" data-target="#modal_grant{!! $wish['id'] !!}"><span class="fa fa-magic"></span></a></span>
           &nbsp;&nbsp;
           <a href="{!! action('UserController@rewishDetails', $wish['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
-          &nbsp;&nbsp;
+
+          <!-- &nbsp;&nbsp;
           <a href="#" data-toggle="modal" data-target="#modalwish{!! $wish->id !!}"><span class="fa fa-edit"></span></a>
           &nbsp;&nbsp;
           <a href="{!! url('user/edit/tags', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Tag"><span class="fa fa-tag"></span></a>
           &nbsp;&nbsp;
-          <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
+          <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a> -->
+
         </div>
       <!-- end of panel body -->
     </div>
