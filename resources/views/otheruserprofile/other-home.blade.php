@@ -46,6 +46,7 @@
           <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a> -->
         </div>
       <!-- end of panel body -->
+      </div>
     </div>
     @endforeach
 @endif
@@ -213,7 +214,7 @@
 </div>
 @endforeach
 @endif
-</div>
+
 
 
 @endsection
