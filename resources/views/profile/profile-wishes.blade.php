@@ -13,7 +13,7 @@
           <div class="gallery-item">
               <a href="{!! action('UserController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
                 <div class="image image-container">
-                    <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}"/>
+                    <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
                 </div>
               </a>
               <div class="meta">
