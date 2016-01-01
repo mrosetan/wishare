@@ -41,8 +41,8 @@
                             </div>
                             <div class="user-details">
                               <p class="user-name">
-                                <a href="{!! action('OtherUserController@profile', $n->tagger->id) !!}"> {!! $n->tagger['firstname'] !!} {!! $n->tagger['lastname'] !!} </a> tagged you in a <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br />
-                                  <b>({!! $n->wish->title !!})</b></a>
+                                <a href="{!! action('OtherUserController@profile', $n->tagger['id']) !!}"> {!! $n->tagger['firstname'] !!} {!! $n->tagger['lastname'] !!} </a> tagged you in a <a href="{!! action('UserController@wish', $n->wish->id) !!}">wish <br />
+                                  <b>({!! $n->wish['title'] !!})</b></a>
                                 <br/>
                                 {!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}
                               </p>
