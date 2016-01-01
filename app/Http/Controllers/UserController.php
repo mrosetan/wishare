@@ -322,7 +322,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -390,7 +390,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -707,7 +707,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.8/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -879,16 +879,49 @@ class UserController extends Controller
 
     $details['privacy'] = $request->privacy;
 
+    $messages = [
+        'imageurl.image' => 'File to be uploaded must be an image file (jpeg, png, bmp, gif, or svg).',
+
+        'firstname.required' => 'First name is required.',
+        'firstname.min' => 'First name must be at least 3 characters.',
+        'firstname.max' => 'First name may not be greater than 50 characters.',
+        'firstname.regex' => 'First name may only contain letters.',
+
+        'lastname.required' => 'Last name is required.',
+        'lastname.min' => 'Last name must be at least 2 characters.',
+        'lastname.max' => 'Last name may not be greater than 50 characters.',
+        'lastname.regex' => 'Last name may only contain letters.',
+
+        'city.min' => 'City must be at least 2 characters.',
+        'city.max' => 'City may not be greater than 50 characters.',
+        'city.regex' => 'City may only contain letters.',
+
+        'username.required' => 'Username is required.',
+        'username.min' => 'Username must be at least 3 characters.',
+        'username.max' => 'Username may not be greater than 15 characters.',
+        'username.alpha_num' => 'Username may only contain letters and numbers.',
+        'username.unique' => 'Username has already been taken.',
+
+        'email.required' => 'Email is required.',
+        'email.email' => 'Email must be a valid email address.',
+        'email.unique' => 'Email has already been taken.',
+
+        'facebook.min' => 'Facebook Username must be at least 3 characters.',
+        'facebook.max' => 'Facebook Username may not be greater than 50 characters.',
+
+        'birthdate.before' => 'Birthdate must not be after today.',
+    ];
+
     $validator = Validator::make($details, [
         'imageurl'  => 'image',
         'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
         'lastname'  => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
         'city'      => 'min:2|max:50|regex:/^[\pL\s]+$/u',
-        'username'  => 'sometimes|required|min:2|max:50|alpha_num|unique:wishare_users',
+        'username'  => 'sometimes|required|min:3|max:15|alpha_num|unique:wishare_users',
         'email'     => 'sometimes|required|email|unique:wishare_users',
         'facebook'  => 'min:3|max:50|',
         'birthdate' => 'date|before:tomorrow|date_format:Y-m-d',
-      ]);
+      ], $messages);
 
       if ($validator->fails()) {
           return redirect('user/settings')
@@ -915,7 +948,7 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('imageurl');
     if($newImage == null)
     {
@@ -1208,7 +1241,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.28';
+      $hostURL = '192.168.1.8';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1370,7 +1403,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1453,7 +1486,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
