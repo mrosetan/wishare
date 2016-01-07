@@ -27,18 +27,18 @@
         </div>
         <hr />
         @endif
-        <!-- @if(count($wish->tags)>0)
+        @if(count($wish->tags)>0)
         <p>
           Tagged:
         </p>
           <ul class="list-tags">
-          @foreach($tags as $t)
+          @foreach($wish->tags as $t)
               <li class="tagged-user">
                  <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!!$t->user->lastname !!}</a>
               </li>
           @endforeach
           </ul>
-        @endif -->
+        @endif
         <br />
         <div class="wish-icons pull-right">
           <!-- <a href="#"><span class="fa fa-star"></span></a> -->
