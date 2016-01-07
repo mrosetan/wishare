@@ -299,7 +299,7 @@
             <div class="row text-center">
                 <div class="col-lg-4 col-lg-offset-4">
                     <img class="center-block lp-icons" src="{{ URL::asset('img/lp/10.png') }}" alt="" />
-                    <h4>Share the things you have reveived</h4>
+                    <h4>Share the things you have received</h4>
                     <p class="text16">Tell your friends about your wishes that came true.</p>
                 </div>
             </div>
