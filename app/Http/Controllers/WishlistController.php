@@ -43,13 +43,31 @@ class WishlistController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
+    if(!empty($user))
+    {
+      $wishlists = Wishlist::with('wishes')
+                            ->where('id', '=', $id)
+                            ->where('createdby_id', '=', $userId)
+                            ->where('status', '=', 1)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+      return view('profile.profile-wishes', compact('user', 'wishlists'));
+
+    }
+    else
+      return redirect()->action('WishlistController@guest', [$id]);
+  }
+
+  public function guest($id)
+  {
     $wishlists = Wishlist::with('wishes')
+                          ->with('user')
                           ->where('id', '=', $id)
-                          ->where('createdby_id', '=', $userId)
                           ->where('status', '=', 1)
                           ->orderBy('created_at', 'desc')
                           ->get();
 
-    return view('profile.profile-wishes', compact('user', 'wishlists'));
+    return view('pages.wishlist-guest', compact('wishlists'));
   }
+
 }

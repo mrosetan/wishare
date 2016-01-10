@@ -1,4 +1,4 @@
-@extends('userlayouts-master.otherwishlists-master')
+@extends('userlayouts-master.wishlists-master')
 @section('title', 'Wishlist')
 @section('content')
 <br />
@@ -12,12 +12,13 @@
               <div class="wish-gallery-container">
                 <div class="page-title">
                   <h3><span class="fa fa-magic"></span> {!! $wishlist['title'] !!} </h3>
+                  <b>Created by: </b>{!! $wishlist->user['firstname'] !!} {!! $wishlist->user['lastname'] !!}
                 </div>
                 <div class="gallery" id="links">
                 @if($wishlist['privacy'] == 0)
                   @foreach($wishlist->wishes as $wish)
                     <div class="gallery-item">
-                        <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+                        <a href="{!! action('SoloWishController@guest', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
                           <div class="image image-container">
                               <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
                           </div>
