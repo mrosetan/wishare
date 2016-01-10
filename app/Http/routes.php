@@ -22,8 +22,8 @@ Route::get('/blank', 'PagesController@blank');
 Route::get('/profilemaster', 'ProfileController@profile');
 Route::get('/profile', 'ProfileController@wishlists');
 Route::get('profile/friends', 'ProfileController@friends');
-Route::get('profile/wishes/{id?}', 'ProfileController@wishes');
-Route::get('profile/wishlists', 'WishlistController@wishWishlists');
+Route::get('profile/wishes/{id?}', 'WishlistController@wishes');
+Route::get('profile/wishlists', 'ProfileController@wishWishlists');
 Route::get('profile/granted', 'ProfileController@granted');
 Route::get('profile/given', 'ProfileController@given');
 Route::get('profile/tracked', 'ProfileController@tracked');
@@ -32,16 +32,17 @@ Route::get('profile/tynotes/{id?}', 'ProfileController@deleteTYNoteProfile');
 
 
 //other user new
+Route::get('/othermaster', 'OtherUserController@master');
 Route::get('other/{id?}', 'OtherUserController@profile');
 Route::get('other/profile/{id?}', 'OtherUserController@wishlists');
-Route::get('other/wishlists/{id?}', 'OtherWishlistController@wishWishlists');
+Route::get('other/wishlists/{id?}', 'OtherUserController@wishWishlists');
 Route::get('other/granted/{id?}', 'OtherUserController@granted');
 Route::get('other/given/{id?}', 'OtherUserController@given');
 Route::get('other/tracked/{id?}', 'OtherUserController@tracked');
 Route::get('other/friends/{id?}', 'OtherUserController@friends');
 Route::get('other/tynotes/{id?}', 'OtherUserController@tynotes');
 // Route::get('other/wishes/{id?}', 'OtherUserController@wishes');
-Route::get('other/{id}/wishes/{wishlistid?}', 'OtherUserController@wishes');
+Route::get('other/{id}/wishes/{wishlistid?}', 'OtherWishlistController@wishes');
 Route::get('other/profile/add/{id?}', 'OtherUserController@privateUser');
 
 

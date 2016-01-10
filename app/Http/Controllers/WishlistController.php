@@ -38,17 +38,18 @@ use Validator;
 
 class WishlistController extends Controller
 {
-  public function wishWishlists()
+  public function wishes($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
     $wishlists = Wishlist::with('wishes')
+                          ->where('id', '=', $id)
                           ->where('createdby_id', '=', $userId)
                           ->where('status', '=', 1)
                           ->orderBy('created_at', 'desc')
                           ->get();
 
-    return view('profile.profile-wishWishlists', compact('user', 'wishlists'));
+    return view('profile.profile-wishes', compact('user', 'wishlists'));
   }
 }

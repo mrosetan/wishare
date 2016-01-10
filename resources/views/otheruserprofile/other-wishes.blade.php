@@ -1,8 +1,8 @@
-@extends('userlayouts-master.wishlists-master')
+@extends('userlayouts-master.otherwishlists-master')
 @section('title', 'Wishlist')
-@section('newcontent')
+@section('content')
 <br />
-<div class="solo ">
+<div class="solo">
   <div class="row">
     <div class=" col-md-6 col-md-offset-3">
       <div class="panel panel-default">

@@ -7,7 +7,7 @@
   <div class="panel panel-default">
     <div class="panel-body">
         <h3>
-          <span class="fa fa-magic"></span>&nbsp;<a href="{!! action('ProfileController@wishes', $wishlist->id) !!}">{!! $wishlist['title'] !!}</a>
+          <span class="fa fa-magic"></span>&nbsp;<a href="{!! action('WishlistController@wishes', $wishlist->id) !!}">{!! $wishlist['title'] !!}</a>
           @if($wishlist->privacy == 1)
             <span class="pull-right fa fa-lock"></span>
           @endif

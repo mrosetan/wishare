@@ -37,14 +37,25 @@ use Validator;
 
 class OtherWishlistController extends Controller
 {
-  public function wishWishlists($id)
+  public function master($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
+    if($userId != $id)
+      $otherUser = User::where('id', '=', $id)->firstorFail();
+
+    return view('userlayouts-master.profile-master', compact('otherUser'));
+  }
+
+  public function wishes($id, $wishlistid)
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+    // dd($id);
     if($userId != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
-      // dd($id);
+
       $requests = Friend::with('friendRequest')
                           ->where('userid', '=', $id)
                           ->where('friend_userid', '=', $userId)
@@ -78,13 +89,13 @@ class OtherWishlistController extends Controller
       }
 
       $wishlists = Wishlist::with('wishes')
-                            ->where('createdby_id', '=', $id)
+                            ->where('id', '=', $wishlistid)
+                            ->where('createdby_id', '!=', $userId)
                             ->where('status', '=', 1)
                             ->where('privacy', '=', 0)
                             ->orderBy('created_at', 'desc')
                             ->get();
     }
-
-    return view('otheruserprofile.other-wishWishlists', compact('otherUser', 'wishlists', 'requests', 'status'));
+    return view('otheruserprofile.other-wishes', compact('otherUser', 'wishlists', 'requests', 'status'));
   }
 }
