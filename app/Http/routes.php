@@ -32,7 +32,7 @@ Route::get('profile/tynotes/{id?}', 'ProfileController@deleteTYNoteProfile');
 
 
 //other user new
-Route::get('other/home/{id?}', 'OtherUserController@profile');
+Route::get('other/{id?}', 'OtherUserController@profile');
 Route::get('other/profile/{id?}', 'OtherUserController@wishlists');
 Route::get('other/wishlists/{id?}', 'OtherUserController@wishWishlists');
 Route::get('other/granted/{id?}', 'OtherUserController@granted');
@@ -110,6 +110,9 @@ Route::post('unfavorite', 'FavetrackController@unfavorite');
 
 Route::post('trackwish', 'FavetrackController@trackwish');
 Route::post('untrackwish', 'FavetrackController@untrackwish');
+
+Route::get('wish/{id?}', 'SoloWishController@wish');
+Route::get('guest/wish/{id?}', 'SoloWishController@guest');
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');

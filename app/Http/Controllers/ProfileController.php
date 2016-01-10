@@ -37,10 +37,21 @@ use Validator;
 
 class ProfileController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+
+  }
+  
   public function profile()
   {
     $user = Auth::user();
     return view('userlayouts-master.profile-master', compact('user'));
+  }
+
+  public function findProfile($id)
+  {
+
   }
 
   public function wishlists()

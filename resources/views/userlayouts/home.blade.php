@@ -52,7 +52,8 @@
                     <hr />
                     <div class="col-xs-12">
                       <div class="stream-margin">
-                        <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
+                        <h4><a href="{!! action('SoloWishController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
+                        <!-- <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4> -->
 
                       </div>
                       <hr />
@@ -162,8 +163,8 @@
                     </div>
                     <div class="col-xs-12">
                       <div class="stream-margin">
-
-                        <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
+                        <h4><a href="{!! action('SoloWishController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
+                        <!-- <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4> -->
                       </div>
                     </div>
 

@@ -10,7 +10,7 @@
           <a href="#">
             <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
           </a>
-          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> granted <a href="{!! action('UserController@otheruser', $gi->user['id']) !!}"><b>{!! $gi->user['firstname'] !!} {!! $gi->user['lastname'] !!}</b> ({!! $gi->user['username'] !!})</a>'s wish: <b><a href="{!! action('UserController@wish', $gi['id'] ) !!}">{!! $gi['title'] !!}</a></b>
+          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> granted <a href="{!! action('UserController@otheruser', $gi->user['id']) !!}"><b>{!! $gi->user['firstname'] !!} {!! $gi->user['lastname'] !!}</b> ({!! $gi->user['username'] !!})</a>'s wish: <b><a href="{!! action('SoloWishController@wish', $gi['id'] ) !!}">{!! $gi['title'] !!}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gi['updated_at']))  !!}
           <br />
