@@ -175,8 +175,11 @@ class OtherUserController extends Controller
       }
 
     }
-    else
-      return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'requests'));
+    else{
+      return redirect()->action('ProfileController@wishlists', [$id]);
+      // return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'requests'));
+    }
+
 
   }
 

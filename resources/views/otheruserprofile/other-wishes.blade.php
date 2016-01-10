@@ -11,7 +11,7 @@
       <div class="gallery" id="links">
         @foreach($wishlist->wishes as $wish)
           <div class="gallery-item">
-              <a href="{!! action('UserController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+              <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
                 <div class="image image-container">
                     <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}"/>
                 </div>

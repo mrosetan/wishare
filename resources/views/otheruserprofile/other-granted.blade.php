@@ -10,13 +10,13 @@
           <a href="#">
             <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
           </a>
-          <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b>'s wish has been granted: <b><a href="{!! action('UserController@wish', $gr['id'] ) !!}">{!! $gr['title'] !!}</a></b>
+          <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b>'s wish has been granted: <b><a href="{!! action('SoloWishController@wish', $gr['id'] ) !!}">{!! $gr['title'] !!}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gr['updated_at']))  !!}
           <br />
             <b>Wishlist: </b> <a href="{!! action('ProfileController@wishes', $gr->wishlist['id']) !!}">{!! $gr->wishlist['title'] !!}</a>
           <br />
-            <b>Granted by: </b><a href="{!! action('UserController@otheruser', $gr->granter['id']) !!}">{!! $gr->granter['firstname'] !!}  {!! $gr->granter['lastname'] !!}</a>
+            <b>Granted by: </b><a href="{!! action('OtherUserController@profile', $gr->granter['id']) !!}">{!! $gr->granter['firstname'] !!}  {!! $gr->granter['lastname'] !!}</a>
         </div>
         <br/><br /><br />
         <hr />

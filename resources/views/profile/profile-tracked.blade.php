@@ -10,7 +10,7 @@
           <a href="#">
             <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
           </a>
-          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> tracked a wish: <b><a href="{!! action('UserController@wish', $tr->wish['id'] ) !!}">{!! $tr->wish['title'] !!}</a></b>
+          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> tracked a wish: <b><a href="{!! action('SoloWishController@wish', $tr->wish['id'] ) !!}">{!! $tr->wish['title'] !!}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($tr['updated_at']))  !!}
           <br />
