@@ -136,12 +136,12 @@
                 </div>
               @else
                 <div class="alert alert-warning">
-                  This wish belong to a private wishlist.
+                  This wish belongs to a private wishlist.
                 </div>
               @endif
             @else
               <div class="alert alert-info">
-                Wish not found
+                Wish not found.
               </div>
             @endif
           </div>

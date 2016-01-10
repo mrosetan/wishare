@@ -42,7 +42,7 @@ class ProfileController extends Controller
       $this->middleware('auth');
 
   }
-  
+
   public function profile()
   {
     $user = Auth::user();
@@ -257,20 +257,6 @@ class ProfileController extends Controller
 
     }
     return view('profile.profile-given', compact('user', 'given'));
-  }
-
-  public function wishWishlists()
-  {
-    $user = Auth::user();
-    $userId = $user['id'];
-
-    $wishlists = Wishlist::with('wishes')
-                          ->where('createdby_id', '=', $userId)
-                          ->where('status', '=', 1)
-                          ->orderBy('created_at', 'desc')
-                          ->get();
-
-    return view('profile.profile-wishWishlists', compact('user', 'wishlists'));
   }
 
   public function tynotes()

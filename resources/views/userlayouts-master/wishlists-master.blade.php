@@ -72,122 +72,19 @@
                     </li>
                     <!-- DASHBOARD -->
                     <li class="pull-right">
-                      <a href="{{ URL::to('user/home') }}"><span class="fa fa-arrow-circle-o-left"></span>Dashboard</a>
+                      @if(!empty($user))
+                        <a href="{{ URL::to('user/home') }}"><span class="fa fa-arrow-circle-o-left"></span>Dashboard </a>
+                      @endif
                     </li>
                     <!-- END DASHBOARD -->
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
                 <!-- PAGE CONTENT WRAPPER -->
-                <div class="page-content-wrap">
-                  <div class="row">
-                    <div class="profile-action-container">
-                      <div class="col-md-3 col-md-offset-1">
-                        <br/>
-                        <div class="panel panel-default">
-                            <div class="panel-body profile">
-                            <!-- COVER PHOTO -->
-                            <!-- <div class="panel-body profile" style="background: url('assets/images/gallery/music-4.jpg') center center no-repeat;"> -->
-                            <!-- END OF COVER PHOTO -->
-                              <div class="profile-image">
-                                  <img src="{!! $otherUser['imageurl'] !!}" />
-                              </div>
-                              <div class="profile-data">
-                                  <div class="profile-data-name">{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</div>
-                                  <div class="profile-data-title" style="color: #FFF;">{!! $otherUser['city'] !!}</div>
-                              </div>
-                            </div>
-                            <!--ADD AS FRIEND -->
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="">
-                                        @if(count($requests)>0)
-                                          @foreach($requests as $req)
-                                            <div class="row accept-or-decline">
-                                              <p class="text-center">
-                                                You have a friend request from this user.
-                                              </p>
-                                              <div class="col-md-6">
-                                                {!! Form::open(array(
-                                                              'action' => array('UserController@acceptFriendRequest', $req->id),
-                                                              'class' => 'form friendActions',
-                                                              'method' => 'get')) !!}
-                                                    {!! Form::submit('Accept', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
-                                                {!! Form::close() !!}
-                                              </div>
-                                              <div class="col-md-6">
-                                                {!! Form::open(array(
-                                                              'action' => array('UserController@declineFriendRequest', $req->id),
-                                                              'class' => 'form friendActions',
-                                                              'method' => 'get')) !!}
-                                                    {!! Form::submit('Decline', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
-                                                {!! Form::close() !!}
-                                              </div>
+                <div class="page-content">
 
-
-
-                                              <!-- <a href="{!! action('UserController@acceptFriendRequest', $req->id) !!}" class="btn btn-info">Accept</a>
-                                              <a href="{!! action('UserController@declineFriendRequest', $req->id) !!}" class="btn btn-default">Decline</a> -->
-                                            </div>
-                                          @endforeach
-                                        @else
-                                          @if(isset($status) and ($status == 0 || $status == 1))
-
-                                            @if($status == 0)
-                                              {!! Form::open(array(
-                                                            'action' => array('UserController@cancelFriendRequest', $otherUser->id),
-                                                            'class' => 'form friendActions',
-                                                            'method' => 'get')) !!}
-                                                  {!! Form::submit('Cancel Friend Request', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
-                                              {!! Form::close() !!}
-                                              <!-- <a href="{!! action('UserController@cancelFriendRequest', $otherUser->id) !!}" class="btn btn-info btn-default">Cancel Friend Request</a> -->
-                                            @endif
-                                            @if($status == 1)
-                                              {!! Form::open(array(
-                                                            'action' => array('UserController@unfriend', $otherUser->id),
-                                                            'class' => 'form friendActions',
-                                                            'method' => 'get')) !!}
-                                                  {!! Form::submit('Unfriend', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
-                                              {!! Form::close() !!}
-                                              <!-- <a href="{!! action('UserController@unfriend', $otherUser->id) !!}" class="btn btn-info btn-default">Unfriend</a> -->
-                                            @endif
-                                          @else
-                                            {!! Form::open(array(
-                                                          'action' => array('UserController@addFriend', $otherUser->id),
-                                                          'class' => 'form friendActions',
-                                                          'method' => 'get')) !!}
-                                                {!! Form::submit('Add as Friend', array('class'=>'btn btn-info btn-rounded btn-block')) !!}
-                                            {!! Form::close() !!}
-                                            <!-- <a href="{!! action('UserController@addFriend', $otherUser->id) !!}" class="btn btn-info btn-default">Add as Friend</a> -->
-
-                                          @endif
-                                        @endif
-
-                                        <!-- <button class="btn btn-info btn-rounded btn-block"><span class="fa fa-plus"></span> Add as Friend</button> -->
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!--END OF ADD AS FRIEND -->
-                            <div class="panel-body list-group border-bottom">
-                                <a href="{!! action('OtherUserController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
-                                <a href="{!! action('OtherWishlistController@wishWishlists', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishlists and Wishes </a>
-                                <a href="{!! action('OtherUserController@granted', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-magic"></span> Wishes Granted </a>
-                                <a href="{!! action('OtherUserController@given', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-gift"></span> Wishes Given </a>
-                                <a href="{!! action('OtherUserController@tracked', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
-                                <a href="{!! action('OtherUserController@friends', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
-                                <a href="{!! action('OtherUserController@tynotes', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
-                            </div>
-                        </div>
-
+                      <div class="wish-container">
+                        @yield('content')
                       </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="profile-content-container">
-                        @yield('newcontent')
-                      </div>
-                    </div>
-                  </div>
 
                 </div>
                 <!-- PAGE CONTENT WRAPPER -->
@@ -256,11 +153,6 @@
                 $("#home-alert").alert('close');
             });
 
-            $("a.list-group-item").on("click",function(e){
-             var previous = $(this).closest(".list-group").children(".active");
-             previous.removeClass("active"); // previous list-item
-             $(e.target).addClass("active"); // activated list-item
-           });
             // document.getElementById('links').onclick = function (event) {
             //     event = event || window.event;
             //     var target = event.target || event.srcElement;
