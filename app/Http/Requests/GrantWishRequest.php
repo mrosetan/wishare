@@ -27,4 +27,11 @@ class GrantWishRequest extends Request
             'grantedimageurl' => 'image',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'grantedimageurl.image'  => 'File to be uploaded must be an image file (jpeg, png, bmp, gif, or svg).',
+        ];
+    }
 }

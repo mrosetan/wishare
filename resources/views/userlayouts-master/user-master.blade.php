@@ -6,6 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link rel="icon" href="{{ URL::asset('img/icon.png') }}" type="image/x-icon" />
         <!-- END META SECTION -->
@@ -18,7 +19,6 @@
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-multiselect.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/searchableOptionList.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/sol.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('css/BeatPicker.css') }}">
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
@@ -65,12 +65,12 @@
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="#"><img class="logo" src="{{ URL::asset('img/logo.png') }}"</a>
+                        <a href="{{ url('user/home') }}"><img class="logo" src="{{ URL::asset('img/logo.png') }}"</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src="{!! $user->imageurl !!}" alt="John Doe"/>
+                            <img src="{!! $user->imageurl !!}" alt="{!! $user->firstname !!} {!! $user->lastname !!}"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
@@ -90,7 +90,7 @@
                         <a href="{{ url('user/home') }}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
                     </li>
                     <li>
-                        <a href="{{ url('user/profile') }}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
+                        <a href="{{ url('/profile') }}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
                     </li>
 
                     <li>
@@ -114,12 +114,20 @@
                     <li>
                         <a href="{{ url('user/help') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
-                    <li class="xn-openable">
+                    <!-- <li class="xn-openable">
                         <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
                         <ul>
                             <li><a href="{{ url('user/settings') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                             <li><a href="{{ url('user/settings/changepassword') }}"><span class="fa fa-lock"></span> Change Password</a></li>
                         </ul>
+                    </li> -->
+
+                    <li class="xn-openable">
+                      <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
+                      <ul>
+                          <li><a href="{{ url('user/settings') }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                          <li><a href="{{ url('user/settings/changepassword') }}"><span class="fa fa-lock"></span> Change Password</a></li>
+                      </ul>
                     </li>
                     <li>
                         <a href="{{ url('auth/signout') }}"><span class="fa fa-power-off"></span> <span class="xn-text">Sign Out</span></a>
@@ -175,20 +183,28 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-file-input.js') }}"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>
+
         <!-- END PLUGINS -->
 
 
         <!-- <script src="{{ URL::asset('js/plugins/bootstrap/calendar-bootstrap.js') }}"></script> -->
         <script>
-        //  $(function() {
-        //    var date = $('#datepicker').datepicker();
-        //    //$( "#datepicker" ).datepicker();
-        //  });
-        // $(function() {
-        //     $("#datepicker" ).datepicker({
-        //       container:'#myDatePicker'
-        //     });
-        //   });
+        $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+        $(function() {
+          var datePicker = $('#datepicker').datepicker();
+
+          $(".demo").scroll(function() {
+            datePicker.datepicker('hide');
+            $('#datepicker').blur();
+          });
+
+          $(window).resize(function() {
+            datePicker.datepicker('hide');
+            $('#datepicker').blur();
+          });
+        });
 
         $('#myTabs a').click(function (e) {
             e.preventDefault();
@@ -205,15 +221,10 @@
         var hash = window.location.hash;
         $('#myTabs a[href="' + hash + '"]').tab('show');
 
-          $(function() {
-              $("body").delegate("#datepicker", "focusin", function(){
-                  $(this).datepicker();
-              });
-          });
+        $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
+          $("#home-alert").alert('close');
+        });
 
-          $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
-              $("#home-alert").alert('close');
-          });
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
@@ -222,8 +233,6 @@
         <script type="text/javascript" src="{{ URL::asset('js/plugins/owl/owl.carousel.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/tagsinput/jquery.tagsinput.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-select.js') }}"></script>
-        <script type="text/javascript" src="{{ URL::asset('js/BeatPicker.js') }}"></script>
-        <!-- <script type="text/javascript" src="{{ URL::asset('js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script> -->
 
         <script type='text/javascript' src="{!! asset('js/plugins/icheck/icheck.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') !!}"></script>
@@ -239,7 +248,6 @@
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="{{ URL::asset('js/plugins.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/actions.js') }}"></script>
-
 
         <script type="text/javascript" src="{{ URL::asset('js/user_side.js') }}"></script>
 

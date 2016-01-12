@@ -1,0 +1,82 @@
+@media screen and (min-width: 1000px) {
+  .profile-action-container {
+    z-index: 1;
+    margin-top: 5%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow-y: auto;
+  }
+  .profile-content-container {
+    z-index: 1;
+    margin-left: 500px;
+    width: 100%;
+    height: 100%;
+  }
+}
+.x-navigation.x-navigation-horizontal {
+  width: 100%;
+  position: fixed;
+  overflow-y: auto;
+}
+.profile-action-container {
+  margin-top: 5%;
+  width: 100%;
+  height: 100%;
+}
+.profile-content-container {
+  margin-top: 10%;
+  width: 100%;
+  height: 100%;
+}
+.panel-body {
+  z-index: 1;
+}
+.panel-body.profile {
+  z-index: 1;
+}
+a {
+  z-index: 2;
+  position: relative;
+}
+span {
+  z-index: 100;
+}
+a:hover, a:focus {
+  color:#1caf9a;
+  text-decoration: none;
+}
+.btn.btn-primary {
+  z-index: 1;
+}
+.image.image-container {
+  width: 100%;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+.img {
+  width: 200px;
+  height: 200px;
+}
+
+span.fa.fa-lock.private-acct {
+  font-size: 6em;
+  margin: 0 auto;
+}
+.private-acct-container {
+  width: 75px;
+  margin: 0 auto;
+}
+.wishes-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  object-fit: cover;
+  object-position: center;
+}

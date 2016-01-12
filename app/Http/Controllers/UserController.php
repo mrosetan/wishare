@@ -13,6 +13,7 @@ use App\Http\Requests\SetPasswordRequest;
 use App\Http\Requests\AccountPasswordRequest;
 use App\Http\Requests\WishlistRequest;
 use App\Http\Requests\WishRequest;
+use App\Http\Requests\RewishRequest;
 use App\Http\Requests\GrantWishRequest;
 use App\Http\Requests\NotesRequest;
 use App\Http\Requests\FriendRequest;
@@ -24,6 +25,7 @@ use App\User;
 use App\DefaultWishlist;
 use App\Friend;
 use App\Notes;
+use App\FavoriteTrack;
 use Input;
 use Image;
 use Session;
@@ -57,7 +59,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password)){
+    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
       $wishlists = Wishlist::with('user')
                           ->where('createdby_id', '=', $user->id)
                           ->where('status', '=', 1)
@@ -93,6 +95,38 @@ class UserController extends Controller
                 $s['tagged'][] = $t->user;
             }
           }
+          // $fstream[] = $s;
+
+          $fave = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('userid', '=', $user->id)
+                                  ->where('type', '=', 2)
+                                  ->first();
+          $faves = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('type', '=', 2)
+                                  ->count();
+          $s['favorited'] = '';
+          $s['faves'] = $faves;
+          if(!empty($fave)){
+              $s['favorited'] = $fave;
+
+
+          }
+
+          $track = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('userid', '=', $user->id)
+                                  ->where('type', '=', 1)
+                                  ->first();
+          $tracks = FavoriteTrack::where('wishid', '=', $s['wishid'])
+                                  ->where('type', '=', 1)
+                                  ->count();
+          $s['tracked'] = '';
+          $s['tracks'] = $tracks;
+          if(!empty($track)){
+              $s['tracked'] = $track;
+
+
+          }
+
           $fstream[] = $s;
         }
       }
@@ -100,7 +134,7 @@ class UserController extends Controller
         return view('userlayouts.home', compact('fstream', 'friends', 'wishlists', 'user'));
     }
     else {
-      return redirect('user/setPassword');
+      return redirect('user/setup');
     }
   }
 
@@ -159,6 +193,7 @@ class UserController extends Controller
       $wish = Wish::where('id', '=', $tags[$i]['wishid'])->where('status', '=', 1)->first();
       // $tagger = User::where('id', '=', $tags[$i]['userid'])->where('status', '=', 1)->first();
       if(!empty($wish)){
+        $tags[$i]['notificationtype'] = 'tagged';
         $tagger = User::where('id', '=', $wish['createdby_id'])->where('status', '=', 1)->first();
         $tags[$i]['wish'] = $wish;
         if(!empty($tagger)){
@@ -166,8 +201,27 @@ class UserController extends Controller
         }
       }
     }
-    // json_encode($tags);print($tags); die();
-   return view('userlayouts.notifications', compact('requests', 'tags', 'grant', 'user'));
+
+    $trackfave = FavoriteTrack::with('wish', 'user')->whereHas('wish', function($query) use($user){
+      $query->where('createdby_id', '=', $user['id']);
+    })->get();
+    // dd($trackfave);
+    foreach ($trackfave as $tf) {
+      if ($tf->type == 1) {
+        $tf['notificationtype'] = 'tracked';
+      }
+      else {
+        $tf['notificationtype'] = 'favorited';
+      }
+    }
+    // dd($trackfave);
+    $n = $tags->merge($trackfave);
+    $notifs = $n->sortByDesc('created_at');
+    $notifs->values()->all();
+    // dd($notifs);
+    // print_r($ttf); die();
+    // json_encode($ttf);print($ttf); die();
+   return view('userlayouts.notifications', compact('requests', 'tags', 'grant', 'user', 'notifs'));
   }
 
   public function notes()
@@ -180,6 +234,34 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $wish = Wish::with('granter', 'wishlist', 'user')->where('id', '=', $id)->first();
+
+    $wish['favorited'] = '';
+
+    $wish['faves'] = '';
+
+    $wish['tracked'] = '';
+
+    $wish['tracks'] = '';
+    if (!empty($wish)) {
+      $wish['favorited'] = FavoriteTrack::where('wishid', $wish->id)
+                                          ->where('userid', $userId)
+                                          ->where('type', 2)
+                                          ->first();
+
+      $wish['faves'] = FavoriteTrack::where('wishid', '=', $wish->id)
+                            ->where('type', '=', 2)
+                            ->count();
+
+      $wish['tracked'] = FavoriteTrack::where('wishid', $wish->id)
+                                          ->where('userid', $userId)
+                                          ->where('type', 1)
+                                          ->first();
+
+      $wish['tracks'] = FavoriteTrack::where('wishid', '=', $wish->id)
+                            ->where('type', '=', 1)
+                            ->count();
+    }
+    // dd($wish);
     $grant = Wish::where('id', '=', $id)->get();
     $tags = Tag::with('user')->where('wishid', '=', $id)->get();
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
@@ -203,12 +285,12 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password)){
+    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
       return view('userlayouts.changepass', compact('user'));
       // return view('userlayouts.home');
     }
     else {
-      return redirect('user/setPassword');
+      return redirect('user/setup');
     }
     // return view('userlayouts.changepass');
   }
@@ -259,7 +341,6 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'null',
         'status' => 1,
       ));
     }
@@ -283,7 +364,7 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'http://' . $hostURL . '/wishimages/'.$filename,
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
         'status' => 1,
       ));
 
@@ -330,7 +411,6 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'null',
         'status' => 1,
       ));
     }
@@ -354,7 +434,7 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'http://' . $hostURL . '/wishimages/'.$filename,
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
         'status' => 1,
       ));
     }
@@ -372,7 +452,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('user/profile#tab-wishes')->with('wishStatus', 'New wish added!');
+    return redirect('/profile')->with('wishStatus', 'New wish added!');
   }
 
   public function editTags($id)
@@ -466,7 +546,7 @@ class UserController extends Controller
       //   print('NOTHING TO TAG');
     }
     // die();
-    return redirect('user/profile#tab-wishes')->with('tagStatus', 'Tags has been updated!');
+    return redirect('/profile')->with('tagStatus', 'Tags has been updated!');
   }
 
   public function updateWish(WishRequest $request, $id)
@@ -513,12 +593,27 @@ class UserController extends Controller
         $wish->details = $request->details;
         $wish->alternatives = $request->alternatives;
         $wish->flagged = $flag;
-        $wish->wishimageurl = 'http://' . $hostURL . '/wishimages/'.$filename;
+        $wish->wishimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
         $wish->save();
       }
     }
 
-    return redirect('user/profile#tab-wishes')->with('wishStatus', 'Wish udpated successfully!');
+    return redirect('user/home')->with('wishStatus', 'Wish udpated successfully!');
+  }
+
+  public function updateWishDetails($id)
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    $wishlistsList = Wishlist::with('wishes')
+                        ->where('createdby_id', '=', $userId)
+                        ->where('status', '=', 1)
+                        ->lists('title', 'id');
+
+    $wish = Wish::where('id', '=', $id)->first();
+
+    return view('userlayouts.editWish', compact('user', 'wish', 'wishlistsList'));
   }
 
   public function deleteWish($id)
@@ -538,7 +633,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('user/profile#tab-wishes')->with('wishDelete', 'Wish deleted!');
+    return redirect('/profile');
 
   }
 
@@ -624,7 +719,7 @@ class UserController extends Controller
       }
     }
     else {
-      return redirect()->action('UserController@getUserDetails');
+      return redirect()->action('ProfileController@wishlists');
     }
   }
 
@@ -632,7 +727,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.13/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -804,16 +899,49 @@ class UserController extends Controller
 
     $details['privacy'] = $request->privacy;
 
+    $messages = [
+        'imageurl.image' => 'File to be uploaded must be an image file (jpeg, png, bmp, gif, or svg).',
+
+        'firstname.required' => 'First name is required.',
+        'firstname.min' => 'First name must be at least 3 characters.',
+        'firstname.max' => 'First name may not be greater than 50 characters.',
+        'firstname.regex' => 'First name may only contain letters.',
+
+        'lastname.required' => 'Last name is required.',
+        'lastname.min' => 'Last name must be at least 2 characters.',
+        'lastname.max' => 'Last name may not be greater than 50 characters.',
+        'lastname.regex' => 'Last name may only contain letters.',
+
+        'city.min' => 'City must be at least 2 characters.',
+        'city.max' => 'City may not be greater than 50 characters.',
+        'city.regex' => 'City may only contain letters.',
+
+        'username.required' => 'Username is required.',
+        'username.min' => 'Username must be at least 3 characters.',
+        'username.max' => 'Username may not be greater than 15 characters.',
+        'username.alpha_num' => 'Username may only contain letters and numbers.',
+        'username.unique' => 'Username has already been taken.',
+
+        'email.required' => 'Email is required.',
+        'email.email' => 'Email must be a valid email address.',
+        'email.unique' => 'Email has already been taken.',
+
+        'facebook.min' => 'Facebook Username must be at least 3 characters.',
+        'facebook.max' => 'Facebook Username may not be greater than 50 characters.',
+
+        'birthdate.before' => 'Birthdate must not be after today.',
+    ];
+
     $validator = Validator::make($details, [
         'imageurl'  => 'image',
         'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
         'lastname'  => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
         'city'      => 'min:2|max:50|regex:/^[\pL\s]+$/u',
-        'username'  => 'sometimes|required|min:2|max:50|alpha_num|unique:wishare_users',
+        'username'  => 'sometimes|required|min:3|max:15|alpha_num|unique:wishare_users',
         'email'     => 'sometimes|required|email|unique:wishare_users',
         'facebook'  => 'min:3|max:50|',
         'birthdate' => 'date|before:tomorrow|date_format:Y-m-d',
-      ]);
+      ], $messages);
 
       if ($validator->fails()) {
           return redirect('user/settings')
@@ -843,13 +971,18 @@ class UserController extends Controller
     $hostURL = 'images.wishare.net';
     // $hostURL = '192.168.1.10';
     $newImage = Input::file('imageurl');
-    $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
-    // dd($filename);
+    if($newImage == null)
+    {
+      $user->imageurl =  $user->imageurl;
+    }
+    else
+    {
+      $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
 
     $path = ('/var/www/images.wishare.net/public_html/wishareimages/userimages/' . $filename);
     // $path = ('C:/xampp/htdocs/wishareimages/userimages/' . $filename);
     Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
-    $user->imageurl =  'http://' . $hostURL . '/userimages/'.$filename;
+    $user->imageurl =  'http://' . $hostURL . '/wishareimages/userimages/'.$filename;
 
     $user->save();
 
@@ -958,7 +1091,8 @@ class UserController extends Controller
       $friend->save();
     }
 
-    return redirect()->action('UserController@otheruser', [$id]);
+    return redirect()->action('OtherUserController@profile', [$id]);
+    // return redirect()->action('UserController@otheruser', [$id]);
 
   }
 
@@ -982,7 +1116,8 @@ class UserController extends Controller
 
     // $friend->delete();
 
-    return redirect()->action('UserController@otheruser', [$id]);
+    return redirect()->action('OtherUserController@profile', [$id]);
+    // return redirect()->action('UserController@otheruser', [$id]);
 
   }
 
@@ -999,7 +1134,8 @@ class UserController extends Controller
     if(!empty($friendRequest))
       $friendRequest->delete();
 
-    return redirect()->action('UserController@otheruser', [$id]);
+    return redirect()->action('OtherUserController@profile', [$id]);
+    // return redirect()->action('UserController@otheruser', [$id]);
 
   }
 
@@ -1139,10 +1275,9 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/tynotessticker/sticker1.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty1.png',
           ));
         }
         else if($request->sticker == 2)
@@ -1151,10 +1286,9 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/tynotessticker/sticker2.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty2.png',
           ));
         }
         else if($request->sticker == 3)
@@ -1163,10 +1297,9 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/tynotessticker/sticker2.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty3.png',
           ));
         }
         else
@@ -1175,10 +1308,8 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'null',
             'type' => 1,
             'status' => 1,
-            'sticker' => 'null',
           ));
         }
       }
@@ -1195,10 +1326,10 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'http://' . $hostURL . '/tynotesimages/'.$filename,
+            'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/tynotessticker/sticker1.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty1.png',
           ));
         }
         else if($request->sticker == 2)
@@ -1211,10 +1342,10 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'http://' . $hostURL . '/tynotesimages/'.$filename,
+            'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/tynotessticker/sticker2.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty2.png',
           ));
         }
         else
@@ -1227,10 +1358,10 @@ class UserController extends Controller
             'senderid' => $user->id,
             'receiverid' => $request->recipient,
             'message' => $request->get('message'),
-            'imageurl' => 'http://' . $hostURL . '/tynotesimages/'.$filename,
+            'imageurl' => 'http://' . $hostURL . '/wishareimages/tynotesimages/'.$filename,
             'type' => 1,
             'status' => 1,
-            'sticker' => 'http://' . $hostURL . '/tynotessticker/sticker3.jpg',
+            'sticker' => 'http://' . $hostURL . '/wishareimages/tynotessticker/ty3.png',
           ));
         }
       }
@@ -1254,14 +1385,19 @@ class UserController extends Controller
      return redirect('user/notes#tab-tynotes')->with('errormsg', 'No Thank You Notes.');
   }
 
-  public function getOutbox()
+  public function deleteTYNoteProfile($id)
   {
     $user = Auth::user();
     $userId = $user->id;
+    $tynote = Notes::where('id', $id)->firstorFail();
 
+    $tynote->status = 0;
+    $tynote->save();
 
-
-    return view('userlayouts.notes', compact('notesOutbox', 'tynotesOutbox', 'user'));
+    if(count($tynote) > 1)
+     return redirect('user/profile#tab-ty');
+    else
+     return redirect('user/profile#tab-ty')->with('errormsg', 'No Thank You Notes.');
   }
 
   public function getAllNotes()
@@ -1283,11 +1419,12 @@ class UserController extends Controller
     $WithTYNotes = User::with('myTYNotes')->get();
     $tynotesOutbox = User::find($userId)->myTYNotes->reverse();
 
+    // dd($tynotes);
     if(!empty($notes) || !empty($tynotes) || !empty($notesOutbox) || !empty($tynotesOutbox))
     return view('userlayouts.notes', compact('notes', 'tynotes', 'notesOutbox', 'tynotesOutbox', 'user'));
   }
 
-  public function reWish(WishRequest $request, $id)
+  public function reWish(RewishRequest $request, $id)
   {
     $user = Auth::user();
 
@@ -1313,7 +1450,6 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'null',
         'status' => 1,
       ));
     }
@@ -1329,7 +1465,6 @@ class UserController extends Controller
         $flag = 1;
 
       $wishTitle = Wish::where('id', $id)->firstorFail();
-
       $wish = new Wish(array(
         'wishlistid' => $request->wishlist,
         'title' => $wishTitle->title,
@@ -1338,7 +1473,7 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
-        'wishimageurl' => 'http://' . $hostURL . '/wishimages/'.$filename,
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename,
         'status' => 1,
       ));
 
@@ -1409,7 +1544,6 @@ class UserController extends Controller
           $wishDetails->granted = 1;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
-          $wishDetails->grantedimageurl = 'null';
           $wishDetails->date_granted = date('Y-m-d H:i:s');
           $wishDetails->flagged = $flag;
           $wishDetails->status = 1;
@@ -1441,7 +1575,7 @@ class UserController extends Controller
           $wishDetails->granted = 1;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
-          $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishimages/'.$filename;
+          $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
           $wishDetails->date_granted = date('Y-m-d H:i:s');
           $wishDetails->flagged = $flag;
           $wishDetails->status = 1;
@@ -1472,7 +1606,7 @@ class UserController extends Controller
           $wishDetails->granted = 2;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
-          $wishDetails->grantedimageurl = '';
+          // $wishDetails->grantedimageurl = '';
           $wishDetails->flagged = $flag;
           $wishDetails->status = 1;
           // dd($wishDetails);
@@ -1503,7 +1637,7 @@ class UserController extends Controller
           $wishDetails->granted = 2;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
-          $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishimages/'.$filename;
+          $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
           $wishDetails->flagged = $flag;
           $wishDetails->status = 1;
           // dd($wishDetails);

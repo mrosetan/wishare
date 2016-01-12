@@ -18,7 +18,7 @@
       <div class="container-fluid wishare-report" style="width:90%">
         <div class="row">
           <div class="col-xs-12 report-header">
-            <img src="../../../img/logo-complete-word.jpg" alt="" class="report-header-img"/>
+            <img src="{{ URL::asset('img/logo-complete-word.jpg') }}" alt="" class="report-header-img"/>
           </div>
         </div>
 
@@ -84,10 +84,14 @@
                     <div class="mb-title"><span class="glyphicon glyphicon-print"></span> Wishare printable status/statistical report</div>
                     <div class="mb-content">
                         <p>To print or save this report as pdf, press Ctrl+P.</p>
-                        <p>To go back to previous page, simple click the back button.</p>
+                        <p>To go back to previous page, simple click the back button. Or click the button below that says "Back To Home".</p>
                     </div>
                     <div class="mb-footer">
+                      <div class="pull-right">
+                        <a href="{{ url('/admin/stats') }}" class="btn btn-success btn-lg">Back To Home</a> &nbsp;
                         <button class="btn btn-default btn-lg pull-right mb-control-close">Continue</button>
+                      </div>
+
                     </div>
                 </div>
             </div>

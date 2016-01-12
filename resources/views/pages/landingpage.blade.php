@@ -11,13 +11,19 @@
   <br />
   <div class="">
   	<!-- <button type="button" class="btn btn-info btn-lg btn-signin" href="{{ URL::to('pages/signin')}}">Sign In</button> -->
-  	<a class="btn btn-info btn-lg btn-signin" href="{{ URL::to('signin')}}">Sign In</a>
+  	<a class="btn btn-info btn-lg btn-block btn-signin" href="{{ URL::to('signin')}}">Sign In</a>
   </div>
   <br />
   <div class="">
     <!-- <button type="button" class="btn btn-info btn-lg btn-signup" href="{{ URL::to('pages/signup')}}">Sign Up</button> -->
-    <a type="button" class="btn btn-info btn-lg btn-signup" href="{{ URL::to('signup')}}">Sign Up</a>
+    <a type="button" class="btn btn-info btn-lg btn-block btn-signup" href="{{ URL::to('signup')}}">Sign Up</a>
   </div>
+
+  <hr />
+  <div class="">
+    <a type="button" class="btn btn-success btn-lg btn-block" href="http://download.wishare.net/">Download wishare for Android</a>
+  </div>
+
 </div>
 
 @stop

@@ -22,7 +22,7 @@
             <br />
             <div class="row">
               <div class="col-md-12">
-                {!! Form::text('title', $wish['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true')) !!}
+                {!! Form::text('title', $wish['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true', 'value'=>$wish['title'])) !!}
               </div>
             </div>
             <br />
@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <label>Due Date:</label>
-                {!! Form::text('due_date', date('Y-m-d'), array('class'=>'form-control', 'data-beatpicker'=>'true', 'data-beatpicker-position'=>'["top","left"]', 'data-beatpicker-module'=>'clear,icon')) !!}
+                {!! Form::text('due_date', date('Y-m-d'), array('class'=>'calendar form-control', 'id'=>'datepicker')) !!}
               </div>
             </div>
             <br />

@@ -23,12 +23,21 @@ class WishRequest extends Request
      */
     public function rules()
     {
-        $currentDate = date('Y-m-d');
         return [
-            'title'    => '',
+            'title'    => 'required',
             'due_date' => 'required|after:yesterday',
             'wishimageurl' => 'image',
         ];
 
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Wish title is required.',
+            'due_date.required'  => 'Please add the date of when you would like to get this wish.',
+            'due_date.after'  => 'Due date must not be before today.',
+            'wishimageurl.image'  => 'File to be uploaded must be an image file (jpeg, png, bmp, gif, or svg).',
+        ];
     }
 }

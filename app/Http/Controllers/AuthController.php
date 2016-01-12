@@ -31,7 +31,7 @@ class AuthController extends Controller
   {
 
     $user = new User(array(
-      'imageurl' => 'http://images.wishare.net/userimages/default.jpg',
+      'imageurl' => 'http://images.wishare.net/wishareimages/userimages/default.jpg',
       'lastname' => trim($request->lastname),
       'firstname' => trim($request->firstname),
       'username' => trim($request->username),

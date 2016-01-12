@@ -8,7 +8,7 @@
 <div class="page-content-wrap">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h5><a href="{{ url('user/profile') }}"><span class="fa fa-arrow-circle-o-left"></span>&nbsp;Back</a></h5>
+      <h5><a href="javascript:history.go(-1)"><span class="fa fa-arrow-circle-o-left"></span>&nbsp;Back</a></h5>
       <div class="panel panel-default">
           <div class="panel-body">
             @if(!empty($wish))
@@ -27,7 +27,7 @@
               </p>
 
               <p>
-                Wisher: <a href="{!! action('UserController@otheruser', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
+                Wisher: <a href="{!! action('OtherUserController@profile', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
               </p>
 
 
@@ -62,22 +62,22 @@
                 <ul class="list-tags">
                 @foreach($tags as $t)
                     <li class="tagged-user">
-                       <a href="{!! action('UserController@otheruser', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!! $t->user->lastname !!}</a>
+                       <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!! $t->user->lastname !!}</a>
                     </li>
                 @endforeach
                 </ul>
               @endif
               <hr />
-              @if($wish->wishimageurl == 'null')
+              @if(!empty($wish->wishimageurl))
                 <div></div>
-              @else
-                @if($wish->wishimageurl != 'null')
+              @endif
+              @if(!empty($wish->wishimageurl))
                 <div class="wish-image-container">
                   <img src='{!! $wish->wishimageurl !!}' class="wish-image"/>
                 </div>
                 <hr />
-                @endif
               @endif
+
 
               @if($wish->granted == 1)
                 <div class="panel panel-success">
@@ -89,7 +89,7 @@
 
                       @if($wish->granted == 1)
                         <p>
-                          Granter: <a href="{!! action('UserController@otheruser', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
+                          Granter: <a href="{!! action('OtherUserController@profile', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
                         </p>
                         @endif
 
@@ -121,10 +121,13 @@
               @endif
 
 
-              <div class="wish-icons pull-right">
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a>
+              <div class="wishaction-btns pull-right">
+                <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($wish['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($wish['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $wish['faves'] !!}</span>  </span>
                 &nbsp;&nbsp;
-                <a href="#" data-toggle="tooltip" data-placement="top" title="Track Wish"><span class="fa fa-bookmark"></span></a>
+                <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['faves'] !!}</span>  </span>
+                <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Favorite"><span class="fa fa-star"></span></a>
+                &nbsp;&nbsp;
+                <a href="#" data-toggle="tooltip" data-placement="top" title="Track Wish"><span class="fa fa-bookmark"></span></a> -->
                 &nbsp;&nbsp;
                 <a href="{!! action('UserController@rewishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
               </div>

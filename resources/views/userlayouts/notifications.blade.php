@@ -31,23 +31,45 @@
             <!--notifications-->
             <div class="panel-body tab-content">
               <div class="tab-pane active" id="tab-notif">
-                @if(count($tags)>0)
-                  @foreach($tags as $t)
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                          <div class="pull-left">
-                            {!! Html::image('' . $t->tagger->imageurl, '', array('class'=>'user-friend img-circle')) !!}
-                          </div>
-                          <div class="user-details">
-                            <p class="user-name">
-                              <a href="{!! action('UserController@otheruser', $t->tagger->id) !!}"> {!! $t->tagger->firstname !!} {!! $t->tagger->lastname !!} </a> tagged you in a <a href="{!! action('UserController@wish', $t->wish->id) !!}">wish</a>
-                              <br/>
-                              {!! date('m/d/y g:i A', strtotime($t->created_at)) !!}
-                            </p>
+                @if(count($notifs)>0)
+                  @foreach($notifs as $n)
+                    @if($n->notificationtype == 'tagged')
+                      <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="pull-left">
+                              {!! Html::image('' . $n->tagger['imageurl'], '', array('class'=>'user-friend img-circle')) !!}
+                            </div>
+                            <div class="user-details">
+                              <p class="user-name">
+                                <a href="{!! action('OtherUserController@profile', $n->tagger['id']) !!}"> {!! $n->tagger['firstname'] !!} {!! $n->tagger['lastname'] !!} </a> tagged you in a wish <br />
+                                  <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}"><b>({!! $n->wish['title'] !!})</b></a>
+                                <br/>
+                                {!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}
+                              </p>
 
+                            </div>
                           </div>
+                      </div>
+                    @else
+                      @if($n->user->id != $user->id)
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                              <div class="pull-left">
+                                {!! Html::image('' . $n->user['imageurl'], '', array('class'=>'user-friend img-circle')) !!}
+                              </div>
+                              <div class="user-details">
+                                <p class="user-name">
+                                  <a href="{!! action('OtherUserController@profile', $n->user['id']) !!}"> {!! $n->user['firstname'] !!} {!! $n->user['lastname'] !!} </a> {!! $n['notificationtype'] !!} your wish <br/>
+                                    <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}"><b>({!! $n->wish['title'] !!})</b></a>
+                                  <br/>
+                                  {!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}
+                                </p>
+
+                              </div>
+                            </div>
                         </div>
-                    </div>
+                      @endif
+                    @endif
                   @endforeach
                 @endif
               </div>
@@ -62,23 +84,23 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                           <div class="pull-left">
-                              {!! Html::image('' . $r->friendRequest->imageurl, '', array('class'=>'user img-circle')) !!}
+                              {!! Html::image('' . $r->friendRequest['imageurl'], '', array('class'=>'user img-circle')) !!}
                           </div>
                           <div class="user-details">
                             <h5 class="user-name">
-                              <a href="{!! action('UserController@otheruser', $r->friendRequest->id) !!}">
-                              {!! $r->friendRequest->firstname !!} {!! $r->friendRequest->lastname !!}
+                              <a href="{!! action('OtherUserController@profile', $r->friendRequest['id']) !!}">
+                              {!! $r->friendRequest->firstname !!} {!! $r->friendRequest['lastname'] !!}
                             </a>
                             </h5>
                             <div class="fr-buttons">
                               {!! Form::open(array(
-                                            'action' => array('UserController@acceptFriendRequest', $r->id),
+                                            'action' => array('UserController@acceptFriendRequest', $r['id']),
                                             'class' => 'form friendActions friend-action-button',
                                             'method' => 'get')) !!}
                                   {!! Form::submit('Accept', array('class'=>'btn btn-info')) !!}
                               {!! Form::close() !!}
                               {!! Form::open(array(
-                                            'action' => array('UserController@declineFriendRequest', $r->id),
+                                            'action' => array('UserController@declineFriendRequest', $r['id']),
                                             'class' => 'form friendActions friend-action-button',
                                             'method' => 'get')) !!}
                                   {!! Form::submit('Decline', array('class'=>'btn btn-default')) !!}
@@ -112,16 +134,16 @@
                         </div>
                         <div class="user-details">
                           <p class="user-name">
-                            {!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!} granted your wish: <a href="{!! action('UserController@wish', $g['id']) !!}"> {!! $g['title'] !!} </a>
+                            {!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!} granted your wish: <a href="{!! action('SoloWishController@wish', $g['id']) !!}"> {!! $g['title'] !!} </a>
                             <div class="fr-buttons">
                               {!! Form::open(array(
-                                            'action' => array('UserController@confirmGrantRequest', $g->id),
+                                            'action' => array('UserController@confirmGrantRequest', $g['id']),
                                             'class' => 'form friendActions friend-action-button',
                                             'method'=> 'get')) !!}
                                   {!! Form::submit('Accept', array('class'=>'btn btn-info')) !!}
                               {!! Form::close() !!}
                               {!! Form::open(array(
-                                            'action' => array('UserController@declineFriendRequest', $g->id),
+                                            'action' => array('UserController@declineFriendRequest', $g['id']),
                                             'class' => 'form friendActions friend-action-button',
                                             'method' => 'get')) !!}
                                   {!! Form::submit('Decline', array('class'=>'btn btn-default')) !!}

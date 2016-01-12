@@ -18,6 +18,38 @@ Route::get('/signup', 'PagesController@signup');
 Route::get('/reactivate', 'PagesController@activateAccount');
 Route::get('/blank', 'PagesController@blank');
 
+// Profile
+Route::get('/profilemaster', 'ProfileController@profile');
+Route::get('/profile', 'ProfileController@wishlists');
+Route::get('profile/friends', 'ProfileController@friends');
+Route::get('profile/wishes/{id?}', 'WishlistController@wishes');
+Route::get('profile/wishlists', 'ProfileController@wishWishlists');
+Route::get('profile/granted', 'ProfileController@granted');
+Route::get('profile/given', 'ProfileController@given');
+Route::get('profile/tracked', 'ProfileController@tracked');
+Route::get('profile/tynotes', 'ProfileController@tynotes');
+Route::get('profile/tynotes/{id?}', 'ProfileController@deleteTYNoteProfile');
+Route::post('profile/wish/edit/{id?}', 'UserController@updateWish');
+Route::get('profile/wish/edit/{id?}', 'UserController@updateWishDetails');
+
+//other user new
+Route::get('othermaster/{id?}', 'OtherUserController@master');
+Route::get('other/{id?}', 'OtherUserController@profile');
+Route::get('other/profile/{id?}', 'OtherUserController@wishlists');
+Route::get('other/wishlists/{id?}', 'OtherUserController@wishWishlists');
+Route::get('other/granted/{id?}', 'OtherUserController@granted');
+Route::get('other/given/{id?}', 'OtherUserController@given');
+Route::get('other/tracked/{id?}', 'OtherUserController@tracked');
+Route::get('other/friends/{id?}', 'OtherUserController@friends');
+Route::get('other/tynotes/{id?}', 'OtherUserController@tynotes');
+// Route::get('other/wishes/{id?}', 'OtherUserController@wishes');
+Route::get('other/{id}/wishes/{wishlistid?}', 'OtherWishlistController@wishes');
+Route::get('other/profile/add/{id?}', 'OtherUserController@privateUser');
+
+
+// Other User old
+Route::get('otheruser/{id?}', 'UserController@otheruser');
+Route::post('otheruser/{id?}', 'UserController@reWishOtherUser');
 
 /* User */
 Route::get('user/w', 'UserController@postSignup');
@@ -29,6 +61,7 @@ Route::get('user/profile', 'UserController@getUserDetails');
 Route::get('user/profile/wishlists', 'UserController@getWishlist');
 Route::post('user/profile/{id?}', 'UserController@updateWishlist');
 Route::get('user/profile/{id?}', 'UserController@deleteWishlist');
+Route::get('user/profile/{id?}', 'UserController@deleteTYNoteProfile');
 Route::get('user/notifications', 'UserController@notifications');
 Route::get('user/action/wishlist{id?}', 'UserController@wishlistAction');
 Route::post('user/action/wishlist/{id?}', 'UserController@createWishlist');
@@ -55,9 +88,6 @@ Route::post('user/settings/changepassword', 'UserController@changeAccountPasswor
 Route::get('user/settings/{id?}', 'UserController@editSettings');
 Route::post('user/settings/{id?}', 'UserController@updateUserSettings');
 Route::post('user/settings/profilePic/{id?}', 'UserController@updateProfilePic');
-/* Other user */
-Route::get('otheruser/{id?}', 'UserController@otheruser');
-Route::post('otheruser/{id?}', 'UserController@reWishOtherUser');
 
 Route::get('user/search', 'UserController@search');
 Route::post('user/search', 'UserController@search');
@@ -72,12 +102,19 @@ Route::post('user/add', 'UserController@addWish');
 Route::post('user/add/{id?}', 'UserController@addWishModal');
 Route::get('user/edit/tags/{id?}', 'UserController@editTags');
 Route::post('user/edit/tags/{id?}', 'UserController@updateTags');
-Route::post('user/edit/wish/{id?}', 'UserController@updateWish');
 Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
 
 Route::get('user/setup', 'UserController@setUsernameAndPassword');
 
+Route::post('favorite', 'FavetrackController@favorite');
+Route::post('unfavorite', 'FavetrackController@unfavorite');
 
+Route::post('trackwish', 'FavetrackController@trackwish');
+Route::post('untrackwish', 'FavetrackController@untrackwish');
+
+Route::get('wish/{id?}', 'SoloWishController@wish');
+Route::get('guest/wish/{id?}', 'SoloWishController@guest');
+Route::get('guest/wishlist/{id?}', 'OtherWishlistController@guest');
 
 // ADMIN
 Route::get('/admin', 'AdminController@index');

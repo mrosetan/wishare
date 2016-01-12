@@ -38,7 +38,7 @@ class Wish extends Model
                      ->leftJoin('wishare_users AS granter','granter.id','=','wishes.granterid')
                      ->leftJoin('wishlists','wishlists.id','=','wishes.wishlistid')
                      ->select('wisher.id AS userid', 'wisher.firstname', 'wisher.lastname', 'wisher.username','wisher.imageurl',
-                              'wishes.id AS wishid', 'wishes.created_at', 'wishes.updated_at', 'wishes.wishlistid','wishes.title','wishes.details',
+                              'wishes.id AS wishid', 'wishes.created_at', 'wishes.updated_at', 'wishes.wishlistid','wishes.title', 'wishes.flagged', 'wishes.details',
                               'wishes.wishimageurl','wishes.alternatives','wishes.due_date','wishes.granted', 'wishes.date_granted',
                               'wishes.granterid','wishes.granteddetails','wishes.grantedimageurl', DB::raw('IFNULL(granter.firstname, "") AS granterfirstname'), DB::raw('IFNULL(granter.lastname, "") AS granterlastname'), DB::raw('IFNULL(granter.username, "") AS granterusername'),
                               DB::raw('IFNULL(granter.imageurl, "") AS granterimageurl'))
@@ -54,5 +54,9 @@ class Wish extends Model
 
   public function granter(){
     return $this->hasOne('App\User', 'id', 'granterid');
+  }
+
+  public function trackfave(){
+    return $this->hasMany('App\FavoriteTrack', 'wishid', 'id', 'type');
   }
 }

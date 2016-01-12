@@ -3,8 +3,24 @@ html,body {
   /*height: 100%;*/
   background: #f5f5f5 !important;
 }
-a.header-navbar-button.nav-btn.prev.button, a.header-navbar-button.nav-btn.current-indicator.button, a.header-navbar-button.nav-btn.next.button, .today.today.button, li.days-cell.cell.notable-today.today-box, .goto-date-button.date-input-button.button{
-    background-color: #1caf9a;
+
+.datepicker {
+    z-index: 1151 !important;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+/*Datepicker*/
+.calendar {
+  /*position: absolute;*/
+  /*width: 280px;*/
+  /*left: 50%;*/
+  /*top: 50%;*/
+  /*margin: -145px 0px 0px -140px;*/
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index:1151 !important;
 }
 
 img.logo {
@@ -96,6 +112,36 @@ img.user.granter.img-circle {
 .stream-granter{
   width: auto;
   margin-left: 140px;
+}
+
+.favorite{
+  cursor: pointer;
+}
+
+.favorited-icon{
+  color: #ce5a57;
+}
+
+.unfave-icon{
+  color: #428bca;
+}
+
+.trackwish{
+  cursor: pointer;
+}
+
+.tracked-icon{
+  color: #ce5a57;
+}
+
+.untracked-icon{
+  color: #428bca;
+}
+
+.count{
+  font-size: 12px;
+  /*display: table-cell;
+  vertical-align: middle;*/
 }
 
 /*   Profile   */
@@ -194,6 +240,26 @@ img.wish-image {
 }
 .tynote-sticker {
   margin: 0 auto;
+  width: 150px;
+  height: 150px;
+}
+
+.tysticker-container {
+  width: 140px;
+  height: 140px;
+}
+
+.tysticker-image {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.tysticker-imageprofile {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 img.tynote-image {
@@ -280,4 +346,8 @@ img.tynote-image {
 
 .page-content{
   /*height: inherit;*/
+}
+
+.wishaction-btns{
+  font-size: 20px;
 }

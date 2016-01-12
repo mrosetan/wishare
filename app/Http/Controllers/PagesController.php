@@ -24,7 +24,8 @@ class PagesController extends Controller
         }
       }
       else
-        return view('pages.landingpage');
+        return view('pages.landing');
+        // return view('pages.landingpage');
   }
 
   public function signin()
@@ -79,4 +80,5 @@ class PagesController extends Controller
   {
       return view('pages.blank');
   }
+
 }

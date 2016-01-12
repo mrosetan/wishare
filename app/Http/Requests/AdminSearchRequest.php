@@ -28,4 +28,11 @@ class AdminSearchRequest extends Request
             // 'type' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'search.required' => 'Data to be searched is required.',
+        ];
+    }
 }
