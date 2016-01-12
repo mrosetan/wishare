@@ -10,15 +10,15 @@
           <div class="panel panel-default">
               <div class="panel-body profile">
                   <div class="profile-image">
-                      <img src="{!! $fr->imageurl !!}" alt="{!! $fr->firstname !!} {!! $fr->lastname !!}"/>
+                      <img src="{!! $fr['imageurl'] !!}" alt="{!! $fr['firstname'] !!} {!! $fr['lastname'] !!}"/>
                   </div>
                   <div class="profile-data">
-                      <div class="profile-data-name"><a href="{!! action('OtherUserController@profile', $fr->id ) !!}">{!! $fr->firstname !!} {!! $fr->lastname !!}</a></div>
+                      <div class="profile-data-name"><a href="{!! action('OtherUserController@profile', $fr['id'] ) !!}">{!! $fr['firstname'] !!} {!! $fr['lastname'] !!}</a></div>
                   </div>
               </div>
               <div class="panel-body">
                   <div class="contact-info">
-                    <p><small>E-mail</small><br/>{!! $fr->email !!}</p>
+                    <p><small>E-mail</small><br/>{!! $fr['email'] !!}</p>
                   </div>
               </div>
           </div>

@@ -53,7 +53,9 @@ class OtherWishlistController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
     // dd($id);
-    if($userId != $id){
+    if(!empty($user))
+    {
+      if($userId != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();
 
       $requests = Friend::with('friendRequest')
@@ -95,7 +97,23 @@ class OtherWishlistController extends Controller
                             ->where('privacy', '=', 0)
                             ->orderBy('created_at', 'desc')
                             ->get();
+      }
+      return view('otheruserprofile.other-wishes', compact('otherUser', 'wishlists', 'requests', 'status'));
     }
-    return view('otheruserprofile.other-wishes', compact('otherUser', 'wishlists', 'requests', 'status'));
+    else {
+      return redirect()->action('OtherWishlistController@guest', [$id]);
+    }
+  }
+
+  public function guest($id)
+  {
+    $wishlists = Wishlist::with('wishes')
+                          ->where('id', '=', $id)
+                          ->where('status', '=', 1)
+                          ->where('privacy', '=', 0)
+                          ->orderBy('created_at', 'desc')
+                          ->get();
+
+    return view('pages.wishlist-guest', compact('wishlists'));
   }
 }

@@ -349,12 +349,10 @@
 
                         @if($s['userid'] == $user->id)
                           &nbsp;&nbsp;
-                          <a href="#" data-toggle="modal" data-target="#modalwish{!! $s['wishid'] !!}">
-                            <span class="fa fa-edit"></span>
-                          </a>
+                          <a href="{!! action('UserController@updateWishDetails', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Edit Wish"><span class="fa fa-edit"></span></a>
 
                           &nbsp;&nbsp;
-                          <a data-toggle="tooltip" data-placement="top" title="Tag" href="{!! url('user/edit/tags', $s['wishid']) !!}">
+                          <a href="{!! url('user/edit/tags', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Tag">
                             <span class="fa fa-tag"></span>
                           </a>
 

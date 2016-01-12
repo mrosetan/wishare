@@ -14,7 +14,7 @@
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gi['updated_at']))  !!}
           <br />
-            <b>Wishlist: </b>{!! $gi->wishlist['title'] !!}
+            <b>Wishlist: </b><a href="{!! action('WishlistController@wishes', $gi->wishlist['id']) !!}">{!! $gi->wishlist['title'] !!}</a>
         </div>
         <br/><br /><br />
         <hr />
