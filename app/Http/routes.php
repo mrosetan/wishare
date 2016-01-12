@@ -29,7 +29,8 @@ Route::get('profile/given', 'ProfileController@given');
 Route::get('profile/tracked', 'ProfileController@tracked');
 Route::get('profile/tynotes', 'ProfileController@tynotes');
 Route::get('profile/tynotes/{id?}', 'ProfileController@deleteTYNoteProfile');
-
+Route::post('profile/wish/edit/{id?}', 'UserController@updateWish');
+Route::get('profile/wish/edit/{id?}', 'UserController@updateWishDetails');
 
 //other user new
 Route::get('othermaster/{id?}', 'OtherUserController@master');
@@ -101,7 +102,6 @@ Route::post('user/add', 'UserController@addWish');
 Route::post('user/add/{id?}', 'UserController@addWishModal');
 Route::get('user/edit/tags/{id?}', 'UserController@editTags');
 Route::post('user/edit/tags/{id?}', 'UserController@updateTags');
-Route::post('user/edit/wish/{id?}', 'UserController@updateWish');
 Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
 
 Route::get('user/setup', 'UserController@setUsernameAndPassword');

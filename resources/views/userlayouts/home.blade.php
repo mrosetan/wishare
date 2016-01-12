@@ -119,9 +119,8 @@
 
                         @if($s['userid'] == $user->id)
                           &nbsp;&nbsp;
-                          <a href="#" data-toggle="modal" data-target="#modalwish{!! $s['wishid'] !!}">
-                            <span class="fa fa-edit"></span>
-                          </a>
+                          <a href="{!! action('UserController@updateWishDetails', $s['wishid']) !!}" data-toggle="tooltip" data-placement="top" title="Edit Wish"><span class="fa fa-edit"></span></a>
+
 
                           &nbsp;&nbsp;
                           <a data-toggle="tooltip" data-placement="top" title="Tag" href="{!! url('user/edit/tags', $s['wishid']) !!}">
@@ -579,92 +578,6 @@
                 </div>
             </div>
             <!-- message box-->
-
-            <!-- modal -->
-
-            <div class="modal" id="modalwish{!! $s['wishid'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                      <h4>Edit Wish</h4>
-                    </div>
-                    <div class="modal-body">
-                      @if(session('wishStatus'))
-                        <div class="alert alert-success">
-                            {{ session('wishStatus') }}
-                        </div>
-                      @endif
-                      @foreach($errors->all() as $error)
-                          <p class="alert alert-danger"> {{ $error }}</p>
-                      @endforeach
-                      {!! Form::open(array( 'action' => array('UserController@updateWish', $s['wishid']),
-                                            'class' => 'form',
-                                            'files'=>true,
-                                            'enctype'=>'multipart/form-data')) !!}
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-12">
-                            {!! Form::select('wishlist', $wishlists, $s['wishlistid'], array('class'=>'form-control'))!!}
-                          </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                          <div class="col-md-12">
-                            {!! Form::text('title', $s['title'], array('class'=>'form-control', 'placeholder'=>'Wish')) !!}
-                          </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                          <div class="col-md-12">
-                            {!! Form::textarea('details', $s['details'], ['class'=>'form-control ', 'placeholder'=>'Details or specifics about the wish', 'size'=>'102x5']) !!}
-                          </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                          <div class="col-md-12">
-                            {!! Form::textarea('alternatives', $s['alternatives'], ['class'=>'form-control ', 'placeholder'=>'Wish alternatives', 'size'=>'102x5']) !!}
-                          </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <label>Due Date</label>
-                            {!! Form::text('due_date', $s['due_date'], array('id'=>'datepicker', 'class'=>'form-control')) !!}
-                          </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                          <div class="col-sm-12">
-                            {!! Form::file('wishimageurl', array('class'=>'fileinput btn btn-info')) !!}
-                          </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                          <div class="col-md-12">
-                            @if($s['flagged'] ==  1)
-                              {!! Form::checkbox('flag', '1', true) !!}
-                            @else
-                              {!! Form::checkbox('flag', '1') !!}
-                            @endif
-                            <label><span class="glyphicon glyphicon-flag"></span> Flag </label>
-                            <!-- <span class="glyphicon glyphicon-flag"></span><a href="#"><span class="xn-text">&nbsp;Flag wish</span></a> -->
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="pull-right">
-                              {!! Form::submit('Update', array('class'=>'btn btn-info')) !!}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      {!! Form::close() !!}
-                    </div>
-                </div>
-              </div>
-            </div>
-          <!-- modal -->
 
           @endif
 

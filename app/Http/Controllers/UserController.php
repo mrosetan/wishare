@@ -593,7 +593,22 @@ class UserController extends Controller
       }
     }
 
-    return redirect('/profile')->with('wishStatus', 'Wish udpated successfully!');
+    return redirect('user/home')->with('wishStatus', 'Wish udpated successfully!');
+  }
+
+  public function updateWishDetails($id)
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    $wishlistsList = Wishlist::with('wishes')
+                        ->where('createdby_id', '=', $userId)
+                        ->where('status', '=', 1)
+                        ->lists('title', 'id');
+
+    $wish = Wish::where('id', '=', $id)->first();
+
+    return view('userlayouts.editWish', compact('user', 'wish', 'wishlistsList'));
   }
 
   public function deleteWish($id)

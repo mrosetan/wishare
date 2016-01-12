@@ -46,7 +46,16 @@ class ProfileController extends Controller
   public function profile()
   {
     $user = Auth::user();
-    return view('userlayouts-master.profile-master', compact('user'));
+
+    $wishes = Wish::with('wishlist', 'tags')
+                  ->where('createdby_id', '=', $userId)
+                  ->where('status', '=', 1)
+                  ->where('granted', '!=', 1)
+                  ->orderBy('created_at', 'desc')
+                  ->take(5)
+                  ->get();
+
+    return view('userlayouts-master.profile-master', compact('user', 'wishes'));
   }
 
   public function findProfile($id)
