@@ -979,11 +979,11 @@ class UserController extends Controller
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
 
-    $path = ('/var/www/images.wishare.net/public_html/wishareimages/userimages/' . $filename);
-    // $path = ('C:/xampp/htdocs/wishareimages/userimages/' . $filename);
-    Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
-    $user->imageurl =  'http://' . $hostURL . '/wishareimages/userimages/'.$filename;
-
+      $path = ('/var/www/images.wishare.net/public_html/wishareimages/userimages/' . $filename);
+      // $path = ('C:/xampp/htdocs/wishareimages/userimages/' . $filename);
+      Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
+      $user->imageurl =  'http://' . $hostURL . '/wishareimages/userimages/'.$filename;
+    }
     $user->save();
 
     //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
