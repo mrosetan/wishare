@@ -1,0 +1,353 @@
+/*  User master  */
+html,body {
+  /*height: 100%;*/
+  background: #f5f5f5 !important;
+}
+
+.datepicker {
+    z-index: 1151 !important;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+/*Datepicker*/
+.calendar {
+  /*position: absolute;*/
+  /*width: 280px;*/
+  /*left: 50%;*/
+  /*top: 50%;*/
+  /*margin: -145px 0px 0px -140px;*/
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index:1151 !important;
+}
+
+img.logo {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 35px;
+}
+li {
+  margin: 10px;
+}
+span.fa.fa-square-pencil {
+  font-size: 25px;
+}
+.lock-container {
+  width: 150px;
+  margin: 0 auto;
+  /*background-color: red;*/
+}
+span.fa.fa-lock.otheruser {
+  font-size: 150px;
+  margin-left: 28px;
+}
+
+/*   Home   */
+.no-stream-content{
+  background: url('../../../img/backgrounds/bg2.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+}
+.no-stream-content-img{
+  margin-top: 140px;
+}
+
+.page-title {
+  margin-top: 10px;
+}
+img.user.img-circle {
+  height: 70px;
+  width: 70px;
+}
+
+.user-details {
+  width: 100%;
+}
+h5.user-name{
+  margin-left: 80px;
+  margin-top: 10px;
+}
+
+img.user.stream.img-circle {
+  height: 60px;
+  width: 60px;
+  margin-right: 20px;
+}
+
+img.user.granter.img-circle {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+.granter-caption{
+  margin-left: 50px;
+}
+
+.granter-grantee-body{
+  padding: 15px;
+}
+.stream-header{
+  margin-top: 10px;
+}
+.stream-body{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.stream-wish-img{
+  width: 100% !important;
+}
+.stream-margin{
+  margin-left: 80px;
+}
+
+.stream-granter{
+  width: auto;
+  margin-left: 140px;
+}
+
+.favorite{
+  cursor: pointer;
+}
+
+.favorited-icon{
+  color: #ce5a57;
+}
+
+.unfave-icon{
+  color: #428bca;
+}
+
+.trackwish{
+  cursor: pointer;
+}
+
+.tracked-icon{
+  color: #ce5a57;
+}
+
+.untracked-icon{
+  color: #428bca;
+}
+
+.count{
+  font-size: 12px;
+  /*display: table-cell;
+  vertical-align: middle;*/
+}
+
+/*   Profile   */
+a:hover {
+  cursor: pointer;
+}
+.profile-header {
+  width: 100%;
+  margin-left: 30px;
+  margin-top: 40px;
+}
+img.profile-img.img-circle {
+  height: 150px;
+  width: 150px;
+  margin-top: -40px;
+  border: 1px solid #000;
+}
+.userprofile-details {
+  width: 500px;
+  margin-left: 160px;
+}
+h4.userprofile-name {
+  margin-top: 80px;
+}
+h5.userprofile-addr {
+}
+.wishlist-icons.pull-right span.fa.fa-plus, .wishlist-icons.pull-right span.glyphicon.glyphicon-edit, .wishlist-icons.pull-right span.glyphicon.glyphicon-trash, .wishlist-icons.pull-right.fb-share-button{
+  margin-top: 8px;
+}
+.wish-icons.pull-right span.fa.fa-star, .wish-icons.pull-right span.fa.fa-bookmark, .wish-icons.pull-right span.fa.fa-retweet {
+  font-size: 15px;
+  margin-top: -50px;
+}
+img.img{
+  margin-top: -50px;
+  height: 25px;
+  width: 25px;
+}
+a.wish-name {
+  font-size: 14px;
+  text-decoration: none;
+}
+.grant-icon.pull-right {
+    font-size: 20px;
+}
+.tag-container {
+    max-height: 150px;
+    overflow-y: scroll;
+}
+.panel-wishes{
+  padding: 10px;
+}
+
+img.user-friend.img-circle {
+  height: 55px;
+  width: 55px;
+}
+p.user-name{
+  margin-left: 80px;
+  margin-top: 10px;
+  /*font-size: 14px;*/
+}
+p.user-given {
+  font-size: 16px;
+}
+.wishlist-container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.sol-selection-container{
+  left: auto !important;
+}
+
+.wish-image-container {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+img.wish-image {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.tynote-image-container {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.tynote-sticker-container {
+  margin: 0 auto;
+  width: 150px;
+}
+.tynote-sticker {
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+}
+
+.tysticker-container {
+  width: 140px;
+  height: 140px;
+}
+
+.tysticker-image {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.tysticker-imageprofile {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+img.tynote-image {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+/*Other User*/
+
+.friend-action-button{
+  float: left;
+  margin-right: 10px;
+}
+
+/*   Actions   */
+.actions-container {
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 520px;
+  background-color: red;
+}
+/*   Notifications */
+.fr-buttons {
+  margin-left: 80px;
+}
+.notifications-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 600px;
+}
+.notes-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 800px;
+  /*width: 900px;*/
+  /*height: 525px;*/
+  /*overflow-y: scroll;*/
+}
+.rewish-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 500px;
+}
+/* Settings */
+.settings-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 500px;
+}
+.btn.btn-info.btn-settings {
+  margin: 0 auto;
+  width: 450px;
+}
+/* Help */
+.timeline-date {
+  width: 200px !important;
+}
+.timeline-item-info {
+  width: 120px !important;
+}
+
+/*.dropdown-menu>.active>a {*/
+.dropdown-menu .active .checkbox{
+    color: #fff;
+    text-decoration: none;
+    background-color: #337ab7;
+    outline: 0;
+}
+
+.sol-caret{
+  display: none !important;
+}
+
+/*SIDEBAR*/
+.page-sidebar-fixed{
+  background-color: #33414E;
+  /*height: 100%;*/
+}
+
+/*CONTENT*/
+.page-container{
+  /*height: 100% !important;*/
+}
+
+.page-content{
+  /*height: inherit;*/
+}
+
+.wishaction-btns{
+  font-size: 20px;
+}

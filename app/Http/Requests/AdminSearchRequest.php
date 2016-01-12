@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Http\Requests\Request;
+
+class AdminSearchRequest extends Request
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'search' => 'required',
+            // 'type' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'search.required' => 'Data to be searched is required.',
+        ];
+    }
+}

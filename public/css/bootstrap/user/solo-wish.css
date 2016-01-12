@@ -1,0 +1,24 @@
+.wish-label{
+  margin-bottom: 10px;
+}
+
+li.tagged-user{
+  margin: 0;
+}
+
+.wish-container{
+  margin-top: 5%;
+  /*width: 100%;
+  height: 100%;*/
+}
+
+.solo{
+  /*width: 700px !important;*/
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.favetrack-count{
+  font-size: 12px;
+  font-weight: bold;
+}
