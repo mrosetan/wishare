@@ -1,31 +1,44 @@
-@extends('userlayouts-master.profile-master')
+@extends('userlayouts-master.wishlists-master')
 @section('title', 'Wishlist')
-@section('newcontent')
+@section('content')
 <br />
-<h5><a href="javascript:history.go(-1)"><span class="fa fa-arrow-circle-o-left"></span>&nbsp;Back</a></h5>
-@if(isset($wishlists))
-  @foreach($wishlists as $wishlist)
-  <div class="wish-gallery-container">
-    <div class="page-title">
-        <h3><span class="fa fa-magic"></span> {!! $wishlist['title'] !!} </h3>
-      <div class="gallery" id="links">
-        @foreach($wishlist->wishes as $wish)
-          <div class="gallery-item">
-              <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
-                <div class="image image-container">
-                    <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
-                </div>
-              </a>
-              <div class="meta">
-                <strong>{!! $wish['title'] !!}</strong>
+<div class="solo">
+  <div class="row">
+    <div class=" col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          @if(isset($wishlists))
+            @foreach($wishlists as $wishlist)
+            <div class="wish-gallery-container">
+              <div class="page-title">
+                  <h3><span class="fa fa-magic"></span> {!! $wishlist['title'] !!} </h3>
+                  <b>Created by:</b> {!! $wishlist->user['firstname']!!} {!! $wishlist->user['lastname'] !!}
+                  <br />
+                  <div class="fb-share-button" data-href="http://www.wishare.net/profile/wishes/{id?}" data-layout="icon"></div>
               </div>
-          </div>
-        @endforeach
+
+              <div class="gallery" id="links">
+                @foreach($wishlist->wishes as $wish)
+                  <div class="gallery-item">
+                      <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+                        <div class="image image-container">
+                            <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
+                        </div>
+                      </a>
+                      <div class="meta">
+                        <strong>{!! $wish['title'] !!}</strong>
+                      </div>
+                  </div>
+                @endforeach
+              </div>
+            </div>
+            @endforeach
+          @endif
+        </div>
       </div>
     </div>
   </div>
-  @endforeach
-@endif
+</div>
 <!-- BLUEIMP GALLERY -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
     <div class="slides"></div>

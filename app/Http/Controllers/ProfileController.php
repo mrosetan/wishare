@@ -42,11 +42,20 @@ class ProfileController extends Controller
       $this->middleware('auth');
 
   }
-  
+
   public function profile()
   {
     $user = Auth::user();
-    return view('userlayouts-master.profile-master', compact('user'));
+
+    $wishes = Wish::with('wishlist', 'tags')
+                  ->where('createdby_id', '=', $userId)
+                  ->where('status', '=', 1)
+                  ->where('granted', '!=', 1)
+                  ->orderBy('created_at', 'desc')
+                  ->take(5)
+                  ->get();
+
+    return view('userlayouts-master.profile-master', compact('user', 'wishes'));
   }
 
   public function findProfile($id)
@@ -151,21 +160,6 @@ class ProfileController extends Controller
     return view('profile.profile-friends', compact('user', 'friends'));
   }
 
-  public function wishes($id)
-  {
-    $user = Auth::user();
-    $userId = $user['id'];
-
-    $wishlists = Wishlist::with('wishes')
-                          ->where('id', '=', $id)
-                          ->where('createdby_id', '=', $userId)
-                          ->where('status', '=', 1)
-                          ->orderBy('created_at', 'desc')
-                          ->get();
-
-    return view('profile.profile-wishes', compact('user', 'wishlists'));
-  }
-
   public function granted()
   {
     $user = Auth::user();
@@ -259,20 +253,6 @@ class ProfileController extends Controller
     return view('profile.profile-given', compact('user', 'given'));
   }
 
-  public function wishWishlists()
-  {
-    $user = Auth::user();
-    $userId = $user['id'];
-
-    $wishlists = Wishlist::with('wishes')
-                          ->where('createdby_id', '=', $userId)
-                          ->where('status', '=', 1)
-                          ->orderBy('created_at', 'desc')
-                          ->get();
-
-    return view('profile.profile-wishWishlists', compact('user', 'wishlists'));
-  }
-
   public function tynotes()
   {
     $user = Auth::user();
@@ -340,5 +320,19 @@ class ProfileController extends Controller
     }
     // dd($tracked);
     return view('profile.profile-tracked', compact('user', 'tracked'));
+  }
+
+  public function wishWishlists()
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    $wishlists = Wishlist::with('wishes')
+                          ->where('createdby_id', '=', $userId)
+                          ->where('status', '=', 1)
+                          ->orderBy('created_at', 'desc')
+                          ->get();
+
+    return view('profile.profile-wishWishlists', compact('user', 'wishlists'));
   }
 }
