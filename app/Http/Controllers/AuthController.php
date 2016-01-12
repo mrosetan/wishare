@@ -156,6 +156,11 @@ class AuthController extends Controller
             return $authUser;
         }
 
+        if ($authUser = User::where('email', $fbUser->email)->where('fb_id', null)->first()) {
+            $authUser->fb_id = $fbUser->id;
+            $authUser->save();
+            return $authUser;
+        }
         // $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
         // else{
           return User::create([
