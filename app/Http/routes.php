@@ -114,6 +114,7 @@ Route::post('untrackwish', 'FavetrackController@untrackwish');
 
 Route::get('wish/{id?}', 'SoloWishController@wish');
 Route::get('guest/wish/{id?}', 'SoloWishController@guest');
+Route::get('guest/wish/{id?}', 'WishlistController@guest');
 Route::get('guest/wishlist/{id?}', 'OtherWishlistController@guest');
 
 // ADMIN
