@@ -28,7 +28,7 @@
                 </p>
 
                 <p>
-                  Wisher: <a href="{!! action('UserController@otheruser', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
+                  Wisher: <a href="{!! action('OtherUserController@profile', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
                 </p>
 
 
@@ -90,7 +90,7 @@
 
                         @if($wish->granted == 1)
                           <p>
-                            Granter: <a href="{!! action('UserController@otheruser', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
+                            Granter: <a href="{!! action('OtherUserController@profile', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
                           </p>
                           @endif
 

@@ -1,4 +1,4 @@
-@extends('userlayouts-master.wishlists-master')
+@extends('userlayouts-master.otherwishlists-master')
 @section('title', 'Wishlist')
 @section('content')
 <br />

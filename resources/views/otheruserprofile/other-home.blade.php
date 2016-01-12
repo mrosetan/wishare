@@ -14,7 +14,7 @@
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
           <br />
-            <b>Wishlist: </b> <a href="{!! action('OtherWishlistController@wishes', $wish->wishlist['id']) !!}">{!! $wish->wishlist['title'] !!}</a>
+            <b>Wishlist: </b> <a href="{!! action('OtherWishlistController@wishes', [$otherUser['id'], $wish->wishlist['id']]) !!}">{!! $wish->wishlist['title'] !!}</a>
         </div>
         <br/><br /><br />
         <hr />
