@@ -174,7 +174,14 @@ class UserController extends Controller
     $user = Auth::user();
 
     // $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
-    $grant = Wish::where('createdby_id', '=', $user['id'])->where('status', '=', 1)->where('granted', '=', 2)->get();
+
+    // $grant = Wish::where('createdby_id', '=', $user['id'])->where('status', '=', 1)->where('granted', '=', 2)->get();
+    $grant = Wish::where('createdby_id', '=', $user['id'])
+                  ->where('status', '=', 1)
+                  ->where('granted', '=', 0)
+                  ->where('granterid', '!=', 0)
+                  ->get();
+
     if(!empty($grant))
     {
       for($i=0; $i < count($grant); $i++) {
@@ -1669,10 +1676,16 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
+    // $grantRequest = Wish::where('id', '=', $id)
+    //         ->where('status', '=', 1)
+    //         ->where('granted', '=', 2)
+    //         ->first();
     $grantRequest = Wish::where('id', '=', $id)
             ->where('status', '=', 1)
-            ->where('granted', '=', 2)
+            ->where('granted', '=', 0)
+            ->where('granterid', '!=', 0)
             ->first();
+
       // dd($grantRequest);
     if(!empty($grantRequest)){
       $grantRequest->date_granted = date("Y-m-d h:i:s");
