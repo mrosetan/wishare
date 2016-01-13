@@ -1610,7 +1610,8 @@ class UserController extends Controller
           $wishDetails->wishimageurl =  $wishDetails->wishimageurl;
           $wishDetails->alternatives = $wishDetails->alternatives;
           $wishDetails->due_date = $wishDetails->due_date;
-          $wishDetails->granted = 2;
+          $wishDetails->granted = 0;
+          // $wishDetails->granted = 2;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
           // $wishDetails->grantedimageurl = '';
@@ -1641,7 +1642,8 @@ class UserController extends Controller
           $wishDetails->wishimageurl = $wishDetails->wishimageurl;
           $wishDetails->alternatives = $wishDetails->alternatives;
           $wishDetails->due_date = $wishDetails->due_date;
-          $wishDetails->granted = 2;
+          $wishDetails->granted = 0;
+          // $wishDetails->granted = 2;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
           $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishimages/'.$filename;
