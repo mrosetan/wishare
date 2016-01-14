@@ -143,7 +143,7 @@
                                   {!! Form::submit('Accept', array('class'=>'btn btn-info')) !!}
                               {!! Form::close() !!}
                               {!! Form::open(array(
-                                            'action' => array('UserController@declineFriendRequest', $g['id']),
+                                            'action' => array('UserController@declineGrantRequest', $g['id']),
                                             'class' => 'form friendActions friend-action-button',
                                             'method' => 'get')) !!}
                                   {!! Form::submit('Decline', array('class'=>'btn btn-default')) !!}

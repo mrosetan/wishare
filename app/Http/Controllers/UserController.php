@@ -1034,7 +1034,7 @@ class UserController extends Controller
     $wishlist->privacy = $request->privacy;
     $wishlist->save();
     //return Redirect::back()->with('wishlistSettings', 'Wishlist udpated successfully!');
-    return redirect('user/profile#tab-wishes')->with('wishlistSettings', 'Wishlist udpated successfully!');
+    return redirect('profile/wishlists')->with('wishlistSettings', 'Wishlist udpated successfully!');
   }
 
   public function deleteWishlist($id)
@@ -1044,10 +1044,7 @@ class UserController extends Controller
     $wishlist->status = 0;
     $wishlist->save();
 
-     if(count($wishlist) >= 1)
-      return redirect('user/profile#tab-wishes')->with('wishlistDelete', 'Wishlist deleted!');
-     else
-       return redirect('user/profile#tab-wishes')->with('errormsg', 'No Wishlists.');
+    return redirect('profile/wishlists');
   }
 
   public function getWishlist()
@@ -1670,6 +1667,22 @@ class UserController extends Controller
       $grantRequest->save();
     }
 
+    return redirect()->action('UserController@notifications');
+  }
+
+  public function declineGrantRequest($id)
+  {
+    $user = Auth::user();
+
+    $grantRequest = Wish::where('id', '=', $id)
+            ->where('status', '=', 1)
+            ->where('granted', '=', 2)
+            ->first();
+
+    if(!empty($grantRequest))
+      $grantRequest->delete();
+
+    // dd($friendRequest);
     return redirect()->action('UserController@notifications');
   }
 
