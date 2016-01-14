@@ -38,19 +38,22 @@
               <div class="col-md-4">
                 {!! Form::radio('sticker', '1') !!} Sticker 1<br />
                 <div class="tysticker-container">
-                  <img src="http://192.168.1.28/wishareimages/tynotessticker/ty1.png" class="tysticker-image"/>
+                  <img src="http://images.wishare.net/tynotessticker/ty1.png" class="tysticker-image"/>
+                  <!-- <img src="http://192.168.1.8/wishareimages/tynotessticker/ty1.png" class="tysticker-image"/> -->
                 </div>
               </div>
               <div class="col-md-4">
                 {!! Form::radio('sticker', '2') !!} Sticker 2<br />
                 <div class="tysticker-container">
-                  <img src="http://192.168.1.28/wishareimages/tynotessticker/ty2.png" class="tysticker-image"/>
+                  <img src="http://images.wishare.net/tynotessticker/ty2.png" class="tysticker-image"/>
+                  <!-- <img src="http://192.168.1.8/wishareimages/tynotessticker/ty2.png" class="tysticker-image"/> -->
                 </div>
               </div>
               <div class="col-md-4">
                 {!! Form::radio('sticker', '3') !!} Sticker 3<br />
                 <div class="tysticker-container">
-                  <img src="http://192.168.1.28/wishareimages/tynotessticker/ty3.png" class="tysticker-image"/>
+                  <img src="http://images.wishare.net/tynotessticker/ty3.png" class="tysticker-image"/>
+                  <!-- <img src="http://192.168.1.8/wishareimages/tynotessticker/ty3.png" class="tysticker-image"/> -->
                 </div>
               </div>
             </div>
