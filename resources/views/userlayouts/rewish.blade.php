@@ -77,7 +77,7 @@
               <div class="col-md-12">
                 <div class="pull-right">
                   {!! Form::submit('Add', array('class'=>'btn btn-info')) !!}
-                  {!! Form::button('Cancel', array('class'=>'btn btn-default mb-control-close')) !!}
+                  {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
                 </div>
               </div>
             </div>
