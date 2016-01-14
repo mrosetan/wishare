@@ -71,9 +71,11 @@
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <!-- DASHBOARD -->
+                    @if(!empty($user))
                     <li class="pull-right">
                       <a href="{{ URL::to('user/home') }}"><span class="fa fa-arrow-circle-o-left"></span>Dashboard</a>
                     </li>
+                    @endif
                     <!-- END DASHBOARD -->
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
