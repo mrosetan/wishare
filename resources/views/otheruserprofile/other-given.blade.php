@@ -29,6 +29,7 @@
         <hr />
         @endif
         <br />
+        @if(!empty($user))
         <div class="wish-icons pull-right">
           <!-- <a href="#"><span class="fa fa-star"></span></a> -->
           <span data-wishid="{!! $gi['id']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($gi['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($gi['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $gi['faves'] !!}</span> </span>
@@ -40,6 +41,16 @@
           <!-- &nbsp;&nbsp;
           <a href="#" class="mb-control" data-box="#mb-deletewish{!! $gi['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a> -->
         </div>
+        @else
+        <div class="wishaction-btns pull-right">
+          <div class="favetrack-count pull-right">
+            <span class="count">{!! $gi['faves'] !!} Favorited</span>
+            &nbsp;&nbsp;
+             <span class="count">{!! $gi['tracks'] !!} Tracked</span>
+          </div>
+          <br/>
+        </div>
+        @endif
       </div>
       <!-- end of panel body -->
     </div>

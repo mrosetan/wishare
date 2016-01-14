@@ -38,6 +38,16 @@ use Validator;
 
 class OtherUserController extends Controller
 {
+  public function master($id)
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    if($userId != $id){
+      $otherUser = User::where('id', '=', $id)->firstorFail();
+    }
+    return view('userlayouts-master.other-master', compact('otherUser', 'user'));
+  }
   public function privateUser($id)
   {
     $user = Auth::user();
@@ -560,7 +570,7 @@ class OtherUserController extends Controller
   public function friends($id)
   {
     $user = Auth::user();
-    $userId = $user->id;
+    $userId = $user['id'];
 
     if($userId != $id){
       $otherUser = User::where('id', '=', $id)->firstorFail();

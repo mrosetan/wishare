@@ -4,50 +4,65 @@
 <br />
 @if(isset($wishes))
     @foreach($wishes as $wish)
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="pull-left">
-          <a href="#">
-            <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
-          </a>
-          <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
-          <br />
-            <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
-          <br />
-            <b>Wishlist: </b> <a href="{!! action('OtherWishlistController@wishes', [$otherUser['id'], $wish->wishlist['id']]) !!}">{!! $wish->wishlist['title'] !!}</a>
+      @if($wish->wishlist['privacy'] == 0)
+        @if($wish->wishlist['status'] == 1)
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="pull-left">
+              <a href="#">
+                <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
+              </a>
+              <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
+              <br />
+                <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
+              <br />
+                <b>Wishlist: </b> <a href="{!! action('OtherWishlistController@wishes', [$otherUser['id'], $wish->wishlist['id']]) !!}">{!! $wish->wishlist['title'] !!}</a>
+            </div>
+            <br/><br /><br />
+            <hr />
+            @if(empty($wish['wishimageurl']))
+              <div></div>
+            @endif
+            @if(!empty($wish['wishimageurl']))
+            <div class="wish-image-container">
+              <img src="{!! $wish['wishimageurl'] !!}" class="wish-image" />
+            </div>
+            <hr />
+            @endif
+            <br />
+            @if(!empty($user))
+            <div class="wish-icons pull-right">
+              <!-- <a href="#"><span class="fa fa-star"></span></a> -->
+              <span data-wishid="{!! $wish['id']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($wish['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($wish['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $wish['faves'] !!}</span> </span>
+              &nbsp;&nbsp;
+              <!-- <a href="#"><span class="fa fa-bookmark"></span></a> -->
+              <span data-wishid="{!! $wish['id']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span> </span>
+              &nbsp;&nbsp;
+              <span data-toggle="tooltip" data-placement="top" title="Grant"><a data-toggle="modal" data-target="#modal_grant{!! $wish['id'] !!}"><span class="fa fa-magic"></span></a></span>
+              &nbsp;&nbsp;
+              <a href="{!! action('UserController@rewishDetails', $wish['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
+              <!-- &nbsp;&nbsp;
+              <a href="#" data-toggle="modal" data-target="#modalwish{!! $wish->id !!}"><span class="fa fa-edit"></span></a>
+              &nbsp;&nbsp;
+              <a href="{!! url('user/edit/tags', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Tag"><span class="fa fa-tag"></span></a>
+              &nbsp;&nbsp;
+              <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a> -->
+            </div>
+            @else
+            <div class="wishaction-btns pull-right">
+              <div class="favetrack-count pull-right">
+                <span class="count">{!! $wish['faves'] !!} Favorited</span>
+                &nbsp;&nbsp;
+                 <span class="count">{!! $wish['tracks'] !!} Tracked</span>
+              </div>
+              <br/>
+            </div>
+            @endif
+          <!-- end of panel body -->
+          </div>
         </div>
-        <br/><br /><br />
-        <hr />
-        @if(empty($wish['wishimageurl']))
-          <div></div>
         @endif
-        @if(!empty($wish['wishimageurl']))
-        <div class="wish-image-container">
-          <img src="{!! $wish['wishimageurl'] !!}" class="wish-image" />
-        </div>
-        <hr />
-        @endif
-        <br />
-        <div class="wish-icons pull-right">
-          <!-- <a href="#"><span class="fa fa-star"></span></a> -->
-          <span data-wishid="{!! $wish['id']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($wish['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($wish['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $wish['faves'] !!}</span> </span>
-          &nbsp;&nbsp;
-          <!-- <a href="#"><span class="fa fa-bookmark"></span></a> -->
-          <span data-wishid="{!! $wish['id']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span> </span>
-          &nbsp;&nbsp;
-          <span data-toggle="tooltip" data-placement="top" title="Grant"><a data-toggle="modal" data-target="#modal_grant{!! $wish['id'] !!}"><span class="fa fa-magic"></span></a></span>
-          &nbsp;&nbsp;
-          <a href="{!! action('UserController@rewishDetails', $wish['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
-          <!-- &nbsp;&nbsp;
-          <a href="#" data-toggle="modal" data-target="#modalwish{!! $wish->id !!}"><span class="fa fa-edit"></span></a>
-          &nbsp;&nbsp;
-          <a href="{!! url('user/edit/tags', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Tag"><span class="fa fa-tag"></span></a>
-          &nbsp;&nbsp;
-          <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a> -->
-        </div>
-      <!-- end of panel body -->
-      </div>
-    </div>
+      @endif
     @endforeach
 @endif
 
