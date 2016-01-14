@@ -38,15 +38,6 @@ use Validator;
 
 class OtherUserController extends Controller
 {
-  public function master($id)
-  {
-    $user = Auth::user();
-    $userId = $user['id'];
-    if($userId != $id){
-      $otherUser = User::where('id', '=', $id)->firstorFail();
-    }
-    return view('userlayouts-master.otherwishlists-master', compact('otherUser'));
-  }
   public function privateUser($id)
   {
     $user = Auth::user();

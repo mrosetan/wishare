@@ -174,7 +174,14 @@ class UserController extends Controller
     $user = Auth::user();
 
     // $requests = Friend::with('friendRequest')->where('status', '=', '0')->get();
-    $grant = Wish::where('createdby_id', '=', $user['id'])->where('status', '=', 1)->where('granted', '=', 2)->get();
+
+    // $grant = Wish::where('createdby_id', '=', $user['id'])->where('status', '=', 1)->where('granted', '=', 2)->get();
+    $grant = Wish::where('createdby_id', '=', $user['id'])
+                  ->where('status', '=', 1)
+                  ->where('granted', '=', 0)
+                  ->where('granterid', '!=', 0)
+                  ->get();
+
     if(!empty($grant))
     {
       for($i=0; $i < count($grant); $i++) {
@@ -322,7 +329,8 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    // $hostURL = 'images.wishare.net';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -346,6 +354,7 @@ class UserController extends Controller
     else
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      // $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
       $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
@@ -390,7 +399,8 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
+    // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -414,6 +424,7 @@ class UserController extends Controller
     else
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      // $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
       $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
@@ -549,7 +560,8 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    // $hostURL = 'images.wishare.net';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -571,6 +583,7 @@ class UserController extends Controller
     }
     else {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      // $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
       $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
@@ -963,7 +976,8 @@ class UserController extends Controller
     $user = Auth::user();
     $id = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    // $hostURL = 'images.wishare.net';
+    $hostURL = '192.168.1.8';
     $newImage = Input::file('imageurl');
     if($newImage == null)
     {
@@ -973,11 +987,11 @@ class UserController extends Controller
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
 
+      // $path = ('/var/www/images.wishare.net/public_html/wishareimages/userimages/' . $filename);
       $path = ('C:/xampp/htdocs/wishareimages/userimages/' . $filename);
       Image::make($newImage->getRealPath())->fit(150, 150)->save($path);
       $user->imageurl =  'http://' . $hostURL . '/wishareimages/userimages/'.$filename;
     }
-
     $user->save();
 
     //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
@@ -1256,7 +1270,8 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.28';
+      $hostURL = '192.168.1.8';
+      // $hostURL = 'images.wishare.net';
       if($newImage == null)
       {
         if($request->sticker == 1)
@@ -1308,6 +1323,7 @@ class UserController extends Controller
         if($request->sticker == 1)
         {
           $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+          // $path = ('/var/www/images.wishare.net/public_html/wishareimages/tynotesimages/' . $filename);
           $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
           Image::make($newImage->getRealPath())->save($path);
 
@@ -1324,6 +1340,7 @@ class UserController extends Controller
         else if($request->sticker == 2)
         {
           $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+          // $path = ('/var/www/images.wishare.net/public_html/wishareimages/tynotesimages/' . $filename);
           $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
           Image::make($newImage->getRealPath())->save($path);
 
@@ -1340,6 +1357,7 @@ class UserController extends Controller
         else
         {
           $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+          // $path = ('/var/www/images.wishare.net/public_html/wishareimages/tynotesimages/' . $filename);
           $path = ('C:/xampp/htdocs/wishareimages/tynotesimages/' . $filename);
           Image::make($newImage->getRealPath())->save($path);
 
@@ -1418,7 +1436,8 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
+    // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -1444,6 +1463,7 @@ class UserController extends Controller
     else
     {
       $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+      // $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
       $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
       Image::make($newImage->getRealPath())->save($path);
 
@@ -1501,7 +1521,8 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.8';
+    // $hostURL = 'images.wishare.net';
     $newImage = Input::file('grantedimageurl');
 
     $wish = Wish::where('id', '=', $id)->where('status', '=', 1)->first();
@@ -1541,6 +1562,7 @@ class UserController extends Controller
       else
       {
         $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+        // $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
         $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
         Image::make($newImage->getRealPath())->save($path);
 
@@ -1590,9 +1612,11 @@ class UserController extends Controller
           $wishDetails->wishimageurl =  $wishDetails->wishimageurl;
           $wishDetails->alternatives = $wishDetails->alternatives;
           $wishDetails->due_date = $wishDetails->due_date;
-          $wishDetails->granted = 2;
+          $wishDetails->granted = 0;
+          // $wishDetails->granted = 2;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
+          // $wishDetails->grantedimageurl = '';
           $wishDetails->flagged = $flag;
           $wishDetails->status = 1;
           // dd($wishDetails);
@@ -1602,6 +1626,7 @@ class UserController extends Controller
       else
       {
         $filename  = $user->id . time() . '.' . $newImage->getClientOriginalExtension();
+        // $path = ('/var/www/images.wishare.net/public_html/wishareimages/wishimages/' . $filename);
         $path = ('C:/xampp/htdocs/wishareimages/wishimages/' . $filename);
         Image::make($newImage->getRealPath())->save($path);
 
@@ -1620,7 +1645,8 @@ class UserController extends Controller
           $wishDetails->wishimageurl = $wishDetails->wishimageurl;
           $wishDetails->alternatives = $wishDetails->alternatives;
           $wishDetails->due_date = $wishDetails->due_date;
-          $wishDetails->granted = 2;
+          $wishDetails->granted = 0;
+          // $wishDetails->granted = 2;
           $wishDetails->granterid = $user->id;
           $wishDetails->granteddetails = $request->granteddetails;
           $wishDetails->grantedimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
@@ -1655,10 +1681,16 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
+    // $grantRequest = Wish::where('id', '=', $id)
+    //         ->where('status', '=', 1)
+    //         ->where('granted', '=', 2)
+    //         ->first();
     $grantRequest = Wish::where('id', '=', $id)
             ->where('status', '=', 1)
-            ->where('granted', '=', 2)
+            ->where('granted', '=', 0)
+            ->where('granterid', '!=', 0)
             ->first();
+
       // dd($grantRequest);
     if(!empty($grantRequest)){
       $grantRequest->date_granted = date("Y-m-d h:i:s");

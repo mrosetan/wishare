@@ -31,7 +31,7 @@ class AuthController extends Controller
   {
 
     $user = new User(array(
-      'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
+      'imageurl' => 'http://images.wishare.net/userimages/default.jpg',
       'lastname' => trim($request->lastname),
       'firstname' => trim($request->firstname),
       'username' => trim($request->username),
@@ -156,6 +156,11 @@ class AuthController extends Controller
             return $authUser;
         }
 
+        if ($authUser = User::where('email', $fbUser->email)->where('fb_id', null)->first()) {
+            $authUser->fb_id = $fbUser->id;
+            $authUser->save();
+            return $authUser;
+        }
         // $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
         // else{
           return User::create([
