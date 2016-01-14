@@ -330,7 +330,7 @@ class UserController extends Controller
 
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.8';
+    $hostURL = '192.168.1.28';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -399,7 +399,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.8';
+    $hostURL = '192.168.1.28';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -561,7 +561,7 @@ class UserController extends Controller
     $user = Auth::user();
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.8';
+    $hostURL = '192.168.1.28';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -977,7 +977,7 @@ class UserController extends Controller
     $id = $user->id;
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.8';
+    $hostURL = '192.168.1.28';
     $newImage = Input::file('imageurl');
     if($newImage == null)
     {
@@ -1270,7 +1270,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.8';
+      $hostURL = '192.168.1.28';
       // $hostURL = 'images.wishare.net';
       if($newImage == null)
       {
@@ -1436,7 +1436,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.8';
+    $hostURL = '192.168.1.28';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -1521,7 +1521,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.8';
+    $hostURL = '192.168.1.28';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('grantedimageurl');
 
@@ -1708,7 +1708,7 @@ class UserController extends Controller
 
     $grantRequest = Wish::where('id', '=', $id)
             ->where('status', '=', 1)
-            ->where('granted', '=', 2)
+            ->where('granted', '!=', 1)
             ->first();
 
     if(!empty($grantRequest))

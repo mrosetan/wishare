@@ -5,10 +5,10 @@
 <div class="solo">
   <div class="row">
     <div class=" col-md-6 col-md-offset-3">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          @if(isset($wishlists))
-            @foreach($wishlists as $wishlist)
+      @if(isset($wishlists))
+        @foreach($wishlists as $wishlist)
+          <div class="panel panel-default">
+            <div class="panel-body">
               <div class="wish-gallery-container">
                 <div class="page-title">
                   <h3><span class="fa fa-magic"></span> {!! $wishlist['title'] !!} </h3>
@@ -31,10 +31,10 @@
                 @endif
                 </div>
               </div>
-            @endforeach
-          @endif
-        </div>
-      </div>
+            </div>
+          </div>
+        @endforeach
+      @endif
     </div>
   </div>
 </div>

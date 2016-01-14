@@ -88,6 +88,7 @@
                             <!-- COVER PHOTO -->
                             <!-- <div class="panel-body profile" style="background: url('assets/images/gallery/music-4.jpg') center center no-repeat;"> -->
                             <!-- END OF COVER PHOTO -->
+
                               <div class="profile-image">
                                   <img src="{!! $otherUser['imageurl'] !!}" />
                               </div>
@@ -96,7 +97,9 @@
                                   <div class="profile-data-title" style="color: #FFF;">{!! $otherUser['city'] !!}</div>
                               </div>
                             </div>
+
                             <!--ADD AS FRIEND -->
+                            @if(!empty($user))
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="">
@@ -167,6 +170,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <!--END OF ADD AS FRIEND -->
                             <div class="panel-body list-group border-bottom">
                                 <a href="{!! action('OtherUserController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
