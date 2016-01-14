@@ -4,6 +4,7 @@
 <br />
 @if(isset($wishes))
     @foreach($wishes as $wish)
+    @if($wish->wishlist['privacy'] == 0)
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="pull-left">
@@ -48,6 +49,7 @@
       <!-- end of panel body -->
       </div>
     </div>
+    @endif
     @endforeach
 @endif
 
