@@ -26,9 +26,9 @@ class EditAdminRequest extends Request
         return [
           'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
           'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
-          'username' => 'required|min:3|max:15|alpha_num|unique:wishare_users',
-          'password' => 'required|min:3|max:30|alpha_num',
-          'email' => 'required|email|unique:wishare_users',
+          'username' => 'sometimes|required|min:3|max:15|alpha_num|unique:wishare_users',
+          'password' => 'sometimes|required|min:3|max:30|alpha_num',
+          'email' => 'sometimes|required|email|unique:wishare_users',
         ];
     }
 

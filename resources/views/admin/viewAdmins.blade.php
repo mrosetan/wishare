@@ -74,11 +74,11 @@
       </div>
   </div> -->
 
-  <div class="row">
-      <div class="col-md-12">
+  <!-- <div class="row">
+      <div class="col-md-12"> -->
 
           <!-- START DEFAULT DATATABLE -->
-          <div class="panel panel-default">
+          <!-- <div class="panel panel-default">
               <div class="panel-heading">
                   <h3 class="panel-title">Admins</h3>
               </div>
@@ -145,7 +145,79 @@
                   @endif
               </div>
           </div>
-          <!-- END DEFAULT DATATABLE -->
+
       </div>
-  </div>
+  </div> -->
+
+
+
+
+  <div class="row">
+      <div class="col-md-12">
+
+          <!-- START DEFAULT DATATABLE -->
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title">Users</h3>
+
+              </div>
+              @if($users->isEmpty())
+                <div class="alert alert-info" role="alert">
+                  No Users.
+                </div>
+              @else
+
+                @if(session('status'))
+                  <div class="alert alert-success">
+                      {{ session('status') }}
+                  </div>
+                @endif
+                <div class="panel-body">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                              <th>Status</th>
+                              <th>ID #    </th>
+                              <th>Name</th>
+                              <th>Username</th>
+                              <th>Email</th>
+                              <th>Created On</th>
+                              <!-- <th>Type</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($users as $user)
+                            <tr>
+                                <td>
+                                  @if($user->status == 1)
+                                    <span class="fa fa-circle active-indicator"></span> Active -
+                                  @else
+                                    <span class="fa fa-circle deactivated-indicator"></span> Deactivated -
+                                  @endif
+                                  @if($user->type == 0)
+                                    Admin
+                                  @else
+                                    User
+                                  @endif
+                                </td>
+                                <td>{!! $user->id !!}</td>
+                                <td><a href="{!! action('AdminController@userdetails', $user->id) !!}">{!! $user->lastname!!}, {!! $user->firstname !!}</a></td>
+                                <td>{!! $user->username !!}</td>
+                                <td>{!! $user->email !!}</td>
+                                <td>{!! $user->created_at !!}</td>
+
+
+
+                            </tr>
+                          @endforeach
+
+                        </tbody>
+                    </table>
+
+                  @endif
+              </div>
+          </div>
+          <!-- END DEFAULT DATATABLE -->
+    </div>
+</div>
 @stop
