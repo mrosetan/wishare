@@ -409,7 +409,7 @@ class OtherUserController extends Controller
         }
       }
     }
-    return view('otheruserprofile.other-granted', compact('otherUser', 'granted', 'requests', 'status'));
+    return view('otheruserprofile.other-granted', compact('otherUser', 'granted', 'requests', 'status', 'user'));
   }
 
   public function given($id)
@@ -488,7 +488,7 @@ class OtherUserController extends Controller
         }
       }
     }
-    return view('otheruserprofile.other-given', compact('otherUser', 'given', 'requests', 'status'));
+    return view('otheruserprofile.other-given', compact('otherUser', 'given', 'requests', 'status', 'user'));
   }
 
   public function wishWishlists($id)
@@ -539,7 +539,7 @@ class OtherUserController extends Controller
                             ->get();
     }
 
-    return view('otheruserprofile.other-wishWishlists', compact('otherUser', 'wishlists', 'requests', 'status'));
+    return view('otheruserprofile.other-wishWishlists', compact('otherUser', 'wishlists', 'requests', 'status', 'user'));
   }
 
   public function tracked($id)
@@ -616,7 +616,7 @@ class OtherUserController extends Controller
       }
     }
 
-    return view('otheruserprofile.other-tracked', compact('otherUser', 'tracked', 'requests', 'status'));
+    return view('otheruserprofile.other-tracked', compact('otherUser', 'tracked', 'requests', 'status', 'user'));
   }
 
   public function friends($id)
@@ -663,7 +663,7 @@ class OtherUserController extends Controller
       $friends = User::find($id)->friends;
     }
 
-    return view('otheruserprofile.other-friends', compact('otherUser', 'friends', 'requests', 'status'));
+    return view('otheruserprofile.other-friends', compact('otherUser', 'friends', 'requests', 'status', 'user'));
   }
 
   public function tynotes($id)
@@ -710,7 +710,7 @@ class OtherUserController extends Controller
       $tynotes = User::find($id)->tynotesOf->reverse();
     }
 
-    return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status'));
+    return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status', 'user'));
   }
 
 }
