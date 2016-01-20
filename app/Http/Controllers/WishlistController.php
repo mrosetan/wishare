@@ -41,21 +41,90 @@ class WishlistController extends Controller
   public function wishes($id)
   {
     $user = Auth::user();
-    $userId = $user['id'];
+    $wl = Wishlist::where('id', $id)->where('status', 1)->first();
+    $uid = $wl->createdby_id;
 
     if(!empty($user))
     {
-      $wishlists = Wishlist::with('wishes')
-                            ->where('id', '=', $id)
-                            ->where('createdby_id', '=', $userId)
-                            ->where('status', '=', 1)
-                            ->orderBy('created_at', 'desc')
+      $userId = $user['id'];
+
+      if($userId != $uid){
+        $otherUser = User::where('id', '=', $id)->firstorFail();
+
+        $requests = Friend::with('friendRequest')
+                            ->where('userid', '=', $id)
+                            ->where('friend_userid', '=', $userId)
+                            ->where('status', '=', 0)
                             ->get();
-      return view('profile.profile-wishes', compact('user', 'wishlists'));
+
+        $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+        $friends = User::find($otherUser->id)->friends;
+
+        $friendRequest = Friend::where('userid', '=', $userId)
+                              ->where('friend_userid', '=', $id)
+                              ->where('status', '=', 0)
+                              ->first();
+
+        if(!empty($friendRequest)){
+          $status = 0;
+        }
+        else {
+          $status = 3;
+        }
+
+        if(!empty($friends)){
+          foreach ($friends as $f) {
+            if ($f->id == $userId) {
+              $status = $f->pivot->status;
+            }
+          }
+        }
+        else{
+          $status= 0;
+        }
+
+        $wishlists = Wishlist::with('wishes')
+                              ->where('id', '=', $id)
+                              ->where('createdby_id', '!=', $userId)
+                              ->where('status', '=', 1)
+                              ->where('privacy', '=', 0)
+                              ->orderBy('created_at', 'desc')
+                              ->get();
+
+          return view('otheruserprofile.other-wishes', compact('otherUser', 'wishlists', 'requests', 'status'));
+        }
+
+        if($userId == $uid){
+          $wishlists = Wishlist::with('wishes')
+                                ->where('id', '=', $id)
+                                ->where('createdby_id', '=', $userId)
+                                ->where('status', '=', 1)
+                                ->orderBy('created_at', 'desc')
+                                ->get();
+          return view('profile.profile-wishes', compact('user', 'wishlists'));
+      }
 
     }
+
     else
-      return redirect()->action('WishlistController@guest', [$id]);
+    {
+      $otherUser = User::where('id', '=', $uid)->firstorFail();
+      if(($otherUser->privacy == 1))
+      {
+        return redirect()->action('UserProfilesController@profile', [$id]);
+      }
+      else {
+        $wishlists = Wishlist::with('wishes')
+                              ->with('user')
+                              ->where('id', '=', $id)
+                              ->where('status', '=', 1)
+                              ->orderBy('created_at', 'desc')
+                              ->get();
+
+        return view('pages.wishlist-guest', compact('wishlists'));
+      }
+    }
+      // return redirect()->action('WishlistController@guest', [$id]);
   }
 
   public function guest($id)

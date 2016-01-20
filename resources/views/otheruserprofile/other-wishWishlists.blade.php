@@ -6,7 +6,7 @@
   @foreach($wishlists as $wishlist)
   <div class="panel panel-default">
     <div class="panel-body">
-        <h3><span class="fa fa-magic"></span>&nbsp;<a href="{!! action('OtherWishlistController@wishes', [$otherUser->id, $wishlist->id]) !!}">{!! $wishlist['title'] !!}</a></h3>
+        <h3><span class="fa fa-magic"></span>&nbsp;<a href="{!! action('WishlistController@wishes', $wishlist->id) !!}">{!! $wishlist['title'] !!}</a></h3>
     </div>
   </div>
   @endforeach

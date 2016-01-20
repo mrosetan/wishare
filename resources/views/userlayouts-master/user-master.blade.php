@@ -90,7 +90,7 @@
                         <a href="{{ url('user/home') }}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
                     </li>
                     <li>
-                        <a href="{!! action('ProfileController@wishlists', $user['id']) !!}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
+                        <a href="{!! action('UserProfilesController@profile', $user['id']) !!}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
                     </li>
 
                     <li>
