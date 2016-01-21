@@ -102,7 +102,7 @@
               @endforeach
 
               <div class="panel-body">
-                  <table class="table datatable">
+                  <table class="table">
                       <thead>
                           <tr>
                             <th>No.</th>

@@ -95,100 +95,152 @@ class OtherUserController extends Controller
   public function profile($id)
   {
     $user = Auth::user();
-    $userId = $user['id'];
 
-    if($userId != $id){
-      $otherUser = User::where('id', '=', $id)->firstorFail();
+    if($user != null){
+      $userId = $user['id'];
 
-      $requests = Friend::with('friendRequest')
-                          ->where('userid', '=', $id)
-                          ->where('friend_userid', '=', $userId)
-                          ->where('status', '=', 0)
-                          ->get();
+      if($userId != $id){
+        $otherUser = User::where('id', '=', $id)->firstorFail();
 
-      $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-      $friends = User::find($otherUser->id)->friends;
-
-      $friendRequest = Friend::where('userid', '=', $userId)
-                            ->where('friend_userid', '=', $id)
+        $requests = Friend::with('friendRequest')
+                            ->where('userid', '=', $id)
+                            ->where('friend_userid', '=', $userId)
                             ->where('status', '=', 0)
-                            ->first();
+                            ->get();
 
-      if(!empty($friendRequest)){
-        $status = 0;
-      }
-      else {
-        $status = 3;
-      }
+        $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+        $friends = User::find($otherUser->id)->friends;
 
-      if(!empty($friends)){
-        foreach ($friends as $f) {
-          if ($f->id == $userId) {
-            $status = $f->pivot->status;
+        $friendRequest = Friend::where('userid', '=', $userId)
+                              ->where('friend_userid', '=', $id)
+                              ->where('status', '=', 0)
+                              ->first();
+
+        if(!empty($friendRequest)){
+          $status = 0;
+        }
+        else {
+          $status = 3;
+        }
+
+        if(!empty($friends)){
+          foreach ($friends as $f) {
+            if ($f->id == $userId) {
+              $status = $f->pivot->status;
+            }
+          }
+        }
+        else{
+          $status= 0;
+        }
+        // dd($requests);
+        $wishlistsList = Wishlist::with('user')
+                            ->where('createdby_id', '=', $id)
+                            ->where('status', '=', 1)
+                            ->orderBy('created_at', 'desc')
+                            ->lists('title', 'id');
+
+        $wishes = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '!=', 1)
+                      ->orderBy('created_at', 'desc')
+                      ->take(5)
+                      ->get();
+
+        if (!empty($wishes)) {
+          foreach ($wishes as $w) {
+            $w['favorited'] = '';
+            $w['faves'] = '';
+            $w['tracked'] = '';
+            $w['tracks'] = '';
+
+            $w['favorited'] = FavoriteTrack::where('wishid', $w->id)
+                                                ->where('userid', $id)
+                                                ->where('type', 2)
+                                                ->first();
+
+            $w['faves'] = FavoriteTrack::where('wishid', '=', $w->id)
+                                  ->where('type', '=', 2)
+                                  ->count();
+
+            $w['tracked'] = FavoriteTrack::where('wishid', $w->id)
+                                                ->where('userid', $id)
+                                                ->where('type', 1)
+                                                ->first();
+
+            $w['tracks'] = FavoriteTrack::where('wishid', '=', $w->id)
+                                  ->where('type', '=', 1)
+                                  ->count();
           }
         }
       }
-      else{
-        $status= 0;
-      }
-      // dd($requests);
-      $wishlistsList = Wishlist::with('user')
-                          ->where('createdby_id', '=', $id)
-                          ->where('status', '=', 1)
-                          ->orderBy('created_at', 'desc')
-                          ->lists('title', 'id');
+    }
+    else {
+        $otherUser = User::where('id', '=', $id)->firstorFail();
+        $wishlistsList = Wishlist::with('user')
+                            ->where('createdby_id', '=', $id)
+                            ->where('status', '=', 1)
+                            ->orderBy('created_at', 'desc')
+                            ->lists('title', 'id');
 
-      $wishes = Wish::with('wishlist')
-                    ->where('createdby_id', '=', $id)
-                    ->where('status', '=', 1)
-                    ->where('granted', '!=', 1)
-                    ->orderBy('created_at', 'desc')
-                    ->take(5)
-                    ->get();
+        $wishes = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '!=', 1)
+                      ->orderBy('created_at', 'desc')
+                      ->take(5)
+                      ->get();
 
-      if (!empty($wishes)) {
-        foreach ($wishes as $w) {
-          $w['favorited'] = '';
-          $w['faves'] = '';
-          $w['tracked'] = '';
-          $w['tracks'] = '';
+        if (!empty($wishes)) {
+          foreach ($wishes as $w) {
+            $w['favorited'] = '';
+            $w['faves'] = '';
+            $w['tracked'] = '';
+            $w['tracks'] = '';
 
-          $w['favorited'] = FavoriteTrack::where('wishid', $w->id)
-                                              ->where('userid', $id)
-                                              ->where('type', 2)
-                                              ->first();
+            $w['favorited'] = FavoriteTrack::where('wishid', $w->id)
+                                                ->where('userid', $id)
+                                                ->where('type', 2)
+                                                ->first();
 
-          $w['faves'] = FavoriteTrack::where('wishid', '=', $w->id)
-                                ->where('type', '=', 2)
-                                ->count();
+            $w['faves'] = FavoriteTrack::where('wishid', '=', $w->id)
+                                  ->where('type', '=', 2)
+                                  ->count();
 
-          $w['tracked'] = FavoriteTrack::where('wishid', $w->id)
-                                              ->where('userid', $id)
-                                              ->where('type', 1)
-                                              ->first();
+            $w['tracked'] = FavoriteTrack::where('wishid', $w->id)
+                                                ->where('userid', $id)
+                                                ->where('type', 1)
+                                                ->first();
 
-          $w['tracks'] = FavoriteTrack::where('wishid', '=', $w->id)
-                                ->where('type', '=', 1)
-                                ->count();
+            $w['tracks'] = FavoriteTrack::where('wishid', '=', $w->id)
+                                  ->where('type', '=', 1)
+                                  ->count();
+          }
         }
-      }
     }
+    // dd($user);
+    if($user != null){
+      if($userId != $id){
+        if(($otherUser->privacy == 1) && $status != 1){
+          return redirect()->action('OtherUserController@privateUser', [$id]);
+        }
+        else{
+          return view('otheruserprofile.other-home', compact('otherUser', 'wishes', 'wishlistsList', 'requests', 'status', 'user'));
+        }
 
-
-
-    if($userId != $id){
-      if(($otherUser->privacy == 1) && $status != 1){
-        return redirect()->action('OtherUserController@privateUser', [$id]);
       }
       else{
-        return view('otheruserprofile.other-home', compact('otherUser', 'wishes', 'wishlistsList', 'requests', 'status'));
+        return redirect()->action('ProfileController@wishlists', [$id]);
+        // return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'requests'));
       }
+    }
+    else {
+      return view('otheruserprofile.other-home', compact('otherUser', 'user', 'wishes', 'wishlistsList'));
+    }
 
-    }
-    else{
-      return redirect()->action('ProfileController@wishlists', [$id]);
-      // return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'requests'));
-    }
+
+
 
 
   }
@@ -357,7 +409,7 @@ class OtherUserController extends Controller
         }
       }
     }
-    return view('otheruserprofile.other-granted', compact('otherUser', 'granted', 'requests', 'status'));
+    return view('otheruserprofile.other-granted', compact('otherUser', 'granted', 'requests', 'status', 'user'));
   }
 
   public function given($id)
@@ -436,7 +488,7 @@ class OtherUserController extends Controller
         }
       }
     }
-    return view('otheruserprofile.other-given', compact('otherUser', 'given', 'requests', 'status'));
+    return view('otheruserprofile.other-given', compact('otherUser', 'given', 'requests', 'status', 'user'));
   }
 
   public function wishWishlists($id)
@@ -487,7 +539,7 @@ class OtherUserController extends Controller
                             ->get();
     }
 
-    return view('otheruserprofile.other-wishWishlists', compact('otherUser', 'wishlists', 'requests', 'status'));
+    return view('otheruserprofile.other-wishWishlists', compact('otherUser', 'wishlists', 'requests', 'status', 'user'));
   }
 
   public function tracked($id)
@@ -564,7 +616,7 @@ class OtherUserController extends Controller
       }
     }
 
-    return view('otheruserprofile.other-tracked', compact('otherUser', 'tracked', 'requests', 'status'));
+    return view('otheruserprofile.other-tracked', compact('otherUser', 'tracked', 'requests', 'status', 'user'));
   }
 
   public function friends($id)
@@ -611,7 +663,7 @@ class OtherUserController extends Controller
       $friends = User::find($id)->friends;
     }
 
-    return view('otheruserprofile.other-friends', compact('otherUser', 'friends', 'requests', 'status'));
+    return view('otheruserprofile.other-friends', compact('otherUser', 'friends', 'requests', 'status', 'user'));
   }
 
   public function tynotes($id)
@@ -658,7 +710,7 @@ class OtherUserController extends Controller
       $tynotes = User::find($id)->tynotesOf->reverse();
     }
 
-    return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status'));
+    return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status', 'user'));
   }
 
 }

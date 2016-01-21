@@ -20,14 +20,14 @@ Route::get('/blank', 'PagesController@blank');
 
 // Profile
 Route::get('/profilemaster', 'ProfileController@profile');
-Route::get('/profile', 'ProfileController@wishlists');
-Route::get('profile/friends', 'ProfileController@friends');
+Route::get('profile/{id?}', 'ProfileController@wishlists');
+Route::get('profile/friends/{id?}', 'ProfileController@friends');
 Route::get('profile/wishes/{id?}', 'WishlistController@wishes');
-Route::get('profile/wishlists', 'ProfileController@wishWishlists');
-Route::get('profile/granted', 'ProfileController@granted');
-Route::get('profile/given', 'ProfileController@given');
-Route::get('profile/tracked', 'ProfileController@tracked');
-Route::get('profile/tynotes', 'ProfileController@tynotes');
+Route::get('profile/wishlists/{id?}', 'ProfileController@wishWishlists');
+Route::get('profile/granted/{id?}', 'ProfileController@granted');
+Route::get('profile/given/{id?}', 'ProfileController@given');
+Route::get('profile/tracked/{id?}', 'ProfileController@tracked');
+Route::get('profile/tynotes/{id?}', 'ProfileController@tynotes');
 Route::get('profile/tynotes/{id?}', 'ProfileController@deleteTYNoteProfile');
 Route::post('profile/wish/edit/{id?}', 'UserController@updateWish');
 Route::get('profile/wish/edit/{id?}', 'UserController@updateWishDetails');

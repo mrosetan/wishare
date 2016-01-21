@@ -41,10 +41,10 @@
                             </td>
                             <td>{!! $wish->id !!}</td>
                             <td>{!! $wish->title !!}</td>
-                            <td>{!! $wish->wishlist->title !!}</td>
+                            <td>{!! $wish->wishlist['title'] !!}</td>
                             <td>
-                              <b>{!! $wish->user->firstname !!} {!! $wish->user->lastname !!}</b> <br />
-                              {!! $wish->user->username !!}
+                              <b>{!! $wish->user['firstname'] !!} {!! $wish->user['lastname '] !!}</b> <br />
+                              {!! $wish->user['username'] !!}
                             </td>
                             <td>{!! $wish->created_at !!}</td>
                             <td>

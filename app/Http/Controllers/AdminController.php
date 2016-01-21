@@ -17,6 +17,7 @@ use App\Wish;
 use App\DefaultWishlist;
 use App\Wishlist;
 use Auth;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -237,7 +238,7 @@ class AdminController extends Controller
       if (Auth::user()->type == 0) {
 
         $wishes = Wish::with('user', 'wishlist')->get();
-
+        // dd($wishes);
         return view('admin.monitoringWishes', compact('wishes'));
       }
       else
@@ -448,44 +449,134 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateAdmin(EditAdminRequest $request, $id)
-    {
+     public function updateAdmin(Request $request, $id)
+     {
 
-      if (Auth::user()->type == 0) {
-        $user = User::where('id', $id)->first();
+       if (Auth::user()->type == 0) {
+         $user = User::where('id', $id)->first();
+         $details = array();
 
-        if($request->get('firstname') != '')
-        {
-            $user->firstname = $request->get('firstname');
-        }
+         if($request->get('firstname') != '')
+         {
+             $details['firstname'] = $request->get('firstname');
+         }
 
-        if($request->get('lastname') != '')
-        {
-            $user->lastname = $request->get('lastname');
-        }
+         if($request->get('lastname') != '')
+         {
+             $details['lastname'] = $request->get('lastname');
+         }
 
-        if($request->get('password') != '')
-        {
-          $user->password = bcrypt($request->get('password'));
-        }
+         if($request->get('password') != '')
+         {
+           $details['password'] = bcrypt($request->get('password'));
+         }
 
-        if($request->get('username') != '')
-        {
-            $user->username = $request->get('username');
-        }
+         if($request->get('username') != '' and $request->get('username') != $user->username)
+         {
+             $details['username'] = $request->get('username');
+         }
 
-        if($request->get('email') != '')
-        {
-            $user->email = $request->get('email');
-        }
+         if($request->get('email') != '' and $request->get('email') != $user->email)
+         {
+             $details['email'] = $request->get('email');
+         }
 
-        $user->save();
 
-        return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
-      }
-      else
-        return redirect('user/home');
-    }
+         $messages = [
+             'firstname.required' => 'First name is required.',
+             'firstname.min' => 'First name must be at least 3 characters.',
+             'firstname.max' => 'First name may not be greater than 50 characters.',
+             'firstname.regex' => 'First name may only contain letters.',
+
+             'lastname.required' => 'Last name is required.',
+             'lastname.min' => 'Last name must be at least 2 characters.',
+             'lastname.max' => 'Last name may not be greater than 50 characters.',
+             'lastname.regex' => 'Last name may only contain letters.',
+
+             'username.required' => 'Username is required.',
+             'username.min' => 'Username must be at least 3 characters.',
+             'username.max' => 'Username may not be greater than 15 characters.',
+             'username.alpha_num' => 'Username may only contain letters and numbers.',
+             'username.unique' => 'Username has already been taken.',
+
+             'password.required' => 'Password is required.',
+             'password.min' => 'Password must be at least 3 characters.',
+             'password.max' => 'Password may not be greater than 30 characters.',
+             'password.alpha_num' => 'Password may only contain letters and numbers.',
+
+             'email.required' => 'Email is required.',
+             'email.email' => 'Email must be a valid email address.',
+             'email.unique' => 'Email has already been taken.',
+         ];
+
+         $validator = Validator::make($details, [
+           'lastname' => 'required|min:2|max:50|regex:/^[\pL\s]+$/u',
+           'firstname' => 'required|min:3|max:50|regex:/^[\pL\s]+$/u',
+           'username' => 'sometimes|required|min:3|max:15|alpha_num|unique:wishare_users',
+           'password' => 'sometimes|required|min:3|max:30|alpha_num',
+           'email' => 'sometimes|required|email|unique:wishare_users',
+           ], $messages);
+
+           if ($validator->fails()) {
+               return redirect(action('AdminController@editAdmin', $user->id))
+                           ->withErrors($validator);
+                           // ->withInput();
+           }
+           else{
+             // $user->save();
+             $updateUser = User::where('id','=',$user->id)->update($details);
+
+             //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
+             return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
+           }
+
+
+
+       }
+       else
+         return redirect('user/home');
+     }
+
+
+
+    // public function updateAdmin(EditAdminRequest $request, $id)
+    // {
+    //
+    //   if (Auth::user()->type == 0) {
+    //     $user = User::where('id', $id)->first();
+    //
+    //     if($request->get('firstname') != '')
+    //     {
+    //         $user->firstname = $request->get('firstname');
+    //     }
+    //
+    //     if($request->get('lastname') != '')
+    //     {
+    //         $user->lastname = $request->get('lastname');
+    //     }
+    //
+    //     if($request->get('password') != '')
+    //     {
+    //       $user->password = bcrypt($request->get('password'));
+    //     }
+    //
+    //     if($request->get('username') != '')
+    //     {
+    //         $user->username = $request->get('username');
+    //     }
+    //
+    //     if($request->get('email') != '')
+    //     {
+    //         $user->email = $request->get('email');
+    //     }
+    //
+    //     $user->save();
+    //
+    //     return redirect(action('AdminController@editAdmin', $user->id))->with('status', 'Admin updated successfully.');
+    //   }
+    //   else
+    //     return redirect('user/home');
+    // }
 
     public function updateDefaultWishlist(DefaultWishlistRequest $request, $id)
     {

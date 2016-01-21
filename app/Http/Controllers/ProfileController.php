@@ -63,65 +63,67 @@ class ProfileController extends Controller
 
   }
 
-  public function wishlists()
+  public function wishlists($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
-    $wishlistsList = Wishlist::with('user')
-                        ->where('createdby_id', '=', $userId)
-                        ->where('status', '=', 1)
-                        ->orderBy('created_at', 'desc')
-                        ->lists('title', 'id');
-
-    $wishes = Wish::with('wishlist', 'tags')
-                  ->where('createdby_id', '=', $userId)
-                  ->where('status', '=', 1)
-                  ->where('granted', '!=', 1)
-                  ->orderBy('created_at', 'desc')
-                  ->take(5)
-                  ->get();
-
-    if(!empty($wishes)){
-      foreach ($wishes as $w) {
-        foreach ($w->tags as $t) {
-          $tagged = User::where('id', '=', $t->userid)
+    if($userId = $id)
+    {
+      $wishlistsList = Wishlist::with('user')
+                          ->where('createdby_id', '=', $userId)
                           ->where('status', '=', 1)
-                          ->first();
+                          ->orderBy('created_at', 'desc')
+                          ->lists('title', 'id');
 
-          $t['user'] = $tagged;
+      $wishes = Wish::with('wishlist', 'tags')
+                    ->where('createdby_id', '=', $userId)
+                    ->where('status', '=', 1)
+                    ->where('granted', '!=', 1)
+                    ->orderBy('created_at', 'desc')
+                    ->take(5)
+                    ->get();
+
+      if(!empty($wishes)){
+        foreach ($wishes as $w) {
+          foreach ($w->tags as $t) {
+            $tagged = User::where('id', '=', $t->userid)
+                            ->where('status', '=', 1)
+                            ->first();
+
+            $t['user'] = $tagged;
+          }
         }
       }
-    }
 
-    $tags = Tag::where('userid', '=', $user['id'])->orderby('created_at', 'desc')->get();
+      $tags = Tag::where('userid', '=', $user['id'])->orderby('created_at', 'desc')->get();
 
-    if (!empty($wishes)) {
-      foreach ($wishes as $w) {
-        $w['favorited'] = '';
-        $w['faves'] = '';
-        $w['tracked'] = '';
-        $w['tracks'] = '';
+      if (!empty($wishes)) {
+        foreach ($wishes as $w) {
+          $w['favorited'] = '';
+          $w['faves'] = '';
+          $w['tracked'] = '';
+          $w['tracks'] = '';
 
-        $w['favorited'] = FavoriteTrack::where('wishid', $w->id)
-                                            ->where('userid', $userId)
-                                            ->where('type', 2)
-                                            ->first();
+          $w['favorited'] = FavoriteTrack::where('wishid', $w->id)
+                                              ->where('userid', $userId)
+                                              ->where('type', 2)
+                                              ->first();
 
-        $w['faves'] = FavoriteTrack::where('wishid', '=', $w->id)
-                              ->where('type', '=', 2)
-                              ->count();
+          $w['faves'] = FavoriteTrack::where('wishid', '=', $w->id)
+                                ->where('type', '=', 2)
+                                ->count();
 
-        $w['tracked'] = FavoriteTrack::where('wishid', $w->id)
-                                            ->where('userid', $userId)
-                                            ->where('type', 1)
-                                            ->first();
+          $w['tracked'] = FavoriteTrack::where('wishid', $w->id)
+                                              ->where('userid', $userId)
+                                              ->where('type', 1)
+                                              ->first();
 
-        $w['tracks'] = FavoriteTrack::where('wishid', '=', $w->id)
-                              ->where('type', '=', 1)
-                              ->count();
+          $w['tracks'] = FavoriteTrack::where('wishid', '=', $w->id)
+                                ->where('type', '=', 1)
+                                ->count();
+        }
       }
-
     }
     return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags'));
   }
@@ -149,118 +151,127 @@ class ProfileController extends Controller
     return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList'));
   }
 
-  public function friends()
+  public function friends($id)
   {
     $user = Auth::user();
     $userId = $user->id;
 
-    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $friends = User::find($userId)->friends;
+    if($userId = $id)
+    {
+      $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+      $friends = User::find($userId)->friends;
+    }
 
     return view('profile.profile-friends', compact('user', 'friends'));
   }
 
-  public function granted()
+  public function granted($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
-
-    $granted = Wish::with('wishlist')
-              ->where('createdby_id', '=', $userId)
-              ->where('granted', '=', 1)
-              ->where('status', '=', 1)
-              ->orderBy('created_at')
-              ->get();
-
-    if(!empty($granted))
+    if($userId = $id)
     {
-      for($i=0; $i < count($granted); $i++) {
-        $granter = User::where('id', '=', $granted[$i]['granterid'])->where('status', '=', 1)->first();
-        if(!empty($granter))
-          $granted[$i]['granter'] = $granter;
-      }
+      $granted = Wish::with('wishlist')
+                ->where('createdby_id', '=', $userId)
+                ->where('granted', '=', 1)
+                ->where('status', '=', 1)
+                ->orderBy('created_at')
+                ->get();
 
-      foreach ($granted as $g) {
-        $g['favorited'] = '';
-        $g['faves'] = '';
-        $g['tracked'] = '';
-        $g['tracks'] = '';
+      if(!empty($granted))
+      {
+        for($i=0; $i < count($granted); $i++) {
+          $granter = User::where('id', '=', $granted[$i]['granterid'])->where('status', '=', 1)->first();
+          if(!empty($granter))
+            $granted[$i]['granter'] = $granter;
+        }
 
-        $g['favorited'] = FavoriteTrack::where('wishid', $g->id)
-                                            ->where('userid', $userId)
-                                            ->where('type', 2)
-                                            ->first();
+        foreach ($granted as $g) {
+          $g['favorited'] = '';
+          $g['faves'] = '';
+          $g['tracked'] = '';
+          $g['tracks'] = '';
 
-        $g['faves'] = FavoriteTrack::where('wishid', '=', $g->id)
-                              ->where('type', '=', 2)
-                              ->count();
+          $g['favorited'] = FavoriteTrack::where('wishid', $g->id)
+                                              ->where('userid', $userId)
+                                              ->where('type', 2)
+                                              ->first();
 
-        $g['tracked'] = FavoriteTrack::where('wishid', $g->id)
-                                            ->where('userid', $userId)
-                                            ->where('type', 1)
-                                            ->first();
+          $g['faves'] = FavoriteTrack::where('wishid', '=', $g->id)
+                                ->where('type', '=', 2)
+                                ->count();
 
-        $g['tracks'] = FavoriteTrack::where('wishid', '=', $g->id)
-                              ->where('type', '=', 1)
-                              ->count();
+          $g['tracked'] = FavoriteTrack::where('wishid', $g->id)
+                                              ->where('userid', $userId)
+                                              ->where('type', 1)
+                                              ->first();
+
+          $g['tracks'] = FavoriteTrack::where('wishid', '=', $g->id)
+                                ->where('type', '=', 1)
+                                ->count();
+        }
       }
     }
     return view('profile.profile-granted', compact('user', 'granted'));
   }
 
-  public function given()
+  public function given($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
-    $given = Wish::with('user')
-              ->with('wishlist')
-              ->where('granted', '=', 1)
-              ->where('granterid', '=', $userId)
-              ->where('status', '=', 1)
-              ->orderBy('created_at', 'desc')
-              ->get();
+    if($userId = $id)
+    {
+      $given = Wish::with('user')
+                ->with('wishlist')
+                ->where('granted', '=', 1)
+                ->where('granterid', '=', $userId)
+                ->where('status', '=', 1)
+                ->orderBy('created_at', 'desc')
+                ->get();
 
 
-    if (!empty($given)) {
-      foreach ($given as $g) {
-        $g['favorited'] = '';
-        $g['faves'] = '';
-        $g['tracked'] = '';
-        $g['tracks'] = '';
+      if (!empty($given)) {
+        foreach ($given as $g) {
+          $g['favorited'] = '';
+          $g['faves'] = '';
+          $g['tracked'] = '';
+          $g['tracks'] = '';
 
-        $g['favorited'] = FavoriteTrack::where('wishid', $g->id)
-                                            ->where('userid', $userId)
-                                            ->where('type', 2)
-                                            ->first();
+          $g['favorited'] = FavoriteTrack::where('wishid', $g->id)
+                                              ->where('userid', $userId)
+                                              ->where('type', 2)
+                                              ->first();
 
-        $g['faves'] = FavoriteTrack::where('wishid', '=', $g->id)
-                              ->where('type', '=', 2)
-                              ->count();
+          $g['faves'] = FavoriteTrack::where('wishid', '=', $g->id)
+                                ->where('type', '=', 2)
+                                ->count();
 
-        $g['tracked'] = FavoriteTrack::where('wishid', $g->id)
-                                            ->where('userid', $userId)
-                                            ->where('type', 1)
-                                            ->first();
+          $g['tracked'] = FavoriteTrack::where('wishid', $g->id)
+                                              ->where('userid', $userId)
+                                              ->where('type', 1)
+                                              ->first();
 
-        $g['tracks'] = FavoriteTrack::where('wishid', '=', $g->id)
-                              ->where('type', '=', 1)
-                              ->count();
+          $g['tracks'] = FavoriteTrack::where('wishid', '=', $g->id)
+                                ->where('type', '=', 1)
+                                ->count();
+        }
       }
-
     }
     return view('profile.profile-given', compact('user', 'given'));
   }
 
-  public function tynotes()
+  public function tynotes($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
-    $usersWithTYNotes = User::with('tynotesOf')->get();
-    $tynotes = User::find($userId)->tynotesOf->reverse();
-
+    if($userId = $id)
+    {
+      $usersWithTYNotes = User::with('tynotesOf')->get();
+      $tynotes = User::find($userId)->tynotesOf->reverse();
+    }  
     return view('profile.profile-tynotes', compact('user', 'tynotes'));
   }
 
@@ -279,60 +290,62 @@ class ProfileController extends Controller
      return redirect('profile/tynotes')->with('errormsg', 'No Thank You Notes.');
   }
 
-  public function tracked()
+  public function tracked($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
+    if($userId = $id)
+    {
+      $tracked = FavoriteTrack::with('wish')
+                      ->where('type', '=', 1)
+                      ->where('userid', '=', $userId)
+                      ->orderBy('created_at', 'desc')
+                      ->get();
 
-    $tracked = FavoriteTrack::with('wish')
-                    ->where('type', '=', 1)
-                    ->where('userid', '=', $userId)
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-    // dd($tracked);
-    if (!empty($tracked)) {
-      foreach ($tracked as $tr) {
-        $tr['favorited'] = '';
-        $tr['faves'] = '';
-        $tr['tracked'] = '';
-        $tr['tracks'] = '';
+      if (!empty($tracked)) {
+        foreach ($tracked as $tr) {
+          $tr['favorited'] = '';
+          $tr['faves'] = '';
+          $tr['tracked'] = '';
+          $tr['tracks'] = '';
 
-        $tr['favorited'] = FavoriteTrack::where('wishid', $tr->wishid)
-                                            ->where('userid', $userId)
-                                            ->where('type', 2)
-                                            ->first();
+          $tr['favorited'] = FavoriteTrack::where('wishid', $tr->wishid)
+                                              ->where('userid', $userId)
+                                              ->where('type', 2)
+                                              ->first();
 
-        $tr['faves'] = FavoriteTrack::where('wishid', '=', $tr->wishid)
-                              ->where('type', '=', 2)
-                              ->count();
+          $tr['faves'] = FavoriteTrack::where('wishid', '=', $tr->wishid)
+                                ->where('type', '=', 2)
+                                ->count();
 
-        $tr['tracked'] = FavoriteTrack::where('wishid', $tr->wishid)
-                                            ->where('userid', $userId)
-                                            ->where('type', 1)
-                                            ->first();
+          $tr['tracked'] = FavoriteTrack::where('wishid', $tr->wishid)
+                                              ->where('userid', $userId)
+                                              ->where('type', 1)
+                                              ->first();
 
-        $tr['tracks'] = FavoriteTrack::where('wishid', '=', $tr->wishid)
-                              ->where('type', '=', 1)
-                              ->count();
+          $tr['tracks'] = FavoriteTrack::where('wishid', '=', $tr->wishid)
+                                ->where('type', '=', 1)
+                                ->count();
+        }
       }
-
     }
-    // dd($tracked);
     return view('profile.profile-tracked', compact('user', 'tracked'));
   }
 
-  public function wishWishlists()
+  public function wishWishlists($id)
   {
     $user = Auth::user();
     $userId = $user['id'];
 
-    $wishlists = Wishlist::with('wishes')
-                          ->where('createdby_id', '=', $userId)
-                          ->where('status', '=', 1)
-                          ->orderBy('created_at', 'desc')
-                          ->get();
-
+    if($userId = $id)
+    {
+      $wishlists = Wishlist::with('wishes')
+                            ->where('createdby_id', '=', $userId)
+                            ->where('status', '=', 1)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+    }
     return view('profile.profile-wishWishlists', compact('user', 'wishlists'));
   }
 }

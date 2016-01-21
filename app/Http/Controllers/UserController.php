@@ -555,7 +555,7 @@ class UserController extends Controller
       //   print('NOTHING TO TAG');
     }
     // die();
-    return redirect('/profile')->with('tagStatus', 'Tags has been updated!');
+    return redirect('user/home')->with('tagStatus', 'Tags has been updated!');
   }
 
   public function updateWish(WishRequest $request, $id)
@@ -578,6 +578,7 @@ class UserController extends Controller
         $wish->title = $request->title;
         $wish->details = $request->details;
         $wish->alternatives = $request->alternatives;
+        $wish->due_date = $request->due_date;
         $wish->flagged = $flag;
         $wish->wishimageurl = $wish->wishimageurl;
         $wish->save();
@@ -602,6 +603,7 @@ class UserController extends Controller
         $wish->title = $request->title;
         $wish->details = $request->details;
         $wish->alternatives = $request->alternatives;
+        $wish->due_date = $request->due_date;
         $wish->flagged = $flag;
         $wish->wishimageurl = 'http://' . $hostURL . '/wishimages/'.$filename;
         // $wish->wishimageurl = 'http://' . $hostURL . '/wishareimages/wishimages/'.$filename;
@@ -629,6 +631,9 @@ class UserController extends Controller
 
   public function deleteWish($id)
   {
+    $user = Auth::user();
+    $userId = $user['id'];
+
     $wish = Wish::where('id', '=', $id)->first();
 
     if(!empty($wish)){
@@ -644,7 +649,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('/profile');
+    return redirect()->action('ProfileController@wishlists', [$userId]);
 
   }
 
@@ -1724,11 +1729,17 @@ class UserController extends Controller
 
     $grantRequest = Wish::where('id', '=', $id)
             ->where('status', '=', 1)
-            ->where('granted', '!=', 1)
+            ->where('granted', '=', 0)
+            ->where('granterid', '!=', 0)
             ->first();
 
     if(!empty($grantRequest))
-      $grantRequest->delete();
+    {
+      $grantRequest->granted = 0;
+      $grantRequest->granterid = 0;
+
+      $grantRequest->save();
+    }
 
     // dd($friendRequest);
     return redirect()->action('UserController@notifications');
