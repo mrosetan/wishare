@@ -628,6 +628,9 @@ class UserController extends Controller
 
   public function deleteWish($id)
   {
+    $user = Auth::user();
+    $userId = $user['id'];
+
     $wish = Wish::where('id', '=', $id)->first();
 
     if(!empty($wish)){
@@ -643,7 +646,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('/profile');
+    return redirect()->action('ProfileController@wishlists', [$userId]);
 
   }
 
