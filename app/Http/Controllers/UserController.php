@@ -1199,7 +1199,7 @@ class UserController extends Controller
                         ->where('type', 1)
                         ->lists('full_name', 'id');
 
-    // dd($recipient);
+    dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }
 
