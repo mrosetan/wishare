@@ -101,8 +101,7 @@
                             </div>
 
                             <!--ADD AS FRIEND -->
-                            @if(count($user)>0)
-                            <!-- @if(!empty($user)) -->
+                            @if(!empty($user))
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="">
