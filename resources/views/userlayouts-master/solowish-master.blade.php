@@ -23,7 +23,7 @@
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
-        <meta property="og:url"           content="http://www.9gag.com" /> <!-- URL of site -->
+        <meta property="og:url"           content="http://www.wishare.net" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
         <meta property="og:description"   content="A Web and Mobile Social Network for Wishing and Wish-granting" />
@@ -43,7 +43,7 @@
               method: 'share_open_graph',
               action_type: 'og.likes',
               action_properties: JSON.stringify({
-                  object:'http://www.9gag.com', //URL of site
+                  object:'http://www.wishare.net', //URL of site
                 })
               }, function(response){
             });
