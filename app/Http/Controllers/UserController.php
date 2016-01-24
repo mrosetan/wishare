@@ -641,7 +641,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect('/profile');
+    return redirect()->action('UserProfilesController@profile');
 
   }
 
