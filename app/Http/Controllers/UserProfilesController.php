@@ -46,8 +46,9 @@ class UserProfilesController extends Controller
       $userId = $user['id'];
 
       if($userId != $id){
-        $otherUser = User::where('id', '=', $id)->firstorFail();
 
+        $otherUser = User::where('id', '=', $id)->firstorFail();
+        // dd($otherUser);
         $requests = Friend::with('friendRequest')
                             ->where('userid', '=', $id)
                             ->where('friend_userid', '=', $userId)
@@ -120,6 +121,7 @@ class UserProfilesController extends Controller
                                   ->count();
           }
         }
+        return view('otheruserprofile.other-home', compact('otherUser', 'wishes', 'wishlistsList', 'requests', 'status', 'user'));
       }
 
       if($userId = $id)
@@ -231,10 +233,12 @@ class UserProfilesController extends Controller
     if($user != null){
       if($userId != $id)
       {
+        $otherUser = User::where('id', '=', $id)->firstorFail();
+        dd($otherUser);
         if(($otherUser->privacy == 1) && $status != 1)
         {
 
-          $otherUser = User::where('id', '=', $id)->firstorFail();
+
 
           $requests = Friend::with('friendRequest')
                               ->where('userid', '=', $id)
