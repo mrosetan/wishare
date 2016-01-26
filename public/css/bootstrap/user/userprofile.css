@@ -80,3 +80,10 @@ span.fa.fa-lock.private-acct {
   object-fit: cover;
   object-position: center;
 }
+
+.page-container.page-content.page-content-wrap
+{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}

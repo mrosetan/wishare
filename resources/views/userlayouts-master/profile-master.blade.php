@@ -48,6 +48,11 @@
                   object:'http://www.wishare.net', //URL of site
                 })
               }, function(response){
+                if (response && !response.error_message) {
+                  alert('Posting completed.');
+                } else {
+                  alert('Error while posting.');
+                }
             });
           };
 
