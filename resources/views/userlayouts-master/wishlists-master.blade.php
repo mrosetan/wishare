@@ -27,7 +27,7 @@
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
         <meta property="og:description"   content="Wishing and wish-granting socialized." />
-        <meta property="og:image"         content="" />
+        <meta property="og:image"         content="http://www.wishare.net/img/logo1.jpg" />
         <meta property="fb:app_id"        content="456045444586296" />
     </head>
     <body>
@@ -48,6 +48,11 @@
                   object:'http://www.wishare.net/', //URL of site
                 })
               }, function(response){
+                if (response && !response.error_message) {
+                  alert('Posting completed.');
+                } else {
+                  alert('Error while posting.');
+                }
             });
           };
 
