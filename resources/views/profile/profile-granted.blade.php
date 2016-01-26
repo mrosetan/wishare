@@ -16,7 +16,7 @@
           <br />
             <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $gr->wishlist['id']) !!}">{!! $gr->wishlist['title'] !!}</a>
           <br />
-            <b>Granted by: </b><a href="{!! action('UserController@otheruser', $gr->granter['id']) !!}">{!! $gr->granter['firstname'] !!}  {!! $gr->granter['lastname'] !!}</a>
+            <b>Granted by: </b><a href="{!! action('UserProfilesController@profile', $gr->granter['id']) !!}">{!! $gr->granter['firstname'] !!}  {!! $gr->granter['lastname'] !!}</a>
         </div>
         <br/><br /><br />
         <hr />

@@ -14,9 +14,9 @@
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gr['updated_at']))  !!}
           <br />
-            <b>Wishlist: </b> <a href="{!! action('OtherWishlistController@wishes', [$otherUser['id'],$gr->wishlist['id']]) !!}">{!! $gr->wishlist['title'] !!}</a>
+            <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $gr->wishlist['id']) !!}">{!! $gr->wishlist['title'] !!}</a>
           <br />
-            <b>Granted by: </b><a href="{!! action('OtherUserController@profile', $gr->granter['id']) !!}">{!! $gr->granter['firstname'] !!}  {!! $gr->granter['lastname'] !!}</a>
+            <b>Granted by: </b><a href="{!! action('UserProfilesController@profile', $gr->granter['id']) !!}">{!! $gr->granter['firstname'] !!}  {!! $gr->granter['lastname'] !!}</a>
         </div>
         <br/><br /><br />
         <hr />

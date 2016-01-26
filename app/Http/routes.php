@@ -18,11 +18,24 @@ Route::get('/signup', 'PagesController@signup');
 Route::get('/reactivate', 'PagesController@activateAccount');
 Route::get('/blank', 'PagesController@blank');
 
+// New Profile Routes
+Route::get('/{id?}', 'UserProfilesController@profile');
+Route::get('/{id?}/wishlists', 'UserProfilesController@wishWishlists');
+Route::get('/{id?}/granted', 'UserProfilesController@granted');
+Route::get('/{id?}/given', 'UserProfilesController@given');
+Route::get('/{id?}/tracked', 'UserProfilesController@tracked');
+Route::get('/{id?}/friends', 'UserProfilesController@friends');
+Route::get('/{id?}/tynotes', 'UserProfilesController@tynotes');
+
+Route::get('/wishlist/{id?}', 'WishlistController@wishes');
+
+
+
 // Profile
 Route::get('/profilemaster', 'ProfileController@profile');
 Route::get('profile/{id?}', 'ProfileController@wishlists');
 Route::get('profile/friends/{id?}', 'ProfileController@friends');
-Route::get('profile/wishes/{id?}', 'WishlistController@wishes');
+// Route::get('profile/wishes/{id?}', 'WishlistController@wishes');
 Route::get('profile/wishlists/{id?}', 'ProfileController@wishWishlists');
 Route::get('profile/granted/{id?}', 'ProfileController@granted');
 Route::get('profile/given/{id?}', 'ProfileController@given');
@@ -44,7 +57,7 @@ Route::get('other/friends/{id?}', 'OtherUserController@friends');
 Route::get('other/tynotes/{id?}', 'OtherUserController@tynotes');
 // Route::get('other/wishes/{id?}', 'OtherUserController@wishes');
 Route::get('other/{id}/wishes/{wishlistid?}', 'OtherWishlistController@wishes');
-Route::get('other/profile/add/{id?}', 'OtherUserController@privateUser');
+// Route::get('other/profile/add/{id?}', 'OtherUserController@privateUser');
 
 
 // Other User old

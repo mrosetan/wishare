@@ -646,7 +646,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect()->action('ProfileController@wishlists', [$userId]);
+    return redirect()->action('UserProfilesController@profile');
 
   }
 

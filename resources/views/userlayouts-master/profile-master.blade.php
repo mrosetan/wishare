@@ -108,13 +108,13 @@
                             </div> -->
                             <!--END OF ADD AS FRIEND -->
                             <div class="panel-body list-group border-bottom">
-                                <a href="{!! action('ProfileController@wishlists', $user['id']) !!}" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
-                                <a href="{!! action('ProfileController@wishWishlists', $user['id']) !!}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishlists and Wishes </a>
-                                <a href="{!! action('ProfileController@granted', $user['id']) !!}" class="list-group-item"><span class="fa fa-magic"></span> Wishes Granted </a>
-                                <a href="{!! action('ProfileController@given', $user['id']) !!}" class="list-group-item"><span class="fa fa-gift"></span> Wishes Given </a>
-                                <a href="{!! action('ProfileController@tracked', $user['id']) !!}" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
-                                <a href="{!! action('ProfileController@friends', $user['id']) !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
-                                <a href="{!! action('ProfileController@tynotes', $user['id']) !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
+                                <a href="{!! action('UserProfilesController@profile', $user['id']) !!}" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
+                                <a href="{!! action('UserProfilesController@wishWishlists', $user['id']) !!}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishlists and Wishes </a>
+                                <a href="{!! action('UserProfilesController@granted', $user['id']) !!}" class="list-group-item"><span class="fa fa-magic"></span> Wishes Granted </a>
+                                <a href="{!! action('UserProfilesController@given', $user['id']) !!}" class="list-group-item"><span class="fa fa-gift"></span> Wishes Given </a>
+                                <a href="{!! action('UserProfilesController@tracked', $user['id']) !!}" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
+                                <a href="{!! action('UserProfilesController@friends', $user['id']) !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
+                                <a href="{!! action('UserProfilesController@tynotes', $user['id']) !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
                             </div>
                         </div>
 
