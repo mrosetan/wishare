@@ -58,6 +58,7 @@ Route::get('other/tynotes/{id?}', 'OtherUserController@tynotes');
 // Route::get('other/wishes/{id?}', 'OtherUserController@wishes');
 Route::get('other/{id}/wishes/{wishlistid?}', 'OtherWishlistController@wishes');
 // Route::get('other/profile/add/{id?}', 'OtherUserController@privateUser');
+Route::get('other/profile/add/{id?}', 'UserProfilesController@profile');
 
 
 // Other User old
