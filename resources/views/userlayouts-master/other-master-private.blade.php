@@ -78,10 +78,10 @@
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
                 <!-- PAGE CONTENT WRAPPER -->
-                <div class="page-content-wrap">
+                <div class=profile-content-wrap "page-content-wrap">
                   <div class="row">
-                    <div class="profile-action-container">
-                      <div class="col-md-3 col-md-offset-1">
+                    <div class="col-md-4 profile-action-container">
+                      <div class="col-md-33 col-md-offset-1">
                         <br/>
                         <div class="panel panel-default">
                             <div class="panel-body profile">
@@ -186,7 +186,7 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                       <div class="profile-content-container">
                         @yield('newcontent')
                       </div>
