@@ -1101,7 +1101,8 @@ class UserController extends Controller
       $friend->save();
     }
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1126,7 +1127,8 @@ class UserController extends Controller
 
     // $friend->delete();
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1144,7 +1146,8 @@ class UserController extends Controller
     if(!empty($friendRequest))
       $friendRequest->delete();
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
