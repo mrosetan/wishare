@@ -225,6 +225,14 @@
           $("#home-alert").alert('close');
         });
 
+        $(function() {
+            // initialize sol
+            $('#my-select').searchableOptionList({
+              maxHeight: '250px',
+              allowNullSelection: true
+            });
+        });
+
         </script>
         <script type='text/javascript' src="{{ URL::asset('js/plugins/icheck/icheck.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
