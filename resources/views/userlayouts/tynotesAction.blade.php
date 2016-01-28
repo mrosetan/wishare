@@ -23,7 +23,7 @@
           <div class="form-group">
             <div class="row">
               <div class="col-md-12">
-                {!! Form::select('recipient', $recipient, null, array('class'=>'form-control select', 'data-live-search'=>'true')) !!}
+                {!! Form::select('recipient', $recipient, null, array('id'=>'my-select')) !!} 
               </div>
             </div>
             <br />

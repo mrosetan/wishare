@@ -1197,7 +1197,6 @@ class UserController extends Controller
     $recipient = User::find($userId)->friends
                         ->where('type', 1)
                         ->lists('full_name', 'id');
-
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }

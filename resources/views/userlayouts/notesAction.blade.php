@@ -24,7 +24,7 @@
               <div class="col-md-12">
                 <label>Recipient:</label>
                 <br />
-                  {!! Form::select('recipient', $recipient, null, array('class'=>'form-control select', 'data-live-search'=>'true')) !!}
+                  {!! Form::select('recipient', $recipient, null, array('class'=>'recipient-container', 'id'=>'my-select')) !!}
               </div>
             </div>
             <br />

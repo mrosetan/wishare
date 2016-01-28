@@ -351,3 +351,17 @@ img.tynote-image {
 .wishaction-btns{
   font-size: 20px;
 }
+
+.recipient-container {
+  z-index: -10;
+}
+
+.sol-inner-container, .sol-input-container, .sol-caret-container {
+  position: absolute;
+  z-index: -1;
+}
+
+.sol-container, .recipient-container {
+  position: relative;
+  z-index: 1;
+}
