@@ -348,6 +348,7 @@ class UserController extends Controller
         'details' => $request->details,
         'alternatives' => $request->alternatives,
         'flagged' => $flag,
+        'wishimageurl' => 'http://' . $hostURL . '/wishareimages/wishimages/default.jpg',
         'status' => 1,
       ));
     }
