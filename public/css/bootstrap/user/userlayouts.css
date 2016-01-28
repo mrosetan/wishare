@@ -114,6 +114,12 @@ img.user.granter.img-circle {
   margin-left: 140px;
 }
 
+.stream-wrapper{
+  max-width: 800px;
+  margin: 0 auto;
+  float: none;
+}
+
 .favorite{
   cursor: pointer;
 }

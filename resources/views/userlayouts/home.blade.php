@@ -11,7 +11,7 @@
 <div class="page-content-wrap container-fluid ">
   <div class="row">
     <br />
-      <div class="col-md-8 col-md-offset-2" id="stream">
+      <div class="col-md-8 col-md-offset-2 stream-wrapper" id="stream">
         @if(session('homeAlert'))
           <div class="alert alert-info" id="home-alert">
               {{ session('homeAlert') }}
