@@ -127,6 +127,21 @@
                     <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span>  </span> <span class="favetrack-count">Tracked</span>
                     &nbsp;&nbsp;
                     <a href="{!! action('UserController@rewishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
+                    @if($wish->createdby_id == $user->id)
+                      &nbsp;&nbsp;
+                      <a href="{!! action('UserController@updateWishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Edit Wish"><span class="fa fa-edit"></span></a>
+
+
+                      &nbsp;&nbsp;
+                      <a data-toggle="tooltip" data-placement="top" title="Tag" href="{!! url('user/edit/tags', $wish->id) !!}">
+                        <span class="fa fa-tag"></span>
+                      </a>
+
+                      &nbsp;&nbsp;
+                      <a data-toggle="tooltip" data-placement="top" title="delete" href="#" class="mb-control" data-box="#mb-deletewish{!! $wish->id !!}">
+                        <span class="fa fa-trash-o"></span>
+                      </a>
+                    @endif
                 </div>
               @else
                 <div class="alert alert-warning">
