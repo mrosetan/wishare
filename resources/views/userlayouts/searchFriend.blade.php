@@ -36,11 +36,11 @@
                       <tr>
                           <td>
                             <div class="pull-left">
-                              <a href="{!! !empty($r['imageurl']) ? action('OtherUserController@profile', $r['userid']) : '' !!}">
+                              <a href="{!! !empty($r['imageurl']) ? action('UserProfilesController@profile', $r['userid']) : '' !!}">
                                 <img class="user stream img-circle" src="{!! $r['imageurl'] !!}">
                               </a>
                             </div>
-                              <a href="{!! action('OtherUserController@profile', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
+                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
                               {!! $r->username !!}</a>
                           </td>
 

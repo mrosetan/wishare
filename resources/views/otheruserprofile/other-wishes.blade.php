@@ -12,6 +12,7 @@
               <div class="wish-gallery-container">
                 <div class="page-title">
                   <h3><span class="fa fa-magic"></span> {!! $wishlist['title'] !!} </h3>
+                  <b>Created by:</b> {!! $wishlist->user['firstname']!!} {!! $wishlist->user['lastname'] !!}
                 </div>
                 <div class="gallery" id="links">
                 @if($wishlist['privacy'] == 0)

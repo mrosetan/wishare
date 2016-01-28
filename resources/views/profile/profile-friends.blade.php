@@ -13,7 +13,7 @@
                       <img src="{!! $fr['imageurl'] !!}" alt="{!! $fr['firstname'] !!} {!! $fr['lastname'] !!}"/>
                   </div>
                   <div class="profile-data">
-                      <div class="profile-data-name"><a href="{!! action('OtherUserController@profile', $fr['id'] ) !!}">{!! $fr['firstname'] !!} {!! $fr['lastname'] !!}</a></div>
+                      <div class="profile-data-name"><a href="{!! action('UserProfilesController@profile', $fr['id'] ) !!}">{!! $fr['firstname'] !!} {!! $fr['lastname'] !!}</a></div>
                   </div>
               </div>
               <div class="panel-body">

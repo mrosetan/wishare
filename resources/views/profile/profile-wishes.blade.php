@@ -14,11 +14,12 @@
                   <h3><span class="fa fa-magic"></span> {!! $wishlist['title'] !!} </h3>
                   <b>Created by:</b> {!! $wishlist->user['firstname']!!} {!! $wishlist->user['lastname'] !!}
                   <br />
-                  <div class="fb-share-button" data-href="http://www.wishare.net/profile/wishes/{id?}" data-layout="icon"></div>
+                  <div class="fb-share-button" data-href="http://www.wishare.net/wishlists/{!! $user['id'] !!}" data-layout="icon"></div>
               </div>
 
               <div class="gallery" id="links">
                 @foreach($wishlist->wishes as $wish)
+                @if($wish['wishimageurl'] != null)
                   <div class="gallery-item">
                       <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
                         <div class="image image-container">
@@ -29,6 +30,19 @@
                         <strong>{!! $wish['title'] !!}</strong>
                       </div>
                   </div>
+                  @endif
+                  @if($wish['wishimageurl'] == null)
+                  <div class="gallery-item">
+                      <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+                        <div class="image image-container">
+                            <img src="{{ URL::asset('img/default/default.jpg') }}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
+                        </div>
+                      </a>
+                      <div class="meta">
+                        <strong>{!! $wish['title'] !!}</strong>
+                      </div>
+                  </div>
+                  @endif
                 @endforeach
               </div>
             </div>

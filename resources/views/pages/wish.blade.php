@@ -28,7 +28,7 @@
                 </p>
 
                 <p>
-                  Wisher: <a href="{!! action('OtherUserController@profile', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
+                  Wisher: <a href="{!! action('UserProfilesController@profile', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
                 </p>
 
 
@@ -63,7 +63,7 @@
                   <ul class="list-tags">
                   @foreach($tags as $t)
                       <li class="tagged-user">
-                         <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!! $t->user->lastname !!}</a>
+                         <a href="{!! action('UserProfilesController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!! $t->user->lastname !!}</a>
                       </li>
                   @endforeach
                   </ul>
@@ -90,7 +90,7 @@
 
                         @if($wish->granted == 1)
                           <p>
-                            Granter: <a href="{!! action('OtherUserController@profile', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
+                            Granter: <a href="{!! action('UserProfilesController@profile', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
                           </p>
                           @endif
 
@@ -127,18 +127,21 @@
                     <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span>  </span> <span class="favetrack-count">Tracked</span>
                     &nbsp;&nbsp;
                     <a href="{!! action('UserController@rewishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
-                    @if($wish->createdby_id == $user->id)
+
+
+                    @if($wish->user->id == $user->id)
                       &nbsp;&nbsp;
                       <a href="{!! action('UserController@updateWishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Edit Wish"><span class="fa fa-edit"></span></a>
 
-
                       &nbsp;&nbsp;
-                      <a data-toggle="tooltip" data-placement="top" title="Tag" href="{!! url('user/edit/tags', $wish->id) !!}">
+                      <a href="{!! url('user/edit/tags', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Tag">
+
                         <span class="fa fa-tag"></span>
                       </a>
 
                       &nbsp;&nbsp;
-                      <a data-toggle="tooltip" data-placement="top" title="delete" href="#" class="mb-control" data-box="#mb-deletewish{!! $wish->id !!}">
+                      <a href="#" data-toggle="tooltip" data-placement="top" title="Delete" class="mb-control" data-box="#mb-deletewish{!!$wish->id !!}">
+
                         <span class="fa fa-trash-o"></span>
                       </a>
                     @endif
@@ -159,4 +162,27 @@
     </div>
   </div>
 </div>
+
+@if($wish->user->id == $user->id)
+    <!-- message box-->
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
+                <div class="mb-content">
+                    <p>Are you sure you want to delete this wish?</p>
+                </div>
+                <div class="mb-footer">
+                    <div class="pull-right">
+                        <a href="{!! action('UserController@deleteWish', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                        <button class="btn btn-default btn-lg mb-control-close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- message box-->
+
+  @endif
+
 @endsection

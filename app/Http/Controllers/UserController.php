@@ -649,7 +649,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect()->action('ProfileController@wishlists', [$userId]);
+    return redirect()->action('UserProfilesController@profile');
 
   }
 
@@ -743,7 +743,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.7/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -1105,7 +1105,8 @@ class UserController extends Controller
       $friend->save();
     }
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1130,7 +1131,8 @@ class UserController extends Controller
 
     // $friend->delete();
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1148,7 +1150,8 @@ class UserController extends Controller
     if(!empty($friendRequest))
       $friendRequest->delete();
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1198,7 +1201,6 @@ class UserController extends Controller
     $recipient = User::find($userId)->friends
                         ->where('type', 1)
                         ->lists('full_name', 'id');
-
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }

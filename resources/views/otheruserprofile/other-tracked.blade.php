@@ -26,6 +26,7 @@
         <hr />
         @endif
         <br />
+        @if(!empty($user))
         <div class="wish-icons pull-right">
           <!-- <a href="#"><span class="fa fa-star"></span></a> -->
           <span data-wishid="{!! $tr['id']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($tr['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($tr['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $tr['faves'] !!}</span> </span>
@@ -34,7 +35,18 @@
           <span data-wishid="{!! $tr['id']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($tr['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($tr['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $tr['tracks'] !!}</span> </span>
           &nbsp;&nbsp;
           <a href="{!! action('UserController@rewishDetails', $tr['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
+  
         </div>
+        @else
+        <div class="wishaction-btns pull-right">
+          <div class="favetrack-count pull-right">
+            <span class="count">{!! $tr['faves'] !!} Favorited</span>
+            &nbsp;&nbsp;
+             <span class="count">{!! $tr['tracks'] !!} Tracked</span>
+          </div>
+          <br/>
+        </div>
+        @endif
       </div>
       <!-- end of panel body -->
     </div>
