@@ -19,6 +19,7 @@
 
               <div class="gallery" id="links">
                 @foreach($wishlist->wishes as $wish)
+                @if($wish['wishimageurl'] != null)
                   <div class="gallery-item">
                       <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
                         <div class="image image-container">
@@ -29,6 +30,19 @@
                         <strong>{!! $wish['title'] !!}</strong>
                       </div>
                   </div>
+                  @endif
+                  @if($wish['wishimageurl'] == null)
+                  <div class="gallery-item">
+                      <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+                        <div class="image image-container">
+                            <img src="{{ URL::asset('img/default/default.jpg') }}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
+                        </div>
+                      </a>
+                      <div class="meta">
+                        <strong>{!! $wish['title'] !!}</strong>
+                      </div>
+                  </div>
+                  @endif
                 @endforeach
               </div>
             </div>
