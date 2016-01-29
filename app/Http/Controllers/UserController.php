@@ -1193,10 +1193,13 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
+    // $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    // $recipient = User::find($userId)
+    //                     ->friends
+    //                     ->where('type', 1);
+
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)
-                        ->friends
-                        ->where('type', 1);
+    $recipient = User::find($userId)->friends;
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }
@@ -1206,10 +1209,13 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
+    // $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    // $recipient = User::find($userId)
+    //                     ->friends
+    //                     ->where('type', 1);
+
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)
-                        ->friends
-                        ->where('type', 1);
+    $recipient = User::find($userId)->friends;
 
     // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user'));
