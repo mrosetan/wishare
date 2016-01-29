@@ -1194,9 +1194,9 @@ class UserController extends Controller
     $userId = $user['id'];
 
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)->friends
-                        ->where('type', 1)
-                        ->lists('full_name', 'id');
+    $recipient = User::find($userId)
+                        ->friends
+                        ->where('type', 1);
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }
@@ -1207,9 +1207,9 @@ class UserController extends Controller
     $userId = $user['id'];
 
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)->friends
-                        ->where('type', 1)
-                        ->lists('full_name', 'id');
+    $recipient = User::find($userId)
+                        ->friends
+                        ->where('type', 1);
 
     // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user'));
