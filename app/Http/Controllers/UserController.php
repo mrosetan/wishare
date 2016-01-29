@@ -1204,7 +1204,7 @@ class UserController extends Controller
 
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $recipient = User::find($userId)->friends;
-    dd($recipient);
+    // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }
 
@@ -1219,7 +1219,7 @@ class UserController extends Controller
     //                     ->where('type', 1);
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $recipient = User::find($userId)->friends;
-    dd($recipient);
+    // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user'));
   }
 
