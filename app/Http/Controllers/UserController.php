@@ -649,7 +649,7 @@ class UserController extends Controller
       }
     }
 
-    return redirect()->action('ProfileController@wishlists', [$userId]);
+    return redirect()->action('UserProfilesController@profile');
 
   }
 
@@ -743,7 +743,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.7/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -1104,8 +1104,25 @@ class UserController extends Controller
       // dd($friend);
       $friend->save();
     }
+    else{
+      $exists = Friend::where('friend_userid', '=', $userId)
+                        ->where('userid', '='. $id)
+                        ->get();
+      if(!empty($exists)){
+        $friend = new Friend(array(
+          'friend_userid' => $id,
+          'userid' => $userId,
+          'date_added' => date("Y-m-d h:i:s"),
+          'status' => 0,
+          'seen' => 0,
+        ));
+        // dd($friend);
+        $friend->save();
+      }
+    }
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1130,7 +1147,8 @@ class UserController extends Controller
 
     // $friend->delete();
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1148,7 +1166,8 @@ class UserController extends Controller
     if(!empty($friendRequest))
       $friendRequest->delete();
 
-    return redirect()->action('OtherUserController@profile', [$id]);
+    return redirect()->action('UserProfilesController@profile', [$id]);
+    // return redirect()->action('OtherUserController@profile', [$id]);
     // return redirect()->action('UserController@otheruser', [$id]);
 
   }
@@ -1194,11 +1213,13 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
-    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)->friends
-                        ->where('type', 1)
-                        ->lists('full_name', 'id');
+    // $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    // $recipient = User::find($userId)
+    //                     ->friends
+    //                     ->where('type', 1);
 
+    $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    $recipient = User::find($userId)->friends;
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }
@@ -1208,10 +1229,13 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
+    // $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    // $recipient = User::find($userId)
+    //                     ->friends
+    //                     ->where('type', 1);
+
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)->friends
-                        ->where('type', 1)
-                        ->lists('full_name', 'id');
+    $recipient = User::find($userId)->friends;
 
     // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user'));

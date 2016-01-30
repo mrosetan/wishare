@@ -23,11 +23,12 @@
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
-        <meta property="og:url"           content="http://www.wishare.net/profile/wishes/{id?}" /> <!-- URL of site -->
+        <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
-        <meta property="og:description"   content="{!! $user['firstname'] !!} {!! $user['firstname'] !!}'s wishlist" />
-        <meta property="og:image"         content="" />
+        <meta property="og:description"   content="Wishing and wish-granting socialized." />
+        <meta property="og:image"         content="http://www.wishare.net/img/logo1.jpg" />
+        <meta property="fb:app_id"        content="456045444586296" />
     </head>
     <body>
       <!-- Facebook javascript SDK -->
@@ -41,11 +42,17 @@
             });
             FB.ui({
               method: 'share_open_graph',
+              href: 'http://www.wishare.net/',
               action_type: 'og.likes',
               action_properties: JSON.stringify({
-                  object:'http://www.wishare.net/profile/wishes/{id?}', //URL of site
+                  object:'http://www.wishare.net/', //URL of site
                 })
               }, function(response){
+                if (response && !response.error_message) {
+                  alert('Posting completed.');
+                } else {
+                  alert('Error while posting.');
+                }
             });
           };
 

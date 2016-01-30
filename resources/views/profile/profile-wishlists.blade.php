@@ -37,7 +37,7 @@
             <ul class="list-tags">
             @foreach($wish->tags as $t)
                 <li class="tagged-user">
-                   <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!!$t->user->lastname !!}</a>
+                   <a href="{!! action('UserProfilesController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!!$t->user->lastname !!}</a>
                 </li>
             @endforeach
             </ul>

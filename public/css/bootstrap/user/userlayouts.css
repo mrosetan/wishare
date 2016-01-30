@@ -114,6 +114,12 @@ img.user.granter.img-circle {
   margin-left: 140px;
 }
 
+.stream-wrapper{
+  max-width: 800px;
+  margin: 0 auto;
+  float: none;
+}
+
 .favorite{
   cursor: pointer;
 }
@@ -350,4 +356,18 @@ img.tynote-image {
 
 .wishaction-btns{
   font-size: 20px;
+}
+
+.recipient-container {
+  z-index: -10;
+}
+
+.sol-inner-container, .sol-input-container, .sol-caret-container {
+  position: absolute;
+  z-index: -1;
+}
+
+.sol-container, .recipient-container {
+  position: relative;
+  z-index: 1;
 }

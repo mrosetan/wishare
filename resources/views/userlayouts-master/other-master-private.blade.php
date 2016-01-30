@@ -23,7 +23,7 @@
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
-        <meta property="og:url"           content="http://www.9gag.com" /> <!-- URL of site -->
+        <meta property="og:url"           content="http://www.wishare.net" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
         <meta property="og:description"   content="A Web and Mobile Social Network for Wishing and Wish-granting" />
@@ -43,7 +43,7 @@
               method: 'share_open_graph',
               action_type: 'og.likes',
               action_properties: JSON.stringify({
-                  object:'http://www.9gag.com', //URL of site
+                  object:'http://www.wishare.net', //URL of site
                 })
               }, function(response){
             });
@@ -78,10 +78,10 @@
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
                 <!-- PAGE CONTENT WRAPPER -->
-                <div class="page-content-wrap">
+                <div class=profile-content-wrap "page-content-wrap">
                   <div class="row">
-                    <div class="profile-action-container">
-                      <div class="col-md-3 col-md-offset-1">
+                    <div class="col-md-4 profile-action-container">
+                      <div class="col-md-33 col-md-offset-1">
                         <br/>
                         <div class="panel panel-default">
                             <div class="panel-body profile">
@@ -97,6 +97,9 @@
                               </div>
                             </div>
                             <!--ADD AS FRIEND -->
+
+                            @if(count($requests)>0)
+
                             <div class="panel-body">
                                 <div class="row">
                                   <div class="">
@@ -167,22 +170,23 @@
                                   </div>
                                 </div>
                             </div>
+                            @endif
                             <!--END OF ADD AS FRIEND -->
                             <div class="panel-body list-group border-bottom">
-                                <a href="{!! action('OtherUserController@privateUser', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
-                                <a href="{!! action('OtherUserController@privateUser', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishlists and Wishes </a>
-                                <a href="{!! action('OtherUserController@privateUser', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-magic"></span> Wishes Granted </a>
-                                <a href="{!! action('OtherUserController@privateUser', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-gift"></span> Wishes Given </a>
-                                <a href="{!! action('OtherUserController@privateUser', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
-                                <a href="{!! action('OtherUserController@privateUser', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
-                                <a href="{!! action('OtherUserController@privateUser', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
+                                <a href="{!! action('UserProfilesController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-home"></span> Profile Home </a>
+                                <a href="{!! action('UserProfilesController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-list-ul"></span> Wishlists and Wishes </a>
+                                <a href="{!! action('UserProfilesController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-magic"></span> Wishes Granted </a>
+                                <a href="{!! action('UserProfilesController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-gift"></span> Wishes Given </a>
+                                <a href="{!! action('UserProfilesController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
+                                <a href="{!! action('UserProfilesController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
+                                <a href="{!! action('UserProfilesController@profile', $otherUser['id']) !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
                             </div>
                         </div>
 
                       </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                       <div class="profile-content-container">
                         @yield('newcontent')
                       </div>

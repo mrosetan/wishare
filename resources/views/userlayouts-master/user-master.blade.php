@@ -22,7 +22,7 @@
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
-        <meta property="og:url"           content="http://www.9gag.com" /> <!-- URL of site -->
+        <meta property="og:url"           content="http://www.wishare.net" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
         <meta property="og:description"   content="A Web and Mobile Social Network for Wishing and Wish-granting" />
@@ -42,7 +42,7 @@
             method: 'share_open_graph',
             action_type: 'og.likes',
             action_properties: JSON.stringify({
-                object:'http://www.9gag.com', //URL of site
+                object:'http://www.wishare.net', //URL of site
               })
             }, function(response){
           });
@@ -90,7 +90,7 @@
                         <a href="{{ url('user/home') }}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
                     </li>
                     <li>
-                        <a href="{!! action('ProfileController@wishlists', $user['id']) !!}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
+                        <a href="{!! action('UserProfilesController@profile', $user['id']) !!}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
                     </li>
 
                     <li>
@@ -223,6 +223,13 @@
 
         $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
           $("#home-alert").alert('close');
+        });
+        $(function() {
+            // initialize sol
+            $('#my-select').prop('selectedIndex', -1).searchableOptionList({
+              maxHeight: '250px',
+              allowNullSelection: true,
+            });
         });
 
         </script>

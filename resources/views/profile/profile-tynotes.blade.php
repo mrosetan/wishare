@@ -10,7 +10,7 @@
           <b>Date: {!! date('F d, Y g:i A', strtotime($ty->pivot['updated_at']))  !!}</b>
           <br />
           <b>From: </b>
-          <a href="{!! action('UserController@otheruser', $ty['id']) !!}">{!! $ty['firstname'] !!} {!! $ty['lastname'] !!} ({!! $ty['username'] !!})</a>
+          <a href="{!! action('UserProfilesController@otheruser', $ty['id']) !!}">{!! $ty['firstname'] !!} {!! $ty['lastname'] !!} ({!! $ty['username'] !!})</a>
         </div>
 
         @if(!empty($ty->pivot['sticker']))
@@ -19,7 +19,7 @@
         </div>
         <br />
         @endif
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/> 
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <p style="font-size: 18px;">{!! $ty->pivot['message'] !!}</p>
         <br />
         @if(!empty($ty->pivot['imageurl']))
