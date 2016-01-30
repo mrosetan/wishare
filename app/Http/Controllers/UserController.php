@@ -1100,6 +1100,22 @@ class UserController extends Controller
       // dd($friend);
       $friend->save();
     }
+    else{
+      $exists = Friend::where('friend_userid', '=', $userId)
+                        ->where('userid', '='. $id)
+                        ->get();
+      if(!empty($exists)){
+        $friend = new Friend(array(
+          'friend_userid' => $id,
+          'userid' => $userId,
+          'date_added' => date("Y-m-d h:i:s"),
+          'status' => 0,
+          'seen' => 0,
+        ));
+        // dd($friend);
+        $friend->save();
+      }
+    }
 
     return redirect()->action('UserProfilesController@profile', [$id]);
     // return redirect()->action('OtherUserController@profile', [$id]);
