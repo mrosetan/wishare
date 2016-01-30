@@ -42,26 +42,26 @@ class WishlistController extends Controller
   {
     $user = Auth::user();
     $wl = Wishlist::where('id', $id)->where('status', 1)->first();
-    $uid = $wl->createdby_id;
+    $uid = $wl['createdby_id'];
 
     if(!empty($user))
     {
       $userId = $user['id'];
 
       if($userId != $uid){
-        $otherUser = User::where('id', '=', $id)->firstorFail();
+        $otherUser = User::where('id', '=', $userId)->first();
 
         $requests = Friend::with('friendRequest')
-                            ->where('userid', '=', $id)
-                            ->where('friend_userid', '=', $userId)
+                            ->where('userid', '=', $userId)
+                            ->where('friend_userid', '=', $otherUser['id'])
                             ->where('status', '=', 0)
                             ->get();
 
         $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-        $friends = User::find($otherUser->id)->friends;
+        $friends = User::find($otherUser['id'])->friends;
 
         $friendRequest = Friend::where('userid', '=', $userId)
-                              ->where('friend_userid', '=', $id)
+                              ->where('friend_userid', '=', $otherUser['id'])
                               ->where('status', '=', 0)
                               ->first();
 

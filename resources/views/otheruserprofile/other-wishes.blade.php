@@ -16,19 +16,19 @@
                 </div>
                 <div class="gallery" id="links">
                 @if($wishlist['privacy'] == 0)
-                  @foreach($wishlist->wishes as $wish)
-                    <div class="gallery-item">
-                        <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
-                          <div class="image image-container">
-                              <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
+                    @foreach($wishlist->wishes as $wish)
+                      <div class="gallery-item">
+                          <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+                            <div class="image image-container">
+                                <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
+                            </div>
+                          </a>
+                          <div class="meta">
+                            <strong>{!! $wish['title'] !!}</strong>
                           </div>
-                        </a>
-                        <div class="meta">
-                          <strong>{!! $wish['title'] !!}</strong>
-                        </div>
-                    </div>
-                  @endforeach
-                @endif
+                      </div>
+                    @endforeach
+                  @endif
                 </div>
               </div>
             @endforeach
