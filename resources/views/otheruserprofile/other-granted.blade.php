@@ -36,9 +36,6 @@
           <!-- <a href="#"><span class="fa fa-star"></span></a> -->
           <span data-wishid="{!! $gr['id']!!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($gr['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($gr['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $gr['faves'] !!}</span> </span>
           &nbsp;&nbsp;
-          <!-- <a href="#"><span class="fa fa-bookmark"></span></a> -->
-          <span data-wishid="{!! $gr['id']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($gr['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($gr['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $gr['tracks'] !!}</span> </span>
-          &nbsp;&nbsp;
           <a href="{!! action('UserController@rewishDetails', $gr['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
           <!-- &nbsp;&nbsp;
           <a href="#" class="mb-control" data-box="#mb-deletewish{!! $gr['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a> -->
