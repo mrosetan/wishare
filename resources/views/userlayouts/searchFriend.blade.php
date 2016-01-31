@@ -2,7 +2,7 @@
 @section('title', 'Search')
 
 @section('content')
-<div class="row">
+<div class="row search-wrapper">
     <div class="col-md-12">
 
 
