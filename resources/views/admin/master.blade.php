@@ -24,15 +24,15 @@
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="{{ URL::to('/admin')}}">Admin</a>
+                        <a href="{{ URL::to('/admin/home')}}">Admin</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
 
                     <!-- <li class="xn-title">Navigation</li> -->
-                    <li><a href="{{ URL::to('/admin')}}"><img src="{{ URL::asset('img/logo.png') }}" class="admin-logo"></a></li>
+                    <li><a href="{{ URL::to('/admin/home')}}"><img src="{{ URL::asset('img/logo.png') }}" class="admin-logo"></a></li>
 
                     <li>
-                        <a href="{{ URL::to('/admin')}}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
+                        <a href="{{ URL::to('/admin/home')}}"><span class="glyphicon glyphicon-home"></span> <span class="xn-text">Home</span></a>
                     </li>
 
                     <li>
