@@ -2,8 +2,6 @@
 <html lang="en">
     <head>
         <!-- META SECTION -->
-        <title>@yield('title')</title>
-        <!-- FACEBOOK SHARE -->
         <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
@@ -14,6 +12,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>@yield('title')</title>
+        <!-- FACEBOOK SHARE -->
 
         <link rel="icon" href="{{ URL::asset('img/icon.png') }}" type="image/x-icon" />
         <!-- END META SECTION -->
