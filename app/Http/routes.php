@@ -118,6 +118,7 @@ Route::post('user/add/{id?}', 'UserController@addWishModal');
 Route::get('user/edit/tags/{id?}', 'UserController@editTags');
 Route::post('user/edit/tags/{id?}', 'UserController@updateTags');
 Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
+Route::get('user/delete/wish/{id?}', 'UserController@deleteWishGranted');
 
 Route::get('user/setup', 'UserController@setUsernameAndPassword');
 

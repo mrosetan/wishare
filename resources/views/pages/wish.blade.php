@@ -164,17 +164,18 @@
 </div>
 
 @if($wish->user->id == $user->id)
+  @if($wish->granted == 1)
     <!-- message box-->
     <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
         <div class="mb-container">
             <div class="mb-middle">
-                <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
+                <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Remove Granted Details</div>
                 <div class="mb-content">
-                    <p>Are you sure you want to delete this wish?</p>
+                    <p>Are you sure you want to remove granted details?</p>
                 </div>
                 <div class="mb-footer">
                     <div class="pull-right">
-                        <a href="{!! action('UserController@deleteWish', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                        <a href="{!! action('UserController@deleteWishGranted', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
                         <button class="btn btn-default btn-lg mb-control-close">No</button>
                     </div>
                 </div>
@@ -182,7 +183,31 @@
         </div>
     </div>
     <!-- message box-->
-
+    @endif
+    @if($wish->granted == 2)
+      @if(isset($wishes))
+        @foreach($wishes as $wish)
+          <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
+              <div class="mb-container">
+                  <div class="mb-middle">
+                      <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
+                      <div class="mb-content">
+                          <p>Are you sure you want to delete this wish?</p>
+                      </div>
+                      <div class="mb-footer">
+                          @if(!empty($wishes))
+                          <div class="pull-right">
+                              <a href="{!! action('UserController@deleteWish', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                              <button class="btn btn-default btn-lg mb-control-close">No</button>
+                          </div>
+                          @endif
+                      </div>
+                  </div>
+              </div>
+          </div>
+        @endforeach
+      @endif
+    @endif
   @endif
 
 @endsection
