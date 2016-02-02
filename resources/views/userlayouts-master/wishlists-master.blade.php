@@ -3,9 +3,9 @@
     <head>
         <!-- META SECTION -->
         <link rel="image_src" href="http://www.wishare.net/img/logo1.jpg" />
-        <link rel="canonical" href="http://wishare.net/" />
+        <link rel="canonical" href="http://wishare.net/{!! $wishlist['id'] !!}" />
         <meta name="description" content="Wishing and wish-granting socialized." />
-        <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
+        <meta property="og:url"           content="http://www.wishare.net/{!! $wishlist['id'] !!}" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
         <meta property="og:description"   content="Wishing and wish-granting socialized." />
@@ -45,10 +45,10 @@
             });
             FB.ui({
               method: 'share_open_graph',
-              href: 'http://www.wishare.net/',
+              href: 'http://www.wishare.net/{!! $wishlist['id'] !!}',
               action_type: 'og.likes',
               action_properties: JSON.stringify({
-                  object:'http://www.wishare.net/', //URL of site
+                  object:'http://www.wishare.net/{!! $wishlist['id'] !!}', //URL of site
                 })
               }, function(response){
                 if (response && !response.error_message) {
