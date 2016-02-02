@@ -39,6 +39,11 @@ class UserProfilesController extends Controller
 {
   public function profile($id)
   {
+    $otherUser = User::where('id', '=', $id)->firstorFail();
+    if($otherUser->type == 0){
+      return redirect()->action('PagesController@index');
+    }
+
     $user = Auth::user();
 
     if($user != null)
