@@ -49,7 +49,7 @@ class AuthController extends Controller
     if(!Auth::check()){
       if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
       {
-        $user = User::where('email', $request['email'])->firstorFail();
+        $user = User::where('email', $request['email'])->first();
         $type = $user->type;
         $status = $user->status;
         // var_dump($user);
@@ -134,7 +134,7 @@ class AuthController extends Controller
       }
 
       // return redirect('user/home');
-      if (($user->username == null) && empty($user->password)) {
+      if ($user->username == null && empty($user->password)) {
         return redirect()->action('UserController@setUsernameAndPassword');
       }
       else{
@@ -213,7 +213,7 @@ class AuthController extends Controller
 
           if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
           {
-            $user = User::where('email', $request['email'])->firstorFail();
+            $user = User::where('email', $request['email'])->first();
             $type = $user->type;
             $status = $user->status;
 
