@@ -59,7 +59,8 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    // if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    if (!empty(Auth::user()->password) and Auth::user()->username == null){
       $wishlists = Wishlist::with('user')
                           ->where('createdby_id', '=', $user->id)
                           ->where('status', '=', 1)
@@ -292,7 +293,8 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    // if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    if (!empty(Auth::user()->password) and Auth::user()->username == null){
       return view('userlayouts.changepass', compact('user'));
       // return view('userlayouts.home');
     }
@@ -1792,7 +1794,8 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if(!empty($user->password) && !empty($user->username))
+    // if(!empty($user->password) && !empty($user->username))
+    if(!empty($user->password) && $user->username != null)
       return view('userlayouts.setPassAndUsername');
     else {
       return redirect()->action('UserController@home');

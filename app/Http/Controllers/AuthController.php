@@ -134,7 +134,7 @@ class AuthController extends Controller
       }
 
       // return redirect('user/home');
-      if (empty($user->username) && empty($user->password)) {
+      if (($user->username == null) && empty($user->password)) {
         return redirect()->action('UserController@setUsernameAndPassword');
       }
       else{
