@@ -133,7 +133,7 @@ Route::get('guest/wishlist/{id?}', 'WishlistController@guest');
 Route::get('guest/wishlist/{id?}', 'OtherWishlistController@guest');
 
 // ADMIN
-Route::get('/admin', 'AdminController@index');
+Route::get('/admin/home', 'AdminController@index');
 Route::get('/admin/stats', 'AdminController@stats');
 Route::get('/admin/report', 'AdminController@report');
 Route::get('/admin/create/admin', 'AdminController@createAdmin');
