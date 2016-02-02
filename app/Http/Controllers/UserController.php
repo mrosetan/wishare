@@ -1088,22 +1088,55 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user['id'];
-    // dd($userId);
+
     $exists = Friend::where('friend_userid', '=', $id)
-                      ->where('userid', '='. $userId)
-                      ->get();
-    // dd($exists);
-    if(!empty($exists)){
-      $friend = new Friend(array(
+                      ->where('userid', '=', $userId)
+                      ->first();
+    $exists2 = Friend::where('friend_userid', '=', $userId)
+                      ->where('userid', '=', $id)
+                      ->first();
+    // echo $id, " ", $userId;
+    // var_dump($exists);
+    // var_dump($exists2);
+    // die();
+    if($exists == null && $exists2 == null){
+      // var_dump($exists);
+      // var_dump($exists2);
+      // die();
+      $friend = Friend::create(array(
         'friend_userid' => $id,
         'userid' => $userId,
         'date_added' => date("Y-m-d h:i:s"),
         'status' => 0,
         'seen' => 0,
       ));
-      // dd($friend);
-      $friend->save();
+
+      // $friend = new Friend(array(
+      //   'friend_userid' => $id,
+      //   'userid' => $userId,
+      //   'date_added' => date("Y-m-d h:i:s"),
+      //   'status' => 0,
+      //   'seen' => 0,
+      // ));
+      //
+      // $friend->save();
     }
+    // else{
+      // $exists = Friend::where('friend_userid', '=', $userId)
+      //                   ->where('userid', '='. $id)
+      //                   ->get();
+      // if(!empty($exists)){
+      //   $friend = new Friend(array(
+      //     'friend_userid' => $id,
+      //     'userid' => $userId,
+      //     'date_added' => date("Y-m-d h:i:s"),
+      //     'status' => 0,
+      //     'seen' => 0,
+      //   ));
+      //
+      //   $friend->save();
+      // }
+    // }
 
     return redirect()->action('UserProfilesController@profile', [$id]);
     // return redirect()->action('OtherUserController@profile', [$id]);
@@ -1217,8 +1250,10 @@ class UserController extends Controller
     // $recipient = User::find($userId)
     //                     ->friends
     //                     ->where('type', 1);
+
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $recipient = User::find($userId)->friends;
+
     // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user'));
   }

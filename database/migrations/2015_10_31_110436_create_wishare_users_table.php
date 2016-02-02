@@ -20,7 +20,7 @@ class CreateWishareUsersTable extends Migration
             $table->string('imageurl');
             $table->string('firstname', 255);
             $table->string('lastname', 255);
-            $table->string('username', 255)->unique();
+            $table->string('username', 255)->unique()->nullable();
             $table->string('city', 255);
             $table->date('birthdate');
             $table->string('facebook', 255);

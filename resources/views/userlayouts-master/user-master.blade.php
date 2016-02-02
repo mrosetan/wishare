@@ -224,12 +224,11 @@
         $("#home-alert").fadeTo(3000, 500).slideUp(500, function(){
           $("#home-alert").alert('close');
         });
-
         $(function() {
             // initialize sol
-            $('#my-select').searchableOptionList({
+            $('#my-select').prop('selectedIndex', -1).searchableOptionList({
               maxHeight: '250px',
-              allowNullSelection: true
+              allowNullSelection: true,
             });
         });
 

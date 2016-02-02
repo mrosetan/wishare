@@ -3,6 +3,13 @@
     <head>
         <!-- META SECTION -->
         <title>@yield('title')</title>
+        <!-- FACEBOOK SHARE -->
+        <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Wishare" />
+        <meta property="og:description"   content="Wishing and wish-granting socialized." />
+        <meta property="og:image"         content="http://www.wishare.net/img/logo1.jpg" />
+        <meta property="fb:app_id"        content="456045444586296" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,13 +29,6 @@
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/sol.css') }}">
         <!-- EOF CSS INCLUDE -->
 
-        <!-- FACEBOOK SHARE -->
-        <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
-        <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Wishare" />
-        <meta property="og:description"   content="Wishing and wish-granting socialized." />
-        <meta property="og:image"         content="http://www.wishare.net/img/logo1.jpg" />
-        <meta property="fb:app_id"        content="456045444586296" />
     </head>
     <body>
       <!-- Facebook javascript SDK -->
