@@ -49,7 +49,7 @@ class AuthController extends Controller
     if(!Auth::check()){
       if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
       {
-        $user = User::where('email', $request['email'])->firstorFail();
+        $user = User::where('email', $request['email'])->first();
         $type = $user->type;
         $status = $user->status;
         // var_dump($user);
@@ -213,7 +213,7 @@ class AuthController extends Controller
 
           if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
           {
-            $user = User::where('email', $request['email'])->firstorFail();
+            $user = User::where('email', $request['email'])->first();
             $type = $user->type;
             $status = $user->status;
 
