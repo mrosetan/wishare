@@ -49,7 +49,7 @@ class AuthController extends Controller
     if(!Auth::check()){
       if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
       {
-        $user = User::where('email', $request['email'])->firstorFail();
+        $user = User::where('email', $request['email'])->first();
         $type = $user->type;
         $status = $user->status;
         // var_dump($user);
@@ -134,7 +134,7 @@ class AuthController extends Controller
       }
 
       // return redirect('user/home');
-      if (empty($user->username) && empty($user->password)) {
+      if ($user->username == null && empty($user->password)) {
         return redirect()->action('UserController@setUsernameAndPassword');
       }
       else{
@@ -152,17 +152,22 @@ class AuthController extends Controller
   private function findOrCreateUser($fbUser)
     {
         if ($authUser = User::where('fb_id', $fbUser->id)->first()) {
-            // var_dump($authUser);
+            // echo "1";
+            // dd($authUser);
             return $authUser;
         }
 
         if ($authUser = User::where('email', $fbUser->email)->where('fb_id', null)->first()) {
             $authUser->fb_id = $fbUser->id;
             $authUser->save();
+            // echo "2";
+            // dd($authUser);
             return $authUser;
         }
         // $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
         // else{
+        // echo "3";
+        // dd($fbUser);
           return User::create([
             'fb_id' => $fbUser->id,
             'lastname' => $fbUser->lastname,
@@ -208,15 +213,20 @@ class AuthController extends Controller
 
           if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'status' => 1]))
           {
-            $user = User::where('email', $request['email'])->firstorFail();
+            $user = User::where('email', $request['email'])->first();
             $type = $user->type;
             $status = $user->status;
 
-              if($type == '0')
-                  return redirect('/admin');
-              else
-                  return redirect()->action('UserController@postSignup');
+              if($type == '0'){
+                  // dd($user);
+                  // return redirect('/admin');
+                  return redirect()->action('AdminController@index');
+              }
+              else{
+                return redirect()->action('UserController@postSignup');
                   // return redirect('/user/home');
+              }
+                  
 
           }
           else

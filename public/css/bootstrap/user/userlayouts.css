@@ -371,3 +371,9 @@ img.tynote-image {
   position: relative;
   z-index: 1;
 }
+
+/*search*/
+.search-wrapper{
+  max-width: 800px;
+  margin: 0 auto;
+}

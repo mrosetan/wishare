@@ -38,7 +38,7 @@
       <div class="container-fluid" >
       <!--  <div class="login-header"> -->
         <div class="row">
-            <a href="{{ URL::to('/')}}"><img src="img/logo.png" class="logo-header"></a>
+            <a href="{{ URL::to('/')}}"><img src="{{ URL::asset('img/logo.png') }}" class="logo-header"></a>
             <!-- <div class="button-container">
               <div class="row">
                 <div class="col-sm-6">

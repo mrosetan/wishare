@@ -59,7 +59,9 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    // if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    if (!empty(Auth::user()->password) and Auth::user()->username != null){
+
       $wishlists = Wishlist::with('user')
                           ->where('createdby_id', '=', $user->id)
                           ->where('status', '=', 1)
@@ -292,7 +294,8 @@ class UserController extends Controller
   {
     $user = Auth::user();
 
-    if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    // if (!empty(Auth::user()->password) and !empty(Auth::user()->username)){
+    if (!empty(Auth::user()->password) and Auth::user()->username != null){
       return view('userlayouts.changepass', compact('user'));
       // return view('userlayouts.home');
     }
@@ -330,7 +333,7 @@ class UserController extends Controller
 
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -399,7 +402,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -561,7 +564,7 @@ class UserController extends Controller
     $user = Auth::user();
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -766,7 +769,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.7/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -1008,7 +1011,7 @@ class UserController extends Controller
     $id = $user->id;
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     $newImage = Input::file('imageurl');
     if($newImage == null)
     {
@@ -1110,22 +1113,55 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user['id'];
-    // dd($userId);
+
     $exists = Friend::where('friend_userid', '=', $id)
-                      ->where('userid', '='. $userId)
-                      ->get();
-    // dd($exists);
-    if(!empty($exists)){
-      $friend = new Friend(array(
+                      ->where('userid', '=', $userId)
+                      ->first();
+    $exists2 = Friend::where('friend_userid', '=', $userId)
+                      ->where('userid', '=', $id)
+                      ->first();
+    // echo $id, " ", $userId;
+    // var_dump($exists);
+    // var_dump($exists2);
+    // die();
+    if($exists == null && $exists2 == null){
+      // var_dump($exists);
+      // var_dump($exists2);
+      // die();
+      $friend = Friend::create(array(
         'friend_userid' => $id,
         'userid' => $userId,
         'date_added' => date("Y-m-d h:i:s"),
         'status' => 0,
         'seen' => 0,
       ));
-      // dd($friend);
-      $friend->save();
+
+      // $friend = new Friend(array(
+      //   'friend_userid' => $id,
+      //   'userid' => $userId,
+      //   'date_added' => date("Y-m-d h:i:s"),
+      //   'status' => 0,
+      //   'seen' => 0,
+      // ));
+      //
+      // $friend->save();
     }
+    // else{
+      // $exists = Friend::where('friend_userid', '=', $userId)
+      //                   ->where('userid', '='. $id)
+      //                   ->get();
+      // if(!empty($exists)){
+      //   $friend = new Friend(array(
+      //     'friend_userid' => $id,
+      //     'userid' => $userId,
+      //     'date_added' => date("Y-m-d h:i:s"),
+      //     'status' => 0,
+      //     'seen' => 0,
+      //   ));
+      //
+      //   $friend->save();
+      // }
+    // }
 
     return redirect()->action('UserProfilesController@profile', [$id]);
     // return redirect()->action('OtherUserController@profile', [$id]);
@@ -1219,10 +1255,13 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
+    // $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    // $recipient = User::find($userId)
+    //                     ->friends
+    //                     ->where('type', 1);
+
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)
-                        ->friends
-                        ->where('type', 1);
+    $recipient = User::find($userId)->friends;
     // dd($recipient);
     return view('userlayouts.notesAction', compact('recipient', 'user'));
   }
@@ -1232,10 +1271,13 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user['id'];
 
+    // $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+    // $recipient = User::find($userId)
+    //                     ->friends
+    //                     ->where('type', 1);
+
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-    $recipient = User::find($userId)
-                        ->friends
-                        ->where('type', 1);
+    $recipient = User::find($userId)->friends;
 
     // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user'));
@@ -1303,7 +1345,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.28';
+      $hostURL = '192.168.1.7';
       // $hostURL = 'images.wishare.net';
       if($newImage == null)
       {
@@ -1469,7 +1511,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -1554,7 +1596,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('grantedimageurl');
 
@@ -1759,6 +1801,13 @@ class UserController extends Controller
 
   public function setUsernameAndPassword()
   {
-    return view('userlayouts.setPassAndUsername');
+    $user = Auth::user();
+
+    // if(!empty($user->password) && !empty($user->username))
+    if(empty($user->password) && $user->username == null)
+      return view('userlayouts.setPassAndUsername');
+    else {
+      return redirect()->action('UserController@home');
+    }
   }
 }
