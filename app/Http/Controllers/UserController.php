@@ -1254,6 +1254,8 @@ class UserController extends Controller
     $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
     $recipient = User::find($userId)->friends;
 
+
+
     // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user'));
   }
