@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <!-- META SECTION -->
+        <link rel="image_src" href="http://www.wishare.net/img/logo1.jpg" />
+        <link rel="canonical" href="http://wishare.net/" />
+        <meta name="description" content="Wishing and wish-granting socialized." />
         <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
