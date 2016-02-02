@@ -650,6 +650,32 @@ class UserController extends Controller
 
   }
 
+  public function deleteWishGranted($id)
+  {
+    $user = Auth::user();
+    $userId = $user['id'];
+
+    $wish = Wish::where('id', '=', $id)->first();
+
+    if(!empty($wish)) {
+      $wish->granted = 0;
+      $wish->granterid = 0;
+      $wish->granteddetails = '';
+      $wish->grantedimageurl = '';
+      $wish->date_granted = '';
+      $wish->save();
+
+      $tags = Tag::where('wishid', '=', $wish->id)->get();
+
+      if (!empty($tags)) {
+        foreach ($tags as $tag) {
+          $tag->delete();
+        }
+      }
+    }
+    return redirect()->action('UserProfilesController@profile');
+  }
+
   public function notesAction()
   {
     $user = Auth::user();
