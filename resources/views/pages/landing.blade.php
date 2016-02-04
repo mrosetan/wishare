@@ -4,12 +4,13 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="title" content="wishare">
-    <meta name="description" content="Wishing and Wish-granting Socialized.">
-    <link rel="image_src" href="http://www.wishare.net/img/backgrounds/bg14.jpg">
-    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible"  content="IE=edge">
+    <meta name="viewport"               content="width=device-width, initial-scale=1">
+    <meta name="title"                  content="wishare">
+    <meta name="description"            content="Wishing and Wish-granting Socialized.">
+    <link rel="image_src"               href="http://www.wishare.net/img/backgrounds/bg14.jpg">
+    <meta name="author"                 content="">
+    <meta property="fb:app_id"          content="456045444586296" />
 
     <title>wishare</title>
 

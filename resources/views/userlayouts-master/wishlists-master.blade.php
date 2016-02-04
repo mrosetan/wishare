@@ -3,9 +3,9 @@
     <head>
         <!-- META SECTION -->
         <link rel="image_src" href="http://www.wishare.net/img/backgrounds/bg14.jpg" />
-        <link rel="canonical" href="http://www.wishare.net/{{ $wishlist['id'] }}" />
-        <meta name="description" content="Wishing and wish-granting socialized." />
-        <meta property="og:url"           content="http://www.wishare.net/{{ $wishlist['id'] }}" /> <!-- URL of site -->
+        <link rel="canonical" href="http://www.wishare.net/{!! $wishlist['id'] !!}" />
+        <meta name="description"          content="Wishing and wish-granting socialized." />
+        <meta property="og:url"           content="http://www.wishare.net/{!! $wishlist['id'] !!}" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
         <meta property="og:description"   content="Wishing and wish-granting socialized." />
