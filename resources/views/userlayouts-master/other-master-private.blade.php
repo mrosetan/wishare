@@ -3,15 +3,17 @@
     <head>
         <!-- META SECTION -->
         <title>@yield('title')</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="title" content="wishare">
-        <meta name="description" content="Wishing and Wish-granting Socialized.">
-        <link rel="image_src" href="http://wishare.net/img/backgrounds/bg14.jpg">
+        <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible"  content="IE=edge" />
+        <meta name="viewport"               content="width=device-width, initial-scale=1" />
+        <meta name="csrf-token"             content="{{ csrf_token() }}">
+        <meta name="title"                  content="wishare">
+        <meta name="description"            content="Wishing and Wish-granting Socialized.">
+        <link rel="image_src"               href="http://www.wishare.net/img/backgrounds/bg14.jpg">
+        <meta property="fb:app_id"          content="456045444586296" />
 
-        <link rel="icon" href="{{ URL::asset('img/icon.png') }}" type="image/x-icon" />
+        <link rel="icon"                    href="{{ URL::asset('img/icon.png') }}" type="image/x-icon" />
+
         <!-- END META SECTION -->
 
         <!-- CSS INCLUDE -->
