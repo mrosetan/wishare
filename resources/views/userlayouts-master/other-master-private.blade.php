@@ -13,6 +13,7 @@
         <meta property="fb:app_id"          content="456045444586296" />
 
         <link rel="icon"                    href="{{ URL::asset('img/icon.png') }}" type="image/x-icon" />
+
         <!-- END META SECTION -->
 
         <!-- CSS INCLUDE -->

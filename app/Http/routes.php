@@ -17,6 +17,7 @@ Route::get('/signin', 'PagesController@signin');
 Route::get('/signup', 'PagesController@signup');
 Route::get('/reactivate', 'PagesController@activateAccount');
 Route::get('/blank', 'PagesController@blank');
+Route::get('/fbemailerror', 'PagesController@fbemailerror');
 
 // New Profile Routes
 Route::get('/{id?}', 'UserProfilesController@profile');
