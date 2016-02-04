@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="title" content="wishare">
     <meta name="description" content="Wishing and Wish-granting Socialized.">
-    <link rel="image_src" href="http://wishare.net/img/backgrounds/bg14.jpg">
+    <link rel="image_src" href="http://www.wishare.net/img/backgrounds/bg14.jpg">
     <meta name="author" content="">
 
     <title>wishare</title>
