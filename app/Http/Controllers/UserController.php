@@ -733,7 +733,7 @@ class UserController extends Controller
 
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -852,7 +852,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -1167,7 +1167,7 @@ class UserController extends Controller
     $user = Auth::user();
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -1674,7 +1674,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.7/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -1966,7 +1966,7 @@ class UserController extends Controller
     $id = $user->id;
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     $newImage = Input::file('imageurl');
     if($newImage == null)
     {
@@ -2850,7 +2850,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.28';
+      $hostURL = '192.168.1.7';
       $grant = Wish::where('createdby_id', '=', $user['id'])
                     ->where('status', '=', 1)
                     ->where('granted', '=', 0)
@@ -3265,7 +3265,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -3450,7 +3450,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.28';
+    $hostURL = '192.168.1.7';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('grantedimageurl');
 

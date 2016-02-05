@@ -267,7 +267,7 @@
                             {!! $s['granteddetails'] !!}
                           </p>
                         </div>
-                        @if(!empty($s['wishimageurl']))
+                        @if(!empty($s['grantedimageurl']))
                           <div id ="links" class="col-xs-12 stream-body">
                             <a href="{!! $s['grantedimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!} granted by: {!! $s['granterusername'] !!}" data-gallery>
                                 <img src="{!! $s['grantedimageurl'] !!}" class="img-responsive stream-wish-img"/>
