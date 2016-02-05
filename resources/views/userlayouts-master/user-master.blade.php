@@ -164,7 +164,7 @@
                         <!-- <div class="informer informer-danger">4</div> -->
                         <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><span class="fa fa-comments"></span> Activity</h3>
+                                <h3 class="panel-title"><span class="fa fa-tasks"></span> Activity</h3>
                                 <!-- <div class="pull-right">
                                     <span class="label label-danger">4 new</span>
                                 </div> -->
