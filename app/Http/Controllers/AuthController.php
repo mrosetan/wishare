@@ -150,38 +150,42 @@ class AuthController extends Controller
   }
 
   private function findOrCreateUser($fbUser)
-    {
-        if ($authUser = User::where('fb_id', $fbUser->id)->first()) {
-            // echo "1";
-            // dd($authUser);
-            return $authUser;
-        }
-
-        if ($authUser = User::where('email', $fbUser->email)->where('fb_id', null)->first()) {
-            $authUser->fb_id = $fbUser->id;
-            $authUser->save();
-            // echo "2";
-            // dd($authUser);
-            return $authUser;
-        }
-        // $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
-        // else{
-        // echo "3";
-        // dd($fbUser);
-          return User::create([
-            'fb_id' => $fbUser->id,
-            'lastname' => $fbUser->lastname,
-            'firstname' => $fbUser->firstname,
-            // 'username' => $username,
-            'email' => $fbUser->email,
-            'imageurl' => $fbUser->avatar,
-            'privacy' => 0,
-            'type' => 1,
-            'status' => 1,
-            'defaultwishlist' => 0,
-          ]);
-        // }
+  {
+    if ($authUser = User::where('fb_id', $fbUser->id)->first()) {
+        // echo "1";
+        // dd($authUser);
+        return $authUser;
     }
+
+    if ($authUser = User::where('email', $fbUser->email)->where('fb_id', null)->first()) {
+        $authUser->fb_id = $fbUser->id;
+        $authUser->save();
+        // echo "2";
+        // dd($authUser);
+        return $authUser;
+    }
+    // $username = preg_replace('/\s/', '', $fbUser->firstname) . $fbUser->id;
+    // else{
+    // echo "3";
+    // dd($fbUser);
+    if ($fbUser->email != null) {
+      return User::create([
+        'fb_id' => $fbUser->id,
+        'lastname' => $fbUser->lastname,
+        'firstname' => $fbUser->firstname,
+        // 'username' => $username,
+        'email' => $fbUser->email,
+        'imageurl' => $fbUser->avatar,
+        'privacy' => 0,
+        'type' => 1,
+        'status' => 1,
+        'defaultwishlist' => 0,
+      ]);
+    }
+    else{
+      return redirect()->action('PagesController@fbemailerror');
+    }     
+  }
 
   // public function __construct(Socialite $socialite){
   //      $this->socialite = $socialite;
