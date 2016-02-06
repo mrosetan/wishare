@@ -70,14 +70,14 @@
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src="{!! $user->imageurl !!}" alt="{!! $user->firstname !!} {!! $user->lastname !!}"/>
+                            <img src="{!! $user->imageurl !!}" alt="{{ $user->firstname }} {{ $user->lastname }}"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="{!! $user->imageurl !!}" alt="{!! $user->username !!}"/>
+                                <img src="{!! $user->imageurl !!}" alt="{{ $user->username }}"/>
                             </div>
                             <div class="profile-data">
-                                <div class="profile-data-name">{!! $user->firstname !!} {!! $user->lastname !!}</div>
+                                <div class="profile-data-name">{{ $user->firstname }} {{ $user->lastname }}</div>
 
                             </div>
                             <div class="profile-controls">

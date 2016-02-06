@@ -97,8 +97,8 @@
                                   <img src="{!! $otherUser['imageurl'] !!}" />
                               </div>
                               <div class="profile-data">
-                                  <div class="profile-data-name">{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</div>
-                                  <div class="profile-data-title" style="color: #FFF;">{!! $otherUser['city'] !!}</div>
+                                  <div class="profile-data-name">{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</div>
+                                  <div class="profile-data-title" style="color: #FFF;">{{ $otherUser['city'] }}</div>
                               </div>
                             </div>
                             <!--ADD AS FRIEND -->

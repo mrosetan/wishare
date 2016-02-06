@@ -47,15 +47,15 @@
                                   <span class="fa fa-circle deactivated-indicator"></span> Deleted
                                 @endif
                               </td>
-                              <td>{!! $w->id !!}</td>
-                              <td>{!! $w->title !!}</td>
+                              <td>{{ $w->id }}</td>
+                              <td>{{ $w->title }}</td>
                               <td>
-                                User ID: {!! $w['user']['id'] !!}<br />
-                                Name: {!! $w['user']['firstname'] !!} {!! $w['user']['lastname'] !!}<br />
-                                Username: {!! $w['user']['username'] !!}<br />
-                                Email: {!! $w['user']['email'] !!}<br />
+                                User ID: {{ $w['user']['id'] }}<br />
+                                Name: {{ $w['user']['firstname'] }} {{ $w['user']['lastname'] }}<br />
+                                Username: {{ $w['user']['username'] }}<br />
+                                Email: {{ $w['user']['email'] }}<br />
                               </td>
-                              <td>{!! $w->created_at !!}</td>
+                              <td>{{ date('F d, Y g:i A', strtotime($w->created_at)) }}</td>
                               <td>
                                 @if($w->privacy == 0)
                                   Public

@@ -10,17 +10,17 @@
           <a href="#">
             <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
           </a>
-          <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b>'s wish has been granted: <b><a href="{!! action('SoloWishController@wish', $gr['id'] ) !!}">{!! $gr['title'] !!}</a></b>
+          <b>{{ $user['firstname'] }} {{ $user['lastname'] }}</b>'s wish has been granted: <b><a href="{!! action('SoloWishController@wish', $gr['id'] ) !!}">{{ $gr['title'] }}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gr['updated_at']))  !!}
           <br />
-            <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $gr->wishlist['id']) !!}">{!! $gr->wishlist['title'] !!}</a>
+            <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $gr->wishlist['id']) !!}">{{ $gr->wishlist['title'] }}</a>
           <br />
-            <b>Granted by: </b><a href="{!! action('UserProfilesController@profile', $gr->granter['id']) !!}">{!! $gr->granter['firstname'] !!}  {!! $gr->granter['lastname'] !!}</a>
+            <b>Granted by: </b><a href="{!! action('UserProfilesController@profile', $gr->granter['id']) !!}">{{ $gr->granter['firstname'] }}  {{ $gr->granter['lastname'] }}</a>
         </div>
         <br/><br /><br />
         <hr />
-        <h4>{!! $gr['granteddetails'] !!}</h4>
+        <h4>{{ $gr['granteddetails'] }}</h4>
         @if(empty($gr['grantedimageurl']))
           <div></div>
         @endif

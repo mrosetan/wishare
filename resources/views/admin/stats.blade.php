@@ -12,7 +12,7 @@
                   <span class="fa fa-users"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $userCount !!}</div>
+                  <div class="widget-int num-count">{{ $userCount }}</div>
                   <div class="widget-title">Registered users</div>
                   <div class="widget-subtitle">On wishare</div>
               </div>
@@ -27,7 +27,7 @@
                   <span class="fa fa-star"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $userActiveCount !!}</div>
+                  <div class="widget-int num-count">{{ $userActiveCount }}</div>
                   <div class="widget-title">Active users</div>
                   <div class="widget-subtitle">On wishare</div>
               </div>
@@ -42,7 +42,7 @@
                   <span class="fa fa-ban"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $userInactiveCount !!}</div>
+                  <div class="widget-int num-count">{{ $userInactiveCount }}</div>
                   <div class="widget-title">Inactive / Banned users</div>
                   <div class="widget-subtitle">On wishare</div>
               </div>
@@ -61,7 +61,7 @@
                   <span class="fa fa-users"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $adminActiveCount !!}</div>
+                  <div class="widget-int num-count">{{ $adminActiveCount }}</div>
                   <div class="widget-title">Active Admin accounts</div>
                   <div class="widget-subtitle">On wishare</div>
               </div>
@@ -77,7 +77,7 @@
                   <span class="fa fa-ban"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $adminInactiveCount !!}</div>
+                  <div class="widget-int num-count">{{ $adminInactiveCount }}</div>
                   <div class="widget-title">Deleted/Inactive Admin accounts</div>
                   <div class="widget-subtitle">On wishare</div>
               </div>
@@ -97,7 +97,7 @@
                   <span class="fa fa-star"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $wishesCount !!}</div>
+                  <div class="widget-int num-count">{{ $wishesCount }}</div>
                   <div class="widget-title">Wishes</div>
                   <div class="widget-subtitle">Posted on wishare</div>
               </div>
@@ -115,7 +115,7 @@
                   <span class="fa fa-trash-o"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $wishDelCount !!}</div>
+                  <div class="widget-int num-count">{{ $wishDelCount }}</div>
                   <div class="widget-title">Deleted wishes</div>
                   <div class="widget-subtitle">On wishare</div>
               </div>
@@ -138,7 +138,7 @@
                   <span class="fa fa-magic"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $wishGrantedCount !!}</div>
+                  <div class="widget-int num-count">{{ $wishGrantedCount }}</div>
                   <div class="widget-title">Granted wishes</div>
                   <div class="widget-subtitle">On wishare</div>
               </div>
@@ -156,7 +156,7 @@
                   <span class="fa fa-magic"></span>
               </div>
               <div class="widget-data">
-                  <div class="widget-int num-count">{!! $granters !!}</div>
+                  <div class="widget-int num-count">{{ $granters }}</div>
                   <div class="widget-title">Users granted</div>
                   <div class="widget-subtitle">Wish/Wishes</div>
               </div>
