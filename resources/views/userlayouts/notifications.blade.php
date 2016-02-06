@@ -41,8 +41,8 @@
                             </div>
                             <div class="user-details">
                               <p class="user-name">
-                                <a href="{!! action('UserProfilesController@profile', $n->tagger['id']) !!}"> {!! $n->tagger['firstname'] !!} {!! $n->tagger['lastname'] !!} </a> tagged you in a wish <br />
-                                  <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}"><b>({!! $n->wish['title'] !!})</b></a>
+                                <a href="{!! action('UserProfilesController@profile', $n->tagger['id']) !!}"> {{ $n->tagger['firstname'] }} {{ $n->tagger['lastname'] }} </a> tagged you in a wish <br />
+                                  <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}"><b>( {{ $n->wish['title'] }} )</b></a>
                                 <br/>
                                 {!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}
                               </p>
@@ -59,8 +59,8 @@
                               </div>
                               <div class="user-details">
                                 <p class="user-name">
-                                  <a href="{!! action('UserProfilesController@profile', $n->user['id']) !!}"> {!! $n->user['firstname'] !!} {!! $n->user['lastname'] !!} </a> {!! $n['notificationtype'] !!} your wish <br/>
-                                    <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}"><b>({!! $n->wish['title'] !!})</b></a>
+                                  <a href="{!! action('UserProfilesController@profile', $n->user['id']) !!}"> {{ $n->user['firstname'] }} {{ $n->user['lastname'] }} </a> {{ $n['notificationtype'] }} your wish <br/>
+                                    <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}"><b>( {{ $n->wish['title'] }} )</b></a>
                                   <br/>
                                   {!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}
                                 </p>
@@ -89,7 +89,7 @@
                           <div class="user-details">
                             <h5 class="user-name">
                               <a href="{!! action('UserProfilesController@profile', $r->friendRequest['id']) !!}">
-                              {!! $r->friendRequest->firstname !!} {!! $r->friendRequest['lastname'] !!}
+                              {{ $r->friendRequest->firstname }} {{ $r->friendRequest['lastname'] }}
                             </a>
                             </h5>
                             <div class="fr-buttons">
@@ -134,7 +134,7 @@
                         </div>
                         <div class="user-details">
                           <p class="user-name">
-                            {!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!} granted your wish: <a href="{!! action('SoloWishController@wish', $g['id']) !!}"> {!! $g['title'] !!} </a>
+                            {{ $g->granter['firstname'] }} {{ $g->granter['lastname'] }} granted your wish: <a href="{!! action('SoloWishController@wish', $g['id']) !!}"> {{ $g['title'] }} </a>
                             <div class="fr-buttons">
                               {!! Form::open(array(
                                             'action' => array('UserController@confirmGrantRequest', $g['id']),

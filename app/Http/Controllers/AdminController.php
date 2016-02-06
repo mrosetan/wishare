@@ -455,7 +455,7 @@ class AdminController extends Controller
        if (Auth::user()->type == 0) {
          $user = User::where('id', $id)->first();
          $details = array();
-
+          // dd($request->get('password'));
          if($request->get('firstname') != '')
          {
              $details['firstname'] = $request->get('firstname');

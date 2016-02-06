@@ -12,11 +12,11 @@
               <a href="#">
                 <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
               </a>
-              <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
+              <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{{ $wish['title'] }}</a></b>
               <br />
                 <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
               <br />
-                <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', [$otherUser['id'], $wish->wishlist['id']]) !!}">{!! $wish->wishlist['title'] !!}</a>
+                <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', [$otherUser['id'], $wish->wishlist['id']]) !!}">{{ $wish->wishlist['title'] }}</a>
             </div>
             <br/><br /><br />
             <hr />
