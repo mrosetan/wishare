@@ -81,4 +81,9 @@ class PagesController extends Controller
       return view('pages.blank');
   }
 
+  public function fbemailerror()
+  {
+    return view('pages.fb-email-error');
+  }
+
 }

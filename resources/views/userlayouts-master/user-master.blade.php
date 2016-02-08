@@ -70,14 +70,14 @@
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src="{!! $user->imageurl !!}" alt="{!! $user->firstname !!} {!! $user->lastname !!}"/>
+                            <img src="{!! $user->imageurl !!}" alt="{{ $user->firstname }} {{ $user->lastname }}"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="{!! $user->imageurl !!}" alt="{!! $user->username !!}"/>
+                                <img src="{!! $user->imageurl !!}" alt="{{ $user->username }}"/>
                             </div>
                             <div class="profile-data">
-                                <div class="profile-data-name">{!! $user->firstname !!} {!! $user->lastname !!}</div>
+                                <div class="profile-data-name">{{ $user->firstname }} {{ $user->lastname }}</div>
 
                             </div>
                             <div class="profile-controls">
@@ -112,7 +112,7 @@
                         <a href="{{ url('user/action/tynotes') }}"><class="mb-control" data-box="#mb-tynotes"><span class="glyphicon glyphicon-envelope"></span><span class="xn-text">Send Thank You Note</span></a>
                     </li>
                     <li>
-                        <a href="{{ url('user/help') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
+                        <a href="{{ url('user/w') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
                     <!-- <li class="xn-openable">
                         <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>

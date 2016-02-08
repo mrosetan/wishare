@@ -57,7 +57,7 @@
                 <label>Tag:</label>
                 <select class="my-select" name="tags[]" multiple="multiple">
                   @foreach($friends as $f)
-                    <option value="{!! $f->id !!}">{!! $f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
+                    <option value="{!! $f->id !!}">{{ $f->firstname }} {{ $f->lastname }} ({{ $f->username }})</option>
 
                   @endforeach
                 </select>
