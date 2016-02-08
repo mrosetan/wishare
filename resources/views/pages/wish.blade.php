@@ -110,7 +110,7 @@
                           @endif
 
                           <hr />
-                          @if($wish->grantedimageurl == 'null')
+                          @if(empty($wish->grantedimageurl))
                             <div></div>
                           @else
                             <div class="wish-image-container">

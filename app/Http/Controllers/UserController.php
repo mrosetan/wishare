@@ -634,7 +634,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user['id'];
-
+    
     $wish = Wish::where('id', '=', $id)->first();
 
     if(!empty($wish)){
