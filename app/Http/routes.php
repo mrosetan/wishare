@@ -17,6 +17,7 @@ Route::get('/signin', 'PagesController@signin');
 Route::get('/signup', 'PagesController@signup');
 Route::get('/reactivate', 'PagesController@activateAccount');
 Route::get('/blank', 'PagesController@blank');
+Route::get('/fbemailerror', 'PagesController@fbemailerror');
 
 // New Profile Routes
 Route::get('/{id?}', 'UserProfilesController@profile');
@@ -118,7 +119,7 @@ Route::post('user/add/{id?}', 'UserController@addWishModal');
 Route::get('user/edit/tags/{id?}', 'UserController@editTags');
 Route::post('user/edit/tags/{id?}', 'UserController@updateTags');
 Route::get('user/delete/wish/{id?}', 'UserController@deleteWish');
-Route::get('user/delete/wish/{id?}', 'UserController@deleteWishGranted');
+Route::get('user/delete/wishgranted/{id?}', 'UserController@deleteWishGranted');
 
 Route::get('user/setup', 'UserController@setUsernameAndPassword');
 

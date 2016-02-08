@@ -10,15 +10,15 @@
           <a href="#">
             <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
           </a>
-          <b>{!! $otherUser['firstname'] !!} {!! $otherUser['lastname'] !!}</b> granted <a href="{!! action('UserProfilesController@profile', $gi->user['id']) !!}"><b>{!! $gi->user['firstname'] !!} {!! $gi->user['lastname'] !!}</b> ({!! $gi->user['username'] !!})</a>'s wish: <b><a href="{!! action('SoloWishController@wish', $gi['id'] ) !!}">{!! $gi['title'] !!}</a></b>
+          <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b> granted <a href="{!! action('UserProfilesController@profile', $gi->user['id']) !!}"><b>{{ $gi->user['firstname'] }} {{ $gi->user['lastname'] }}</b> ({{ $gi->user['username'] }})</a>'s wish: <b><a href="{!! action('SoloWishController@wish', $gi['id'] ) !!}">{{ $gi['title'] }}</a></b>
           <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gi['updated_at']))  !!}
           <br />
-            <b>Wishlist: </b>{!! $gi->wishlist['title'] !!}
+            <b>Wishlist: </b>{{ $gi->wishlist['title'] }}
         </div>
         <br/><br /><br />
         <hr />
-        <h4>{!! $gi['granteddetails'] !!}</h4>
+        <h4>{{ $gi['granteddetails'] }}</h4>
         @if(empty($gi['grantedimageurl']))
           <div></div>
         @endif

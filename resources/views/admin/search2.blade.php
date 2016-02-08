@@ -35,8 +35,8 @@
                     @foreach($results as $r)
                       <tr>
                           <td>
-                              <a href="{!! action('AdminController@userdetails', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
-                              {!! $r->username !!}</a>
+                              <a href="{{ action('AdminController@userdetails', $r->id) }}"><h4>{{ $r->firstname }} {{ $r->lastname}}</h4>
+                              {{ $r->username }}</a>
                           </td>
 
                       </tr>

@@ -45,15 +45,15 @@
         <div class="panel panel-default">
             <div class="panel-body profile">
                 <div class="profile-image">
-                    <img src="{!! $r->imageurl !!}" alt="{!! $r->firstname !!} {!! $r->lastname !!}"/>
+                    <img src="{!! $r->imageurl !!}" alt="{{ $r->firstname }} {{ $r->lastname }}"/>
                 </div>
                 <div class="profile-data">
-                    <div class="profile-data-name"><a href="{!! action('UserController@otheruser', $r->id ) !!}">{!! $r->firstname !!} {!! $r->lastname !!}</a></div>
+                    <div class="profile-data-name"><a href="{!! action('UserController@otheruser', $r->id ) !!}">{{ $r->firstname }} {{ $r->lastname }}</a></div>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="contact-info">
-                  <p><small>E-mail</small><br/>{!! $r->email !!}</p>
+                  <p><small>E-mail</small><br/>{{ $r->email }}</p>
                 </div>
             </div>
         </div>

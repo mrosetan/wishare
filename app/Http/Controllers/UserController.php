@@ -244,7 +244,8 @@ class UserController extends Controller
     $user = Auth::user();
     $search = $request->search;
 
-    $results = User::where('type', '=', 1)
+    $results = User::where('id', '!=', $user->id)
+                    ->where('type', '=', 1)
                     ->where('status', '=', 1)
                     ->where(function ($query) use ($search){
                         $query->where('firstname', 'like', '%'.$search.'%')
@@ -1335,7 +1336,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user['id'];
-
+    
     $wish = Wish::where('id', '=', $id)->first();
 
     if(!empty($wish)){

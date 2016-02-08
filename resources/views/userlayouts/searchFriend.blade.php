@@ -40,8 +40,8 @@
                                 <img class="user stream img-circle" src="{!! $r['imageurl'] !!}">
                               </a>
                             </div>
-                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
-                              {!! $r->username !!}</a>
+                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}"><h4>{{ $r->firstname }} {{ $r->lastname }}</h4>
+                              {{ $r->username }}</a>
                           </td>
 
                       </tr>
