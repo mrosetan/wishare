@@ -468,7 +468,7 @@ class AdminController extends Controller
 
          if($request->get('password') != '')
          {
-           $details['password'] = bcrypt($request->get('password'));
+           $details['password'] = $request->get('password');
          }
 
          if($request->get('username') != '' and $request->get('username') != $user->username)
@@ -524,6 +524,10 @@ class AdminController extends Controller
            }
            else{
              // $user->save();
+             if($request->get('password') != '')
+             {
+               $details['password'] = bcrypt($request->get('password'));
+             }
              $updateUser = User::where('id','=',$user->id)->update($details);
 
              //return redirect(action('userController@editSettings', $user->id))->with('status', 'Saved.');
