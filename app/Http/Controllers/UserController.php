@@ -634,7 +634,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user['id'];
-    
+
     $wish = Wish::where('id', '=', $id)->first();
 
     if(!empty($wish)){
@@ -1093,7 +1093,7 @@ class UserController extends Controller
     $wishlist->status = 0;
     $wishlist->save();
 
-    return redirect('profile/wishlists');
+    return redirect()->action('UserProfilesController@wishWishlists', [$user->id]);
   }
 
   public function getWishlist()
