@@ -1681,7 +1681,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.7/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -2640,6 +2640,7 @@ class UserController extends Controller
     $n = $tags->merge($trackfave);
     $notifs = $n->sortByDesc('created_at');
     $notifs->values()->all();
+
 
     // dd($recipient);
     return view('userlayouts.tynotesAction', compact('recipient', 'user', 'requests', 'notifs', 'tags', 'grant'));
