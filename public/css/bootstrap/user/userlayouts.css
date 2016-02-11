@@ -61,6 +61,11 @@ span.fa.fa-lock.otheruser {
   margin-top: 140px;
 }
 
+.wp-header-wrap{
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .page-title {
   margin-top: 10px;
 }
@@ -376,4 +381,8 @@ img.tynote-image {
 .search-wrapper{
   max-width: 800px;
   margin: 0 auto;
+}
+
+.wp-body{
+  color: #fff;
 }

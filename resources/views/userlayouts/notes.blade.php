@@ -30,11 +30,11 @@
                 @foreach($notes as $id => $note)
                   <div class="panel panel-default">
                     <div class="panel-body">
-                      {!! $note->pivot->message !!}
+                      {{ $note->pivot->message }}
                       <br />
                       <br />
                       <br />
-                      <b>Sender:</b> {!! $note->firstname !!} {!! $note->lastname !!}<br />
+                      <b>Sender:</b> {{ $note->firstname }} {{ $note->lastname }}<br />
                       <b>Received:</b> {!! date('F d, Y g:i A', strtotime($note->pivot->updated_at)) !!}
                       <div class="pull-right">
                         <a href="#" data-toggle="modal" data-target="#modal_reply{!! $id !!}"><button class="btn btn-info">Reply</button></a>
@@ -128,7 +128,7 @@
                     <div class="panel-heading">
                       <h6 class="panel-title">
                         <a href="#tynote-content{!! $tyid !!}">
-                          <h6>From {!! $ty->firstname!!} {!! $ty->lastname !!} - {!! date('m/d/y g:i A', strtotime($ty->pivot->updated_at)) !!}</h6>
+                          <h6>From {{ $ty->firstname }} {{ $ty->lastname }} - {!! date('m/d/y g:i A', strtotime($ty->pivot->updated_at)) !!}</h6>
                         </a>
                       </h6>
                       <div class="pull-right">
@@ -136,8 +136,8 @@
                       </div>
                     </div>
                     <div class="panel-body" id="tynote-content{!! $tyid !!}">
-                      <h5>{!! $ty->pivot->message !!}</h5>
-                      <b>Sender:</b> {!! $ty->firstname !!} {!! $ty->lastname !!} <br />
+                      <h5>{{ $ty->pivot->message }}</h5>
+                      <b>Sender:</b> {{ $ty->firstname }} {{ $ty->lastname }} <br />
                       <b>Received:</b> {!! date('F d, Y g:i A', strtotime($ty->pivot->updated_at)) !!}
                       <hr />
                       @if(!empty($ty->pivot->imageurl))
@@ -202,11 +202,11 @@
 
                       <div class="panel panel-default">
                         <div class="panel-body">
-                          {!! $note->pivot->message !!}
+                          {{ $note->pivot->message }}
                           <br />
                           <br />
                           <br />
-                          <b>Recipient:</b> {!! $note->firstname !!} {!! $note->lastname !!}<br />
+                          <b>Recipient:</b> {{ $note->firstname }} {{ $note->lastname }}<br />
                           <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($note->pivot->updated_at)) !!}
                         </div>
                       </div>
@@ -227,13 +227,13 @@
                         <div class="panel-heading">
                           <h6 class="panel-title">
                             <a href="#tynote{!! $tid !!}">
-                              <h6>Sent to {!! $tynotes->firstname!!} {!! $tynotes->lastname !!} - {!! date('m/d/y g:i A', strtotime($tynotes->pivot->updated_at)) !!}</h6>
+                              <h6>Sent to {{ $tynotes->firstname }} {{ $tynotes->lastname }} - {!! date('m/d/y g:i A', strtotime($tynotes->pivot->updated_at)) !!}</h6>
                             </a>
                           </h6>
                         </div>
                         <div class="panel-body" id="tynote{!! $tid !!}">
-                          <h5>{!! $tynotes->pivot->message !!}</h5>
-                          <b>Recipient:</b> {!! $tynotes->firstname !!} {!! $tynotes->lastname !!} <br />
+                          <h5>{{ $tynotes->pivot->message }}</h5>
+                          <b>Recipient:</b> {{ $tynotes->firstname }} {{ $tynotes->lastname }} <br />
                           <b>Sent:</b> {!! date('F d, Y g:i A', strtotime($tynotes->pivot->updated_at)) !!}
                           <hr />
                           @if(!empty($tynotes->pivot->imageurl))

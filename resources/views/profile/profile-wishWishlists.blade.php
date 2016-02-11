@@ -8,18 +8,22 @@
     <div class="panel-body">
         <h3>
           @if($wishlist->privacy == 0)
-          <span class="fa fa-magic"></span>&nbsp;<a href="{!! action('WishlistController@wishes', $wishlist['id']) !!}">{!! $wishlist['title'] !!}</a>
+          <span class="fa fa-magic"></span>&nbsp;<a href="{!! action('WishlistController@wishes', $wishlist['id']) !!}">{{ $wishlist['title'] }}</a>
           <div class="wishlist-icons pull-right">
             <a href="#" data-toggle="modal" data-target="#modal_{!! $wishlist['id'] !!}"><span class="glyphicon glyphicon-edit"></span></a>
             &nbsp;&nbsp;
             <a href="#" class="mb-control" data-box="#mb-delete{!! $wishlist['id'] !!}"><span class="glyphicon glyphicon-trash"></span></a>
+            &nbsp;&nbsp;
+            <a href="{!! action('UserController@wishAction') !!}"><span class="glyphicon glyphicon-plus"></span></a>
           </div>
           @elseif($wishlist->privacy == 1)
-            <span class="fa fa-lock"></span>&nbsp;<a href="{!! action('WishlistController@wishes', $wishlist['id']) !!}">{!! $wishlist['title'] !!}</a>
+            <span class="fa fa-lock"></span>&nbsp;<a href="{!! action('WishlistController@wishes', $wishlist['id']) !!}">{{ $wishlist['title'] }}</a>
             <div class="wishlist-icons pull-right">
               <a href="#" data-toggle="modal" data-target="#modal_{!! $wishlist['id'] !!}"><span class="glyphicon glyphicon-edit"></span></a>
               &nbsp;&nbsp;
               <a href="#" class="mb-control" data-box="#mb-delete{!! $wishlist['id'] !!}"><span class="glyphicon glyphicon-trash"></span></a>
+              &nbsp;&nbsp;
+              <a href="{!! action('UserController@wishAction') !!}"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
           @endif
         </h3>
@@ -106,6 +110,5 @@
 </div>
 @endforeach
 @endif
-
 
 @endsection

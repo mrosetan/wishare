@@ -13,11 +13,11 @@
             <a href="#">
               <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
             </a>
-            <b>{!! $user['firstname'] !!} {!! $user['lastname'] !!}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{!! $wish['title'] !!}</a></b>
+            <b>{{ $user['firstname'] }} {{ $user['lastname'] }}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{{ $wish['title'] }}</a></b>
             <br />
               <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
             <br />
-              <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $wish->wishlist['id']) !!}">{!! $wish->wishlist['title'] !!}</a>
+              <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $wish->wishlist['id']) !!}">{{ $wish->wishlist['title'] }}</a>
           </div>
           <br/><br /><br />
           <hr />
@@ -37,7 +37,7 @@
             <ul class="list-tags">
             @foreach($wish->tags as $t)
                 <li class="tagged-user">
-                   <a href="{!! action('UserProfilesController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!!$t->user->lastname !!}</a>
+                   <a href="{!! action('UserProfilesController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {{ $t->user->firstname }} {{ $t->user->lastname }}</a>
                 </li>
             @endforeach
             </ul>

@@ -27,7 +27,7 @@
                   <!-- {!! Form::select('recipient', $recipient, null, array('class'=>'recipient-container', 'id'=>'my-select')) !!} -->
                   <select name="recipient" class="recipient-container" id="my-select">
                     @foreach($recipient as $r)
-                    <option value="{!! $r['id'] !!}">{!! $r['firstname'] !!} {!! $r['lastname'] !!}</option>
+                    <option value="{!! $r['id'] !!}">{{ $r['firstname'] }} {{ $r['lastname'] }}</option>
                     @endforeach
                   </select>
               </div>

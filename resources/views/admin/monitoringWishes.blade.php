@@ -39,14 +39,14 @@
                                 <span class="fa fa-circle deactivated-indicator"></span> Deleted
                               @endif
                             </td>
-                            <td>{!! $wish->id !!}</td>
-                            <td>{!! $wish->title !!}</td>
-                            <td>{!! $wish->wishlist['title'] !!}</td>
+                            <td>{{ $wish->id }}</td>
+                            <td>{{ $wish->title }}</td>
+                            <td>{{ $wish->wishlist['title'] }}</td>
                             <td>
-                              <b>{!! $wish->user['firstname'] !!} {!! $wish->user['lastname '] !!}</b> <br />
-                              {!! $wish->user['username'] !!}
+                              <b>{{ $wish->user['firstname'] }} {{ $wish->user['lastname '] }}</b> <br />
+                              {{ $wish->user['username'] }}
                             </td>
-                            <td>{!! $wish->created_at !!}</td>
+                            <td>{{ date('F d, Y g:i A', strtotime($wish->created_at)) }}</td>
                             <td>
                               @if($wish->granted == 0)
                                 NG
@@ -54,7 +54,7 @@
                                 Granted
                               @endif
                             </td>
-                            <td>{!! $wish->date_granted !!}</td>
+                            <td>{{ date('F d, Y g:i A', strtotime($wish->date_granted)) }}</td>
                         </tr>
                       @endforeach
                     </tbody>

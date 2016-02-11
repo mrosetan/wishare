@@ -32,14 +32,14 @@
                     <tbody>
                         @foreach($users as $user)
                           <tr>
-                              <td>{!! $user->id !!}</td>
-                              <td>{!! $user->firstname !!}</td>
-                              <td>{!! $user->lastname !!}</td>
-                              <td>{!! $user->username !!}</td>
-                              <td>{!! $user->email !!}</td>
-                              <td>{!! $user->created_at !!}</td>
+                              <td>{{ $user->id }}</td>
+                              <td>{{ $user->firstname }}</td>
+                              <td>{{ $user->lastname }}</td>
+                              <td>{{ $user->username }}</td>
+                              <td>{{ $user->email }}</td>
+                              <td>{{ $user->created_at }}</td>
                               <td>
-                                <a href="{!! action('AdminController@editAdmin', $user->id) !!}"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{{ action('AdminController@editAdmin', $user->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                 <a href="#" class="mb-control" data-box="#mb-delete"><span class="glyphicon glyphicon-trash"></span></a>
                               </td>
 
@@ -53,7 +53,7 @@
                                           </div>
                                           <div class="mb-footer">
                                               <div class="pull-right">
-                                                  <a href="{!! action('AdminController@deleteAdmin', $user->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                                  <a href="{{ action('AdminController@deleteAdmin', $user->id) }}" class="btn btn-success btn-lg">Yes</a>
                                                   <button class="btn btn-default btn-lg mb-control-close">No</button>
                                               </div>
                                           </div>
@@ -66,7 +66,7 @@
                     </tbody>
                 </table>
 
-                {!! $users->render() !!}
+                {{ $users->render() }}
               @endif
             </div>
         </div>
@@ -108,29 +108,29 @@
                       <tbody>
                         @foreach($users as $user)
                           <tr>
-                              <td>{!! $user->id !!}</td>
-                              <td>{!! $user->firstname !!}</td>
-                              <td>{!! $user->lastname !!}</td>
-                              <td>{!! $user->username !!}</td>
-                              <td>{!! $user->email !!}</td>
-                              <td>{!! $user->created_at !!}</td>
+                              <td>{{ $user->id }}</td>
+                              <td>{{ $user->firstname }}</td>
+                              <td>{{ $user->lastname }}</td>
+                              <td>{{ $user->username }}</td>
+                              <td>{{ $user->email }}</td>
+                              <td>{{ $user->created_at }}</td>
                               <td>
-                                <a href="{!! action('AdminController@editAdmin', $user->id) !!}"><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Edit Details"><span class="glyphicon glyphicon-edit"></span></button></a>
+                                <a href="{{ action('AdminController@editAdmin', $user->id) }}"><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Edit Details"><span class="glyphicon glyphicon-edit"></span></button></a>
 
-                                <a href="#" class="mb-control" data-box="#mb-delete{!! $user->id !!}"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactivate"><span class="glyphicon glyphicon-trash"></span></button></a>
+                                <a href="#" class="mb-control" data-box="#mb-delete{{ $user->id }}"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactivate"><span class="glyphicon glyphicon-trash"></span></button></a>
                               </td>
 
 
-                              <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{!! $user->id !!}">
+                              <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{{ $user->id }}">
                                   <div class="mb-container">
                                       <div class="mb-middle">
-                                          <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Delete {!! $user->lastname !!}, {!! $user->firstname !!}?</div>
+                                          <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Delete {{ $user->lastname }}, {{ $user->firstname }}?</div>
                                           <div class="mb-content">
                                               <p>Are you sure you want to delete this admin?</p>
                                           </div>
                                           <div class="mb-footer">
                                               <div class="pull-right">
-                                                  <a href="{!! action('AdminController@deleteAdmin', $user->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                                  <a href="{{ action('AdminController@deleteAdmin', $user->id) }}" class="btn btn-success btn-lg">Yes</a>
                                                   <button class="btn btn-default btn-lg mb-control-close">No</button>
                                               </div>
                                           </div>
@@ -200,11 +200,11 @@
                                     User
                                   @endif
                                 </td>
-                                <td>{!! $user->id !!}</td>
-                                <td><a href="{!! action('AdminController@userdetails', $user->id) !!}">{!! $user->lastname!!}, {!! $user->firstname !!}</a></td>
-                                <td>{!! $user->username !!}</td>
-                                <td>{!! $user->email !!}</td>
-                                <td>{!! $user->created_at !!}</td>
+                                <td>{{ $user->id }}</td>
+                                <td><a href="{{ action('AdminController@userdetails', $user->id) }}">{{ $user->lastname}}, {{ $user->firstname }}</a></td>
+                                <td>{{ $user->username }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ date('F d, Y g:i A', strtotime($user->created_at)) }}</td>
 
 
 

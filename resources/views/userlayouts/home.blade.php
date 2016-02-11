@@ -33,7 +33,7 @@
                       </div>
                       <div class="stream-header">
                         <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
-                          <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )
+                          <b>{{ $s['firstname'] }} {{ $s['lastname'] }} </b>( {{ $s['username'] }} )
                         </a>
                         @if($s['created_at'] == $s['updated_at'])
                            added a new wish.
@@ -52,7 +52,7 @@
                     <hr />
                     <div class="col-xs-12">
                       <div class="stream-margin">
-                        <h4><a href="{!! action('SoloWishController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
+                        <h4><a href="{!! action('SoloWishController@wish', $s['wishid'] ) !!}">{{ $s['title'] }}</a></h4>
                         <!-- <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4> -->
 
                       </div>
@@ -64,7 +64,7 @@
                     @else
                       @if(!empty($s['wishimageurl']))
                         <div id ="links" class="col-xs-12 stream-body">
-                          <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
+                          <a href="{!! $s['wishimageurl'] !!}" title="'{{ $s['title'] }}' wished by: {{ $s['username'] }}" data-gallery>
                               <img src="{!! $s['wishimageurl'] !!}" class="img-responsive stream-wish-img"/>
                           </a>
                         </div>
@@ -81,13 +81,13 @@
 
                         @if(!empty($s['details']))
                           <p>
-                          <b>Details:</b> {!! $s['details'] !!}
+                          <b>Details:</b> {{ $s['details'] }}
                           </p>
                         @endif
 
                         @if(!empty($s['alternatives']))
                         <p>
-                          <b>Alternatives:</b> {!! $s['alternatives'] !!}
+                          <b>Alternatives:</b> {{ $s['alternatives'] }}
                         </p>
                         @endif
 
@@ -98,7 +98,7 @@
                       @if(!empty($s['tagged']))
                         <ul class="list-tags tagged-user">
                           @foreach($s['tagged'] as $tag)
-                            <li class="tagged-user"><a href="{!! action('UserProfilesController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['firstname'] !!} {!!$tag['lastname'] !!}</a></li>
+                            <li class="tagged-user"><a href="{!! action('UserProfilesController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {{ $tag['firstname'] }} {{ $tag['lastname'] }}</a></li>
                           @endforeach
                         </ul>
                       @endif
@@ -150,10 +150,10 @@
                       </div>
                       <div class="stream-header">
                         <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
-                          <b>{!! $s['firstname'] !!} {!! $s['lastname'] !!} </b>( {!! $s['username'] !!} )'s
+                          <b>{{ $s['firstname'] }} {{ $s['lastname'] }} </b>( {{ $s['username'] }} )'s
                         </a>
                         wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserProfilesController@profile', $s['granterid']) : '' !!}">
-                          <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ).
+                          <b>{{ $s['granterfirstname'] }} {{ $s['granterlastname'] }} </b>( {{ $s['granterusername'] }} ).
                         </a>
                         <br />
                         {!! date('F d, Y g:i A', strtotime($s['date_granted']))  !!}
@@ -162,7 +162,7 @@
                     </div>
                     <div class="col-xs-12">
                       <div class="stream-margin">
-                        <h4><a href="{!! action('SoloWishController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4>
+                        <h4><a href="{!! action('SoloWishController@wish', $s['wishid'] ) !!}">{{ $s['title'] }}</a></h4>
                         <!-- <h4><a href="{!! action('UserController@wish', $s['wishid'] ) !!}">{!! $s['title'] !!}</a></h4> -->
                       </div>
                     </div>
@@ -190,7 +190,7 @@
                                   @else
                                     @if(!empty($s['wishimageurl']))
                                       <div id ="links" class="col-xs-12 stream-body">
-                                        <a href="{!! $s['wishimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!}" data-gallery>
+                                        <a href="{!! $s['wishimageurl'] !!}" title="'{{ $s['title'] }}' wished by: {{ $s['username'] }}" data-gallery>
                                             <img src="{!! $s['wishimageurl'] !!}" class="img-responsive stream-wish-img"/>
                                         </a>
                                       </div>
@@ -207,13 +207,13 @@
 
                                       @if(!empty($s['details']))
                                         <p>
-                                        <b>Details:</b> {!! $s['details'] !!}
+                                        <b>Details:</b> {{ $s['details'] }}
                                         </p>
                                       @endif
 
                                       @if(!empty($s['alternatives']))
                                       <p>
-                                        <b>Alternatives:</b> {!! $s['alternatives'] !!}
+                                        <b>Alternatives:</b> {{ $s['alternatives'] }}
                                       </p>
                                       @endif
 
@@ -224,7 +224,7 @@
                                     @if(!empty($s['tagged']))
                                       <ul class="list-tags">
                                         @foreach($s['tagged'] as $tag)
-                                          <li class="tagged-user"><a href="{!! action('UserProfilesController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {!!$tag['username'] !!}</a></li>
+                                          <li class="tagged-user"><a href="{!! action('UserProfilesController@profile', $tag['id']) !!}"><span class="fa fa-tag"></span> {{ $tag['username'] }}</a></li>
                                         @endforeach
                                       </ul>
                                     @endif
@@ -256,7 +256,7 @@
                           </div>
                           <div class="stream-header">
                             <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserProfilesController@profile', $s['granterid']) : '' !!}">
-                              <b>{!! $s['granterfirstname'] !!} {!! $s['granterlastname'] !!} </b>( {!! $s['granterusername'] !!} ):
+                              <b>{{ $s['granterfirstname'] }} {{ $s['granterlastname'] }} </b>( {{ $s['granterusername'] }} ):
                             </a>
                           </div>
 
@@ -264,12 +264,12 @@
 
                         <div class="col-xs-12">
                           <p class="granter-caption">
-                            {!! $s['granteddetails'] !!}
+                            {{ $s['granteddetails'] }}
                           </p>
                         </div>
                         @if(!empty($s['grantedimageurl']))
                           <div id ="links" class="col-xs-12 stream-body">
-                            <a href="{!! $s['grantedimageurl'] !!}" title="'{!! $s['title'] !!}' wished by: {!! $s['username'] !!} granted by: {!! $s['granterusername'] !!}" data-gallery>
+                            <a href="{!! $s['grantedimageurl'] !!}" title="'{{ $s['title'] }}' wished by: {{ $s['username'] }} granted by: {{ $s['granterusername'] }}" data-gallery>
                                 <img src="{!! $s['grantedimageurl'] !!}" class="img-responsive stream-wish-img"/>
                             </a>
                           </div>

@@ -24,7 +24,7 @@ class WishRequest extends Request
     public function rules()
     {
         return [
-            'title'    => 'required',
+            'title'    => 'required|max:30',
             'due_date' => 'required|after:yesterday',
             'wishimageurl' => 'image',
         ];
@@ -35,6 +35,7 @@ class WishRequest extends Request
     {
         return [
             'title.required' => 'Wish title is required.',
+            'title.max' => 'Wish title must not exceed 30 characters.',
             'due_date.required'  => 'Please add the date of when you would like to get this wish.',
             'due_date.after'  => 'Due date must not be before today.',
             'wishimageurl.image'  => 'File to be uploaded must be an image file (jpeg, png, bmp, gif, or svg).',
