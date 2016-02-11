@@ -8,11 +8,15 @@
       <div class="panel-body">
         <div class="pull-left">
           <a href="#">
-            <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
+            <div class="user stream image-circle">
+              <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
+            </div>
           </a>
-          <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b> tracked a wish: <b><a href="{!! action('SoloWishController@wish', $tr->wish['id'] ) !!}">{{ $tr->wish['title'] }}</a></b>
-          <br />
-            <b>Date: </b>{!! date('F d, Y g:i A', strtotime($tr['updated_at']))  !!}
+          <div class="profile-header">
+            <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b> tracked a wish: <b><a href="{!! action('SoloWishController@wish', $tr->wish['id'] ) !!}">{{ $tr->wish['title'] }}</a></b>
+            <br />
+              <b>Date: </b>{!! date('F d, Y g:i A', strtotime($tr['updated_at']))  !!}
+          </div>
         </div>
         <br/><br /><br />
         <hr />
@@ -35,7 +39,7 @@
           <span data-wishid="{!! $tr['id']!!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($tr['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($tr['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $tr['tracks'] !!}</span> </span>
           &nbsp;&nbsp;
           <a href="{!! action('UserController@rewishDetails', $tr['id']) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
-  
+
         </div>
         @else
         <div class="wishaction-btns pull-right">

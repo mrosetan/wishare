@@ -99,9 +99,10 @@
                             <!-- COVER PHOTO -->
                             <!-- <div class="panel-body profile" style="background: url('assets/images/gallery/music-4.jpg') center center no-repeat;"> -->
                             <!-- END OF COVER PHOTO -->
-                              <div class="profile-image">
-                                  <img src="{!! $user['imageurl'] !!}" />
+                              <div class="profile-image-thumbnail">
+                                  <img src="{!! $user['imageurl'] !!}" class="profile-img-thumbnail"/>
                               </div>
+                              <br/>
                               <div class="profile-data">
                                   <div class="profile-data-name">{{ $user['firstname'] }} {{ $user['lastname'] }}</div>
                                   <div class="profile-data-title" style="color: #FFF;">{{ $user['city'] }}</div>

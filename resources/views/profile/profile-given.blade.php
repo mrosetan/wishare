@@ -8,13 +8,17 @@
       <div class="panel-body">
         <div class="pull-left">
           <a href="#">
-            <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
+            <div class="user stream image-circle">
+              <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
+            </div>
           </a>
-          <b>{{ $user['firstname'] }} {{ $user['lastname'] }}</b> granted <a href="{!! action('UserProfilesController@profile', $gi->user['id']) !!}"><b>{{ $gi->user['firstname'] }} {{ $gi->user['lastname'] }}</b> ({{ $gi->user['username'] }})</a>'s wish: <b><a href="{!! action('SoloWishController@wish', $gi['id'] ) !!}">{{ $gi['title'] }}</a></b>
-          <br />
+          <p class="profile-header">
+            <b>{{ $user['firstname'] }} {{ $user['lastname'] }}</b> granted <a href="{!! action('UserProfilesController@profile', $gi->user['id']) !!}"><b>{{ $gi->user['firstname'] }} {{ $gi->user['lastname'] }}</b> ({{ $gi->user['username'] }})</a>'s wish: <b><a href="{!! action('SoloWishController@wish', $gi['id'] ) !!}">{{ $gi['title'] }}</a></b>
+            <br />
             <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gi['updated_at']))  !!}
-          <br />
+            <br />
             <b>Wishlist: </b><a href="{!! action('WishlistController@wishes', $gi->wishlist['id']) !!}">{{ $gi->wishlist['title'] }}</a>
+          </p>
         </div>
         <br/><br /><br />
         <hr />

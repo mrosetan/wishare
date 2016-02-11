@@ -813,21 +813,21 @@ class UserProfilesController extends Controller
             $tr['tracked'] = '';
             $tr['tracks'] = '';
 
-            $tr['favorited'] = FavoriteTrack::where('wishid', $tr->wish->id)
+            $tr['favorited'] = FavoriteTrack::where('wishid', $tr->wish['id'])
                                                 ->where('userid', $userId)
                                                 ->where('type', 2)
                                                 ->first();
 
-            $tr['faves'] = FavoriteTrack::where('wishid', '=', $tr->wish->id)
+            $tr['faves'] = FavoriteTrack::where('wishid', '=', $tr->wish['id'])
                                   ->where('type', '=', 2)
                                   ->count();
 
-            $tr['tracked'] = FavoriteTrack::where('wishid', $tr->wish->id)
+            $tr['tracked'] = FavoriteTrack::where('wishid', $tr->wish['id'])
                                                 ->where('userid', $userId)
                                                 ->where('type', 1)
                                                 ->first();
 
-            $tr['tracks'] = FavoriteTrack::where('wishid', '=', $tr->wish->id)
+            $tr['tracks'] = FavoriteTrack::where('wishid', '=', $tr->wish['id'])
                                   ->where('type', '=', 1)
                                   ->count();
           }
