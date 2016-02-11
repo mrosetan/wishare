@@ -11,8 +11,8 @@
           @foreach($errors->all() as $error)
               <p class="alert alert-danger"> {{ $error }}</p>
           @endforeach
-          @if(isset($wishlists) and count($wish) > 0)
-          {!! Form::open(array('action'=>array('UserController@reWish', $wish['id']), 'class' => 'form', 'files'=>true)) !!}
+          @if(isset($wishlists) and count($rewishWish) > 0)
+          {!! Form::open(array('action'=>array('UserController@reWish', $rewishWish['id']), 'class' => 'form', 'files'=>true)) !!}
           <div class="form-group">
             <div class="row">
               <div class="col-md-12">
@@ -22,7 +22,7 @@
             <br />
             <div class="row">
               <div class="col-md-12">
-                {!! Form::text('title', $wish['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true', 'value'=>$wish['title'])) !!}
+                {!! Form::text('title', $rewishWish['title'], array('class'=>'form-control', 'placeholder'=>'Wish', 'disabled'=>'true', 'value'=>$rewishWish['title'])) !!}
               </div>
             </div>
             <br />

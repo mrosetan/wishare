@@ -3405,7 +3405,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user->id;
-    $wish = Wish::where('id', '=', $id)->first();
+    $rewishWish = Wish::where('id', '=', $id)->first();
     $rewishTags = Tag::with('user')->where('wishid', '=', $id)->get();
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
                       ->lists('title', 'id');
@@ -3462,7 +3462,7 @@ class UserController extends Controller
     $notifs = $n->sortByDesc('created_at');
     $notifs->values()->all();
 
-    return view('userlayouts.rewish', compact('wish', 'rewishTags', 'wishlists', 'friends', 'user', 'requests', 'notifs', 'tags', 'grant'));
+    return view('userlayouts.rewish', compact('wish', 'rewishWish', 'rewishTags', 'wishlists', 'friends', 'user', 'requests', 'notifs', 'tags', 'grant'));
   }
 
   public function grantWish(GrantWishRequest $request, $id)
