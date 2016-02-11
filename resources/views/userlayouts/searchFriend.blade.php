@@ -42,8 +42,10 @@
                                 </div>
                               </a>
                             </div>
-                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}"><h4>{{ $r->firstname }} {{ $r->lastname }}</h4>
-                              {{ $r->username }}</a>
+                                <a href="{!! action('UserProfilesController@profile', $r->id) !!}">
+                                  <h4>&nbsp;&nbsp;&nbsp;{{ $r->firstname }} {{ $r->lastname }}</h4>
+                                  &nbsp;&nbsp;&nbsp;{{ $r->username }}
+                                </a>
                           </td>
 
                       </tr>
