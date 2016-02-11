@@ -212,12 +212,14 @@
                             <div class="panel-body list-group list-group-contacts scroll" style="height: 400px;">
                               @if(count($grant)>0)
                                 @foreach($grant as $g)
-                                <a href="{!! action('SoloWishController@wish', $g['id']) !!}" class="list-group-item" style="height: 60px;">
+                                <a href="{!! action('SoloWishController@wish', $g['id']) !!}" class="list-group-item" style="height: 70px;">
                                     <div class="image-thumbnail inline">
                                       {!! Html::image('' . $g->granter['imageurl'], '', array('class'=>'pull-left user-image')) !!}
                                     </div>
 
-                                    <span class="contacts-title inline">&nbsp;{!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!} granted your wish: </span>{!! $g['title'] !!}
+                                    <span class="contacts-title inline">&nbsp;{!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!}&nbsp;</span>sent a grant request
+                                    <br/>
+                                    <b>&nbsp;{!! $g['title'] !!}</b>
                                     <div class="pull-right inline request-btns">
                                       {!! Form::open(array(
                                                     'action' => array('UserController@confirmGrantRequest', $g['id']),
