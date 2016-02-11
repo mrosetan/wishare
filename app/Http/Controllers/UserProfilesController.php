@@ -39,6 +39,11 @@ class UserProfilesController extends Controller
 {
   public function profile($id)
   {
+    $otherUser = User::where('id', '=', $id)->firstorFail();
+    if($otherUser->type == 0){
+      return redirect()->action('PagesController@index');
+    }
+
     $user = Auth::user();
 
     if($user != null)
@@ -304,13 +309,14 @@ class UserProfilesController extends Controller
   public function wishWishlists($id)
   {
     $user = Auth::user();
+    $userId = $user['id'];
 
     if ($user != null) {
       $userId = $user['id'];
 
       if($userId != $id)
       {
-        $otherUser = User::where('id', '=', $id)->firstorFail();
+        $otherUser = User::where('id', '=', $id)->first();
         // dd($id);
         $requests = Friend::with('friendRequest')
                             ->where('userid', '=', $id)

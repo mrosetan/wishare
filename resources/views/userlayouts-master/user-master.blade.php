@@ -70,14 +70,14 @@
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
-                            <img src="{!! $user->imageurl !!}" alt="{!! $user->firstname !!} {!! $user->lastname !!}"/>
+                            <img src="{!! $user->imageurl !!}" alt="{{ $user->firstname }} {{ $user->lastname }}"/>
                         </a>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="{!! $user->imageurl !!}" alt="{!! $user->username !!}"/>
+                                <img src="{!! $user->imageurl !!}" alt="{{ $user->username }}"/>
                             </div>
                             <div class="profile-data">
-                                <div class="profile-data-name">{!! $user->firstname !!} {!! $user->lastname !!}</div>
+                                <div class="profile-data-name">{{ $user->firstname }} {{ $user->lastname }}</div>
 
                             </div>
                             <div class="profile-controls">
@@ -93,9 +93,9 @@
                         <a href="{!! action('UserProfilesController@profile', $user['id']) !!}"><span class="glyphicon glyphicon-user"></span> <span class="xn-text">Profile</span></a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                       <a href="{{ url('user/notifications') }}"><span class="fa fa-globe"></span> <span class="xn-text">Notifications</span></a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="{{ url('user/notes') }}"><span class="glyphicon glyphicon-envelope"></span> <span class="xn-text">Notes</span></a>
                     </li>
@@ -112,7 +112,7 @@
                         <a href="{{ url('user/action/tynotes') }}"><class="mb-control" data-box="#mb-tynotes"><span class="glyphicon glyphicon-envelope"></span><span class="xn-text">Send Thank You Note</span></a>
                     </li>
                     <li>
-                        <a href="{{ url('user/help') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
+                        <a href="{{ url('user/w') }}"><span class="fa fa-question-circle"></span> <span class="xn-text">Help</span></a>
                     </li>
                     <!-- <li class="xn-openable">
                         <a href="#"><span class="fa fa-gear"></span> <span class="xn-text">Settings</span></a>
@@ -158,14 +158,123 @@
                           {!! Form::close()!!}
                       </li>
                     </div>
-                    <!-- <div class="pull-right">
-                      <li class="xn-search">
-                          <form role="form">
-                              <input type="text" name="search" placeholder="Search..."/>
-                          </form>
-                      </li>
-                    </div> -->
-                    <!-- END TOGGLE NAVIGATION -->
+
+                    <li class="xn-icon-button pull-right">
+                        <a href="#"><span class="fa fa-tasks"></span></a>
+                        <!-- <div class="informer informer-danger">4</div> -->
+                        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="fa fa-tasks"></span> Activity</h3>
+                                <!-- <div class="pull-right">
+                                    <span class="label label-danger">4 new</span>
+                                </div> -->
+                            </div>
+                            <div class="panel-body list-group list-group-contacts scroll" style="height: 400px;">
+                              @if(count($notifs)>0)
+                                @foreach($notifs as $n)
+                                    @if($n->notificationtype == 'tagged')
+                                    <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}" class="list-group-item" style="height: 70px;">
+                                      {!! Html::image('' . $n->tagger['imageurl'], '', array('class'=>'pull-left')) !!}
+                                      <span class="contacts-title">{!! $n->tagger['firstname'] !!} {!! $n->tagger['lastname'] !!}</span> tagged you in a wish:<br/>
+                                      <b>{!! $n->wish['title'] !!}</b>
+                                      <small class="pull-right">{!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}</small>
+                                    </a>
+                                    @else
+                                      @if($n->user->id != $user->id)
+                                      <a href="{!! action('SoloWishController@wish', $n->wish['id'] ) !!}" class="list-group-item" style="height: 60px;">
+                                        {!! Html::image('' . $n->user['imageurl'], '', array('class'=>'pull-left')) !!}
+                                        <span class="contacts-title">{!! $n->user['firstname'] !!} {!! $n->user['lastname'] !!}</span> {!! $n['notificationtype'] !!} your wish:<br/>
+                                        <b>{!! $n->wish['title'] !!}</b>
+                                        <small class="pull-right">{!! date('F d, Y g:i A', strtotime($n['created_at'])) !!}</small>
+                                      </a>
+                                      @endif
+                                    @endif
+                                @endforeach
+                              @endif
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="xn-icon-button pull-right">
+                        <a href="#"><span class="fa fa-magic"></span></a>
+                        @if(count($grant) > 0)
+                          <div class="informer informer-danger">{!! count($grant) !!}</div>
+                        @endif
+                        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="fa fa-magic"></span> Grant Requests</h3>
+                            </div>
+                            <div class="panel-body list-group list-group-contacts scroll" style="height: 400px;">
+                              @if(count($grant)>0)
+                                @foreach($grant as $g)
+                                <a href="{!! action('SoloWishController@wish', $g['id']) !!}" class="list-group-item" style="height: 60px;">
+                                    {!! Html::image('' . $g->granter['imageurl'], '', array('class'=>'pull-left')) !!}
+                                    <span class="contacts-title">{!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!} granted your wish: </span>{!! $g['title'] !!}
+                                    <div class="pull-right">
+                                      {!! Form::open(array(
+                                                    'action' => array('UserController@confirmGrantRequest', $g['id']),
+                                                    'class' => 'form friendActions friend-action-button',
+                                                    'method'=> 'get')) !!}
+                                          {!! Form::submit('Accept', array('class'=>'btn btn-info')) !!}
+                                      {!! Form::close() !!}
+                                      {!! Form::open(array(
+                                                    'action' => array('UserController@declineGrantRequest', $g['id']),
+                                                    'class' => 'form friendActions friend-action-button',
+                                                    'method' => 'get')) !!}
+                                          {!! Form::submit('Decline', array('class'=>'btn btn-default')) !!}
+                                      {!! Form::close() !!}
+                                    </div>
+                                </a>
+                                @endforeach
+                                @else
+                                <a href="#" class="list-group-item" style="text-align: center;">
+                                  No grant request(s).
+                                </a>
+                              @endif
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="xn-icon-button pull-right">
+                        <a href="#"><span class="fa fa-user"></span></a>
+                        @if(count($requests) > 0)
+                          <div class="informer informer-info">{!! count($requests) !!}</div>
+                        @endif
+                        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="fa fa-user"></span> Friend Requests</h3>
+                            </div>
+                            <div class="panel-body list-group list-group-contacts scroll" style="height: 400px;">
+                              @if(count($requests)>0)
+                                @foreach($requests as $r)
+                                  <a href="#" class="list-group-item" style="height: 60px;">
+                                        {!! Html::image('' . $r->friendRequest['imageurl'], '', array('class'=>'pull-left')) !!}
+                                      <span class="contacts-title">{!! $r->friendRequest->firstname !!} {!! $r->friendRequest['lastname'] !!}</span>
+                                      <div class="pull-right">
+                                        {!! Form::open(array(
+                                                      'action' => array('UserController@acceptFriendRequest', $r['id']),
+                                                      'class' => 'form friendActions friend-action-button',
+                                                      'method' => 'get')) !!}
+                                            {!! Form::submit('Accept', array('class'=>'btn btn-info btn-sm')) !!}
+                                        {!! Form::close() !!}
+                                        {!! Form::open(array(
+                                                      'action' => array('UserController@declineFriendRequest', $r['id']),
+                                                      'class' => 'form friendActions friend-action-button',
+                                                      'method' => 'get')) !!}
+                                            {!! Form::submit('Decline', array('class'=>'btn btn-default btn-sm')) !!}
+                                        {!! Form::close() !!}
+                                      </div>
+                                  </a>
+                                @endforeach
+                              @else
+                                <a href="#" class="list-group-item" style="text-align: center;">
+                                  No friend request(s).
+                                </a>
+                              @endif
+                            </div>
+                        </div>
+                    </li>
+
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->
 

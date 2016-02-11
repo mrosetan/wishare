@@ -13,9 +13,8 @@ li.tagged-user{
 }
 
 .solo{
-  /*width: 700px !important;*/
-  margin-left: auto !important;
-  margin-right: auto !important;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .favetrack-count{

@@ -5,9 +5,9 @@
 <div class="page-title">
     <h2></h2>
 </div>
-<div class="solo ">
-  <div class="row">
-    <div class=" col-md-6 col-md-offset-3">
+<div class=" ">
+  <div class="row solo">
+    <div class=" col-md-12">
 
       <div class="panel panel-default">
           <div class="panel-body">
@@ -21,21 +21,21 @@
                   <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span></span> Pending Grant Request </span>
                 @endif
 
-                <h4>{!! $wish->title !!}</h4>
+                <h4>{{ $wish->title }}</h4>
 
                 <p>
-                  Wishlist: {!! $wish->wishlist->title !!}
+                  Wishlist: {{ $wish->wishlist->title }}
                 </p>
 
                 <p>
-                  Wisher: <a href="{!! action('OtherUserController@profile', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
+                  Wisher: <a href="{!! action('OtherUserController@profile', $wish->user->id) !!}">{{ $wish->user->username }}</a>
                 </p>
 
 
 
                 @if(!empty($wish->details))
                   <p>
-                    Details: {!! $wish->details !!}
+                    Details: {{ $wish->details }}
                     <br />
                   </p>
 
@@ -43,7 +43,7 @@
 
                 @if(!empty($wish->alternatives))
                 <p>
-                  Alternatives: {!! $wish->alternatives !!}
+                  Alternatives: {{ $wish->alternatives }}
                   <br />
                 </p>
 
@@ -63,7 +63,7 @@
                   <ul class="list-tags">
                   @foreach($tags as $t)
                       <li class="tagged-user">
-                         <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!! $t->user->lastname !!}</a>
+                         <a href="{!! action('OtherUserController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {{ $t->user->firstname }} {{ $t->user->lastname }}</a>
                       </li>
                   @endforeach
                   </ul>
@@ -90,7 +90,7 @@
 
                         @if($wish->granted == 1)
                           <p>
-                            Granter: <a href="{!! action('OtherUserController@profile', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
+                            Granter: <a href="{!! action('OtherUserController@profile', $wish->granterid) !!}">{{ $wish->granter->username }}</a>
                           </p>
                           @endif
 
@@ -103,14 +103,14 @@
 
                           @if(!empty($wish->granteddetails))
                           <p>
-                            Details: {!! $wish->granteddetails !!}
+                            Details: {{ $wish->granteddetails }}
                             <br />
                           </p>
 
                           @endif
 
                           <hr />
-                          @if($wish->grantedimageurl == 'null')
+                          @if(empty($wish->grantedimageurl))
                             <div></div>
                           @else
                             <div class="wish-image-container">

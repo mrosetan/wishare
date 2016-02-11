@@ -2,7 +2,7 @@
 @section('title', 'Search')
 
 @section('content')
-<div class="row">
+<div class="row search-wrapper">
     <div class="col-md-12">
 
 
@@ -40,8 +40,8 @@
                                 <img class="user stream img-circle" src="{!! $r['imageurl'] !!}">
                               </a>
                             </div>
-                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}"><h4>{!! $r->firstname !!} {!! $r->lastname!!}</h4>
-                              {!! $r->username !!}</a>
+                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}"><h4>{{ $r->firstname }} {{ $r->lastname }}</h4>
+                              {{ $r->username }}</a>
                           </td>
 
                       </tr>

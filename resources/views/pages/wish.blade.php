@@ -5,9 +5,9 @@
 <div class="page-title">
     <h2></h2>
 </div>
-<div class="solo ">
-  <div class="row">
-    <div class=" col-md-6 col-md-offset-3">
+<div class=" ">
+  <div class="row solo">
+    <div class=" col-md-12">
 
       <div class="panel panel-default">
           <div class="panel-body">
@@ -21,21 +21,21 @@
                   <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span></span> Pending Grant Request </span>
                 @endif
 
-                <h4>{!! $wish->title !!}</h4>
+                <h4>{{ $wish->title }}</h4>
 
                 <p>
-                  Wishlist: {!! $wish->wishlist->title !!}
+                  Wishlist: {{ $wish->wishlist->title }}
                 </p>
 
                 <p>
-                  Wisher: <a href="{!! action('UserProfilesController@profile', $wish->user->id) !!}">{!! $wish->user->username !!}</a>
+                  Wisher: <a href="{!! action('UserProfilesController@profile', $wish->user->id) !!}">{{ $wish->user->username }}</a>
                 </p>
 
 
 
                 @if(!empty($wish->details))
                   <p>
-                    Details: {!! $wish->details !!}
+                    Details: {{ $wish->details }}
                     <br />
                   </p>
 
@@ -43,7 +43,7 @@
 
                 @if(!empty($wish->alternatives))
                 <p>
-                  Alternatives: {!! $wish->alternatives !!}
+                  Alternatives: {{ $wish->alternatives }}
                   <br />
                 </p>
 
@@ -63,7 +63,7 @@
                   <ul class="list-tags">
                   @foreach($tags as $t)
                       <li class="tagged-user">
-                         <a href="{!! action('UserProfilesController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {!! $t->user->firstname !!} {!! $t->user->lastname !!}</a>
+                         <a href="{!! action('UserProfilesController@profile', $t->user->id) !!}"><span class="fa fa-tag"></span> {{ $t->user->firstname }} {{ $t->user->lastname }}</a>
                       </li>
                   @endforeach
                   </ul>
@@ -90,7 +90,7 @@
 
                         @if($wish->granted == 1)
                           <p>
-                            Granter: <a href="{!! action('UserProfilesController@profile', $wish->granterid) !!}">{!! $wish->granter->username !!}</a>
+                            Granter: <a href="{!! action('UserProfilesController@profile', $wish->granterid) !!}">{{ $wish->granter->username }}</a>
                           </p>
                           @endif
 
@@ -103,14 +103,14 @@
 
                           @if(!empty($wish->granteddetails))
                           <p>
-                            Details: {!! $wish->granteddetails !!}
+                            Details: {{ $wish->granteddetails }}
                             <br />
                           </p>
 
                           @endif
 
                           <hr />
-                          @if($wish->grantedimageurl == 'null')
+                          @if(empty($wish->grantedimageurl))
                             <div></div>
                           @else
                             <div class="wish-image-container">
@@ -164,17 +164,18 @@
 </div>
 
 @if($wish->user->id == $user->id)
+  @if($wish->granted == 1)
     <!-- message box-->
     <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
         <div class="mb-container">
             <div class="mb-middle">
-                <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
+                <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Remove Granted Details</div>
                 <div class="mb-content">
-                    <p>Are you sure you want to delete this wish?</p>
+                    <p>Are you sure you want to remove granted details?</p>
                 </div>
                 <div class="mb-footer">
                     <div class="pull-right">
-                        <a href="{!! action('UserController@deleteWish', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                        <a href="{!! action('UserController@deleteWishGranted', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
                         <button class="btn btn-default btn-lg mb-control-close">No</button>
                     </div>
                 </div>
@@ -182,7 +183,31 @@
         </div>
     </div>
     <!-- message box-->
-
+    @endif
+    @if($wish->granted == 2)
+      @if(isset($wishes))
+        @foreach($wishes as $wish)
+          <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
+              <div class="mb-container">
+                  <div class="mb-middle">
+                      <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Wish</div>
+                      <div class="mb-content">
+                          <p>Are you sure you want to delete this wish?</p>
+                      </div>
+                      <div class="mb-footer">
+                          @if(!empty($wishes))
+                          <div class="pull-right">
+                              <a href="{!! action('UserController@deleteWish', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                              <button class="btn btn-default btn-lg mb-control-close">No</button>
+                          </div>
+                          @endif
+                      </div>
+                  </div>
+              </div>
+          </div>
+        @endforeach
+      @endif
+    @endif
   @endif
 
 @endsection

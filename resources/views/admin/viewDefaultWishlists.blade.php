@@ -37,11 +37,11 @@
                     <tbody>
                       @foreach($defaultwishlists as $dw)
                         <tr>
-                            <td>{!! $dw->id !!}</td>
-                            <td>{!! $dw->title !!}</td>
-                            <td>{!! $dw->created_at !!}</td>
+                            <td>{{ $dw->id }}</td>
+                            <td>{{ $dw->title }}</td>
+                            <td>{{ $dw->created_at }}</td>
                             <td>
-                              <a href="{!! action('AdminController@editDefaultWishlist', $dw->id) !!}"><span class="glyphicon glyphicon-edit"></span></a>
+                              <a href="{{ action('AdminController@editDefaultWishlist', $dw->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                               <a href="#" class="mb-control" data-box="#mb-delete"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
 
@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="mb-footer">
                                             <div class="pull-right">
-                                                <a href="{!! action('AdminController@deleteDefaultWishlist', $dw->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                                <a href="{{ action('AdminController@deleteDefaultWishlist', $dw->id) }}" class="btn btn-success btn-lg">Yes</a>
                                                 <button class="btn btn-default btn-lg mb-control-close">No</button>
                                             </div>
                                         </div>
@@ -68,7 +68,7 @@
                     </tbody>
                 </table>
 
-                {!! $defaultwishlists->render() !!}
+                {{ $defaultwishlists->render() }}
               @endif
             </div>
         </div>
@@ -114,26 +114,26 @@
                       <tbody>
                         @foreach($defaultwishlists as $dw)
                           <tr>
-                              <td>{!! $dw->id !!}</td>
-                              <td>{!! $dw->title !!}</td>
-                              <td>{!! $dw->created_at !!}</td>
+                              <td>{{ $dw->id }}</td>
+                              <td>{{ $dw->title }}</td>
+                              <td>{{ date('F d, Y g:i A', strtotime($dw->created_at))    }}</td>
                               <td>
-                                <a href="{!! action('AdminController@editDefaultWishlist', $dw->id) !!}"><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Edit Details"><span class="glyphicon glyphicon-edit"></span></button></a>
-                                <!-- <a href="{!! action('AdminController@deleteDefaultWishlist', $dw->id) !!}"><span class="glyphicon glyphicon-trash"></span></a> -->
-                                <a href="#" class="mb-control" data-box="#mb-delete{!! $dw->id !!}"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactivate"><span class="glyphicon glyphicon-trash"></span></button></a>
+                                <a href="{{ action('AdminController@editDefaultWishlist', $dw->id) }}"><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Edit Details"><span class="glyphicon glyphicon-edit"></span></button></a>
+                                <!-- <a href="{{ action('AdminController@deleteDefaultWishlist', $dw->id) }}"><span class="glyphicon glyphicon-trash"></span></a> -->
+                                <a href="#" class="mb-control" data-box="#mb-delete{{ $dw->id }}"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactivate"><span class="glyphicon glyphicon-trash"></span></button></a>
                               </td>
 
                               <!-- MESSAGE BOX-->
-                              <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{!! $dw->id !!}">
+                              <div class="message-box animated fadeIn" data-sound="alert" id="mb-delete{{ $dw->id }}">
                                   <div class="mb-container">
                                       <div class="mb-middle">
-                                          <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Delete {!! $dw->title !!}?</div>
+                                          <div class="mb-title"><span class="glyphicon glyphicon-trash"></span> Delete {{ $dw->title }}?</div>
                                           <div class="mb-content">
                                               <p>Are you sure you want to delete this wishlist?</p>
                                           </div>
                                           <div class="mb-footer">
                                               <div class="pull-right">
-                                                  <a href="{!! action('AdminController@deleteDefaultWishlist', $dw->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                                                  <a href="{{ action('AdminController@deleteDefaultWishlist', $dw->id) }}" class="btn btn-success btn-lg">Yes</a>
                                                   <button class="btn btn-default btn-lg mb-control-close">No</button>
                                               </div>
                                           </div>

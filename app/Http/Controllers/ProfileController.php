@@ -55,7 +55,14 @@ class ProfileController extends Controller
                   ->take(5)
                   ->get();
 
-    return view('userlayouts-master.profile-master', compact('user', 'wishes'));
+    $wishlists = Wishlist::with('wishes')
+                          ->where('createdby_id', '=', $id)
+                          ->where('status', '=', 1)
+                          ->where('privacy', '=', 0)
+                          ->orderBy('created_at', 'desc')
+                          ->get();
+
+    return view('userlayouts-master.profile-master', compact('user', 'wishes', 'wishlists'));
   }
 
   public function findProfile($id)
@@ -271,7 +278,7 @@ class ProfileController extends Controller
     {
       $usersWithTYNotes = User::with('tynotesOf')->get();
       $tynotes = User::find($userId)->tynotesOf->reverse();
-    }  
+    }
     return view('profile.profile-tynotes', compact('user', 'tynotes'));
   }
 

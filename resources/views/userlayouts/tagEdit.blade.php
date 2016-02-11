@@ -25,9 +25,9 @@
 
                           @foreach($friends as $f)
                               @if($f->tagstatus == 1)
-                                <option value="{!! $f->id !!}" selected="selected"> {!!$f->firstname !!} {!! $f->lastname !!} ( {!! $f->username !!} ) </option>
+                                <option value="{!! $f->id !!}" selected="selected"> {{ $f->firstname }} {{ $f->lastname }} ( {{ $f->username }} ) </option>
                               @else
-                                <option value="{!! $f->id !!}">{!!$f->firstname !!} {!! $f->lastname !!} ({!! $f->username !!})</option>
+                                <option value="{!! $f->id !!}">{{ $f->firstname }} {{ $f->lastname }} ({{ $f->username }})</option>
                               @endif
                           @endforeach
 

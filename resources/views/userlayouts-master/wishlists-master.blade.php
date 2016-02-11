@@ -2,18 +2,22 @@
 <html lang="en">
     <head>
         <!-- META SECTION -->
-        <title>@yield('title')</title>
-        <!-- FACEBOOK SHARE -->
-        <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
+        <link rel="image_src" href="http://www.wishare.net/img/backgrounds/bg14.jpg" />
+        <link rel="canonical" href="http://www.wishare.net/{!! $wishlist['id'] !!}" />
+        <meta name="description"          content="Wishing and wish-granting socialized." />
+        <meta property="og:url"           content="http://www.wishare.net/{!! $wishlist['id'] !!}" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
         <meta property="og:description"   content="Wishing and wish-granting socialized." />
-        <meta property="og:image"         content="http://www.wishare.net/img/logo1.jpg" />
+        <meta property="og:image"         content="http://www.wishare.net/img/backgrounds/bg14.jpg" />
         <meta property="fb:app_id"        content="456045444586296" />
+        
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>@yield('title')</title>
+        <!-- FACEBOOK SHARE -->
 
         <link rel="icon" href="{{ URL::asset('img/icon.png') }}" type="image/x-icon" />
         <!-- END META SECTION -->
@@ -42,10 +46,10 @@
             });
             FB.ui({
               method: 'share_open_graph',
-              href: 'http://www.wishare.net/',
+              href: 'http://www.wishare.net/{!! $wishlist['id'] !!}',
               action_type: 'og.likes',
               action_properties: JSON.stringify({
-                  object:'http://www.wishare.net/', //URL of site
+                  object:'http://www.wishare.net/{!! $wishlist['id'] !!}', //URL of site
                 })
               }, function(response){
                 if (response && !response.error_message) {

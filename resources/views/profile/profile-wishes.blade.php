@@ -2,7 +2,7 @@
 @section('title', 'Wishlist')
 @section('content')
 <br />
-<div class="solo">
+<div class="">
   <div class="row">
     <div class=" col-md-6 col-md-offset-3">
       <div class="panel panel-default">
@@ -11,8 +11,8 @@
             @foreach($wishlists as $wishlist)
             <div class="wish-gallery-container">
               <div class="page-title">
-                  <h3><span class="fa fa-magic"></span> {!! $wishlist['title'] !!} </h3>
-                  <b>Created by:</b> {!! $wishlist->user['firstname']!!} {!! $wishlist->user['lastname'] !!}
+                  <h3><span class="fa fa-magic"></span> {{ $wishlist['title'] }} </h3>
+                  <b>Created by:</b> {{ $wishlist->user['firstname'] }} {{ $wishlist->user['lastname'] }}
                   <br />
                   <div class="fb-share-button" data-href="http://www.wishare.net/wishlist/{!! $wishlist['id'] !!}" data-layout="icon"></div>
               </div>
@@ -21,25 +21,25 @@
                 @foreach($wishlist->wishes as $wish)
                 @if($wish['wishimageurl'] != null)
                   <div class="gallery-item">
-                      <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+                      <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{{ $wish['title'] }}">
                         <div class="image image-container">
-                            <img src="{!! $wish['wishimageurl'] !!}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
+                            <img src="{!! $wish['wishimageurl'] !!}" alt="{{ $wish['title'] }}" class="wishes-image"/>
                         </div>
                       </a>
                       <div class="meta">
-                        <strong>{!! $wish['title'] !!}</strong>
+                        <strong>{{ $wish['title'] }}</strong>
                       </div>
                   </div>
                   @endif
                   @if($wish['wishimageurl'] == null)
                   <div class="gallery-item">
-                      <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{!! $wish['title'] !!}">
+                      <a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}" title="{{ $wish['title'] }}">
                         <div class="image image-container">
-                            <img src="{{ URL::asset('img/default/default.jpg') }}" alt="{!! $wish['title'] !!}" class="wishes-image"/>
+                            <img src="{{ URL::asset('img/default/default.jpg') }}" alt="{{ $wish['title'] }}" class="wishes-image"/>
                         </div>
                       </a>
                       <div class="meta">
-                        <strong>{!! $wish['title'] !!}</strong>
+                        <strong>{{ $wish['title'] }}</strong>
                       </div>
                   </div>
                   @endif
