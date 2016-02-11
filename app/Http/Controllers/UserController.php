@@ -1336,7 +1336,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user['id'];
-    
+
     $wish = Wish::where('id', '=', $id)->first();
 
     if(!empty($wish)){
@@ -2296,7 +2296,7 @@ class UserController extends Controller
     $notifs = $n->sortByDesc('created_at');
     $notifs->values()->all();
 
-    return redirect('profile/wishlists');
+    return redirect()->action('UserProfilesController@wishWishlists', [$user->id]);
   }
 
   public function getWishlist()
