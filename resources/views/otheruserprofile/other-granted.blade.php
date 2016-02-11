@@ -8,15 +8,19 @@
       <div class="panel-body">
         <div class="pull-left">
           <a href="#">
-            <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
+            <div class="user stream image-circle">
+              <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
+            </div>
           </a>
-          <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b>'s wish has been granted: <b><a href="{!! action('SoloWishController@wish', $gr['id'] ) !!}">{{ $gr['title'] }}</a></b>
-          <br />
-            <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gr['updated_at']))  !!}
-          <br />
-            <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $gr->wishlist['id']) !!}">{{ $gr->wishlist['title'] }}</a>
-          <br />
-            <b>Granted by: </b><a href="{!! action('UserProfilesController@profile', $gr->granter['id']) !!}">{{ $gr->granter['firstname'] }}  {{ $gr->granter['lastname'] }}</a>
+          <p class="profile-header">
+            <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b>'s wish has been granted: <b><a href="{!! action('SoloWishController@wish', $gr['id'] ) !!}">{{ $gr['title'] }}</a></b>
+            <br />
+              <b>Date: </b>{!! date('F d, Y g:i A', strtotime($gr['updated_at']))  !!}
+            <br />
+              <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $gr->wishlist['id']) !!}">{{ $gr->wishlist['title'] }}</a>
+            <br />
+              <b>Granted by: </b><a href="{!! action('UserProfilesController@profile', $gr->granter['id']) !!}">{{ $gr->granter['firstname'] }}  {{ $gr->granter['lastname'] }}</a>
+          </p>
         </div>
         <br/><br /><br />
         <hr />

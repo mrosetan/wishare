@@ -11,13 +11,17 @@
         <div class="panel-body">
           <div class="pull-left">
             <a href="#">
-              <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
+              <div class="user stream image-circle">
+                <img class="user stream img-circle" src="{!! $user['imageurl'] !!}">
+              </div>
             </a>
-            <b>{{ $user['firstname'] }} {{ $user['lastname'] }}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{{ $wish['title'] }}</a></b>
-            <br />
+            <p class="profile-header">
+              <b>{{ $user['firstname'] }} {{ $user['lastname'] }}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{{ $wish['title'] }}</a></b>
+              <br/>
               <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
-            <br />
+              <br/>
               <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $wish->wishlist['id']) !!}">{{ $wish->wishlist['title'] }}</a>
+            </p>
           </div>
           <br/><br /><br />
           <hr />

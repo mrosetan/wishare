@@ -28,26 +28,29 @@
                     <div class="col-xs-12">
                       <div class="pull-left">
                         <a href="{!! !empty($s['imageurl']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
-                          <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
+                          <div class="user stream image-circle">
+                            <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
+                          </div>
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
-                          <b>{{ $s['firstname'] }} {{ $s['lastname'] }} </b>( {{ $s['username'] }} )
-                        </a>
-                        @if($s['created_at'] == $s['updated_at'])
-                           added a new wish.
-                        @else
-                          @if(($s['granterid'] != 0) and ($s['date_granted'] == '0000-00-00 00:00:00'))
-                            's wish has a grant request
+                        <p>
+                          <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
+                            <b>{{ $s['firstname'] }} {{ $s['lastname'] }} </b>( {{ $s['username'] }} )
+                          </a>
+                          @if($s['created_at'] == $s['updated_at'])
+                             added a new wish.
                           @else
-                            updated a wish.
+                            @if(($s['granterid'] != 0) and ($s['date_granted'] == '0000-00-00 00:00:00'))
+                              's wish has a grant request
+                            @else
+                              updated a wish.
+                            @endif
                           @endif
-                        @endif
-                        <br />
-                        {!! date('F d, Y g:i A', strtotime($s['updated_at']))  !!}
-                      </div>
-
+                          <br />
+                          {!! date('F d, Y g:i A', strtotime($s['updated_at']))  !!}
+                        </div>
+                      </p>
                     </div>
                     <hr />
                     <div class="col-xs-12">
@@ -145,18 +148,22 @@
                     <div class="col-xs-12">
                       <div class="pull-left">
                         <a href="{!! !empty($s['imageurl']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
-                          <img class="user stream img-circle" src="{!! $s['imageurl'] !!}">
+                          <div class="user stream image-circle">
+                            <img class="user stream img-circle" src="{!! $s['imageurl'] !!}" class="user stream img-circle">
+                          </div>
                         </a>
                       </div>
                       <div class="stream-header">
-                        <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
-                          <b>{{ $s['firstname'] }} {{ $s['lastname'] }} </b>( {{ $s['username'] }} )'s
-                        </a>
-                        wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserProfilesController@profile', $s['granterid']) : '' !!}">
-                          <b>{{ $s['granterfirstname'] }} {{ $s['granterlastname'] }} </b>( {{ $s['granterusername'] }} ).
-                        </a>
-                        <br />
-                        {!! date('F d, Y g:i A', strtotime($s['date_granted']))  !!}
+                        <p>
+                          <a href="{!! !empty($s['firstname']) || !empty($s['lastname']) || !empty($s['username']) ? action('UserProfilesController@profile', $s['userid']) : '' !!}">
+                            <b>{{ $s['firstname'] }} {{ $s['lastname'] }} </b>( {{ $s['username'] }} )'s
+                          </a>
+                          wish has been granted by <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserProfilesController@profile', $s['granterid']) : '' !!}">
+                            <b>{{ $s['granterfirstname'] }} {{ $s['granterlastname'] }} </b>( {{ $s['granterusername'] }} ).
+                          </a>
+                          <br />
+                          {!! date('F d, Y g:i A', strtotime($s['date_granted']))  !!}
+                        </p>
                       </div>
 
                     </div>
@@ -251,30 +258,36 @@
                         <div class="col-xs-12">
                           <div class="pull-left">
                             <a href="{!! !empty($s['granterimageurl']) ? action('UserProfilesController@profile', $s['granterid']) : '' !!}">
-                              <img class="user granter img-circle" src="{!! $s['granterimageurl'] !!}">
+                              <div class="user stream image-circle">
+                                <img class="user stream img-circle" src="{!! $s['granterimageurl'] !!}">
+                              </div>
                             </a>
                           </div>
                           <div class="stream-header">
+                            <p>
                             <a href="{!! !empty($s['granterfirstname']) || !empty($s['granterlastname']) || !empty($s['granterusername']) ? action('UserProfilesController@profile', $s['granterid']) : '' !!}">
                               <b>{{ $s['granterfirstname'] }} {{ $s['granterlastname'] }} </b>( {{ $s['granterusername'] }} ):
                             </a>
+                            </p>
                           </div>
 
                         </div>
-
-                        <div class="col-xs-12">
-                          <p class="granter-caption">
-                            {{ $s['granteddetails'] }}
-                          </p>
-                        </div>
-                        @if(!empty($s['grantedimageurl']))
-                          <div id ="links" class="col-xs-12 stream-body">
-                            <a href="{!! $s['grantedimageurl'] !!}" title="'{{ $s['title'] }}' wished by: {{ $s['username'] }} granted by: {{ $s['granterusername'] }}" data-gallery>
-                                <img src="{!! $s['grantedimageurl'] !!}" class="img-responsive stream-wish-img"/>
-                            </a>
+                        <div class="stream-header">
+                          <p>
+                          <div class="col-xs-12">
+                            <p class="granter-caption">
+                              {{ $s['granteddetails'] }}
+                            </p>
                           </div>
-                        @endif
-
+                          @if(!empty($s['grantedimageurl']))
+                            <div id ="links" class="col-xs-12 stream-body">
+                              <a href="{!! $s['grantedimageurl'] !!}" title="'{{ $s['title'] }}' wished by: {{ $s['username'] }} granted by: {{ $s['granterusername'] }}" data-gallery>
+                                  <img src="{!! $s['grantedimageurl'] !!}" class="img-responsive stream-wish-img"/>
+                              </a>
+                            </div>
+                          @endif
+                        </p>
+                      </div>
                       </div>
                     </div>
 

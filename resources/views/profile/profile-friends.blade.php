@@ -9,8 +9,8 @@
           <!-- CONTACT ITEM -->
           <div class="panel panel-default">
               <div class="panel-body profile">
-                  <div class="profile-image">
-                      <img src="{!! $fr['imageurl'] !!}" alt="{{ $fr['firstname'] }} {{ $fr['lastname'] }}"/>
+                  <div class="profile-image-thumbnail">
+                      <img src="{!! $fr['imageurl'] !!}" alt="{{ $fr['firstname'] }} {{ $fr['lastname'] }}" class="profile-img-thumbnail"/>
                   </div>
                   <div class="profile-data">
                       <div class="profile-data-name"><a href="{!! action('UserProfilesController@profile', $fr['id'] ) !!}">{{ $fr['firstname'] }} {{ $fr['lastname'] }}</a></div>

@@ -101,8 +101,8 @@
                             <!-- <div class="panel-body profile" style="background: url('assets/images/gallery/music-4.jpg') center center no-repeat;"> -->
                             <!-- END OF COVER PHOTO -->
 
-                              <div class="profile-image">
-                                  <img src="{!! $otherUser['imageurl'] !!}" />
+                              <div class="profile-image-thumbnail">
+                                  <img src="{!! $otherUser['imageurl'] !!}" class="profile-img-thumbnail"/>
                               </div>
                               <div class="profile-data">
                                   <div class="profile-data-name">{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</div>

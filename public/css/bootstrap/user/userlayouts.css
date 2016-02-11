@@ -82,10 +82,19 @@ h5.user-name{
   margin-top: 10px;
 }
 
+.user.stream.image-circle {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+}
+
 img.user.stream.img-circle {
-  height: 60px;
-  width: 60px;
+  height: auto;
+  width: 100%;
   margin-right: 20px;
+  border-radius: 5px;
+  border: 0px;
 }
 
 img.user.granter.img-circle {
@@ -100,8 +109,9 @@ img.user.granter.img-circle {
 .granter-grantee-body{
   padding: 15px;
 }
-.stream-header{
+.stream-header p{
   margin-top: 10px;
+  margin-left: 10%;
 }
 .stream-body{
   margin-top: 10px;
@@ -110,7 +120,7 @@ img.user.granter.img-circle {
 .stream-wish-img{
   width: 100% !important;
 }
-.stream-margin{
+.stream-margin {
   margin-left: 80px;
 }
 
@@ -385,4 +395,44 @@ img.tynote-image {
 
 .wp-body{
   color: #fff;
+}
+
+.image-thumbnail {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-thumbnail img.pull-left.user-image {
+  height: auto;
+  width: 100%;
+  border-radius: 0px;
+}
+
+.inline {
+  float: left;
+}
+
+.clearBoth {
+  clear: both;
+}
+
+div.pull-right.inline.request-btns {
+  margin-top: 5px;
+}
+
+.profile-image-thumbnail {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+.profile-img-thumbnail {
+  height: auto;
+  width: 100%;
+  border-radius: 0px;
 }

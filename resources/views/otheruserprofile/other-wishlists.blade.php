@@ -8,7 +8,9 @@
       <div class="panel-body">
         <div class="pull-left">
           <a href="#">
-            <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
+            <div class="user stream image-circle">
+              <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
+            </div>
           </a>
           <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b> added a new wish: <b><a href="{!! action('SoloWishController@wish', $wish['id'] ) !!}">{{ $wish['title'] }}</a></b>
           <br />
