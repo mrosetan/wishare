@@ -17,7 +17,7 @@
                   <span class="label label-success label-form wish-label"><span class="fa fa-check"></span> Granted </span>
                 @endif
 
-                @if($wish->granted == 2)
+                @if($wish->granterid != 0 AND $wish->date_granted == '0000-00-00 00:00:00')
                   <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span></span> Pending Grant Request </span>
                 @endif
 
