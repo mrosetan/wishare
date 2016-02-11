@@ -55,8 +55,8 @@ $(document).ready(function(){
       if(fave == "favorite"){
         $.ajax({
             type: 'POST',
-            // url: 'http://wishare.net/favorite',
-            url: '/wishare/public/favorite',
+            url: 'http://www.wishare.net/favorite',
+            // url: '/wishare/public/favorite',
             data: {id: wishid},
             context: this,
             success: function(faves)
@@ -77,8 +77,8 @@ $(document).ready(function(){
       else{
         $.ajax({
             type: 'POST',
-            // url: 'http://wishare.net/unfavorite',
-            url: '/wishare/public/unfavorite',
+            url: 'http://www.wishare.net/unfavorite',
+            // url: '/wishare/public/unfavorite',
             data: {id: wishid},
             context: this,
             success: function(faves)
@@ -109,8 +109,8 @@ $(document).ready(function(){
       if(track == "trackwish"){
         $.ajax({
             type: 'POST',
-            // url: 'http://wishare.net/trackwish',
-            url: '/wishare/public/trackwish',
+            url: 'http://www.wishare.net/trackwish',
+            // url: '/wishare/public/trackwish',
             data: {id: wishid},
             context: this,
             success: function(tracks)
@@ -130,8 +130,8 @@ $(document).ready(function(){
       else{
         $.ajax({
             type: 'POST',
-            // url: 'http://wishare.net/untrackwish',
-            url: '/wishare/public/untrackwish',
+            url: 'http://www.wishare.net/untrackwish',
+            // url: '/wishare/public/untrackwish',
             data: {id: wishid},
             context: this,
             success: function(tracks)
