@@ -7,10 +7,9 @@ use Socialite;
 use App\Http\Requests;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
-// use Illuminate\Contracts\Auth\Authenticable;
+// use Illuminate\Contracts\Auth\Authenticatable;
  // use Laravel\Socialite\Contracts\Factory as Socialite;
 
-use Authenticable;
 use Auth;
 use Session;
 use App\User;
@@ -186,6 +185,7 @@ class AuthController extends Controller
     else{
       return redirect()->action('PagesController@fbemailerror');
     }     
+    return $authUser;
   }
 
   // public function __construct(Socialite $socialite){
