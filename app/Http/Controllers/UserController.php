@@ -248,10 +248,14 @@ class UserController extends Controller
                     ->where('type', '=', 1)
                     ->where('status', '=', 1)
                     ->where(function ($query) use ($search){
-                        $query->where('firstname', 'like', '%'.$search.'%')
+                        $query->where('username', 'like', '%'.$search.'%')
                               ->orWhere('lastname', 'like', '%'.$search.'%')
-                              ->orWhere('username', 'like', '%'.$search.'%');
+                              ->orWhere('firstname', 'like', '%'.$search.'%')
+                              ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', "%".$search."%");                      
                     })
+                     ->orderBy('firstname')
+                     ->orderBy('lastname')
+                     ->orderBy('username')
                     // ->where('firstname', 'like', '%'.$search.'%')
                     // ->orWhere('lastname', 'like', '%'.$search.'%')
                     // ->orWhere('username', 'like', '%'.$search.'%')
