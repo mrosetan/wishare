@@ -127,9 +127,9 @@
 
 
                     <div class="favetrack-count pull-right">
-                      <span class="count">{!! $wish['faves'] !!} Favorited</span>
+                      <span class="count">{!! $wish['faves'] !!} </span><a class="favetrack-count" data-toggle="modal" data-target="#modal_faves">Favorited</a>
                       &nbsp;&nbsp;
-                       <span class="count">{!! $wish['tracks'] !!} Tracked</span>
+                       <span class="count">{!! $wish['tracks'] !!} </span><a class="favetrack-count" data-toggle="modal" data-target="#modal_tracks">Tracked</a>
                     </div>
                     <br/>
 
@@ -150,4 +150,47 @@
     </div>
   </div>
 </div>
+
+  <div class="modal" id="modal_faves" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="defModalHead">People who favorited this wish:</h4>
+              </div>
+              <div class="modal-body">
+                  <ol>
+                    @foreach($wish['favoriters'] as $favoriters)
+                      <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $favoriters->user->firstname }} {{ $favoriters->user->lastname }}</b> ( {{ $favoriters->user->username }} )</a></li>
+                    @endforeach
+                  </ol>                  
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal" id="modal_tracks" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="defModalHead">People who tracked this wish:</h4>
+              </div>
+              <div class="modal-body">
+                  <ol>
+                    @foreach($wish['trackers'] as $trackers)
+                      <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $trackers->user->firstname }} {{ $trackers->user->lastname }}</b> ( {{ $trackers->user->username }} )</a></li>
+                    @endforeach
+                  </ol>                  
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
 @endsection

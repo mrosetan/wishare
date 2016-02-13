@@ -36,7 +36,7 @@
                       <tr>
                           <td>
                             <div class="pull-left">
-                              <a href="{!! !empty($r['imageurl']) ? action('UserProfilesController@profile', $r['userid']) : '' !!}">
+                              <a href="{!! !empty($r['imageurl']) ? action('UserProfilesController@profile', $r['id']) : '' !!}">
                                 <div class="user stream image-circle">
                                   <img class="user stream img-circle" src="{!! $r['imageurl'] !!}">
                                 </div>

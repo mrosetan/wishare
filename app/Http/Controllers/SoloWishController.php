@@ -65,6 +65,12 @@ class SoloWishController extends Controller
                                 ->where('type', '=', 2)
                                 ->count();
 
+          $wish['favoriters'] = FavoriteTrack::with('user')
+                                ->where('wishid', '=', $wish->id)
+                                ->where('type', '=', 2)
+                                ->orderBy('created_at', 'desc')
+                                ->get();
+
           $wish['tracked'] = FavoriteTrack::where('wishid', $wish->id)
                                               ->where('userid', $userId)
                                               ->where('type', 1)
@@ -73,6 +79,12 @@ class SoloWishController extends Controller
           $wish['tracks'] = FavoriteTrack::where('wishid', '=', $wish->id)
                                 ->where('type', '=', 1)
                                 ->count();
+
+          $wish['trackers'] = FavoriteTrack::with('user')
+                                ->where('wishid', '=', $wish->id)
+                                ->where('type', '=', 1)
+                                ->orderBy('created_at', 'desc')
+                                ->get();
         }
 
         $grant = Wish::where('id', '=', $id)->get();
@@ -94,7 +106,7 @@ class SoloWishController extends Controller
           }
         }
         // dd($checkfriends);
-        // dd($wish);
+        // dd($wish['favoriters']['user']);
 
         return view('pages.wish', compact('wish', 'tags', 'wishlists', '$checkfriends', 'grant', 'user'));
       }
@@ -119,9 +131,21 @@ class SoloWishController extends Controller
                               ->where('type', '=', 2)
                               ->count();
 
+        $wish['favoriters'] = FavoriteTrack::with('user')
+                                ->where('wishid', '=', $wish->id)
+                                ->where('type', '=', 2)
+                                ->orderBy('created_at', 'desc')
+                                ->get();                      
+
         $wish['tracks'] = FavoriteTrack::where('wishid', '=', $wish->id)
                               ->where('type', '=', 1)
                               ->count();
+
+         $wish['trackers'] = FavoriteTrack::with('user')
+                                ->where('wishid', '=', $wish->id)
+                                ->where('type', '=', 1)
+                                ->orderBy('created_at', 'desc')
+                                ->get();                     
       }
 
       $grant = Wish::where('id', '=', $id)->get();
