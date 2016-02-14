@@ -10,16 +10,27 @@ use App\Http\Controllers\Controller;
 // use Illuminate\Contracts\Auth\Authenticatable;
  // use Laravel\Socialite\Contracts\Factory as Socialite;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+
 use Auth;
 use Session;
 use App\User;
 use App\DefaultWishlist;
 use App\Wishlist;
 
-class AuthController extends Controller
+class AuthController extends Controller implements AuthenticatableContract,
+                                    AuthorizableContract,
+                                    CanResetPasswordContract
 {
 
-
+  use Authenticatable, Authorizable, CanResetPassword;
+  
   public function __construct()
   {
       // $this->middleware('auth');
