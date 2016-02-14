@@ -104,8 +104,8 @@ class AuthController extends Controller
       // dd($user);
       $authUser = $this->findOrCreateUser($user);
 
-      // Auth::login($authUser, true);
-      Auth::login($authUser);
+      Auth::login($authUser, true);
+      // Auth::login($authUser);
       // Auth::loginUsingId($authUser->id);
       $user = Auth::user();
 
