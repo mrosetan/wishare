@@ -112,12 +112,18 @@ class AuthController extends Controller implements AuthenticatableContract,
       } catch (Exception $e) {
           return redirect('login/facebook');
       }
-      // dd($user);
+      
       $authUser = $this->findOrCreateUser($user);
-
-      Auth::login($authUser, true);
-      // Auth::login($authUser);
-      // Auth::loginUsingId($authUser->id);
+      // dd($authUser);
+      if(!is_null($authUser)){
+        Auth::login($authUser, true);
+        // Auth::login($authUser);
+        // Auth::loginUsingId($authUser->id);
+      }
+      else{
+        return redirect()->action('PagesController@fbemailerror');
+      }
+      
       $user = Auth::user();
 
       if($user->defaultwishlist == 0){
@@ -164,6 +170,7 @@ class AuthController extends Controller implements AuthenticatableContract,
 
   private function findOrCreateUser($fbUser)
   {
+    
     if ($authUser = User::where('fb_id', $fbUser->id)->first()) {
         // echo "1";
         // dd($authUser);
@@ -181,7 +188,9 @@ class AuthController extends Controller implements AuthenticatableContract,
     // else{
     // echo "3";
     // dd($fbUser);
-    if ($fbUser->email != null) {
+    if ($fbUser->email !== null) {
+      // echo "3";
+      // dd($fbUser->email);
       return User::create([
         'fb_id' => $fbUser->id,
         'lastname' => $fbUser->lastname,
@@ -195,9 +204,12 @@ class AuthController extends Controller implements AuthenticatableContract,
         'defaultwishlist' => 0,
       ]);
     }
-    else{
-      return redirect()->action('PagesController@fbemailerror');
-    }     
+    // else{
+    //   // echo "4";
+    //   // dd($fbUser);
+    //   return redirect()->action('PagesController@fbemailerror');
+    // }     
+    // dd($authUser);
     return $authUser;
   }
 
