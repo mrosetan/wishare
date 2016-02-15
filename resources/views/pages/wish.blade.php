@@ -17,8 +17,13 @@
                   <span class="label label-success label-form wish-label"><span class="fa fa-check"></span> Granted </span>
                 @endif
 
+<<<<<<< HEAD
                 @if(($wish->granterid != 0) and ($wish->date_granted == '0000-00-00 00:00:00'))
                   <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span> Pending Grant Request </span>
+=======
+                @if($wish->granterid != 0 AND $wish->date_granted == '0000-00-00 00:00:00')
+                  <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span></span> Pending Grant Request </span>
+>>>>>>> b51d62d6176c2b233498b0a03978b94b2b5396f2
                 @endif
 
                 <h4>{{ $wish->title }}</h4>
@@ -122,9 +127,9 @@
                 @endif
 
                 <div class="wishaction-btns pull-right">
-                    <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($wish['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($wish['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $wish['faves'] !!}</span>  </span> <span class="favetrack-count">Favorited</span>
+                    <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Favorite" class="favorite" data-favestatus="{!! !empty($wish['favorited']) ? 'unfave' : 'favorite' !!}"><span class="fa fa-star {!! !empty($wish['favorited']) ? 'favorited-icon' : 'unfave-icon' !!}"></span> <span class="count">{!! $wish['faves'] !!}</span>  </span> <a class="favetrack-count" data-toggle="modal" data-target="#modal_faves">Favorited</a>
                     &nbsp;&nbsp;
-                    <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span>  </span> <span class="favetrack-count">Tracked</span>
+                    <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span>  </span> <a class="favetrack-count" data-toggle="modal" data-target="#modal_tracks">Tracked</a>
                     &nbsp;&nbsp;
                     <a href="{!! action('UserController@rewishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
 
@@ -209,5 +214,47 @@
       @endif
     @endif
   @endif
+
+  <div class="modal" id="modal_faves" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="defModalHead">People who favorited this wish:</h4>
+              </div>
+              <div class="modal-body">
+                  <ol>
+                    @foreach($wish['favoriters'] as $favoriters)
+                      <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $favoriters->user->firstname }} {{ $favoriters->user->lastname }}</b> ( {{ $favoriters->user->username }} )</a></li>
+                    @endforeach
+                  </ol>                  
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal" id="modal_tracks" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="defModalHead">People who tracked this wish:</h4>
+              </div>
+              <div class="modal-body">
+                  <ol>
+                    @foreach($wish['trackers'] as $trackers)
+                      <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $trackers->user->firstname }} {{ $trackers->user->lastname }}</b> ( {{ $trackers->user->username }} )</a></li>
+                    @endforeach
+                  </ol>                  
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
 
 @endsection
