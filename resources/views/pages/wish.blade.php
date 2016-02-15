@@ -17,8 +17,8 @@
                   <span class="label label-success label-form wish-label"><span class="fa fa-check"></span> Granted </span>
                 @endif
 
-                @if($wish->granted == 2)
-                  <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span></span> Pending Grant Request </span>
+                @if(($wish->granterid != 0) and ($wish->date_granted == '0000-00-00 00:00:00'))
+                  <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span> Pending Grant Request </span>
                 @endif
 
                 <h4>{{ $wish->title }}</h4>
@@ -184,7 +184,7 @@
     </div>
     <!-- message box-->
     @endif
-    @if($wish->granted == 2)
+    @if(($wish->granterid != 0) and ($wish->date_granted == '0000-00-00 00:00:00'))
       @if(isset($wishes))
         @foreach($wishes as $wish)
           <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">

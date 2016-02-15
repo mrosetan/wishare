@@ -2,8 +2,11 @@
 @section('title', 'Wishes')
 @section('newcontent')
 <br />
+
+
 @if(isset($wishes))
     @foreach($wishes as $wish)
+
     @if($wish->wishlist['privacy'] == 0)
       @if($wish->wishlist['status'] == 1)
       @if(!empty($user))

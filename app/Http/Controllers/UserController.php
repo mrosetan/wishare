@@ -695,7 +695,7 @@ class UserController extends Controller
 
     $newImage = '';
     $hostURL = 'images.wishare.net';
-    // $hostURL = '192.168.1.9';
+    // $hostURL = '192.168.1.28';
     $newImage = Input::file('wishimageurl');
     for ($i=0; $i < count($tags); $i++) {
       $wish = Wish::where('id', '=', $tags[$i]['wishid'])->where('status', '=', 1)->first();
@@ -737,7 +737,7 @@ class UserController extends Controller
 
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.9';
+    $hostURL = '192.168.1.28';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null)
@@ -857,7 +857,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.9';
+    $hostURL = '192.168.1.28';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -1173,7 +1173,7 @@ class UserController extends Controller
     $user = Auth::user();
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.9';
+    $hostURL = '192.168.1.28';
     $newImage = Input::file('wishimageurl');
 
     if($newImage == null) {
@@ -1681,7 +1681,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.9/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -1973,7 +1973,7 @@ class UserController extends Controller
     $id = $user->id;
     $newImage = '';
     // $hostURL = 'images.wishare.net';
-    $hostURL = '192.168.1.9';
+    $hostURL = '192.168.1.28';
     $newImage = Input::file('imageurl');
     if($newImage == null)
     {
@@ -2204,7 +2204,7 @@ class UserController extends Controller
     $wishlist = Wishlist::where('id', $id)->firstorFail();
     $wishlist->status = 0;
     $wishlist->save();
-    
+
     return redirect()->action('UserProfilesController@wishWishlists', [$user->id]);
   }
 
@@ -2760,7 +2760,7 @@ class UserController extends Controller
       $userId = $user->id;
       $newImage = '';
       $newImage = Input::file('imageurl');
-      $hostURL = '192.168.1.9';
+      $hostURL = '192.168.1.28';
       // $hostURL = 'images.wishare.net';
       $grant = Wish::where('createdby_id', '=', $user['id'])
                     ->where('status', '=', 1)
@@ -3185,7 +3185,7 @@ class UserController extends Controller
     $user = Auth::user();
 
     $newImage = '';
-    $hostURL = '192.168.1.9';
+    $hostURL = '192.168.1.28';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('wishimageurl');
 
@@ -3371,7 +3371,7 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $newImage = '';
-    $hostURL = '192.168.1.9';
+    $hostURL = '192.168.1.28';
     // $hostURL = 'images.wishare.net';
     $newImage = Input::file('grantedimageurl');
 
