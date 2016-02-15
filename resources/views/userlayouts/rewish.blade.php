@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <label>Due Date:</label>
-                {!! Form::text('due_date', date('Y-m-d'), array('class'=>'calendar form-control', 'id'=>'datepicker')) !!}
+                {!! Form::text('due_date', "Select a date you want to have this wish", array('class'=>'calendar form-control', 'id'=>'datepicker')) !!}
               </div>
             </div>
             <br />
