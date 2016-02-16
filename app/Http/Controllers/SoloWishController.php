@@ -48,6 +48,7 @@ class SoloWishController extends Controller
         $wish = Wish::with('granter', 'wishlist', 'user')->where('id', '=', $id)->first();
         // dd($wish);
         if (!empty($wish)) {
+
           $wish['favorited'] = '';
 
           $wish['faves'] = '';
