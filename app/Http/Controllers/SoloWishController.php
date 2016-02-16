@@ -106,7 +106,7 @@ class SoloWishController extends Controller
           }
         }
         // dd($checkfriends);
-        // dd($wish['favoriters']['user']);
+        // dd($wish['favoriters']);
 
         return view('pages.wish', compact('wish', 'tags', 'wishlists', '$checkfriends', 'grant', 'user'));
       }
@@ -135,7 +135,7 @@ class SoloWishController extends Controller
                                 ->where('wishid', '=', $wish->id)
                                 ->where('type', '=', 2)
                                 ->orderBy('created_at', 'desc')
-                                ->get();                      
+                                ->get();
 
         $wish['tracks'] = FavoriteTrack::where('wishid', '=', $wish->id)
                               ->where('type', '=', 1)
@@ -145,7 +145,7 @@ class SoloWishController extends Controller
                                 ->where('wishid', '=', $wish->id)
                                 ->where('type', '=', 1)
                                 ->orderBy('created_at', 'desc')
-                                ->get();                     
+                                ->get();
       }
 
       $grant = Wish::where('id', '=', $id)->get();
