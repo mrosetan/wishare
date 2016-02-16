@@ -159,6 +159,18 @@ img.user.granter.img-circle {
   color: #428bca;
 }
 
+.grantwish{
+  cursor: pointer;
+}
+
+.granted-icon {
+  color: #ce5a57;
+}
+
+.ungranted-icon{
+  color: #428bca;
+}
+
 .count{
   font-size: 12px;
   /*display: table-cell;

@@ -135,7 +135,7 @@ class SoloWishController extends Controller
                                 ->where('wishid', '=', $wish->id)
                                 ->where('type', '=', 2)
                                 ->orderBy('created_at', 'desc')
-                                ->get();                      
+                                ->get();
 
         $wish['tracks'] = FavoriteTrack::where('wishid', '=', $wish->id)
                               ->where('type', '=', 1)
@@ -145,7 +145,7 @@ class SoloWishController extends Controller
                                 ->where('wishid', '=', $wish->id)
                                 ->where('type', '=', 1)
                                 ->orderBy('created_at', 'desc')
-                                ->get();                     
+                                ->get();
       }
 
       $grant = Wish::where('id', '=', $id)->get();
