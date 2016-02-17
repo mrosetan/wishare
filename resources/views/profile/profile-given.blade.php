@@ -45,6 +45,12 @@
       <!-- end of panel body -->
     </div>
     @endforeach
+@else
+<div class="panel panel-default">
+  <div class="panel-body">
+    No wishes given.
+  </div>
+</div>
 @endif
 
 <!-- message box-->

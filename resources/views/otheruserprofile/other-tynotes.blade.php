@@ -31,4 +31,12 @@
   @endforeach
 @endif
 
+@if(count($tynotes) == 0)
+<div class="panel panel-default">
+  <div class="panel-body">
+    No Thank You Notes.
+  </div>
+</div>
+@endif
+
 @endsection

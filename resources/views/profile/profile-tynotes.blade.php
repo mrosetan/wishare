@@ -34,6 +34,14 @@
   @endforeach
 @endif
 
+@if(count($tynotes) == 0)
+<div class="panel panel-default">
+  <div class="panel-body">
+    No Thank You Notes.
+  </div>
+</div>
+@endif
+
 @if(isset($tynotes) and $tynotes->count())
   @foreach($tynotes as $tyid => $ty)
     <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletetynote{!! $tyid !!}">

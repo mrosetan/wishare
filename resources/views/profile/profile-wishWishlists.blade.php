@@ -33,6 +33,14 @@
   @endforeach
 @endif
 
+@if(count($wishlists) == 0)
+<div class="panel panel-default">
+  <div class="panel-body">
+    No wishlists.
+  </div>
+</div>
+@endif
+
 <!-- message box-->
 @if(isset($wishlists))
   @foreach($wishlists as $id => $wishlist)

@@ -2,6 +2,7 @@
 @section('title', 'Tracked')
 @section('newcontent')
 <br />
+
 @if(isset($tracked))
     @foreach($tracked as $tr)
     <div class="panel panel-default">
@@ -48,7 +49,15 @@
     </div>
     @endforeach
 @endif
+@if(count($tracked) == 0)
+<div class="panel panel-default">
+  <div class="panel-body">
+    No tracked wishes.
+  </div>
+</div>
+@endif
 
+@foreach($tracked as $tr)
 <div class="modal" id="modal_grant{!! $tr->wish['id'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -93,6 +102,7 @@
         </div>
     </div>
 </div>
+@endforeach
 
 
 @endsection

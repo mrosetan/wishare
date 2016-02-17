@@ -74,6 +74,14 @@
   @endforeach
 @endif
 
+@if(count($wishes) == 0)
+<div class="panel panel-default">
+  <div class="panel-body">
+    No wishes.
+  </div>
+</div>
+@endif
+
 <!-- message box-->
 @if(isset($wishes))
   @foreach($wishes as $wish)

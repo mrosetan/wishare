@@ -1431,7 +1431,7 @@ class UserController extends Controller
 
     if(!empty($wish)) {
       $wish->granted = 0;
-      $wish->granterid = 0;
+      $wish->granterid = 0;   
       $wish->granteddetails = '';
       $wish->grantedimageurl = '';
       $wish->date_granted = '';

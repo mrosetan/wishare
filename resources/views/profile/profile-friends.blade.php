@@ -28,4 +28,12 @@
   </div>
 @endif
 
+@if(count($friends) == 0)
+<div class="panel panel-default">
+  <div class="panel-body">
+    No friends.
+  </div>
+</div>
+@endif
+
 @endsection
