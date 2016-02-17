@@ -125,6 +125,7 @@
                                 <a href="{!! action('UserProfilesController@tracked', $user['id']) !!}" class="list-group-item"><span class="fa fa-bookmark"></span> Tracked Wishes </a>
                                 <a href="{!! action('UserProfilesController@friends', $user['id']) !!}" class="list-group-item"><span class="fa fa-users"></span> Friends </a>
                                 <a href="{!! action('UserProfilesController@tynotes', $user['id']) !!}" class="list-group-item"><span class="fa fa-envelope"></span> Thank You Notes </a>
+                                <a href="{{ url('user/settings') }}" class="list-group-item"><span class="fa fa-gear"></span> Settings </a>
                             </div>
                         </div>
 

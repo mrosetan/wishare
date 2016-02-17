@@ -219,7 +219,7 @@
 
                                     <span class="contacts-title inline">&nbsp;{!! $g->granter['firstname'] !!} {!! $g->granter['lastname'] !!}&nbsp;</span>sent a grant request
                                     <br/>
-                                    <b>&nbsp;{!! $g['title'] !!}</b>
+                                    <b>&nbsp;&nbsp;{!! $g['title'] !!}</b>
                                     <div class="pull-right inline request-btns">
                                       {!! Form::open(array(
                                                     'action' => array('UserController@confirmGrantRequest', $g['id']),

@@ -36,14 +36,18 @@
                       <tr>
                           <td>
                             <div class="pull-left">
-                              <a href="{!! !empty($r['imageurl']) ? action('UserProfilesController@profile', $r['userid']) : '' !!}">
-                                <img class="user stream img-circle" src="{!! $r['imageurl'] !!}">
+                              <a href="{!! !empty($r['imageurl']) ? action('UserProfilesController@profile', $r['id']) : '' !!}">
+                                <div class="user stream image-circle">
+                                  <img class="user stream img-circle" src="{!! $r['imageurl'] !!}">
+                                </div>
                               </a>
                             </div>
-                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}"><h4>{{ $r->firstname }} {{ $r->lastname }}</h4>
-                              {{ $r->username }}</a>
+                            <div style="margin-top: 15px; margin-left: 8%;">
+                              <a href="{!! action('UserProfilesController@profile', $r->id) !!}">
+                                <h5>{{ $r->firstname }} {{ $r->lastname }} ({{ $r->username }})</h5>
+                              </a>
+                            </div>
                           </td>
-
                       </tr>
                     @endforeach
                   </tbody>

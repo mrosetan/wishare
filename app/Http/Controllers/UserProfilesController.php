@@ -46,6 +46,7 @@ class UserProfilesController extends Controller
 
     $user = Auth::user();
 
+
     if($user != null)
     {
       $userId = $user['id'];
@@ -95,10 +96,17 @@ class UserProfilesController extends Controller
         $wishes = Wish::with('wishlist')
                       ->where('createdby_id', '=', $id)
                       ->where('status', '=', 1)
-                      ->where('granted', '!=', 1)
+                      ->where('granted', '=', 0)
                       ->orderBy('created_at', 'desc')
                       ->take(5)
                       ->get();
+
+        $wishCount = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '=', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->count();
 
         if (!empty($wishes)) {
           foreach ($wishes as $w) {
@@ -140,10 +148,17 @@ class UserProfilesController extends Controller
         $wishes = Wish::with('wishlist', 'tags')
                       ->where('createdby_id', '=', $userId)
                       ->where('status', '=', 1)
-                      ->where('granted', '!=', 1)
+                      ->where('granted', '=', 0)
                       ->orderBy('created_at', 'desc')
                       ->take(5)
                       ->get();
+
+        $wishCount = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '=', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->count();
 
         if(!empty($wishes)){
           foreach ($wishes as $w) {
@@ -185,7 +200,7 @@ class UserProfilesController extends Controller
                                   ->count();
           }
         }
-        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags'));
+        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags', 'wishCount'));
       }
 
 
@@ -202,10 +217,17 @@ class UserProfilesController extends Controller
         $wishes = Wish::with('wishlist')
                       ->where('createdby_id', '=', $id)
                       ->where('status', '=', 1)
-                      ->where('granted', '!=', 1)
+                      ->where('granted', '=', 0)
                       ->orderBy('created_at', 'desc')
                       ->take(5)
                       ->get();
+
+        $wishCount = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '=', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->count();
 
         if (!empty($wishes)) {
           foreach ($wishes as $w) {
@@ -277,17 +299,17 @@ class UserProfilesController extends Controller
             $status= 0;
           }
 
-          return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status'));
+          return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status', 'wishCount'));
         }
         else{
-          return view('otheruserprofile.other-home', compact('otherUser', 'wishes', 'wishlistsList', 'requests', 'status', 'user'));
+          return view('otheruserprofile.other-home', compact('otherUser', 'wishes', 'wishlistsList', 'requests', 'status', 'user', 'wishCount'));
         }
 
       }
       else{
         // return redirect()->action('ProfileController@wishlists', [$id]);
         // echo "HOY"; die;
-        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags'));
+        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags', 'wishCount'));
       }
     }
     else {
@@ -296,10 +318,10 @@ class UserProfilesController extends Controller
       {
         $requests = array();
         $status = '';
-        return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status'));
+        return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status', 'wishCount'));
       }
       else {
-        return view('otheruserprofile.other-home', compact('otherUser', 'user', 'wishes', 'wishlistsList'));
+        return view('otheruserprofile.other-home', compact('otherUser', 'user', 'wishes', 'wishlistsList', 'wishCount'));
       }
 
     }

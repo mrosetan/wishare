@@ -25,7 +25,7 @@ class WishRequest extends Request
     {
         return [
             'title'    => 'required|max:30',
-            'due_date' => 'required|after:yesterday',
+            'due_date' => 'sometimes|after:yesterday',
             'wishimageurl' => 'image',
         ];
 

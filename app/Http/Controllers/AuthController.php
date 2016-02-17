@@ -7,8 +7,16 @@ use Socialite;
 use App\Http\Requests;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+// use Illuminate\Contracts\Auth\Authenticatable;
  // use Laravel\Socialite\Contracts\Factory as Socialite;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 use Auth;
 use Session;
@@ -16,10 +24,13 @@ use App\User;
 use App\DefaultWishlist;
 use App\Wishlist;
 
-class AuthController extends Controller
+class AuthController extends Controller implements AuthenticatableContract,
+                                    AuthorizableContract,
+                                    CanResetPasswordContract
 {
 
-
+  use Authenticatable, Authorizable, CanResetPassword;
+  
   public function __construct()
   {
       // $this->middleware('auth');
@@ -101,10 +112,18 @@ class AuthController extends Controller
       } catch (Exception $e) {
           return redirect('login/facebook');
       }
-      // dd($user);
+      
       $authUser = $this->findOrCreateUser($user);
-
-      Auth::login($authUser, true);
+      // dd($authUser);
+      if(!is_null($authUser)){
+        Auth::login($authUser, true);
+        // Auth::login($authUser);
+        // Auth::loginUsingId($authUser->id);
+      }
+      else{
+        return redirect()->action('PagesController@fbemailerror');
+      }
+      
       $user = Auth::user();
 
       if($user->defaultwishlist == 0){
@@ -151,6 +170,7 @@ class AuthController extends Controller
 
   private function findOrCreateUser($fbUser)
   {
+    
     if ($authUser = User::where('fb_id', $fbUser->id)->first()) {
         // echo "1";
         // dd($authUser);
@@ -168,7 +188,9 @@ class AuthController extends Controller
     // else{
     // echo "3";
     // dd($fbUser);
-    if ($fbUser->email != null) {
+    if ($fbUser->email !== null) {
+      // echo "3";
+      // dd($fbUser->email);
       return User::create([
         'fb_id' => $fbUser->id,
         'lastname' => $fbUser->lastname,
@@ -182,9 +204,13 @@ class AuthController extends Controller
         'defaultwishlist' => 0,
       ]);
     }
-    else{
-      return redirect()->action('PagesController@fbemailerror');
-    }     
+    // else{
+    //   // echo "4";
+    //   // dd($fbUser);
+    //   return redirect()->action('PagesController@fbemailerror');
+    // }     
+    // dd($authUser);
+    return $authUser;
   }
 
   // public function __construct(Socialite $socialite){

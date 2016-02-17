@@ -130,7 +130,8 @@
                 <a href="#" data-toggle="tooltip" data-placement="top" title="Track Wish"><span class="fa fa-bookmark"></span></a> -->
                 &nbsp;&nbsp;
                 <a href="{!! action('UserController@rewishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
-                  <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="#" class="mb-control" data-box="#mb-deletewish{!! $wish['id'] !!}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>
+                &nbsp;&nbsp;
               </div>
             @else
               <div class="alert alert-info">
