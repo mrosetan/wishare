@@ -1431,7 +1431,7 @@ class UserController extends Controller
 
     if(!empty($wish)) {
       $wish->granted = 0;
-      $wish->granterid = 0;   
+      $wish->granterid = 0;
       $wish->granteddetails = '';
       $wish->grantedimageurl = '';
       $wish->date_granted = '';
@@ -3059,7 +3059,7 @@ class UserController extends Controller
     $tynote->status = 0;
     $tynote->save();
 
-    $grant = Wish::where('createdby_id', '=', $user['id'])
+    $grant = Wish::where('createdby_id', '=', $userId)
                   ->where('status', '=', 1)
                   ->where('granted', '=', 0)
                   ->where('granterid', '!=', 0)
@@ -3109,10 +3109,7 @@ class UserController extends Controller
     $notifs = $n->sortByDesc('created_at');
     $notifs->values()->all();
 
-    if(count($tynote) > 1)
-     return redirect('user/profile#tab-ty');
-    else
-     return redirect('user/profile#tab-ty')->with('errormsg', 'No Thank You Notes.');
+    return redirect();
   }
 
   public function getAllNotes()

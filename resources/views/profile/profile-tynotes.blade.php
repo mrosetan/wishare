@@ -26,9 +26,6 @@
         <img src="{!! $ty->pivot['imageurl'] !!}" class="tynote-image" />
         @endif
         <hr/>
-        <div class="pull-right">
-          <a href="#" class="mb-control" data-box="#mb-deletetynote{!! $tyid !!}"><button class="btn btn-info">Delete</button></a>
-        </div>
       </div>
     </div>
   @endforeach
@@ -40,29 +37,6 @@
     No Thank You Notes.
   </div>
 </div>
-@endif
-
-@if(isset($tynotes) and $tynotes->count())
-  @foreach($tynotes as $tyid => $ty)
-    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletetynote{!! $tyid !!}">
-        <div class="mb-container">
-            <div class="mb-middle">
-                <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Delete Thank You Note</div>
-                <div class="mb-content">
-                    <p>Are you sure you want to delete this note?</p>
-                </div>
-                <div class="mb-footer">
-                    @if(!empty($ty))
-                    <div class="pull-right">
-                        <a href="{!! action('ProfileController@deleteTYNoteProfile', $ty->pivot->id) !!}" class="btn btn-success btn-lg">Yes</a>
-                        <button class="btn btn-default btn-lg mb-control-close">No</button>
-                    </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-  @endforeach
 @endif
 
 @endsection

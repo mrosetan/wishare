@@ -39,7 +39,7 @@ class UserProfilesController extends Controller
 {
   public function profile($id)
   {
-    $otherUser = User::where('id', '=', $id)->first();
+    $otherUser = User::where('id', '=', $id)->firstorFail();
     if($otherUser->type == 0){
       return redirect()->action('PagesController@index');
     }
@@ -53,7 +53,7 @@ class UserProfilesController extends Controller
 
       if($userId != $id){
 
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
         // dd($otherUser);
         $requests = Friend::with('friendRequest')
                             ->where('userid', '=', $id)
@@ -207,7 +207,7 @@ class UserProfilesController extends Controller
     }
 
     else {
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
         $wishlistsList = Wishlist::with('user')
                             ->where('createdby_id', '=', $id)
                             ->where('status', '=', 1)
@@ -260,7 +260,7 @@ class UserProfilesController extends Controller
     if($user != null){
       if($userId != $id)
       {
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
         dd($otherUser);
         if(($otherUser->privacy == 1) && $status != 1)
         {
@@ -403,7 +403,7 @@ class UserProfilesController extends Controller
     }
     else
     {
-      $otherUser = User::where('id', '=', $id)->first();
+      $otherUser = User::where('id', '=', $id)->firstorFail();
       // dd($id);
       $requests = '';
       $status= '';
@@ -434,7 +434,7 @@ class UserProfilesController extends Controller
       $userId = $user['id'];
 
       if($userId != $id){
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
 
         $requests = Friend::with('friendRequest')
                             ->where('userid', '=', $id)
@@ -559,13 +559,13 @@ class UserProfilesController extends Controller
     }
     else
     {
-      $otherUser = User::where('id', '=', $id)->first();
+      $otherUser = User::where('id', '=', $id)->firstorFail();
       if(($otherUser->privacy == 1) && $status != 1)
       {
         return redirect()->action('UserProfilesController@profile', [$id]);
       }
       else {
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
 
         $requests = '';
 
@@ -623,7 +623,7 @@ class UserProfilesController extends Controller
       $userId = $user['id'];
 
       if($userId != $id){
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
         $requests = Friend::with('friendRequest')
                             ->where('userid', '=', $id)
                             ->where('friend_userid', '=', $userId)
@@ -737,13 +737,13 @@ class UserProfilesController extends Controller
     }
     else
     {
-      $otherUser = User::where('id', '=', $id)->first();
+      $otherUser = User::where('id', '=', $id)->firstorFail();
       if($otherUser->privacy == 1)
       {
         return redirect()->action('UserProfilesController@profile', [$id]);
       }
       else {
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
 
         $requests = '';
         $given = Wish::with('user')
@@ -788,7 +788,7 @@ class UserProfilesController extends Controller
       $userId = $user['id'];
 
       if($userId != $id){
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
 
         $requests = Friend::with('friendRequest')
                             ->where('userid', '=', $id)
@@ -899,13 +899,13 @@ class UserProfilesController extends Controller
     }
     else
     {
-      $otherUser = User::where('id', '=', $id)->first();
+      $otherUser = User::where('id', '=', $id)->firstorFail();
       if($otherUser->privacy == 1)
       {
         return redirect()->action('UserProfilesController@profile', [$id]);
       }
       else {
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
         $requests = '';
 
 
@@ -947,7 +947,7 @@ class UserProfilesController extends Controller
       $userId = $user['id'];
 
       if($userId != $id){
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
 
         $requests = Friend::with('friendRequest')
                             ->where('userid', '=', $id)
@@ -997,13 +997,13 @@ class UserProfilesController extends Controller
     }
     else
     {
-      $otherUser = User::where('id', '=', $id)->first();
+      $otherUser = User::where('id', '=', $id)->firstorFail();
       if($otherUser->privacy == 1)
       {
         return redirect()->action('UserProfilesController@profile', [$id]);
       }
       else {
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
         $requests = '';
 
 
@@ -1020,49 +1020,53 @@ class UserProfilesController extends Controller
   public function tynotes($id)
   {
     $user = Auth::user();
+    $userId  = $user['id'];
 
     if ($user != null) {
       $userId = $user['id'];
 
       if($userId != $id){
+
         $otherUser = User::where('id', '=', $id)->first();
+        if(!empty($otherUser)) {
+          $otherUserID = $otherUser['id'];
 
-        $requests = Friend::with('friendRequest')
-                            ->where('userid', '=', $id)
-                            ->where('friend_userid', '=', $userId)
-                            ->where('status', '=', 0)
-                            ->get();
-
-        $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-        $friends = User::find($otherUser->id)->friends;
-
-        $friendRequest = Friend::where('userid', '=', $userId)
-                              ->where('friend_userid', '=', $id)
+          $requests = Friend::with('friendRequest')
+                              ->where('userid', '=', $id)
+                              ->where('friend_userid', '=', $userId)
                               ->where('status', '=', 0)
-                              ->first();
+                              ->get();
 
-        if(!empty($friendRequest)){
-          $status = 0;
-        }
-        else {
-          $status = 3;
-        }
+          $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+          $friends = User::find($otherUserID)->friends;
 
-        if(!empty($friends)){
-          foreach ($friends as $f) {
-            if ($f->id == $userId) {
-              $status = $f->pivot->status;
+          $friendRequest = Friend::where('userid', '=', $userId)
+                                ->where('friend_userid', '=', $id)
+                                ->where('status', '=', 0)
+                                ->first();
+
+          if(!empty($friendRequest)){
+            $status = 0;
+          }
+          else {
+            $status = 3;
+          }
+
+          if(!empty($friends)){
+            foreach ($friends as $f) {
+              if ($f->id == $userId) {
+                $status = $f->pivot->status;
+              }
             }
           }
-        }
-        else{
-          $status= 0;
-        }
+          else{
+            $status= 0;
+          }
 
-        $usersWithTYNotes = User::with('tynotesOf')->get();
-        $tynotes = User::find($id)->tynotesOf->reverse();
-
-        return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status', 'user'));
+          $usersWithTYNotes = User::with('tynotesOf')->get();
+          $tynotes = User::find($id)->tynotesOf->reverse();
+          return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status', 'user'));
+        }
       }
 
       if($userId = $id)
@@ -1078,13 +1082,13 @@ class UserProfilesController extends Controller
     }
     else
     {
-      $otherUser = User::where('id', '=', $id)->first();
+      $otherUser = User::where('id', '=', $id)->firstorFail();
       if($otherUser->privacy == 1)
       {
         return redirect()->action('UserProfilesController@profile', [$id]);
       }
       else {
-        $otherUser = User::where('id', '=', $id)->first();
+        $otherUser = User::where('id', '=', $id)->firstorFail();
         $requests = '';
 
         $usersWithTYNotes = User::with('tynotesOf')->get();
