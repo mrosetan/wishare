@@ -24,7 +24,7 @@ class RewishRequest extends Request
     public function rules()
     {
         return [
-          'due_date' => 'required|after:yesterday',
+          'due_date' => 'sometimes|after:yesterday',
           'wishimageurl' => 'image',
         ];
     }

@@ -18,7 +18,7 @@
                 @endif
 
                 @if($wish->granterid != 0 AND $wish->date_granted == '0000-00-00 00:00:00')
-                  <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span></span> Pending Grant Request </span>
+                  <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span> Pending Grant Request </span>
                 @endif
 
                 <h4>{{ $wish->title }}</h4>
@@ -127,7 +127,7 @@
                     <span data-wishid="{!! $wish->id !!}" data-toggle="tooltip" data-placement="top" title="Track Wish" class="trackwish" data-trackstatus="{!! !empty($wish['tracked']) ? 'untrack' : 'trackwish' !!}"><span class="fa fa-bookmark {!! !empty($wish['tracked']) ? 'tracked-icon' : 'untracked-icon' !!}"></span> <span class="count">{!! $wish['tracks'] !!}</span>  </span> <a class="favetrack-count" data-toggle="modal" data-target="#modal_tracks">Tracked</a>
                     &nbsp;&nbsp;
                     <a href="{!! action('UserController@rewishDetails', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Rewish"><span class="fa fa-retweet"></span></a>
-
+                    &nbsp;&nbsp;
 
                     @if($wish->user->id == $user->id)
                       &nbsp;&nbsp;
@@ -144,7 +144,16 @@
 
                         <span class="fa fa-trash-o"></span>
                       </a>
+                      &nbsp;&nbsp;
                     @endif
+
+                    @if($wish->granterid != 0 AND $wish->date_granted == '0000-00-00 00:00:00')
+                      @if($wish->granterid == $user->id)
+                        <span data-toggle="tooltip" data-placement="top" title="Grant"><a class="mb-control" data-box="#mb-deletegrant{!! $wish->id !!}"><span class="fa fa-magic granted-icon"></span></a></span>
+                      @endif
+                    @endif
+
+
                 </div>
               @else
                 <div class="alert alert-warning">
@@ -161,6 +170,23 @@
 
     </div>
   </div>
+</div>
+
+<div class="message-box animated fadeIn" data-sound="alert" id="mb-deletegrant{!! $wish->id !!}">
+    <div class="mb-container">
+        <div class="mb-middle">
+            <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Cancel Grant Request</div>
+            <div class="mb-content">
+                <p>Cancel grant request?</p>
+            </div>
+            <div class="mb-footer">
+                <div class="pull-right">
+                    <a href="{!! action('UserController@deleteWishGranted', $wish->id) !!}" class="btn btn-success btn-lg">Yes</a>
+                    <button class="btn btn-default btn-lg mb-control-close">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @if($wish->user->id == $user->id)
@@ -184,7 +210,7 @@
     </div>
     <!-- message box-->
     @endif
-    @if($wish->granted == 2)
+    @if(($wish->granterid != 0) and ($wish->date_granted == '0000-00-00 00:00:00'))
       @if(isset($wishes))
         @foreach($wishes as $wish)
           <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
@@ -210,6 +236,53 @@
     @endif
   @endif
 
+
+  <div class="modal" id="modal_grant{!! $wish['id'] !!}" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4>Grant Wish</h4>
+              </div>
+              <div class="modal-body">
+                @foreach($errors->all() as $error)
+                    <p class="alert alert-danger"> {{ $error }}</p>
+                @endforeach
+                {!! Form::open(array('action'=>array('UserController@grantWish', $wish['id']), 'class' => 'form', 'files'=>true)) !!}
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label>Wish</label>
+                      {!! Form::text('wish', $wish['title'], array('class'=>'form-control', 'placeholder'=>'', 'disabled'=>'disabled')) !!}
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-sm-12">
+                      {!! Form::text('granteddetails', null, array('class'=>'form-control', 'placeholder'=>'Caption'))!!}
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    {!! Form::file('grantedimageurl', array('class'=>'fileinput btn btn-info'))!!}
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="pull-right">
+                        {!! Form::submit('Grant', array('class'=>'btn btn-info')) !!}
+                        {!! Form::reset('Cancel', array('class'=>'btn btn-default')) !!}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {!! Form::close() !!}
+              </div>
+          </div>
+      </div>
+  </div>
+
+
   <div class="modal" id="modal_faves" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
@@ -222,7 +295,7 @@
                     @foreach($wish['favoriters'] as $favoriters)
                       <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $favoriters->user->firstname }} {{ $favoriters->user->lastname }}</b> ( {{ $favoriters->user->username }} )</a></li>
                     @endforeach
-                  </ol>                  
+                  </ol>
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -243,7 +316,7 @@
                     @foreach($wish['trackers'] as $trackers)
                       <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $trackers->user->firstname }} {{ $trackers->user->lastname }}</b> ( {{ $trackers->user->username }} )</a></li>
                     @endforeach
-                  </ol>                  
+                  </ol>
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -251,5 +324,6 @@
           </div>
       </div>
   </div>
+
 
 @endsection

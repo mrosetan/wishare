@@ -251,7 +251,7 @@ class UserController extends Controller
                         $query->where('username', 'like', '%'.$search.'%')
                               ->orWhere('lastname', 'like', '%'.$search.'%')
                               ->orWhere('firstname', 'like', '%'.$search.'%')
-                              ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', "%".$search."%");                      
+                              ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', "%".$search."%");
                     })
                      ->orderBy('firstname')
                      ->orderBy('lastname')
@@ -1685,7 +1685,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.1.9/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.28/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -2197,58 +2197,9 @@ class UserController extends Controller
     $wishlist->title = $request->get('title');
     $wishlist->privacy = $request->privacy;
     $wishlist->save();
-
-    $grant = Wish::where('createdby_id', '=', $user['id'])
-                  ->where('status', '=', 1)
-                  ->where('granted', '=', 0)
-                  ->where('granterid', '!=', 0)
-                  ->get();
-
-    if(!empty($grant))
-    {
-      for($i=0; $i < count($grant); $i++) {
-        $granter = User::where('id', '=', $grant[$i]['granterid'])->where('status', '=', 1)->first();
-        if(!empty($granter))
-          $grant[$i]['granter'] = $granter;
-      }
-    }
-
-    $requests = Friend::where('friend_userid', '=', $user['id'])->where('status', '=', '0')->get();
-    // print($requests);
-    // die();
-    $tags = Tag::where('userid', '=', $user['id'])->orderby('created_at', 'desc')->get();
-
-    for ($i=0; $i < count($tags); $i++) {
-      $wish = Wish::where('id', '=', $tags[$i]['wishid'])->where('status', '=', 1)->first();
-      // $tagger = User::where('id', '=', $tags[$i]['userid'])->where('status', '=', 1)->first();
-      if(!empty($wish)){
-        $tags[$i]['notificationtype'] = 'tagged';
-        $tagger = User::where('id', '=', $wish['createdby_id'])->where('status', '=', 1)->first();
-        $tags[$i]['wish'] = $wish;
-        if(!empty($tagger)){
-          $tags[$i]['tagger'] = $tagger;
-        }
-      }
-    }
-
-    $trackfave = FavoriteTrack::with('wish', 'user')->whereHas('wish', function($query) use($user){
-      $query->where('createdby_id', '=', $user['id']);
-    })->get();
-    // dd($trackfave);
-    foreach ($trackfave as $tf) {
-      if ($tf->type == 1) {
-        $tf['notificationtype'] = 'tracked';
-      }
-      else {
-        $tf['notificationtype'] = 'favorited';
-      }
-    }
-    // dd($trackfave);
-    $n = $tags->merge($trackfave);
-    $notifs = $n->sortByDesc('created_at');
-    $notifs->values()->all();
     //return Redirect::back()->with('wishlistSettings', 'Wishlist udpated successfully!');
-    return redirect('profile/wishlists')->with('wishlistSettings', 'Wishlist udpated successfully!');
+    // return redirect('profile/wishlists')->with('wishlistSettings', 'Wishlist udpated successfully!');
+    return redirect()->action('UserProfilesController@wishWishlists', [$user->id]);
   }
 
   public function deleteWishlist($id)
@@ -2257,56 +2208,6 @@ class UserController extends Controller
     $wishlist = Wishlist::where('id', $id)->firstorFail();
     $wishlist->status = 0;
     $wishlist->save();
-
-    $grant = Wish::where('createdby_id', '=', $user['id'])
-                  ->where('status', '=', 1)
-                  ->where('granted', '=', 0)
-                  ->where('granterid', '!=', 0)
-                  ->get();
-
-    if(!empty($grant))
-    {
-      for($i=0; $i < count($grant); $i++) {
-        $granter = User::where('id', '=', $grant[$i]['granterid'])->where('status', '=', 1)->first();
-        if(!empty($granter))
-          $grant[$i]['granter'] = $granter;
-      }
-    }
-
-    $requests = Friend::where('friend_userid', '=', $user['id'])->where('status', '=', '0')->get();
-    // print($requests);
-    // die();
-    $tags = Tag::where('userid', '=', $user['id'])->orderby('created_at', 'desc')->get();
-
-    for ($i=0; $i < count($tags); $i++) {
-      $wish = Wish::where('id', '=', $tags[$i]['wishid'])->where('status', '=', 1)->first();
-      // $tagger = User::where('id', '=', $tags[$i]['userid'])->where('status', '=', 1)->first();
-      if(!empty($wish)){
-        $tags[$i]['notificationtype'] = 'tagged';
-        $tagger = User::where('id', '=', $wish['createdby_id'])->where('status', '=', 1)->first();
-        $tags[$i]['wish'] = $wish;
-        if(!empty($tagger)){
-          $tags[$i]['tagger'] = $tagger;
-        }
-      }
-    }
-
-    $trackfave = FavoriteTrack::with('wish', 'user')->whereHas('wish', function($query) use($user){
-      $query->where('createdby_id', '=', $user['id']);
-    })->get();
-    // dd($trackfave);
-    foreach ($trackfave as $tf) {
-      if ($tf->type == 1) {
-        $tf['notificationtype'] = 'tracked';
-      }
-      else {
-        $tf['notificationtype'] = 'favorited';
-      }
-    }
-    // dd($trackfave);
-    $n = $tags->merge($trackfave);
-    $notifs = $n->sortByDesc('created_at');
-    $notifs->values()->all();
 
     return redirect()->action('UserProfilesController@wishWishlists', [$user->id]);
   }
@@ -3153,7 +3054,7 @@ class UserController extends Controller
     $tynote->status = 0;
     $tynote->save();
 
-    $grant = Wish::where('createdby_id', '=', $user['id'])
+    $grant = Wish::where('createdby_id', '=', $userId)
                   ->where('status', '=', 1)
                   ->where('granted', '=', 0)
                   ->where('granterid', '!=', 0)
@@ -3203,10 +3104,7 @@ class UserController extends Controller
     $notifs = $n->sortByDesc('created_at');
     $notifs->values()->all();
 
-    if(count($tynote) > 1)
-     return redirect('user/profile#tab-ty');
-    else
-     return redirect('user/profile#tab-ty')->with('errormsg', 'No Thank You Notes.');
+    return redirect();
   }
 
   public function getAllNotes()
@@ -3409,7 +3307,7 @@ class UserController extends Controller
   {
     $user = Auth::user();
     $userId = $user->id;
-    $wish = Wish::where('id', '=', $id)->first();
+    $rewishWish = Wish::where('id', '=', $id)->first();
     $rewishTags = Tag::with('user')->where('wishid', '=', $id)->get();
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
                       ->lists('title', 'id');
@@ -3466,7 +3364,7 @@ class UserController extends Controller
     $notifs = $n->sortByDesc('created_at');
     $notifs->values()->all();
 
-    return view('userlayouts.rewish', compact('wish', 'rewishTags', 'wishlists', 'friends', 'user', 'requests', 'notifs', 'tags', 'grant'));
+    return view('userlayouts.rewish', compact('wish', 'rewishWish', 'rewishTags', 'wishlists', 'friends', 'user', 'requests', 'notifs', 'tags', 'grant'));
   }
 
   public function grantWish(GrantWishRequest $request, $id)

@@ -57,5 +57,13 @@
     @endforeach
 @endif
 
+@if(count($tracked) == 0)
+<div class="panel panel-default">
+  <div class="panel-body">
+    No tracked wishes.
+  </div>
+</div>
+@endif
+
 
 @endsection

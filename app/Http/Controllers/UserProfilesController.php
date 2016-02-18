@@ -46,6 +46,7 @@ class UserProfilesController extends Controller
 
     $user = Auth::user();
 
+
     if($user != null)
     {
       $userId = $user['id'];
@@ -95,10 +96,17 @@ class UserProfilesController extends Controller
         $wishes = Wish::with('wishlist')
                       ->where('createdby_id', '=', $id)
                       ->where('status', '=', 1)
-                      ->where('granted', '!=', 1)
+                      ->where('granted', '=', 0)
                       ->orderBy('created_at', 'desc')
                       ->take(5)
                       ->get();
+
+        $wishCount = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '=', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->count();
 
         if (!empty($wishes)) {
           foreach ($wishes as $w) {
@@ -140,10 +148,17 @@ class UserProfilesController extends Controller
         $wishes = Wish::with('wishlist', 'tags')
                       ->where('createdby_id', '=', $userId)
                       ->where('status', '=', 1)
-                      ->where('granted', '!=', 1)
+                      ->where('granted', '=', 0)
                       ->orderBy('created_at', 'desc')
                       ->take(5)
                       ->get();
+
+        $wishCount = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '=', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->count();
 
         if(!empty($wishes)){
           foreach ($wishes as $w) {
@@ -185,7 +200,7 @@ class UserProfilesController extends Controller
                                   ->count();
           }
         }
-        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags'));
+        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags', 'wishCount'));
       }
 
 
@@ -202,10 +217,17 @@ class UserProfilesController extends Controller
         $wishes = Wish::with('wishlist')
                       ->where('createdby_id', '=', $id)
                       ->where('status', '=', 1)
-                      ->where('granted', '!=', 1)
+                      ->where('granted', '=', 0)
                       ->orderBy('created_at', 'desc')
                       ->take(5)
                       ->get();
+
+        $wishCount = Wish::with('wishlist')
+                      ->where('createdby_id', '=', $id)
+                      ->where('status', '=', 1)
+                      ->where('granted', '=', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->count();
 
         if (!empty($wishes)) {
           foreach ($wishes as $w) {
@@ -277,17 +299,17 @@ class UserProfilesController extends Controller
             $status= 0;
           }
 
-          return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status'));
+          return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status', 'wishCount'));
         }
         else{
-          return view('otheruserprofile.other-home', compact('otherUser', 'wishes', 'wishlistsList', 'requests', 'status', 'user'));
+          return view('otheruserprofile.other-home', compact('otherUser', 'wishes', 'wishlistsList', 'requests', 'status', 'user', 'wishCount'));
         }
 
       }
       else{
         // return redirect()->action('ProfileController@wishlists', [$id]);
         // echo "HOY"; die;
-        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags'));
+        return view('profile.profile-wishlists', compact('user', 'wishes', 'wishlistsList', 'tags', 'wishCount'));
       }
     }
     else {
@@ -296,10 +318,10 @@ class UserProfilesController extends Controller
       {
         $requests = array();
         $status = '';
-        return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status'));
+        return view('otheruserprofile.other-private', compact('otherUser', 'requests', 'status', 'wishCount'));
       }
       else {
-        return view('otheruserprofile.other-home', compact('otherUser', 'user', 'wishes', 'wishlistsList'));
+        return view('otheruserprofile.other-home', compact('otherUser', 'user', 'wishes', 'wishlistsList', 'wishCount'));
       }
 
     }
@@ -998,49 +1020,53 @@ class UserProfilesController extends Controller
   public function tynotes($id)
   {
     $user = Auth::user();
+    $userId  = $user['id'];
 
     if ($user != null) {
       $userId = $user['id'];
 
       if($userId != $id){
-        $otherUser = User::where('id', '=', $id)->firstorFail();
 
-        $requests = Friend::with('friendRequest')
-                            ->where('userid', '=', $id)
-                            ->where('friend_userid', '=', $userId)
-                            ->where('status', '=', 0)
-                            ->get();
+        $otherUser = User::where('id', '=', $id)->first();
+        if(!empty($otherUser)) {
+          $otherUserID = $otherUser['id'];
 
-        $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
-        $friends = User::find($otherUser->id)->friends;
-
-        $friendRequest = Friend::where('userid', '=', $userId)
-                              ->where('friend_userid', '=', $id)
+          $requests = Friend::with('friendRequest')
+                              ->where('userid', '=', $id)
+                              ->where('friend_userid', '=', $userId)
                               ->where('status', '=', 0)
-                              ->first();
+                              ->get();
 
-        if(!empty($friendRequest)){
-          $status = 0;
-        }
-        else {
-          $status = 3;
-        }
+          $usersWithFriends = User::with('friendsOfMine', 'friendOf')->get();
+          $friends = User::find($otherUserID)->friends;
 
-        if(!empty($friends)){
-          foreach ($friends as $f) {
-            if ($f->id == $userId) {
-              $status = $f->pivot->status;
+          $friendRequest = Friend::where('userid', '=', $userId)
+                                ->where('friend_userid', '=', $id)
+                                ->where('status', '=', 0)
+                                ->first();
+
+          if(!empty($friendRequest)){
+            $status = 0;
+          }
+          else {
+            $status = 3;
+          }
+
+          if(!empty($friends)){
+            foreach ($friends as $f) {
+              if ($f->id == $userId) {
+                $status = $f->pivot->status;
+              }
             }
           }
-        }
-        else{
-          $status= 0;
-        }
+          else{
+            $status= 0;
+          }
 
-        $usersWithTYNotes = User::with('tynotesOf')->get();
-        $tynotes = User::find($id)->tynotesOf->reverse();
-
-        return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status', 'user'));
+          $usersWithTYNotes = User::with('tynotesOf')->get();
+          $tynotes = User::find($id)->tynotesOf->reverse();
+          return view('otheruserprofile.other-tynotes', compact('otherUser', 'tynotes', 'requests', 'status', 'user'));
+        }
       }
 
       if($userId = $id)

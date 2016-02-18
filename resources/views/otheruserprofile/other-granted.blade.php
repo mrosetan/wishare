@@ -58,6 +58,12 @@
       <!-- end of panel body -->
     </div>
     @endforeach
+@else
+<div class="panel panel-default">
+  <div class="panel-body">
+    No granted wishes.
+  </div>
+</div>
 @endif
 
 <!-- message box-->
