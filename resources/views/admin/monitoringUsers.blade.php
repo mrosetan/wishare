@@ -232,7 +232,7 @@
                       @endforeach
                   </tbody>
               </table>
-              {{ $users->render() }}
+              
               @endif
           </div>
       </div>

@@ -215,7 +215,7 @@ class AdminController extends Controller
         //               // ->get();
         //               ->paginate();
 
-        $users = User::paginate();
+        $users = User::get();
 
         // $users->setPath('http://192.168.1.10/wishare/public/admin/monitor/users');
         // dd($users);
@@ -251,8 +251,8 @@ class AdminController extends Controller
       if (Auth::user()->type == 0) {
 
         $wishlists = Wishlist::with('user')
-                              // ->get();
-                              ->paginate();
+                              ->get();
+                              // ->paginate();
 
         return view('admin.monitoringWishlists', compact('wishlists'));
       }
