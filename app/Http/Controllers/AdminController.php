@@ -176,16 +176,23 @@ class AdminController extends Controller
       $user = Auth::user();
       $search = $request->search;
 
-      $results = User::where(function ($query) use ($search){
-                          $query->where('firstname', 'like', '%'.$search.'%')
-                                ->orWhere('lastname', 'like', '%'.$search.'%')
-                                ->orWhere('username', 'like', '%'.$search.'%');
-                      })
-                      // ->where('firstname', 'like', '%'.$search.'%')
-                      // ->orWhere('lastname', 'like', '%'.$search.'%')
-                      // ->orWhere('username', 'like', '%'.$search.'%')
-                      ->paginate();
-                      // ->get();
+      $results = User::where('id', '!=', $user->id)
+                    ->where('type', '=', 1)
+                    ->where('status', '=', 1)
+                    ->where(function ($query) use ($search){
+                        $query->where('username', 'like', '%'.$search.'%')
+                              ->orWhere('lastname', 'like', '%'.$search.'%')
+                              ->orWhere('firstname', 'like', '%'.$search.'%')
+                              ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', "%".$search."%");
+                    })
+                     ->orderBy('firstname')
+                     ->orderBy('lastname')
+                     ->orderBy('username')
+                    // ->where('firstname', 'like', '%'.$search.'%')
+                    // ->orWhere('lastname', 'like', '%'.$search.'%')
+                    // ->orWhere('username', 'like', '%'.$search.'%')
+                    ->paginate();
+                    // ->get();
       // dd($results);
       // if(!empty($results))
         return view('admin.search2', compact('results'));
