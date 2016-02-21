@@ -251,8 +251,8 @@ class AdminController extends Controller
       if (Auth::user()->type == 0) {
 
         $wishlists = Wishlist::with('user')
-                              // ->get();
-                              ->paginate();
+                              ->get();
+                              // ->paginate();
 
         return view('admin.monitoringWishlists', compact('wishlists'));
       }
