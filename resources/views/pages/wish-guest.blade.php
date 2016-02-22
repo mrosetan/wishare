@@ -17,8 +17,8 @@
                   <span class="label label-success label-form wish-label"><span class="fa fa-check"></span> Granted </span>
                 @endif
 
-                @if($wish->granterid != 0 AND $wish->date_granted == '0000-00-00 00:00:00')
-                  <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span></span> Pending Grant Request </span>
+                @if($wish->granted == 0 AND $wish->granterid != 0 AND $wish->date_granted == '0000-00-00 00:00:00')
+                  <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span> Pending Grant Request </span>
                 @endif
 
                 <h4>{{ $wish->title }}</h4>
@@ -163,7 +163,7 @@
                     @foreach($wish['favoriters'] as $favoriters)
                       <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $favoriters->user->firstname }} {{ $favoriters->user->lastname }}</b> ( {{ $favoriters->user->username }} )</a></li>
                     @endforeach
-                  </ol>                  
+                  </ol>
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -184,7 +184,7 @@
                     @foreach($wish['trackers'] as $trackers)
                       <li><a href="{!! action('UserProfilesController@profile', $favoriters->user->id) !!}"><b>{{ $trackers->user->firstname }} {{ $trackers->user->lastname }}</b> ( {{ $trackers->user->username }} )</a></li>
                     @endforeach
-                  </ol>                  
+                  </ol>
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
