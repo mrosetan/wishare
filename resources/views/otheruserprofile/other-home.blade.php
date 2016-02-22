@@ -19,7 +19,7 @@
                 <br />
                   <b>Date: </b>{!! date('F d, Y g:i A', strtotime($wish['updated_at']))  !!}
                 <br />
-                  <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', [$otherUser['id'], $wish->wishlist['id']]) !!}">{{ $wish->wishlist['title'] }}</a>
+                  <b>Wishlist: </b> <a href="{!! action('WishlistController@wishes', $wish->wishlist['id']) !!}">{{ $wish->wishlist['title'] }}</a>
               </p>
             </div>
             <br/><br /><br />

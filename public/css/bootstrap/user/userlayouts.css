@@ -448,3 +448,24 @@ div.pull-right.inline.request-btns {
   width: 100%;
   border-radius: 0px;
 }
+
+.help-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 80%;
+}
+
+.help-content {
+  margin-left: 3%;
+  width: 100%;
+}
+
+.help-inner-content {
+  margin-left: 2%;
+  width: 100%;
+}
+
+.help-innermost-content {
+  margin-left: 6%;
+  width: 100% ;
+}

@@ -54,7 +54,13 @@
                                 Granted
                               @endif
                             </td>
-                            <td>{{ date('F d, Y g:i A', strtotime($wish->date_granted)) }}</td>
+                            <td>
+                                @if($wish->granted == 1)
+                                  {{ date('F d, Y g:i A', strtotime($wish->date_granted)) }}
+                                @else
+                                  --
+                                @endif
+                            </td>
                         </tr>
                       @endforeach
                     </tbody>
