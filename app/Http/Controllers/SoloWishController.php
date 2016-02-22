@@ -53,13 +53,13 @@ class SoloWishController extends Controller
 
           $wish['faves'] = '';
 
-          $wish['favoriters'] = '';
+          $wish['favoriters'] = 0;
 
           $wish['tracked'] = '';
 
           $wish['tracks'] = '';
 
-          $wish['trackers'] = '';
+          $wish['trackers'] = 0;
 
           $wish['favorited'] = FavoriteTrack::where('wishid', $wish->id)
                                               ->where('userid', $userId)
@@ -131,6 +131,10 @@ class SoloWishController extends Controller
         $wish['faves'] = '';
 
         $wish['tracks'] = '';
+
+        $wish['favoriters'] = 0;
+
+        $wish['trackers'] = 0;
 
         $wish['faves'] = FavoriteTrack::where('wishid', '=', $wish->id)
                               ->where('type', '=', 2)
