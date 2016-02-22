@@ -12,11 +12,11 @@
               <img class="user stream img-circle" src="{!! $otherUser['imageurl'] !!}">
             </div>
           </a>
-          <div class="profile-header">
+          <p class="profile-header">
             <b>{{ $otherUser['firstname'] }} {{ $otherUser['lastname'] }}</b> tracked a wish: <b><a href="{!! action('SoloWishController@wish', $tr->wish['id'] ) !!}">{{ $tr->wish['title'] }}</a></b>
             <br />
               <b>Date: </b>{!! date('F d, Y g:i A', strtotime($tr['updated_at']))  !!}
-          </div>
+          </p>
         </div>
         <br/><br /><br />
         <hr />
