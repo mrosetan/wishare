@@ -140,7 +140,8 @@
                       </a>
 
                       &nbsp;&nbsp;
-                      <a href="#" data-toggle="tooltip" data-placement="top" title="Delete" class="mb-control" data-box="#mb-deletewish{!!$wish->id !!}">
+                      <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Delete" class="mb-control" data-box="#mb-deletewish{!!$wish->id !!}"> -->
+                      <a href="{!! action('UserController@deleteWish', $wish->id) !!}" data-toggle="tooltip" data-placement="top" title="Delete">
 
                         <span class="fa fa-trash-o"></span>
                       </a>
