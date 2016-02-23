@@ -192,7 +192,7 @@
 @if($wish->user->id == $user->id)
   @if($wish->granted == 1)
     <!-- message box-->
-    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletegrant{!! $wish->id !!}">
         <div class="mb-container">
             <div class="mb-middle">
                 <div class="mb-title"><span class="glyphicon glyphicon-trash"></span>Remove Granted Details</div>
@@ -210,7 +210,7 @@
     </div>
     <!-- message box-->
     @endif
-    @if(($wish->granterid != 0) and ($wish->date_granted == '0000-00-00 00:00:00'))
+    @if(($wish->granted == 0) and ($wish->granterid != 0) and ($wish->date_granted == '0000-00-00 00:00:00'))
       @if(isset($wishes))
         @foreach($wishes as $wish)
           <div class="message-box animated fadeIn" data-sound="alert" id="mb-deletewish{!! $wish->id !!}">
