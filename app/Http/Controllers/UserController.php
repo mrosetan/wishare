@@ -1786,7 +1786,7 @@ class UserController extends Controller
   // {
   //
   //   $user = new User(array(
-  //     'imageurl' => 'http://192.168.22.3/wishareimages/userimages/default.jpg',
+  //     'imageurl' => 'http://192.168.1.8/wishareimages/userimages/default.jpg',
   //     'lastname' => trim($request->lastname),
   //     'firstname' => trim($request->firstname),
   //     'username' => trim($request->username),
@@ -3409,6 +3409,11 @@ class UserController extends Controller
     $user = Auth::user();
     $userId = $user->id;
     $rewishWish = Wish::where('id', '=', $id)->first();
+
+    if($userId == $rewishWish->createdby_id){
+      return redirect()->action('UserController@updateWishDetails', [$id]);
+    }
+    
     $rewishTags = Tag::with('user')->where('wishid', '=', $id)->get();
     $wishlists = Wishlist::with('wishes')->where('createdby_id', '=', $userId)->where('status', '=', 1)
                       ->lists('title', 'id');
