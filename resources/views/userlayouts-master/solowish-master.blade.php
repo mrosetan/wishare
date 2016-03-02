@@ -32,8 +32,10 @@
                                                         @else
                                                             Check out the wish {{$wish->granter->firstname}} {{$wish->granter->lastname}} granted for {{$wish->user->firstname}} {{$wish->user->lastname}}.
                                                         @endif
+                                                    @else
+                                                        Check out {{$wish->user->firstname}}'s wish.
                                                     @endif" />
-        <meta property="og:image"         content="{{ $wish->wishimageurl == '' ? 'http://www.wishare.net/img/backgrounds/bg14.jpg' : $wish->wishimageurl}}" />
+        <meta property="og:image"         content="{{ $wish->wishimageurl == '' ? 'http://www.wishare.net/img/backgrounds/bg14.jpg' : 'http://www.' . mb_substr($wish->wishimageurl,6)}}" />
         <meta property="fb:app_id"        content="456045444586296" />
     </head>
     <body>
