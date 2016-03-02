@@ -35,7 +35,7 @@
                                                     @else
                                                         Check out {{$wish->user->firstname}}'s wish.
                                                     @endif" />
-        <meta property="og:image"         content="{{ $wish->wishimageurl == '' ? 'http://www.wishare.net/img/backgrounds/bg14.jpg' : 'http://www.' . mb_substr($wish->wishimageurl,6)}}" />
+        <meta property="og:image"         content="{{ $wish->wishimageurl == '' ? 'http://www.wishare.net/img/backgrounds/bg14.jpg' : 'http://www.' . mb_substr($wish->wishimageurl,7)}}" />
         <meta property="fb:app_id"        content="456045444586296" />
     </head>
     <body>
