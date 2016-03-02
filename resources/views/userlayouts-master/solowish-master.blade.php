@@ -23,10 +23,10 @@
         <!-- EOF CSS INCLUDE -->
 
         <!-- FACEBOOK SHARE -->
-        <meta property="og:url"           content="http://www.wishare.net/" /> <!-- URL of site -->
+        <meta property="og:url"           content="http://www.wishare.net/wish/{{ $wish->id }}" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
-        <meta property="og:description"   content="Wishing and wish-granting socialized." />
+        <meta property="og:description"   content="Check out this wish that has been granted," />
         <meta property="og:image"         content="http://www.wishare.net/img/logo1.jpg" />
         <meta property="fb:app_id"        content="456045444586296" />
     </head>
