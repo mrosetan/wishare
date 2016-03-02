@@ -26,8 +26,14 @@
         <meta property="og:url"           content="http://www.wishare.net/wish/{{ $wish->id }}" /> <!-- URL of site -->
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Wishare" />
-        <meta property="og:description"   content="Check out this wish that has been granted," />
-        <meta property="og:image"         content="http://www.wishare.net/img/logo1.jpg" />
+        <meta property="og:description"   content="@if($wish->granted == 1)
+                                                        @if($wish->granterid == $wish->user->id)
+                                                            Check out {{$wish->user->firstname}}'s wish that came true!
+                                                        @else
+                                                            Check out the wish {{$wish->granter->firstname}} {{$wish->granter->lastname}} granted for {{$wish->user->firstname}} {{$wish->user->lastname}}.
+                                                        @endif
+                                                    @endif" />
+        <meta property="og:image"         content="{{ $wish->wishimageurl == '' ? 'http://www.wishare.net/img/backgrounds/bg14.jpg' : $wish->wishimageurl}}" />
         <meta property="fb:app_id"        content="456045444586296" />
     </head>
     <body>
