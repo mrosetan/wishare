@@ -14,7 +14,7 @@
                   <h3><span class="fa fa-magic"></span> {{ $wishlist['title'] }} </h3>
                   <b>Created by:</b> {{ $wishlist->user['firstname'] }} {{ $wishlist->user['lastname'] }}
                   <br />
-                  <div class="fb-share-button" data-href="http://www.wishare.net/wishlist/{!! $wishlist['id'] !!}" data-layout="icon"></div>
+                  <div class="fb-share-button" data-href="http://www.wishare.net/wishlist/{!! $wishlist['id'] !!}" data-layout="button"></div>
               </div>
 
               <div class="gallery" id="links">

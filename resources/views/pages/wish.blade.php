@@ -20,8 +20,10 @@
                 @if($wish->granted == 0 AND $wish->granterid != 0 AND $wish->date_granted == '0000-00-00 00:00:00')
                   <span class="label label-info label-form wish-label"><span class="fa fa-exclamation"></span> Pending Grant Request </span>
                 @endif
+                <div class="fb-share-button pull-right" data-href="http://www.wishare.net/wish/{!! $wish['id'] !!}" data-layout="button"></div>
 
                 <h4>{{ $wish->title }}</h4>
+
 
                 <p>
                   Wishlist: {{ $wish->wishlist->title }}
